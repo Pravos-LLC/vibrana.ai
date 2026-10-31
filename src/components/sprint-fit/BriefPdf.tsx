@@ -1,5 +1,5 @@
 import React from 'react'
-import { Document, Font, Image, Link, Page, StyleSheet, Text, View } from '@react-pdf/renderer'
+import { Document, Font, Image, Link, Page, StyleSheet, Text, View, Svg, Path } from '@react-pdf/renderer'
 import { BRIEF_EXPORT as C } from '@/src/sprint-brief-export-content'
 import { SPRINT_FIT_CALL_URL } from '@/src/ai-build-sprint-content'
 import type { SprintBrief } from '@/src/lib/sprint-brief'
@@ -25,16 +25,16 @@ const s = StyleSheet.create({
   company: { flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 9 },
   logo: { width: 56, height: 36, objectFit: 'contain' },
   eyebrow: { fontSize: 7, color: '#7131ca', letterSpacing: 0.8, textTransform: 'uppercase' },
-  companyName: { fontSize: 16, marginTop: 3 },
-  title: { fontSize: 34, lineHeight: 1.1, letterSpacing: -1, marginTop: 13, marginBottom: 15 },
-  intro: { fontSize: 12, color: '#51475e', marginBottom: 4 },
+  companyName: { fontSize: 19, lineHeight: 1.2, marginTop: 5 },
+  title: { fontSize: 32, lineHeight: 1.1, letterSpacing: -1, marginTop: 10, marginBottom: 17 },
+  intro: { fontSize: 11, lineHeight: 1.65, color: '#51475e', marginTop: 10, marginBottom: 4 },
   section: { marginTop: 22, paddingTop: 17, borderTopWidth: 0.6, borderTopColor: '#e8e3ed' },
   heading: { fontSize: 16, lineHeight: 1.2, marginBottom: 11, letterSpacing: -0.3 },
   subheading: { fontSize: 11, marginTop: 14, marginBottom: 7 },
   paragraph: { marginBottom: 8 },
-  scopeGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 16, marginTop: 9 },
-  scopeNode: { width: '47%', paddingTop: 8, borderTopWidth: 1.4, borderTopColor: '#bda4e2' },
-  scopeValue: { fontSize: 11, marginTop: 5 },
+  scopeGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginTop: 18 },
+  scopeNode: { width: '48.5%', padding: 13, borderWidth: 0.7, borderColor: '#e0d7ed', backgroundColor: '#faf8fd', borderRadius: 6 },
+  scopeValue: { fontSize: 11, lineHeight: 1.55, color: '#211b2b', marginTop: 10 },
   stats: { backgroundColor: '#f5f1fa', padding: 15, flexDirection: 'row', flexWrap: 'wrap', gap: 15 },
   stat: { width: '30%' },
   statValue: { fontSize: 17, marginTop: 5, lineHeight: 1.2 },
@@ -66,6 +66,9 @@ function Items({ items }: { items: string[] }) {
   </View>)}</View>
 }
 
+const scopePaths = ['M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M22 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75', 'M12 3 2 8l10 5 10-5-10-5 M2 12l10 5 10-5 M2 16l10 5 10-5', 'M4 22V3 M4 3h14l-3 5 3 5H4', 'M4 20V12 M10 20V4 M16 20V9 M22 20H2']
+function ScopeIcon({ index }: { index: number }) { return <Svg width={16} height={16} viewBox="0 0 24 24"><Path d={scopePaths[index]} stroke="#7131ca" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" fill="none" /></Svg> }
+
 export function BriefPdf({ brief, assets = {} }: { brief: SprintBrief; assets?: BriefAssets }) {
   const display = { fontFamily: assets.displayFont ? 'SprintBricolage' : 'Helvetica-Bold', fontWeight: 600 as const }
   const body = assets.bodyFont ? 'SprintHanken' : 'Helvetica'
@@ -78,6 +81,10 @@ export function BriefPdf({ brief, assets = {} }: { brief: SprintBrief; assets?: 
   const source = briefSafeLink(brief.company.sourceUrl)
   return <Document title={`${brief.company.name} · ${C.title}`} author={C.john} subject={C.title} language="en">
     <Page size="A4" style={[s.page, { fontFamily: body }]}>
+      <View fixed style={{ position: 'absolute', top: 17, left: 40, right: 40 }} render={({ pageNumber }) => pageNumber > 1 ? <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderBottomColor: '#e8e3ed', paddingBottom: 7 }}>
+        <Text style={{ fontSize: 7, color: '#6b6375' }}>{brief.company.name.length > 60 ? `${brief.company.name.slice(0, 57)}…` : brief.company.name}</Text>
+        <Text style={{ fontSize: 7, color: '#6b6375' }}>{`${C.title} · ${C.page} ${pageNumber}`}</Text>
+      </View> : null} />
       <View style={s.header} wrap={false}>
         <View style={s.brand}>{assets.mark ? <Image src={assets.mark} style={s.mark} /> : null}<Text style={[s.wordmark, display]}>{C.brand}</Text></View>
         <Text style={s.meta}>{C.created} {briefDate(brief.createdAt)}</Text>
@@ -96,7 +103,7 @@ export function BriefPdf({ brief, assets = {} }: { brief: SprintBrief; assets?: 
       <View style={s.section}>
         <Text style={[s.heading, display]} minPresenceAhead={40}>{C.proposedBuild}</Text><Text style={s.paragraph}>{brief.narrative.proposal}</Text>
         <View style={s.scopeGrid}>{scope.map((value, index) => <View style={s.scopeNode} key={index}>
-          <Text style={s.meta}>{C.scopeLabels[index]}</Text><Text style={s.scopeValue}>{value}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7 }}><ScopeIcon index={index} /><Text style={{ fontSize: 9, fontWeight: 600, color: '#211b2b' }}>{C.scopeLabels[index]}</Text></View><Text style={s.scopeValue}>{value}</Text>
         </View>)}</View>
       </View>
       {caseRows.length || inputRows.length ? <View style={s.section} wrap={false}>
@@ -130,9 +137,9 @@ export function BriefPdf({ brief, assets = {} }: { brief: SprintBrief; assets?: 
       </View> : null}
       <View style={s.call} wrap={false}>
         {assets.john ? <Image src={assets.john} style={s.portrait} /> : null}
-        <View><Link src={SPRINT_FIT_CALL_URL} style={[s.callTitle, display]}>{C.book}</Link><Text>{C.john} · {C.studio}</Text><Text style={s.note}>{C.bookingNote}</Text></View>
+        <View><Link src={SPRINT_FIT_CALL_URL} style={[s.callTitle, display]}>{C.book}</Link><Text>{C.john} · {C.johnRole}</Text><Text style={s.meta}>{C.studio}</Text><Text style={s.note}>{C.bookingNote}</Text></View>
       </View>
-      <Text fixed style={{ position: 'absolute', bottom: 24, left: 40, width: 430, fontSize: 7, color: '#6b6375' }}>{C.footer}</Text>
+      <Text fixed style={{ position: 'absolute', bottom: 24, left: 40, width: 410, fontSize: 7, color: '#6b6375' }}>{C.footer}</Text>
     </Page>
   </Document>
 }

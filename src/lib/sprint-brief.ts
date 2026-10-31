@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { type FitAnswers, type FitRoute, evaluateFit, fitRows } from './sprint-fit'
+import { type FitAnswers, type FitRoute, evaluateFit, fitRows, fitMetricText } from './sprint-fit'
 import { BRIEF_CONTENT } from '@/src/sprint-brief-content'
 import { FIT } from '@/src/sprint-fit-content'
 import { SECTOR_IDS } from './simulator/types'
@@ -78,10 +78,10 @@ export function selectSprintExample(company: CompanyContext, answers: FitAnswers
 /** Pure fallback and presentation model. Website facts must come from the server's cached profile. */
 export function buildSprintBrief(answers: FitAnswers, request: BriefRequest, profile: CompanyProfile | null = null, createdAt = new Date().toISOString()): SprintBrief {
   const result = evaluateFit(answers)
-  const metric = FIT.metrics.find(v => v.value === answers.metric)?.label || ''
+  const metric = fitMetricText(answers)
   const company = { name: request.company.name, website: request.company.website, description: request.company.description, sector: request.company.sector, confirmed: request.company.confirmed }
   const website = company.website.trim()
-  const successMeasure = answers.target.trim() || metric
+  const successMeasure = [metric, answers.target.trim()].filter(Boolean).join(' · ')
   return {
     version: BRIEF_VERSION, createdAt,
     company: { ...company, website, researchedAt: profile?.researchedAt ?? null, logoUrl: profile?.logoUrl ?? null, sourceUrl: profile ? `https://${profile.domain}` : null, websiteSummary: profile?.summary ?? null },

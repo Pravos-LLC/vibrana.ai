@@ -3,17 +3,37 @@ import { buildSprintBrief, type BriefRequest } from '../src/lib/sprint-brief'
 import type { FitAnswers } from '../src/lib/sprint-fit'
 import type { CompanyProfile } from '../src/lib/simulator/api'
 
+// The form service boundaries are mocked below. Keep the optional browser challenge
+// deterministic too, including when a developer runs against configured local services.
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    const callbacks = new Map<string, (value: string) => void>()
+    Object.defineProperty(window, 'turnstile', { configurable: true, value: {
+      render: (_element: HTMLElement, options: { callback: (value: string) => void }) => {
+        const id = `test-widget-${callbacks.size}`
+        callbacks.set(id, options.callback)
+        setTimeout(() => options.callback('test-browser-challenge'), 0)
+        return id
+      },
+      reset: (id: string) => { setTimeout(() => callbacks.get(id)?.('test-browser-challenge'), 0) },
+      remove: (id: string) => { callbacks.delete(id) },
+    } })
+  })
+})
+
 const EVIDENCE = process.env.SPRINT_E2E_EVIDENCE_DIR
 async function capture(page: Page, filename: string) {
-  if (EVIDENCE) await page.screenshot({ path: `${EVIDENCE}/${filename}`, fullPage: true })
+  if (!EVIDENCE) return
+  await page.evaluate(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }))
+  await page.screenshot({ path: `${EVIDENCE}/${filename}`, fullPage: true, animations: 'disabled' })
 }
 
 type InquiryPayload = { fitCheck: FitAnswers; briefRequest: BriefRequest; name: string; email: string; role: string; companyWebsite: string; resendEmail?: boolean }
 const profile: CompanyProfile = {
-  domain: 'studio.example.com', sector: 'professional-services', confidence: 0.9, alternatives: [],
+  domain: 'studio.example.com', sector: 'real-estate', confidence: 0.9, alternatives: [],
   functionMix: { support: 0.1, sales: 0.1, marketing: 0.1, operations: 0.3, finance: 0.1, legal: 0.1, people: 0.1, software: 0.1 },
   signals: { mentionsAi: false, b2b: true }, source: 'firecrawl', title: 'Example Studio',
-  summary: 'Example Studio helps professional services teams prepare client proposals.', offerings: ['Proposal services'], name: 'Example Studio',
+  summary: 'Example Studio helps property teams prepare client proposals.', offerings: ['Property advisory'], name: 'Example Studio',
   aiRole: null, levers: [], hqCountry: 'GB', logoUrl: null, screenshotUrl: null,
 }
 async function savedBrief(route: Route, emailDelivered = true) {
@@ -27,7 +47,6 @@ async function start(page: Page, type = 'An idea') {
   await expect(page.getByRole('heading', { name: 'Sprint summary', exact: true })).toHaveCount(0)
   if (test.info().title.startsWith('idea founders')) await capture(page, 'assessment-first-screen.png')
   await page.getByRole('radio', { name: type, exact: true }).check()
-  await next(page)
   await expect(page.getByRole('heading', { name: 'About you', exact: true })).toBeVisible()
 }
 async function details(page: Page, website = false) {
@@ -39,14 +58,24 @@ async function details(page: Page, website = false) {
   else await page.getByRole('checkbox', { name: 'No website yet', exact: true }).check()
   await next(page)
 }
-async function buildQuestions(page: Page, options: { numbers?: boolean; noBuild?: boolean } = {}) {
-  await page.getByRole('textbox', { name: 'First users', exact: true }).fill('Account managers')
-  await page.getByRole('textbox', { name: 'First release', exact: true }).fill('Draft a proposal for human review')
+async function buildQuestions(page: Page, options: { numbers?: boolean; noBuild?: boolean; other?: boolean } = {}) {
+  const release = page.getByRole('textbox', { name: 'Description of first release', exact: true })
+  const users = page.getByRole('textbox', { name: 'First users', exact: true })
+  expect((await release.boundingBox())!.y).toBeLessThan((await users.boundingBox())!.y)
+  await release.fill('Draft a proposal for human review')
+  await users.fill('Account managers')
   await next(page)
   if (options.noBuild) await page.getByRole('checkbox', { name: 'Nothing built yet', exact: true }).check()
   else await page.getByRole('textbox', { name: 'Current process or prototype', exact: true }).fill('Account managers write client proposals by hand')
   await next(page)
-  await page.getByRole('radio', { name: options.numbers ? 'Less time' : 'Help me choose', exact: true }).check()
+  await page.getByRole('checkbox', { name: options.other ? 'Other' : options.numbers ? 'Less time' : 'Better quality', exact: true }).check()
+  if (options.other) {
+    await next(page)
+    await expect(page.getByRole('alert').filter({ hasText: 'Describe the other measure of success.' })).toBeVisible()
+    await page.getByRole('textbox', { name: 'Other measure of success', exact: true }).fill('Proposals include a traceable source for every recommendation')
+    await capture(page, 'assessment-success-choices.png')
+  }
+  await page.getByRole('checkbox', { name: 'More output', exact: true }).check()
   if (options.numbers) {
     await page.getByText('Add numbers', { exact: false }).click()
     await page.getByRole('spinbutton', { name: 'Tasks per week, across the team', exact: true }).fill('20')
@@ -56,7 +85,11 @@ async function buildQuestions(page: Page, options: { numbers?: boolean; noBuild?
     await page.getByRole('spinbutton', { name: 'Hourly cost per person', exact: true }).fill('50')
   }
   await next(page)
-  await page.getByRole('combobox', { name: 'Sample data and access', exact: true }).selectOption('arrange')
+  const access = page.getByRole('combobox', { name: 'Sample data and access', exact: true })
+  await expect(access).toHaveValue('')
+  await expect(access.locator('option:checked')).toHaveText('Select')
+  await expect(access.locator('option:checked')).toHaveAttribute('disabled', '')
+  await access.selectOption('arrange')
   await page.getByRole('combobox', { name: 'Who will own the result?', exact: true }).selectOption('yes')
   await page.getByRole('combobox', { name: 'Time to test and learn', exact: true }).selectOption('yes')
   await page.getByRole('combobox', { name: 'Specialist review', exact: true }).selectOption('standard')
@@ -70,7 +103,7 @@ async function review(page: Page) {
   await page.getByRole('textbox', { name: 'What your company does', exact: true }).fill('We help professional services teams prepare proposals.')
   await page.getByRole('checkbox', { name: 'This company context is correct', exact: true }).check()
 }
-async function completeToReview(page: Page, options: { numbers?: boolean; noBuild?: boolean; website?: boolean } = {}) {
+async function completeToReview(page: Page, options: { numbers?: boolean; noBuild?: boolean; website?: boolean; other?: boolean } = {}) {
   await start(page, options.website ? 'An existing workflow' : 'An idea')
   await details(page, options.website)
   await buildQuestions(page, options)
@@ -113,13 +146,24 @@ test('idea founders can complete with personal email and no website before recei
 test('company context and optional supplied figures produce a coherent brief and both downloads', async ({ page }) => {
   await page.route('**/api/sprint-fit/profile', route => route.fulfill({ json: { ok: true, profile, researchedAt: '2026-10-31T08:00:00.000Z' } }))
   await page.route('**/api/sprint-inquiries', route => savedBrief(route))
-  await completeToReview(page, { website: true, numbers: true })
-  await expect(page.getByRole('combobox', { name: 'Industry', exact: true })).toHaveValue('professional-services')
+  await start(page, 'An existing workflow')
+  await details(page, true)
+  await buildQuestions(page, { numbers: true })
+  await expect(page.getByRole('textbox', { name: 'What your company does', exact: true })).toHaveValue(profile.summary!)
+  await page.getByRole('checkbox', { name: 'This company context is correct', exact: true }).check()
+  await expect(page.getByRole('combobox', { name: 'Industry', exact: true })).toHaveValue('real-estate')
   await capture(page, 'assessment-company-review.png')
   await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
-  const document = page.getByRole('article')
-  await expect(document).toContainText('Draft a proposal for human review')
-  const stat = (label: string) => document.locator('dl > div').filter({ has: page.locator('dt').filter({ hasText: label }) }).locator('dd')
+  const briefArticle = page.getByRole('article')
+  await expect(briefArticle).toContainText('Draft a proposal for human review')
+  await expect(briefArticle).toContainText('Less time')
+  await expect(briefArticle).toContainText('More output')
+  await expect(page.getByText('CEO and Founder, Vibrana', { exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Relevant case studies', exact: true })).toBeVisible()
+  const relatedCase = page.locator('section[aria-labelledby="sprint-relevant-cases"] a').first()
+  await expect(relatedCase).toHaveAttribute('href', '/case-studies/european-proptech-rag')
+  await expect.poll(() => relatedCase.locator('img').evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true)
+  const stat = (label: string) => briefArticle.locator('dl > div').filter({ has: page.locator('dt').filter({ hasText: label }) }).locator('dd')
   await expect(stat('Current hours / week')).toHaveText('20')
   await expect(stat('Target hours / week')).toHaveText('5')
   await expect(stat('Potential capacity / week')).toHaveText('15')
@@ -137,6 +181,11 @@ test('company context and optional supplied figures produce a coherent brief and
   const pdfDownload = await pdf
   expect(pdfDownload.suggestedFilename()).toBe('sprint-brief.pdf')
   if (EVIDENCE) await pdfDownload.saveAs(`${EVIDENCE}/workflow-sprint-brief.pdf`)
+  await page.setViewportSize({ width: 375, height: 812 })
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+  await capture(page, 'assessment-mobile-brief.png')
+  await page.setViewportSize({ width: 320, height: 812 })
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
 })
 
 test('a silent guard drop cannot unlock the full brief and retry retains the submission identity', async ({ page }) => {
@@ -169,13 +218,18 @@ test('pending creation locks edits; saved answers can be refined and resubmitted
   })
   await completeToReview(page)
   await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
+  await expect(page.getByRole('heading', { name: 'Creating your sprint brief', exact: true })).toBeVisible()
+  await expect(page.getByRole('article')).toHaveCount(0)
+  await expect.poll(() => outcomes.length).toBe(1)
+  await expect(page.getByRole('listitem').filter({ hasText: 'Preparing and saving your brief' })).toHaveAttribute('data-state', 'active')
+  await capture(page, 'assessment-creating-brief.png')
   await expect(page.getByRole('button', { name: 'Back', exact: true })).toBeDisabled()
   await expect(page.getByRole('button', { name: 'Start over', exact: true })).toBeDisabled()
   release()
   await expect(page.getByRole('heading', { name: 'Your sprint brief', exact: true })).toBeVisible()
   await page.getByRole('button', { name: 'Refine my answers', exact: true }).click()
   await page.getByRole('button', { name: 'Edit First useful release', exact: true }).first().click()
-  await page.getByRole('textbox', { name: 'First release', exact: true }).fill('Review a revised proposal before sending')
+  await page.getByRole('textbox', { name: 'Description of first release', exact: true }).fill('Review a revised proposal before sending')
   for (let i = 0; i < 5; i++) await next(page)
   await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
   await expect(page.getByRole('heading', { name: 'Your sprint brief', exact: true })).toBeVisible()
@@ -193,4 +247,88 @@ test('mobile keeps a collapsed growing summary available without horizontal over
   await expect(disclosure.locator('dt')).toHaveCount(1)
   await capture(page, 'assessment-mobile-summary.png')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+})
+
+
+test('multiple success measures and a described Other measure persist without auto-advancing', async ({ page }) => {
+  let received: InquiryPayload | undefined
+  await page.route('**/api/sprint-inquiries', async route => { received = route.request().postDataJSON(); await savedBrief(route) })
+  await completeToReview(page, { other: true })
+  await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
+  await expect(page.getByRole('heading', { name: 'Your sprint brief', exact: true })).toBeVisible()
+  expect(received?.fitCheck.metrics).toEqual(expect.arrayContaining(['other', 'capacity']))
+  expect(received?.fitCheck.metricOther).toBe('Proposals include a traceable source for every recommendation')
+  await expect(page.getByRole('article')).toContainText('Proposals include a traceable source for every recommendation')
+  await expect(page.getByRole('article')).toContainText('More output')
+})
+
+test('returning to the first question allows editing without an automatic navigation loop', async ({ page }) => {
+  await start(page)
+  await page.getByRole('button', { name: 'Back', exact: true }).click()
+  await expect(page.getByRole('heading', { name: 'What are you starting with?', exact: true })).toBeVisible()
+  await page.getByRole('radio', { name: 'A prototype', exact: true }).check()
+  // This deliberate wait exceeds the 260ms first-visit advance: Back/edit must stay put.
+  await page.waitForTimeout(350)
+  await expect(page.getByRole('heading', { name: 'What are you starting with?', exact: true })).toBeVisible()
+  await next(page)
+  await expect(page.getByRole('heading', { name: 'About you', exact: true })).toBeVisible()
+})
+
+test('late company research preserves a visitor correction', async ({ page }) => {
+  let release!: () => void
+  let requested = false
+  const pending = new Promise<void>(resolve => { release = resolve })
+  await page.route('**/api/sprint-fit/profile', async route => { requested = true; await pending; await route.fulfill({ json: { ok: true, profile } }) })
+  await start(page, 'An existing workflow')
+  await details(page, true)
+  await buildQuestions(page)
+  await expect.poll(() => requested).toBe(true)
+  const description = page.getByRole('textbox', { name: 'What your company does', exact: true })
+  await description.fill('We provide specialist proposal reviews for independent consultancies.')
+  await page.getByRole('combobox', { name: 'Industry', exact: true }).selectOption('software')
+  release()
+  await expect(page.getByText('Company context added', { exact: true })).toBeVisible()
+  await expect(description).toHaveValue('We provide specialist proposal reviews for independent consultancies.')
+  await expect(page.getByRole('combobox', { name: 'Industry', exact: true })).toHaveValue('software')
+})
+
+
+test('review recovers company context after an initial lookup failure', async ({ page }) => {
+  let attempts = 0
+  await page.route('**/api/sprint-fit/profile', async route => {
+    attempts++
+    await route.fulfill({ json: attempts === 1 ? { ok: false, reason: 'manual', domain: profile.domain } : { ok: true, profile } })
+  })
+  await start(page, 'An existing workflow')
+  await details(page, true)
+  await buildQuestions(page)
+  await expect(page.getByRole('textbox', { name: 'What your company does', exact: true })).toHaveValue(profile.summary!)
+  expect(attempts).toBe(2)
+  await expect(page.getByRole('combobox', { name: 'Industry', exact: true })).toHaveValue('real-estate')
+})
+
+test('changing success measures drops hidden stale targets but preserves a remaining qualitative measure', async ({ page }) => {
+  let received: InquiryPayload | undefined
+  await page.route('**/api/sprint-inquiries', async route => { received = route.request().postDataJSON(); await savedBrief(route) })
+  await completeToReview(page, { other: true })
+  await page.getByRole('button', { name: 'Edit Success measures', exact: true }).first().click()
+  await page.getByRole('checkbox', { name: 'Better quality', exact: true }).check()
+  await page.getByText('Add numbers', { exact: false }).click()
+  const baseline = page.getByRole('textbox', { name: 'Current baseline, if known', exact: true })
+  const target = page.getByRole('textbox', { name: 'What would a good result look like?', exact: true })
+  await baseline.fill('Every proposal needs manual evidence checks')
+  await target.fill('Every recommendation has auditable evidence')
+  await page.getByRole('checkbox', { name: 'Better quality', exact: true }).uncheck()
+  await expect(baseline).toHaveValue('Every proposal needs manual evidence checks')
+  await expect(target).toHaveValue('Every recommendation has auditable evidence')
+  await page.getByRole('checkbox', { name: 'Other', exact: true }).uncheck()
+  await page.getByRole('checkbox', { name: 'Less time', exact: true }).check()
+  await expect(target).toHaveCount(0)
+  for (let i = 0; i < 3; i++) await next(page)
+  await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
+  await expect(page.getByRole('heading', { name: 'Your sprint brief', exact: true })).toBeVisible()
+  expect(received?.fitCheck.baseline).toBe('')
+  expect(received?.fitCheck.target).toBe('')
+  await expect(page.getByRole('article')).toContainText('Less time')
+  await expect(page.getByRole('article')).not.toContainText('Every recommendation has auditable evidence')
 })

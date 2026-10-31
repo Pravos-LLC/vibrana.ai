@@ -15,6 +15,6 @@ export async function POST(request: NextRequest) {
   if (guard.action === 'drop') return NextResponse.json(manual)
   if (guard.action === 'reject') return NextResponse.json({ error: guard.message }, { status: guard.status })
   if (!site) return NextResponse.json(manual)
-  const result = await buildProfile(site.url)
+  const result = await buildProfile(site.url, { requireSummary: true })
   return NextResponse.json(result)
 }

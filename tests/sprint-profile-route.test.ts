@@ -9,7 +9,7 @@ beforeEach(() => { state.action = 'allow'; state.buildProfile.mockReset(); state
 describe('sprint company profile', () => {
   it('reuses website research without creating a lead or sending identity', async () => {
     const response = await post({ website: 'https://example.com/about', name: 'Not needed', email: 'private@example.com' })
-    expect(response.status).toBe(200); expect(state.buildProfile).toHaveBeenCalledExactlyOnceWith('https://example.com/')
+    expect(response.status).toBe(200); expect(state.buildProfile).toHaveBeenCalledExactlyOnceWith('https://example.com/', { requireSummary: true })
   })
   it('rejects unsafe websites before calling any research service', async () => {
     for (const website of ['http://127.0.0.1', 'http://localhost', 'https://user:pass@example.com', 'https://example.com:8080', '']) {

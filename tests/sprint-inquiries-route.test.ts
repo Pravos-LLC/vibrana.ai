@@ -114,7 +114,7 @@ describe('fit-check handoff', () => {
   it('stores structured answers and emails the actual brief without trusting a client route', async () => {
     const response = await post({ ...fitCall, fitCheck: FIT_SAMPLE, fit_route: 'ready' })
     expect(response.status).toBe(200)
-    expect(inserts[0].metadata).toMatchObject({ form_version: 'sprint-fit-v1', fit_check: FIT_SAMPLE, fit_route: 'confirm' })
+    expect(inserts[0].metadata).toMatchObject({ form_version: 'sprint-fit-v2', fit_check: FIT_SAMPLE, fit_route: 'confirm' })
     expect(emails[0].html).toContain('Funding: Approval needs a proposal')
     expect(emails[1].subject).toBe('Your first-build brief from Vibrana')
     expect(emails[1].html).toContain(FIT_SAMPLE.outcome)
