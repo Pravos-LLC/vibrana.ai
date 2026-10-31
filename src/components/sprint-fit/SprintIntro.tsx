@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/src/components/prism'
+import { Button, GradientText } from '@/src/components/prism'
 import { Headphones, Network, MessagesSquare, BookOpen, UsersRound, GraduationCap, Workflow, ChartNoAxesCombined } from 'lucide-react'
 import { LogoRow } from '@/src/components/proof/LogoRow'
 import { SPRINT_INTRO as C } from '@/src/sprint-intro-content'
@@ -15,10 +15,8 @@ export function SprintIntro({ onStart }: { onStart: () => void }) {
     <section className={styles.hero}>
       <div className={styles.heroInner}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>{C.eyebrow}</p>
-          <h1>{C.title}</h1>
-          <p className={styles.lead}>{C.description}</p>
-          <p>{C.deliverables}</p>
+          <h1>{C.titlePrefix}<GradientText className="font-serif-accent">{C.titleAccent}</GradientText></h1>
+          <p className={styles.lead}>{C.subtitle}</p>
           <Button type="button" onClick={onStart} showArrow>{C.start}</Button>
         </div>
         <figure className={styles.preview}>

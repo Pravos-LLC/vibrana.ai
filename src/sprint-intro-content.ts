@@ -1,10 +1,9 @@
 /** Assessment introduction. Examples are illustrative scopes, not client case claims. */
 export const SPRINT_INTRO = {
-  eyebrow: 'AI Build Sprint assessment',
-  title: 'Scope your first AI build. Learn alongside the people who build it with you.',
-  description: 'Tell us what you want to make. We’ll help you shape a practical first release that your team can build and learn from with us.',
+  titlePrefix: 'Scope your first ',
+  titleAccent: 'AI build.',
+  subtitle: 'Get a scoped brief with company context and an optional business case. Build and learn with us.',
   start: 'Start my assessment',
-  deliverables: 'You’ll leave with a scoped brief, your company context and, if you add the numbers, an optional business case.',
   pauseLogos: 'Pause logo reel',
   playLogos: 'Play logo reel',
   previewLabel: 'A sample of your brief',
