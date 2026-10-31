@@ -1,12 +1,13 @@
+import { siteContent } from '@/src/site-content'
 // Whitepaper delivery email (POST /api/whitepaper, from the assessment results page).
 // Copy is data (repo rule): lib/whitepaper-email.ts renders these strings and holds
 // layout only.
 
 import { SPRINT_FIT_CALL_URL } from '@/src/ai-build-sprint-content'
 
-export const WHITEPAPER_PDF_PATH = '/downloads/public-demo-guide.txt'
+export const WHITEPAPER_PDF_PATH = siteContent("whitepaper-email-content.WHITEPAPER_PDF_PATH", '/downloads/public-demo-guide.txt')
 
-export const WHITEPAPER_EMAIL = {
+export const WHITEPAPER_EMAIL = siteContent("whitepaper-email-content.WHITEPAPER_EMAIL", {
   subject: 'Your public demo download',
   eyebrow: 'VIBRANA',
   heading: 'Public demo download',
@@ -22,4 +23,4 @@ export const WHITEPAPER_EMAIL = {
   ctaUrl: SPRINT_FIT_CALL_URL,
   /** Matches the assessment nurture emails, including the Day 10 whitepaper email. */
   signoff: 'John Ellison & Fatma Ghedira | Vibrana',
-} as const
+} as const)

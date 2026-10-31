@@ -1,3 +1,4 @@
+import { siteContent } from '@/src/site-content'
 // ── Homepage (/) ────────────────────────────────────────────────────────────
 // Persona target: founder-visionary (home primary), gatekeeper-coo (secondary), per the
 // routing table in .agents/product-marketing-context.md. Drivers: two-speed-anxiety,
@@ -7,7 +8,7 @@
 // violation). It now lives here. 2026-10 (JE): the AI-native promise is back as the
 // headline, and the subhead makes the AI Build Sprint the way in. Offer facts trace to
 // src/ai-build-sprint-content.ts; the price stays off the hero.
-export const ENTERPRISE_HERO = {
+export const ENTERPRISE_HERO = siteContent("enterprise-content.ENTERPRISE_HERO", {
   eyebrow: 'AI Build Sprints · AI-Native Transformation',
   headlinePrefix: 'We help enterprises become ',
   headlineGradientWord: 'AI-native',
@@ -16,14 +17,14 @@ export const ENTERPRISE_HERO = {
     'Start with a single product or workflow, expand to your entire organization with a company-wide transformation.',
   primaryCta: { text: 'See the AI Build Sprint', href: '/ai-build-sprint' },
   secondaryCta: { text: 'Explore AI-Native Transformation', href: '/ai-transformation' },
-}
+})
 
 // Problem statement, ported in spirit from john-ellison.com's "AI Is Everywhere.
 // Adoption Is Stalled." section. Red-team history (2026-07-20): v1 opened on an uncited
 // "88%/5.5%" stat and was BLOCKed for citation risk; this version makes the point
 // structurally with no unsourced number. The closing line (2026-09) resolves the
 // section into the Sprint mechanism so it reads as one argument with the hero.
-export const ENTERPRISE_PROBLEM = {
+export const ENTERPRISE_PROBLEM = siteContent("enterprise-content.ENTERPRISE_PROBLEM", {
   eyebrow: 'The problem',
   title: 'AI is everywhere. Adoption isn\'t producing results.',
   subtitle:
@@ -44,7 +45,7 @@ export const ENTERPRISE_PROBLEM = {
   ],
   close:
     'We realize that AI is first and foremost a people problem, not a technology problem. When you approach transformation with a holistic human-centered approach, you can identify and remove the barriers to real adoption, productivity and performance.',
-}
+})
 
 // The four-part Holistic AI Transformation (HAT) methodology, Vibrana's own framework
 // (research/ws7-content-proof.md, "Signature Frameworks"). Red-team history (2026-07-20):
@@ -53,7 +54,7 @@ export const ENTERPRISE_PROBLEM = {
 // needed. 2026-09: the map pillar uses the offer name Company Brain (PR #60 renames
 // Company Graph sitewide), and the subtitle scopes HAT to company-wide engagements so it
 // does not compete with the Sprint in the hero.
-export const ENTERPRISE_METHODOLOGY = {
+export const ENTERPRISE_METHODOLOGY = siteContent("enterprise-content.ENTERPRISE_METHODOLOGY", {
   eyebrow: 'Our methodology',
   title: 'Holistic AI-Native Transformation',
   subtitle:
@@ -76,12 +77,12 @@ export const ENTERPRISE_METHODOLOGY = {
       description: 'Workspaces designed for each department that give them access to the Company Brain, Learning Journeys and all the tools they need to build AI-native workflows.',
     },
   ],
-}
+})
 
 // Remaining homepage section copy (headers, labels, CTAs) that used to be inline in
 // EnterpriseHomePage.tsx. The featured case study's statement, metrics and name come
 // from content/case-studies/ (homepageStatement if set, else oneLineOutcome), not here.
-export const ENTERPRISE_HOME_SECTIONS = {
+export const ENTERPRISE_HOME_SECTIONS = siteContent("enterprise-content.ENTERPRISE_HOME_SECTIONS", {
   featuredCaseStudy: {
     eyebrow: 'REAL ESTATE TRANSFORMATION',
     cta: 'Read the case study',
@@ -120,7 +121,7 @@ export const ENTERPRISE_HOME_SECTIONS = {
       'Use it when the problem spans leadership, governance, skills, and several workflows, not when one focused build will answer the question.',
     cta: 'Explore Transformation',
   },
-}
+})
 
 // 2026-07-20 note on the proof strip below: the homepage-reconciliation pass tried
 // "150+ people trained" and "2,200+ learning journeys" (the practitioners' career-wide
@@ -131,7 +132,7 @@ export const ENTERPRISE_HOME_SECTIONS = {
 //
 // Persona target: gatekeeper-coo (proof strip — see .agents/product-marketing-context.md routing).
 // Drivers: proof-hunger, governance-control. Red-teamed via persona-review before ship.
-export const ENTERPRISE_PROOF = [
+export const ENTERPRISE_PROOF = siteContent("enterprise-content.ENTERPRISE_PROOF", [
   {
     value: '20',
     label: 'job families with dedicated curricula',
@@ -160,9 +161,9 @@ export const ENTERPRISE_PROOF = [
     caseStudyLink: null,
     caseStudyHref: null,
   },
-]
+])
 
-export const ENTERPRISE_ENGAGEMENTS = [
+export const ENTERPRISE_ENGAGEMENTS = siteContent("enterprise-content.ENTERPRISE_ENGAGEMENTS", [
   {
     title: 'Company-Wide Transformation',
     // JE's line (2026-09-25), kept in spirit: "cutting edge" is his ruling (fine as a plain noun
@@ -199,9 +200,9 @@ export const ENTERPRISE_ENGAGEMENTS = [
       'You keep the code, the docs and the keys. Any retainer afterwards is optional.',
     ],
   },
-]
+])
 
-export const TRANSFORMATION_PHASES = [
+export const TRANSFORMATION_PHASES = siteContent("enterprise-content.TRANSFORMATION_PHASES", [
   {
     title: 'Map',
     description: 'With the leads you name, we audit your pilots, interview the people who run the work, and build a Company Brain: a machine-readable map of how work flows between the teams, tools and information in scope. It runs on AIOS, self-hosted on your infrastructure with permissions per department, so no outside party, including us, has to hold it. Your team owns it and decides what goes in.',
@@ -218,12 +219,12 @@ export const TRANSFORMATION_PHASES = [
     title: 'Embed',
     description: 'Adoption isn\'t a launch event. In the final weeks we measure usage, refine the workflows, and hand everything to the lead you named. The engagement ends on the date fixed at kickoff.',
   },
-]
+])
 
 // Persona target: gatekeeper-coo (primary) / founder-visionary (secondary), /ai-transformation
 // routing in .agents/product-marketing-context.md. Drivers: proof-hunger, governance-control,
 // org-chart-threat. Red-teamed via persona-review before ship.
-export const AI_TRANSFORMATION_LANDSCAPE = {
+export const AI_TRANSFORMATION_LANDSCAPE = siteContent("enterprise-content.AI_TRANSFORMATION_LANDSCAPE", {
   eyebrow: 'The landscape',
   title: 'Two options. Neither built for what you actually need.',
   subtitle:
@@ -311,12 +312,12 @@ export const AI_TRANSFORMATION_LANDSCAPE = {
       ],
     },
   ],
-}
+})
 
 // Persona target: gatekeeper-coo (primary), same routing as AI_TRANSFORMATION_LANDSCAPE above.
 // Reconciled against TRANSFORMATION_PHASES (the Map/Build/Train/Embed "how it works" arc): this
 // is the "why it works this way" axis, not a second phases narrative.
-export const AI_TRANSFORMATION_DIFFERENTIATORS = {
+export const AI_TRANSFORMATION_DIFFERENTIATORS = siteContent("enterprise-content.AI_TRANSFORMATION_DIFFERENTIATORS", {
   eyebrow: 'How we work',
   title: 'Governance and delivery. Never one without the other.',
   subtitle:
@@ -359,9 +360,9 @@ export const AI_TRANSFORMATION_DIFFERENTIATORS = {
       tint: 'blue' as const,
     },
   ],
-}
+})
 
-export const LEARNING_JOURNEY_PILLARS = [
+export const LEARNING_JOURNEY_PILLARS = siteContent("enterprise-content.LEARNING_JOURNEY_PILLARS", [
   {
     title: 'Built for the role, not the tool',
     description: 'Your Legal team doesn\'t need “Intro to LLMs.” They need to know how AI changes contract review, compliance, and risk assessment. Every journey starts from the job, not the technology.',
@@ -378,9 +379,9 @@ export const LEARNING_JOURNEY_PILLARS = [
     title: 'Adoption you can measure',
     description: 'Completion rates, workflow adoption, and outcome metrics - not “satisfaction surveys.” Leadership gets numbers, not vibes.',
   },
-]
+])
 
-export const JOB_FUNCTIONS_DETAILED = [
+export const JOB_FUNCTIONS_DETAILED = siteContent("enterprise-content.JOB_FUNCTIONS_DETAILED", [
   { name: 'Accounting', description: 'Automate reconciliation, accelerate month-end close, and build AI-assisted audit trails.' },
   { name: 'Advertising', description: 'AI-generated creative variants, audience targeting, and campaign performance analysis at speed.' },
   { name: 'Analytics', description: 'From dashboards to decisions. Agentic data pipelines, automated insight generation, and self-serve reporting.' },
@@ -404,24 +405,24 @@ export const JOB_FUNCTIONS_DETAILED = [
   { name: 'Revenue Operations', description: 'Pipeline intelligence, forecasting models, and cross-functional data workflows that sales and finance both trust.' },
   { name: 'Sales', description: 'Prospect research, outreach personalization, and deal intelligence - AI does the prep, so every rep walks in ready.' },
   { name: 'Engineering Management', description: 'Sprint planning, technical debt analysis, and team-owned delivery metrics - manage better with AI, not more meetings.' },
-]
+])
 
-export const JOB_FUNCTIONS = JOB_FUNCTIONS_DETAILED.map(f => f.name)
+export const JOB_FUNCTIONS = siteContent("enterprise-content.JOB_FUNCTIONS", JOB_FUNCTIONS_DETAILED.map(f => f.name))
 
-export const IDEAL_CLIENT_PROFILE = [
+export const IDEAL_CLIENT_PROFILE = siteContent("enterprise-content.IDEAL_CLIENT_PROFILE", [
   'You have 150-500 people and your AI pilots aren\'t scaling past the team that built them',
   'You\'re doing $5M-$50M in revenue and want a fixed price and a defined end, not an open-ended consultancy bill',
   'You want every department using AI in their actual workflows, not one innovation team running demos',
-]
+])
 
-export const ENTERPRISE_AFTER_TWELVE_WEEKS = [
+export const ENTERPRISE_AFTER_TWELVE_WEEKS = siteContent("enterprise-content.ENTERPRISE_AFTER_TWELVE_WEEKS", [
   'Leadership has a transformation roadmap - not a slide deck that collects dust',
   'Every team in scope has role-specific AI skills built into its daily workflows',
   'Agentic workflows are running in production, maintained by your own people',
   'Your team owns a Company Brain for the departments in scope and decides whether to deploy it (a mid-sized tech company chose not to, and the case study says why), with the agentic operating system running in each department you signed off',
-]
+])
 
-export const ENTERPRISE_FAQS = [
+export const ENTERPRISE_FAQS = siteContent("enterprise-content.ENTERPRISE_FAQS", [
   {
     question: 'We\'ve already run AI pilots. Why aren\'t they scaling?',
     answer: 'Because pilots test tools, not workflows. The gap is usually the same: nobody sat down with each team to work out how its job should run with AI in it. We run that assessment with your leads, and they decide what changes.',
@@ -438,14 +439,14 @@ export const ENTERPRISE_FAQS = [
     question: 'What do we actually get at the end?',
     answer: 'Trained teams. Production-ready agentic workflows. A Company Brain mapping the processes in scope, if you choose to deploy it. Role-specific curricula your managers can re-run without us. And measurable adoption data - not a certificate.',
   },
-]
+])
 
 // AIOS / open-source ecosystem. Vibrana maintains AIOS (aiosbrain.dev) - an
 // open-source (AGPL-3.0, copyleft; verified against the aiosbrain repos and
 // aiosbrain.dev, 2026-09-30) operating system for agentic teams. Featured on the
 // homepage as proof that Vibrana builds the tools it teaches, with an outbound
 // link to the standalone site (no full product page on vibrana.ai by decision).
-export const AIOS_ECOSYSTEM = {
+export const AIOS_ECOSYSTEM = siteContent("enterprise-content.AIOS_ECOSYSTEM", {
   eyebrow: 'Open source · built in public',
   title: 'We don\'t just teach agentic work. We build the tools for it.',
   subtitle:
@@ -469,9 +470,9 @@ export const AIOS_ECOSYSTEM = {
     href: 'https://aiosbrain.dev',
   },
   note: 'AGPL-3.0 · self-hosted · maintained by Vibrana',
-}
+})
 
-export const INQUIRY_OPTIONS = {
+export const INQUIRY_OPTIONS = siteContent("enterprise-content.INQUIRY_OPTIONS", {
   intents: [
     'Company-wide AI transformation',
     'Role-based curricula for one or more teams',
@@ -482,7 +483,7 @@ export const INQUIRY_OPTIONS = {
   teamSizes: ['1-50 employees', '50-150 employees', '151-250 employees', '251-350 employees', '351-500 employees', '500+ employees'],
   revenueBands: ['Under $5M', '$5M-$10M', '$10M-$25M', '$25M-$50M', '$50M+'],
   timelines: ['Immediate', 'This quarter', 'Next quarter', 'Exploring'],
-}
+})
 
 // ENTERPRISE_ASCII_CLOSING removed (2026-09-30): never rendered. AsciiField renders no text by
 // JE's ruling, and the homepage has its own transformation closing (ENTERPRISE_HOME_SECTIONS).

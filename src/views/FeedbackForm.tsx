@@ -1,35 +1,33 @@
 'use client'
-import { PublicDemoImg } from '@/src/components/PublicDemoImage'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/src/components/prism'
 import { Textarea } from '@/src/components/prism/form/Textarea'
 import { Input } from '@/src/components/prism/form/Input'
-import { ThemeToggle } from '@/src/components/prism/ThemeToggle'
 import { FormGuardFields, useFormGuard } from '@/lib/form-guard/client'
-import {
-  FEEDBACK_UI as UI,
-  type FeedbackConsentOptionId,
-  type FeedbackFormConfig,
-  type FeedbackQuestion,
-} from '@/src/feedback-content'
+import { FEEDBACK_UI as UI, type FeedbackFormConfig, type FeedbackQuestion } from '@/src/feedback-content'
 
 type Answers = Record<string, unknown>
-type ConsentState = { flags: Record<FeedbackConsentOptionId, boolean>; draftQuote: boolean; referrals: string }
+type ConsentState = { quote: boolean | null }
 type Draft = { submissionId: string; step: string; answers: Answers; consent: ConsentState; done: boolean }
 type Direction = 'forward' | 'back'
 
-type Props = {
-  form: FeedbackFormConfig
-  token: string | null
-  recipient: { name: string; role: string | null } | null
-  bookingUrl: string | null
-}
+type Props = { form: FeedbackFormConfig }
 
 const INTRO = 'intro'
 const CONSENT = 'consent'
 const DONE = 'done'
+
+/** Answer auto-advance delay: long enough to see the tap register, short enough to feel instant. */
+const AUTO_ADVANCE_MS = 250
+/** Exit phase before the next step enters. Skipped entirely under prefers-reduced-motion. */
+const EXIT_MS = 180
+
+function prefersReducedMotion(): boolean {
+  return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches === true
+}
 
 // ---------------------------------------------------------------------------
 // State helpers
@@ -43,18 +41,6 @@ function newId(): string {
   bytes[8] = (bytes[8] & 0x3f) | 0x80
   const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`
-}
-
-function emptyConsent(form: FeedbackFormConfig): ConsentState {
-  return {
-    flags: Object.fromEntries(form.consent.options.map((o) => [o.id, false])) as Record<FeedbackConsentOptionId, boolean>,
-    draftQuote: false,
-    referrals: '',
-  }
-}
-
-function freshDraft(form: FeedbackFormConfig): Draft {
-  return { submissionId: newId(), step: INTRO, answers: {}, consent: emptyConsent(form), done: false }
 }
 
 const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v)
@@ -77,10 +63,11 @@ function sanitizeAnswers(form: FeedbackFormConfig, raw: unknown): Answers {
       out[q.id] = map
     } else if (q.kind === 'text') {
       if (typeof v === 'string') out[q.id] = v.slice(0, q.maxLength)
-    } else if (q.kind === 'fields') {
+    } else if (q.kind === 'contact') {
       if (!isRecord(v)) continue
       const map: Record<string, string> = {}
-      for (const f of q.fields) if (typeof v[f.id] === 'string') map[f.id] = (v[f.id] as string).slice(0, q.maxLength)
+      if (typeof v.name === 'string') map.name = v.name.slice(0, q.nameMaxLength)
+      if (typeof v.email === 'string') map.email = v.email.slice(0, q.emailMaxLength)
       out[q.id] = map
     } else if (q.kind === 'chips') {
       if (!isRecord(v)) continue
@@ -93,22 +80,17 @@ function sanitizeAnswers(form: FeedbackFormConfig, raw: unknown): Answers {
 }
 
 function loadDraft(form: FeedbackFormConfig, key: string): Draft {
-  const base = freshDraft(form)
+  const base: Draft = { submissionId: newId(), step: INTRO, answers: {}, consent: { quote: null }, done: false }
   try {
     const stored = JSON.parse(window.localStorage.getItem(key) ?? 'null')
     if (!isRecord(stored)) return base
     if (stored.done === true) return { ...base, submissionId: typeof stored.submissionId === 'string' ? stored.submissionId : base.submissionId, step: DONE, done: true }
     const consentRaw = isRecord(stored.consent) ? stored.consent : {}
-    const flagsRaw = isRecord(consentRaw.flags) ? consentRaw.flags : {}
-    const consent = emptyConsent(form)
-    for (const o of form.consent.options) consent.flags[o.id] = flagsRaw[o.id] === true
-    consent.draftQuote = consentRaw.draftQuote === true
-    consent.referrals = typeof consentRaw.referrals === 'string' ? consentRaw.referrals.slice(0, form.consent.referralMaxLength) : ''
     return {
       submissionId: typeof stored.submissionId === 'string' && stored.submissionId.length === 36 ? stored.submissionId : base.submissionId,
       step: typeof stored.step === 'string' ? stored.step : INTRO,
       answers: sanitizeAnswers(form, stored.answers),
-      consent,
+      consent: { quote: consentRaw.quote === true || consentRaw.quote === false ? consentRaw.quote : null },
       done: false,
     }
   } catch {
@@ -125,8 +107,8 @@ function questionHasAnswer(q: FeedbackQuestion, v: unknown): boolean {
       return typeof v === 'string' && v.trim() !== ''
     case 'ratings':
       return isRecord(v) && Object.keys(v).length > 0
-    case 'fields':
-      return isRecord(v) && Object.values(v).some((x) => typeof x === 'string' && x.trim() !== '')
+    case 'contact':
+      return isRecord(v) && ((typeof v.name === 'string' && v.name.trim() !== '') || (typeof v.email === 'string' && v.email.trim() !== ''))
     case 'chips':
       return isRecord(v) && ((Array.isArray(v.choices) && v.choices.length > 0) || (typeof v.text === 'string' && v.text.trim() !== ''))
   }
@@ -145,12 +127,7 @@ const choiceFace =
 function Prompt({ id, prompt, hint, headingRef }: { id: string; prompt: string; hint?: string; headingRef: React.RefObject<HTMLHeadingElement | null> }) {
   return (
     <>
-      <h1
-        id={id}
-        ref={headingRef}
-        tabIndex={-1}
-        className="font-display text-3xl font-semibold leading-tight text-ink outline-none md:text-5xl"
-      >
+      <h1 id={id} ref={headingRef} tabIndex={-1} className="fb-q font-display font-semibold leading-tight text-ink outline-none">
         {prompt}
       </h1>
       {hint ? <p className="mt-3 text-base text-ink-secondary md:text-lg">{hint}</p> : null}
@@ -162,23 +139,38 @@ function Prompt({ id, prompt, hint, headingRef }: { id: string; prompt: string; 
 // The form
 // ---------------------------------------------------------------------------
 
-export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
-  const storageKey = `vibrana-feedback:${form.slug}:${token ?? 'anon'}`
+export function FeedbackForm({ form }: Props) {
+  const storageKey = `vibrana-feedback:${form.slug}`
   const guard = useFormGuard()
-  const [draft, setDraft] = useState<Draft>(() => freshDraft(form))
+  const [draft, setDraft] = useState<Draft>(() => ({ submissionId: newId(), step: INTRO, answers: {}, consent: { quote: null }, done: false }))
   const [ready, setReady] = useState(false)
   const [direction, setDirection] = useState<Direction>('forward')
+  const [exiting, setExiting] = useState(false)
   const [status, setStatus] = useState<'idle' | 'sending' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const headingRef = useRef<HTMLHeadingElement | null>(null)
   const firstRender = useRef(true)
   const alertRef = useRef<HTMLDivElement | null>(null)
 
+  // Exit-then-enter navigation: the current step plays a short exit animation before the step
+  // state (and therefore the keyed section) swaps and the enter animation runs.
+  const pendingNav = useRef<string | null>(null)
+  const exitTimer = useRef<number | null>(null)
+  const advanceTimer = useRef<number | null>(null)
+
   // Restore a saved draft after mount. Reading localStorage during render would mismatch the server HTML.
   useEffect(() => {
     setDraft(loadDraft(form, storageKey))
     setReady(true)
   }, [form, storageKey])
+
+  // Clear any in-flight timers on unmount.
+  useEffect(() => {
+    return () => {
+      if (exitTimer.current !== null) window.clearTimeout(exitTimer.current)
+      if (advanceTimer.current !== null) window.clearTimeout(advanceTimer.current)
+    }
+  }, [])
 
   // Save on every change so a reload never loses an answer.
   useEffect(() => {
@@ -194,9 +186,12 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
   const score = typeof draft.answers[form.scoreQuestionId] === 'number' ? (draft.answers[form.scoreQuestionId] as number) : undefined
   const showConsent = score !== undefined && score >= form.consent.minScore
 
+  // The consent screen sits between the last regular question and the contact step.
   const steps = useMemo(() => {
     const ids = form.questions.map((q) => q.id)
-    return showConsent ? [...ids, CONSENT] : ids
+    if (!showConsent) return ids
+    const contactId = ids[ids.length - 1]
+    return [...ids.slice(0, -1), CONSENT, contactId]
   }, [form, showConsent])
 
   const stepId = draft.step === INTRO || draft.step === DONE ? draft.step : steps.includes(draft.step) ? draft.step : INTRO
@@ -205,6 +200,11 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
   const question = form.questions.find((q) => q.id === stepId) ?? null
   const isLast = stepIndex === total - 1
   const progress = stepId === INTRO ? 0 : stepId === DONE ? 100 : ((stepIndex + 1) / total) * 100
+
+  // The auto-advance timer must not fire for a step the person has already left (by Back or by
+  // pressing Continue themselves), so the current step is read through this ref when it fires.
+  const stepIdRef = useRef(stepId)
+  stepIdRef.current = stepId
 
   // Move focus to the new question so keyboard and screen reader users land in the right place.
   useEffect(() => {
@@ -222,11 +222,31 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
     if (status === 'error') alertRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
   }, [status])
 
-  const setStep = useCallback((next: string, dir: Direction) => {
-    setDirection(dir)
+  const commitStep = useCallback((next: string) => {
     setStatus('idle')
     setDraft((d) => ({ ...d, step: next }))
   }, [])
+
+  const navigate = useCallback(
+    (target: string, dir: Direction) => {
+      if (target === stepIdRef.current) return
+      // The direction applies from the moment navigation starts, so the exiting step plays the
+      // matching out keyframe before the new step enters from the other side.
+      setDirection(dir)
+      if (prefersReducedMotion()) return commitStep(target)
+      pendingNav.current = target
+      setExiting(true)
+      if (exitTimer.current !== null) window.clearTimeout(exitTimer.current)
+      exitTimer.current = window.setTimeout(() => {
+        exitTimer.current = null
+        const pending = pendingNav.current
+        pendingNav.current = null
+        setExiting(false)
+        if (pending) commitStep(pending)
+      }, EXIT_MS)
+    },
+    [commitStep],
+  )
 
   const setAnswer = useCallback((id: string, value: unknown) => {
     setDraft((d) => ({ ...d, answers: { ...d.answers, [id]: value } }))
@@ -241,16 +261,11 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
       const body = {
         slug: form.slug,
         submissionId: draft.submissionId,
-        r: token,
         answers: draft.answers,
-        consent: showConsent
-          ? {
-              version: form.consent.version,
-              flags: draft.consent.flags,
-              draftQuote: draft.consent.draftQuote,
-              referrals: draft.consent.referrals,
-            }
-          : null,
+        consent:
+          showConsent && draft.consent.quote !== null
+            ? { version: form.consent.version, anonymous_quote: draft.consent.quote }
+            : null,
         ...guard.payload(),
       }
       const res = await fetch('/api/feedback', {
@@ -272,21 +287,47 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
       setErrorMessage(UI.error.fallback)
       setStatus('error')
     }
-  }, [draft, form, guard, showConsent, token])
+  }, [draft, form, guard, showConsent])
 
   const next = useCallback(() => {
-    if (status === 'sending') return
-    if (stepId === INTRO) return setStep(steps[0], 'forward')
+    if (status === 'sending' || exiting) return
+    if (stepId === INTRO) return navigate(steps[0], 'forward')
     if (!canContinue) return
     if (isLast) return void send()
-    setStep(steps[stepIndex + 1], 'forward')
-  }, [canContinue, isLast, send, setStep, status, stepId, stepIndex, steps])
+    navigate(steps[stepIndex + 1], 'forward')
+  }, [canContinue, exiting, isLast, navigate, send, status, stepId, stepIndex, steps])
+
+  // The auto-advance timers fire long after the render they were scheduled in, so they read the
+  // latest next() through this ref rather than a stale closure.
+  const nextRef = useRef(next)
+  nextRef.current = next
 
   const back = useCallback(() => {
-    if (status === 'sending') return
-    if (stepIndex <= 0) return setStep(INTRO, 'back')
-    setStep(steps[stepIndex - 1], 'back')
-  }, [setStep, status, stepIndex, steps])
+    if (status === 'sending' || exiting) return
+    if (stepIndex <= 0) return navigate(INTRO, 'back')
+    navigate(steps[stepIndex - 1], 'back')
+  }, [exiting, navigate, status, stepIndex, steps])
+
+  /** Auto-advances from `fromStep` after a short beat, only if the person is still on that step. */
+  const scheduleAdvance = useCallback((fromStep: string) => {
+    if (advanceTimer.current !== null) window.clearTimeout(advanceTimer.current)
+    advanceTimer.current = window.setTimeout(() => {
+      advanceTimer.current = null
+      if (stepIdRef.current !== fromStep) return
+      nextRef.current()
+    }, AUTO_ADVANCE_MS)
+  }, [])
+
+  // A new Yes/No answer on the consent screen advances on its own; re-tapping the chosen
+  // answer after navigating Back is not a new answer and never re-advances.
+  const setConsent = useCallback(
+    (value: boolean) => {
+      if (draft.consent.quote === value) return
+      setDraft((d) => ({ ...d, consent: { quote: value } }))
+      scheduleAdvance(CONSENT)
+    },
+    [draft.consent.quote, scheduleAdvance],
+  )
 
   // Enter advances from anywhere that is not a button, link, select or textarea (a textarea keeps Enter
   // for new lines and uses Cmd or Ctrl and Enter). Handled here so it also works with nothing focused,
@@ -315,19 +356,21 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
       const now = Date.now()
       const value = prev && prev.digit === 1 && digit === 0 && now - prev.at < 1000 ? 10 : digit
       scoreBuffer.current = { digit, at: now }
-      setAnswer(question.id, value)
+      if (value !== score) {
+        setAnswer(question.id, value)
+        scheduleAdvance(question.id)
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [question, setAnswer])
+  }, [question, scheduleAdvance, score, setAnswer])
 
   const announcement = stepId === INTRO || stepId === DONE ? '' : UI.stepAnnouncement(stepIndex + 1, total)
-  const name = recipient?.name ?? null
 
   // ------------------------------------------------------------------ render
 
   const header = (
-    <header className="sticky top-0 z-10 bg-surface-base/90 backdrop-blur">
+    <header className="sticky top-0 z-20 bg-surface-base/80 backdrop-blur">
       <div
         role="progressbar"
         aria-label={UI.progressLabel}
@@ -338,52 +381,74 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
       >
         <div className="fb-progress-fill h-full bg-[image:var(--gradient-prism)]" style={{ width: `${progress}%` }} />
       </div>
-      <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-6 py-4">
-        <span className="flex items-center gap-3 font-display text-base font-semibold tracking-wide text-ink">
+      <div className="mx-auto flex w-full max-w-3xl items-center px-6 py-4">
+        {/* Sample organization x Vibrana logo row. The Sample organization mark sits on a light chip so it holds its color and
+            contrast on the dark background. */}
+        <span className="flex h-9 items-center rounded-lg bg-white/95 px-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <PublicDemoImg src="/assets/vibrana-v-prism-96.webp" alt="" className="h-7 w-auto" />
+          <img src="/logos/logo-client.svg" alt="Sample organization" className="h-5 w-auto" />
+        </span>
+        <span className="ml-5 flex items-center gap-3 font-display text-base font-semibold tracking-wide text-ink">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/vibrana-v-prism-96.webp" alt="" className="h-7 w-auto" />
           {UI.brand}
         </span>
-        <ThemeToggle />
       </div>
     </header>
   )
 
+  const background = <div className="fb-bg" aria-hidden />
+
   if (!ready) {
     // Same shell as the real form so nothing jumps when the saved draft loads.
     return (
-      <main className="prism-light flex min-h-dvh flex-col bg-surface-base text-ink">
+      <main className="fb-scope prism-light relative flex min-h-dvh flex-col bg-surface-base text-ink">
+        {background}
         {header}
-        <div className="flex-1" aria-hidden />
+        <div className="relative z-10 flex flex-1" aria-hidden />
       </main>
     )
   }
 
   if (stepId === DONE) {
     return (
-      <main className="prism-light flex min-h-dvh flex-col bg-surface-base text-ink">
+      <main className="fb-scope prism-light relative flex min-h-dvh flex-col bg-surface-base text-ink">
+        {background}
         {header}
-        <div className="flex flex-1 items-center">
+        <div className="relative z-10 flex flex-1 items-center">
           <section data-dir={direction} className="fb-step mx-auto w-full max-w-3xl px-6 py-12" aria-live="polite">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/vibrana-v-prism-96.webp"
+              alt={UI.brand}
+              width={96}
+              height={96}
+              className="h-24 w-24 rounded-full object-cover ring-1 ring-line-strong"
+            />
             <h1
               ref={headingRef}
               tabIndex={-1}
-              className="font-display text-4xl font-semibold leading-tight text-ink outline-none md:text-6xl"
+              className="mt-8 font-display text-4xl font-semibold leading-tight text-ink outline-none md:text-6xl"
             >
-              {UI.done.heading(name)}
+              {UI.done.heading}
             </h1>
             <p className="mt-4 max-w-xl text-lg text-ink-secondary md:text-xl">{UI.done.body}</p>
-            {bookingUrl ? (
-              <div className="mt-10 max-w-xl rounded-2xl border border-line bg-surface-card p-6">
-                <p className="font-display text-xl font-semibold text-ink">{UI.done.bookHeading}</p>
-                <p className="mt-1 text-ink-secondary">{UI.done.bookBody}</p>
-                <div className="mt-4">
-                  <Button href={bookingUrl} target="_blank" rel="noopener noreferrer" variant="secondary" showArrow>
-                    {UI.done.bookCta}
-                  </Button>
-                </div>
-              </div>
-            ) : null}
+            {form.thankYou?.connectUrl && <div className="mt-8">
+              <Button href={form.thankYou.connectUrl} target="_blank" rel="noopener noreferrer">
+                {UI.done.connectLabel}
+              </Button>
+            </div>}
+            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              {UI.done.moreLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-ink-tertiary underline-offset-4 transition-colors hover:text-ink hover:underline"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </section>
         </div>
       </main>
@@ -400,14 +465,15 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
           : UI.nav.next
 
   return (
-    <main className="prism-light flex min-h-dvh flex-col bg-surface-base text-ink">
+    <main className="fb-scope prism-light relative flex min-h-dvh flex-col bg-surface-base text-ink">
+      {background}
       {header}
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         {announcement}
       </p>
 
       <form
-        className="relative flex flex-1 flex-col"
+        className="relative z-10 flex flex-1 flex-col"
         noValidate
         onSubmit={(e) => {
           e.preventDefault()
@@ -417,20 +483,24 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
         <FormGuardFields guard={guard} />
 
         <div className="flex flex-1 items-center">
-          <section key={stepId} data-dir={direction} className="fb-step mx-auto w-full max-w-3xl px-6 pb-24 pt-10 md:pt-16">
+          <section
+            key={stepId}
+            data-dir={direction}
+            className={`fb-step mx-auto w-full max-w-3xl px-6 pb-24 pt-10 md:pt-16${exiting ? ' fb-exiting' : ''}`}
+          >
             {stepId === INTRO ? (
               <>
-                <p className="mb-4 text-sm uppercase tracking-[0.15em] text-ink-tertiary">{UI.intro.eyebrow(form.projectName)}</p>
+                <p className="mb-4 text-sm uppercase tracking-[0.15em] text-ink-tertiary">
+                  {UI.intro.eyebrow(form.clientName, form.projectName)}
+                </p>
                 <h1
                   ref={headingRef}
                   tabIndex={-1}
                   className="font-display text-4xl font-semibold leading-tight text-ink outline-none md:text-6xl"
                 >
-                  {name ? <span className="block text-ink-secondary">{UI.intro.greeting(name)}</span> : null}
                   {UI.intro.heading}
                 </h1>
-                <p className="mt-5 max-w-xl text-lg text-ink-secondary md:text-xl">{UI.intro.body(form.projectName)}</p>
-                <p className="mt-4 max-w-xl text-sm text-ink-tertiary">{form.consent.privacyLine}</p>
+                <p className="mt-5 max-w-xl text-lg text-ink-secondary md:text-xl">{UI.intro.body}</p>
               </>
             ) : null}
 
@@ -445,7 +515,12 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
                         name={question.id}
                         value={n}
                         checked={score === n}
-                        onChange={() => setAnswer(question.id, n)}
+                        onChange={() => {
+                          if (n !== score) {
+                            setAnswer(question.id, n)
+                            scheduleAdvance(question.id)
+                          }
+                        }}
                         className="peer sr-only"
                       />
                       <span className={`${choiceFace} h-14 text-xl font-medium sm:h-16`}>{n}</span>
@@ -482,7 +557,13 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
                                 name={`${question.id}-${item.id}`}
                                 value={n}
                                 checked={map[item.id] === n}
-                                onChange={() => setAnswer(question.id, { ...map, [item.id]: n })}
+                                onChange={() => {
+                                  if (map[item.id] === n) return
+                                  const nextMap = { ...map, [item.id]: n }
+                                  setAnswer(question.id, nextMap)
+                                  // The screen advances on its own once every item has a rating.
+                                  if (question.items.every((it) => nextMap[it.id] !== undefined)) scheduleAdvance(question.id)
+                                }}
                                 className="peer sr-only"
                               />
                               <span className={`${choiceFace} h-12 text-lg font-medium`}>{n}</span>
@@ -518,32 +599,52 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
               </>
             ) : null}
 
-            {question?.kind === 'fields' ? (
+            {question?.kind === 'contact' ? (
               <>
                 <Prompt id={`q-${question.id}`} prompt={question.prompt} hint={question.hint} headingRef={headingRef} />
                 <div className="mt-8 space-y-5">
-                  {question.fields.map((field, i) => {
-                    const map = (isRecord(draft.answers[question.id]) ? draft.answers[question.id] : {}) as Record<string, string>
+                  {(() => {
+                    const contact = (isRecord(draft.answers[question.id]) ? draft.answers[question.id] : {}) as {
+                      name?: string
+                      email?: string
+                    }
                     return (
-                      <div key={field.id}>
-                        <label htmlFor={`f-${field.id}`} className="mb-2 block text-base font-medium text-ink md:text-lg">
-                          {field.label}
-                        </label>
-                        <Input
-                          id={`f-${field.id}`}
-                          data-fb-autofocus={i === 0 ? true : undefined}
-                          type="text"
-                          inputMode={field.inputMode}
-                          maxLength={question.maxLength}
-                          placeholder={field.placeholder}
-                          autoComplete="off"
-                          value={map[field.id] ?? ''}
-                          onChange={(e) => setAnswer(question.id, { ...map, [field.id]: e.target.value })}
-                          className="w-full text-xl"
-                        />
-                      </div>
+                      <>
+                        <div>
+                          <label htmlFor="fb-contact-name" className="mb-2 block text-base font-medium text-ink md:text-lg">
+                            {question.nameLabel}
+                          </label>
+                          <Input
+                            id="fb-contact-name"
+                            data-fb-autofocus
+                            type="text"
+                            autoComplete="name"
+                            maxLength={question.nameMaxLength}
+                            placeholder={question.namePlaceholder}
+                            value={contact.name ?? ''}
+                            onChange={(e) => setAnswer(question.id, { ...contact, name: e.target.value })}
+                            className="w-full text-xl"
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="fb-contact-email" className="mb-2 block text-base font-medium text-ink md:text-lg">
+                            {question.emailLabel}
+                          </label>
+                          <Input
+                            id="fb-contact-email"
+                            type="email"
+                            inputMode="email"
+                            autoComplete="email"
+                            maxLength={question.emailMaxLength}
+                            placeholder={question.emailPlaceholder}
+                            value={contact.email ?? ''}
+                            onChange={(e) => setAnswer(question.id, { ...contact, email: e.target.value })}
+                            className="w-full text-xl"
+                          />
+                        </div>
+                      </>
                     )
-                  })}
+                  })()}
                 </div>
               </>
             ) : null}
@@ -608,56 +709,32 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
                   id="q-consent"
                   ref={headingRef}
                   tabIndex={-1}
-                  className="font-display text-3xl font-semibold leading-tight text-ink outline-none md:text-5xl"
+                  className="fb-q font-display font-semibold leading-tight text-ink outline-none"
                 >
                   {form.consent.heading}
                 </h1>
-                <p className="mt-3 max-w-xl text-base text-ink-secondary md:text-lg">{form.consent.intro}</p>
-                <fieldset className="mt-8 space-y-3">
-                  <legend className="sr-only">{form.consent.groupLabel}</legend>
-                  {form.consent.options.map((option) => (
-                    <label
-                      key={option.id}
-                      className="flex cursor-pointer items-start gap-4 rounded-xl border border-line bg-surface-card p-4 hover:border-line-strong has-[:checked]:border-[color:var(--violet-strong)]"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={draft.consent.flags[option.id]}
-                        onChange={(e) =>
-                          setDraft((d) => ({ ...d, consent: { ...d.consent, flags: { ...d.consent.flags, [option.id]: e.target.checked } } }))
-                        }
-                        className="mt-1 h-5 w-5 shrink-0 accent-[color:var(--violet-strong)]"
-                      />
-                      <span className="text-base text-ink md:text-lg">{option.label}</span>
-                    </label>
-                  ))}
-                </fieldset>
-
-                <label className="mt-6 flex cursor-pointer items-start gap-4">
-                  <input
-                    type="checkbox"
-                    checked={draft.consent.draftQuote}
-                    onChange={(e) => setDraft((d) => ({ ...d, consent: { ...d.consent, draftQuote: e.target.checked } }))}
-                    className="mt-1 h-5 w-5 shrink-0 accent-[color:var(--violet-strong)]"
-                  />
-                  <span>
-                    <span className="block text-base text-ink md:text-lg">{form.consent.draftQuoteLabel}</span>
-                    <span className="block text-sm text-ink-tertiary">{form.consent.draftQuoteAside}</span>
-                  </span>
-                </label>
-
-                <label htmlFor="consent-referrals" className="mb-2 mt-8 block text-base font-medium text-ink md:text-lg">
-                  {form.consent.referralLabel}
-                </label>
-                <Textarea
-                  id="consent-referrals"
-                  rows={2}
-                  maxLength={form.consent.referralMaxLength}
-                  placeholder={form.consent.referralPlaceholder}
-                  value={draft.consent.referrals}
-                  onChange={(e) => setDraft((d) => ({ ...d, consent: { ...d.consent, referrals: e.target.value } }))}
-                  className="w-full text-lg"
-                />
+                <div role="radiogroup" aria-labelledby="q-consent" className="mt-10 grid max-w-xs grid-cols-2 gap-3">
+                  <label className="cursor-pointer">
+                    <input
+                      type="radio"
+                      name="consent-quote"
+                      checked={draft.consent.quote === true}
+                      onChange={() => setConsent(true)}
+                      className="peer sr-only"
+                    />
+                    <span className={`${choiceFace} h-14 text-xl font-medium`}>{form.consent.yesLabel}</span>
+                  </label>
+                  <label className="cursor-pointer">
+                    <input
+                      type="radio"
+                      name="consent-quote"
+                      checked={draft.consent.quote === false}
+                      onChange={() => setConsent(false)}
+                      className="peer sr-only"
+                    />
+                    <span className={`${choiceFace} h-14 text-xl font-medium`}>{form.consent.noLabel}</span>
+                  </label>
+                </div>
               </>
             ) : null}
 
@@ -676,7 +753,7 @@ export function FeedbackForm({ form, token, recipient, bookingUrl }: Props) {
           </section>
         </div>
 
-        <div className="sticky bottom-0 bg-surface-base/90 backdrop-blur">
+        <div className="sticky bottom-0 z-20 bg-surface-base/80 backdrop-blur">
           <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-4 px-6 py-4">
             <div className="flex items-center gap-4">
               {stepId !== INTRO ? (

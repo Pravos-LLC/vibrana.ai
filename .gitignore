@@ -7,3 +7,8 @@ playwright-report/
 !.env.example
 *.tsbuildinfo
 .vercel/
+
+# Generated production release provenance; no fetched assets belong in commits.
+/public/.well-known/site-content-release.json
+/.site-content-cache/
+/src/site-content/generated.production.json

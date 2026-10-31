@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { SAMPLEB544654A4D1A_PST_FORM as form } from '@/src/feedback-content'
+import { SAMPLE_FEEDBACK_FORM as form } from '@/src/feedback-content'
 import {
   buildSubmissionSchema,
   compactAnswers,
@@ -7,23 +7,13 @@ import {
   consentSnapshot,
   evaluateConsent,
 } from '@/lib/feedback/submission'
-import { resolveRecipient, sanitizeToken, tokenFor } from '@/lib/feedback/recipients'
 import { feedbackSubject } from '@/lib/feedback/email'
 
 const schema = buildSubmissionSchema(form)
 const id = '3f2b9c1e-8a4d-4c57-9f01-2b6e7a1d5c90'
 
-const allFlags = (value: boolean) => ({
-  anonymous_quote: value,
-  named_quote: value,
-  include_company: value,
-  case_study: value,
-  promote: value,
-  testimonial_chat: value,
-})
-
 function body(overrides: Record<string, unknown> = {}, score = 9) {
-  return { slug: 'sample-feedback', submissionId: id, r: 'reviewerone', answers: { overall: score }, ...overrides }
+  return { slug: 'sample-feedback', submissionId: id, answers: { overall: score }, ...overrides }
 }
 
 describe('submission schema', () => {
@@ -47,9 +37,18 @@ describe('submission schema', () => {
     expect(schema.safeParse(body({ answers: { overall: 9, went_well: 'x'.repeat(2001) } })).success).toBe(false)
   })
 
-  it('rejects a bad submission id and the wrong slug', () => {
-    expect(schema.safeParse(body({ submissionId: 'abc' })).success).toBe(false)
-    expect(schema.safeParse(body({ slug: 'other' })).success).toBe(false)
+  it('accepts the optional contact fields and rejects a malformed email', () => {
+    expect(schema.safeParse(body({ answers: { overall: 9, contact: { name: 'Rob', email: 'rob@example.com' } } })).success).toBe(true)
+    expect(schema.safeParse(body({ answers: { overall: 9, contact: {} } })).success).toBe(true)
+    expect(schema.safeParse(body({ answers: { overall: 9, contact: { email: '' } } })).success).toBe(true)
+    expect(schema.safeParse(body({ answers: { overall: 9, contact: { email: 'not-an-email' } } })).success).toBe(false)
+    expect(schema.safeParse(body({ answers: { overall: 9, contact: { email: 'rob at example.com' } } })).success).toBe(false)
+    expect(schema.safeParse(body({ answers: { overall: 9, contact: { sneaky: 'x' } } })).success).toBe(false)
+  })
+
+  it('caps the contact field lengths', () => {
+    expect(schema.safeParse(body({ answers: { overall: 9, contact: { name: 'x'.repeat(121) } } })).success).toBe(false)
+    expect(schema.safeParse(body({ answers: { overall: 9, contact: { email: 'x'.repeat(255) } } })).success).toBe(false)
   })
 
   it('trims text answers', () => {
@@ -58,15 +57,19 @@ describe('submission schema', () => {
   })
 
   it('compacts empty answers away', () => {
-    expect(compactAnswers({ overall: 9, went_well: '', next: { choices: [], text: '' }, numbers: { partner_records: '1200', hours_saved_per_week: '' } })).toEqual({
-      overall: 9,
-      numbers: { partner_records: '1200' },
-    })
+    expect(
+      compactAnswers({
+        overall: 9,
+        went_well: '',
+        next: { choices: [], text: '' },
+        contact: { name: 'Rob', email: '' },
+      }),
+    ).toEqual({ overall: 9, contact: { name: 'Rob' } })
   })
 })
 
 describe('consent gating', () => {
-  const consentBlock = (flags = allFlags(true)) => ({ consent: { version: form.consent.version, flags, draftQuote: true, referrals: 'Someone' } })
+  const consentBlock = (anonymousQuote = true) => ({ consent: { version: form.consent.version, anonymous_quote: anonymousQuote } })
 
   it.each([0, 3, 7])('a score of %i with a consent block is forbidden, never recorded', (score) => {
     const submission = schema.parse(body(consentBlock(), score))
@@ -78,22 +81,20 @@ describe('consent gating', () => {
   })
 
   it.each([8, 9, 10])('a score of %i records consent with the wording version and snapshot', (score) => {
-    const submission = schema.parse(body(consentBlock(), score))
+    const submission = schema.parse(body(consentBlock(true), score))
     const outcome = evaluateConsent(form, score, submission)
     expect(outcome.status).toBe('recorded')
     if (outcome.status !== 'recorded') return
     expect(outcome.version).toBe(form.consent.version)
     expect(outcome.snapshot).toBe(consentSnapshot(form))
-    expect(outcome.anyGiven).toBe(true)
-    expect(outcome.draftQuote).toBe(true)
-    for (const option of form.consent.options) expect(outcome.snapshot).toContain(option.label)
+    expect(outcome.anonymousQuote).toBe(true)
+    expect(outcome.snapshot).toContain(form.consent.heading)
+    expect(outcome.snapshot).toContain(`${form.consent.yesLabel} / ${form.consent.noLabel}`)
   })
 
-  it('records an all-unticked screen as no consent given', () => {
-    const submission = schema.parse(body(consentBlock(allFlags(false)), 9))
-    const outcome = evaluateConsent(form, 9, submission)
-    expect(outcome.status === 'recorded' && outcome.anyGiven).toBe(false)
-    expect(consentHeadline(outcome)).toBe('no consent given')
+  it('records a No answer as consent answered but not given', () => {
+    const outcome = evaluateConsent(form, 9, schema.parse(body(consentBlock(false), 9)))
+    expect(outcome.status === 'recorded' && outcome.anonymousQuote).toBe(false)
   })
 
   it('a high score without a consent block records nothing', () => {
@@ -101,67 +102,37 @@ describe('consent gating', () => {
   })
 
   it('rejects consent shown under a different wording version', () => {
-    const submission = schema.parse(body({ consent: { version: 'old', flags: allFlags(true) } }, 9))
+    const submission = schema.parse(body({ consent: { version: 'old', anonymous_quote: true } }, 9))
     expect(evaluateConsent(form, 9, submission)).toEqual({ status: 'stale' })
   })
 
-  it('requires all six flags to be explicit booleans', () => {
-    const { case_study: _omit, ...partial } = allFlags(true)
-    void _omit
-    expect(schema.safeParse(body({ consent: { version: form.consent.version, flags: partial } })).success).toBe(false)
-  })
-})
-
-describe('recipient tokens', () => {
-  const reviewerone = tokenFor('sample-feedback', 'ReviewerOne')!
-  it('uses unguessable tokens: 12+ characters, none equal to a first name', () => {
-    for (const name of ['ReviewerOne', 'ReviewerTwo', 'ReviewerThree']) {
-      const token = tokenFor('sample-feedback', name)!
-      expect(token.length).toBeGreaterThanOrEqual(12)
-      expect(token).not.toBe(name.toLowerCase())
-    }
-    expect(new Set(['ReviewerOne', 'ReviewerTwo', 'ReviewerThree'].map((n) => tokenFor('sample-feedback', n))).size).toBe(3)
-  })
-
-  it('maps known tokens to a display name, case-insensitively', () => {
-    expect(resolveRecipient('sample-feedback', reviewerone)).toEqual({ token: reviewerone, recipient: { name: 'ReviewerOne' } })
-    expect(resolveRecipient('sample-feedback', reviewerone.toUpperCase()).recipient?.name).toBe('ReviewerOne')
-    expect(resolveRecipient('sample-feedback', [reviewerone, 'x']).recipient?.name).toBe('ReviewerOne')
-  })
-
-  it('first names are no longer valid tokens: they resolve to nobody', () => {
-    for (const guess of ['reviewerone', 'reviewertwo', 'reviewerthree']) expect(resolveRecipient('sample-feedback', guess).recipient).toBeNull()
-  })
-
-  it('treats unknown tokens as anonymous', () => {
-    expect(resolveRecipient('sample-feedback', 'stranger').recipient).toBeNull()
-  })
-
-  it('does not resolve inherited object keys or other forms tokens', () => {
-    expect(resolveRecipient('sample-feedback', 'constructor').recipient).toBeNull()
-    expect(resolveRecipient('other-form', reviewerone).recipient).toBeNull()
-  })
-
-  it('rejects malformed tokens', () => {
-    expect(sanitizeToken('<script>')).toBeNull()
-    expect(sanitizeToken('a'.repeat(33))).toBeNull()
-    expect(sanitizeToken(undefined)).toBeNull()
-    expect(sanitizeToken('')).toBeNull()
+  it('requires the anonymous_quote flag to be an explicit boolean', () => {
+    expect(schema.safeParse(body({ consent: { version: form.consent.version } }, 9)).success).toBe(false)
+    expect(schema.safeParse(body({ consent: { version: form.consent.version, anonymous_quote: 'yes' } }, 9)).success).toBe(false)
   })
 })
 
 describe('email subject', () => {
-  const caseStudy = evaluateConsent(form, 9, schema.parse(body({ consent: { version: form.consent.version, flags: allFlags(true) } })))
-  it('names the respondent, score and consent headline', () => {
-    expect(feedbackSubject({ form, respondentName: 'ReviewerOne', score: 9, consent: caseStudy })).toBe('Sampleb544654a4d1a feedback from ReviewerOne: 9/10, case study OK')
+  const quoteYes = evaluateConsent(form, 9, schema.parse(body({ consent: { version: form.consent.version, anonymous_quote: true } })))
+  const quoteNo = evaluateConsent(form, 9, schema.parse(body({ consent: { version: form.consent.version, anonymous_quote: false } })))
+  it('names the respondent, score and quote consent', () => {
+    expect(feedbackSubject({ form, contactName: 'Rob', score: 9, consent: quoteYes })).toBe(
+      'Sample organization feedback from Rob: 9/10, quote anonymously: yes',
+    )
+    expect(feedbackSubject({ form, contactName: 'Rob', score: 9, consent: quoteNo })).toBe(
+      'Sample organization feedback from Rob: 9/10, quote anonymously: no',
+    )
   })
-  it('omits the consent headline below the threshold and handles anonymous', () => {
-    expect(feedbackSubject({ form, respondentName: null, score: 6, consent: { status: 'none' } })).toBe(
-      'Sampleb544654a4d1a feedback from an anonymous respondent: 6/10',
+  it('handles a skipped consent screen, anonymous respondents and low scores', () => {
+    expect(feedbackSubject({ form, contactName: null, score: 9, consent: { status: 'none' } })).toBe(
+      'Sample organization feedback from an anonymous respondent: 9/10, no consent given',
+    )
+    expect(feedbackSubject({ form, contactName: null, score: 6, consent: { status: 'none' } })).toBe(
+      'Sample organization feedback from an anonymous respondent: 6/10',
     )
   })
   it('never contains an em dash or a newline', () => {
-    const subject = feedbackSubject({ form, respondentName: 'A\nB', score: 9, consent: caseStudy })
+    const subject = feedbackSubject({ form, contactName: 'A\nB', score: 9, consent: quoteYes })
     expect(subject).not.toMatch(/—|\n/)
   })
 })

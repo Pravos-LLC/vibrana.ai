@@ -1,3 +1,4 @@
+import { siteContent } from '@/src/site-content'
 // AI Transformation Simulator copy (VIB-430, v2 dashboard). Copy is data (DESIGN.md § Page copy is data).
 //
 // v2 brief (John, 2026-10-15): the reader is about to go all-in on AI transformation with no
@@ -13,35 +14,35 @@
 
 import type { DataRule, FunctionId, OfferId, Pace, ProviderId, ReadinessAnswer, ReadinessDimension, SectorId, TeamMemberId } from '@/src/lib/simulator/types'
 
-export const SIM_META = {
+export const SIM_META = siteContent("simulator-content.SIM_META", {
   title: 'AI Transformation Simulator: your AI Transformation Roadmap | Vibrana',
   description:
     'Before you go all-in on AI, see what it costs to run, the time it takes and the capacity it frees, team by team. Outside help is priced separately, with prices shown up front. Ranges from published studies; every assumption editable.',
   ogAlt: 'Vibrana AI Transformation Simulator: an AI Transformation Roadmap for your company.',
   sharedTitle: (sector: string, band: string) => `AI Transformation Simulator: ${sector}, ${band} people | Vibrana`,
   sharedDescription: 'A two-year AI P&L for a company like this one: run cost, capacity freed by department, and where outside help fits.',
-} as const
+} as const)
 
-export const SIM_OG = {
+export const SIM_OG = siteContent("simulator-content.SIM_OG", {
   eyebrow: 'AI Transformation Simulator',
   headline: { lead: 'Your AI', accent: 'Transformation', trail: 'Roadmap' },
   alt: SIM_META.ogAlt,
-} as const
+} as const)
 
 // ---------------------------------------------------------------------------
 // Landing and input flow
 // ---------------------------------------------------------------------------
 
-export const SIM_INTRO = {
+export const SIM_INTRO = siteContent("simulator-content.SIM_INTRO", {
   eyebrow: 'AI Transformation Simulator',
   title: 'Your AI Transformation Roadmap',
   subtitle: 'You would not launch a new venture without a P&L. Before you go all-in on AI, see what it costs to run, the time it takes and the capacity it frees, team by team.',
   sampleCaption: 'An illustrative result for a 240-person insurer. Yours uses your website and your numbers.',
   sampleName: 'Sample insurer',
   sampleUrl: 'vibrana.ai/simulator',
-} as const
+} as const)
 
-export const SIM_STEPS = {
+export const SIM_STEPS = siteContent("simulator-content.SIM_STEPS", {
   company: {
     label: 'Start with your company',
     urlLabel: 'Company website',
@@ -93,10 +94,10 @@ export const SIM_STEPS = {
     paceValue: (pct: string) => `${pct} using AI`,
     submit: 'Show my model',
   },
-} as const
+} as const)
 
 /** The read shown in the top card when no website was read: where AI changes the economics of the sector. */
-export const SIM_SECTOR_READ: Record<SectorId, { aiRole: string; levers: string[] }> = {
+export const SIM_SECTOR_READ: Record<SectorId, { aiRole: string; levers: string[] }> = siteContent("simulator-content.SIM_SECTOR_READ", {
   'professional-services': {
     aiRole: 'Your product is expert time. AI takes the drafting, research and review out of that time, so the same people can deliver more work, with their own review on every output.',
     levers: ['Faster proposals and first drafts', 'Research and review in hours, not days', 'More capacity per expert'],
@@ -145,9 +146,9 @@ export const SIM_SECTOR_READ: Record<SectorId, { aiRole: string; levers: string[
     aiRole: 'Every company has repeatable work in service, finance, operations and sales. AI takes the repetitive share, and your people take the rest.',
     levers: ['Repetitive admin automated', 'Faster internal answers', 'More time for the work that grows the business'],
   },
-}
+})
 
-export const SIM_SECTOR_LABELS: Record<SectorId, string> = {
+export const SIM_SECTOR_LABELS: Record<SectorId, string> = siteContent("simulator-content.SIM_SECTOR_LABELS", {
   'professional-services': 'Professional services',
   'financial-services': 'Financial services',
   insurance: 'Insurance',
@@ -160,36 +161,36 @@ export const SIM_SECTOR_LABELS: Record<SectorId, string> = {
   education: 'Education',
   'public-nonprofit': 'Public sector and nonprofit',
   other: 'Other',
-}
+})
 
-export const SIM_PROVIDER_LABELS: Record<ProviderId, string> = {
+export const SIM_PROVIDER_LABELS: Record<ProviderId, string> = siteContent("simulator-content.SIM_PROVIDER_LABELS", {
   anthropic: 'Anthropic',
   openai: 'OpenAI',
   google: 'Google Gemini',
   'open-weight': 'Open-weight',
-}
+})
 
 /** Open-weight models are priced through OpenRouter; its mark identifies the option. */
-export const SIM_PROVIDER_LOGOS: Record<ProviderId, { src: string; alt: string; mono?: boolean }> = {
+export const SIM_PROVIDER_LOGOS: Record<ProviderId, { src: string; alt: string; mono?: boolean }> = siteContent("simulator-content.SIM_PROVIDER_LOGOS", {
   anthropic: { src: 'public-demo:logo', alt: 'Anthropic', mono: true },
   openai: { src: 'public-demo:logo', alt: 'OpenAI', mono: true },
   google: { src: 'public-demo:logo', alt: 'Google Gemini' },
   'open-weight': { src: 'public-demo:logo', alt: 'OpenRouter', mono: true },
-}
+})
 
-export const SIM_DATA_RULES: Record<DataRule, { label: string; hint: string }> = {
+export const SIM_DATA_RULES: Record<DataRule, { label: string; hint: string }> = siteContent("simulator-content.SIM_DATA_RULES", {
   public: { label: 'Public data only', hint: 'Nothing internal reaches a model.' },
   internal: { label: 'Internal data', hint: 'Your admin asks each provider for zero-data-retention terms. Not every plan offers them; if yours doesn’t, keep to public data or change plans.' },
   client: { label: 'Client data', hint: 'Under a data processing agreement reviewed by your legal or data protection lead.' },
-}
+})
 
-export const SIM_PACES: Record<Pace, { label: string }> = {
+export const SIM_PACES: Record<Pace, { label: string }> = siteContent("simulator-content.SIM_PACES", {
   cautious: { label: 'Cautious' },
   steady: { label: 'Steady' },
   ambitious: { label: 'Ambitious' },
-}
+})
 
-export const SIM_FUNCTION_LABELS: Record<FunctionId, string> = {
+export const SIM_FUNCTION_LABELS: Record<FunctionId, string> = siteContent("simulator-content.SIM_FUNCTION_LABELS", {
   support: 'Customer support',
   sales: 'Sales',
   marketing: 'Marketing',
@@ -198,10 +199,10 @@ export const SIM_FUNCTION_LABELS: Record<FunctionId, string> = {
   legal: 'Legal',
   people: 'People',
   software: 'Product and engineering',
-}
+})
 
 /** Short labels for the network visual. */
-export const SIM_FUNCTION_SHORT: Record<FunctionId | 'aiops', string> = {
+export const SIM_FUNCTION_SHORT: Record<FunctionId | 'aiops', string> = siteContent("simulator-content.SIM_FUNCTION_SHORT", {
   aiops: 'AI Ops',
   support: 'Customer',
   sales: 'Sales',
@@ -211,16 +212,16 @@ export const SIM_FUNCTION_SHORT: Record<FunctionId | 'aiops', string> = {
   legal: 'Legal',
   people: 'People',
   software: 'Product',
-}
+})
 
-export const SIM_REGION_LABELS = {
+export const SIM_REGION_LABELS = siteContent("simulator-content.SIM_REGION_LABELS", {
   us: 'United States',
   uk: 'United Kingdom',
   eu: 'European Union',
   de: 'Germany',
   fr: 'France',
   nl: 'Netherlands',
-} as const
+} as const)
 
 // ---------------------------------------------------------------------------
 // Dashboard
@@ -241,7 +242,7 @@ export const SIM_READINESS: {
     answer: string
     cta: string
   }
-} = {
+} = siteContent("simulator-content.SIM_READINESS", {
   heading: 'Where you start',
   sub: 'Six answers. The more ready you are, the sooner value arrives and the less it costs to get there.',
   notSure: 'Not sure',
@@ -310,10 +311,10 @@ export const SIM_READINESS: {
     answer: 'Set my baseline',
     cta: 'Take the full assessment',
   },
-}
+})
 
 /** Optional inputs: the tools a company already runs, and what its builders will pay for. */
-export const SIM_ADVANCED = {
+export const SIM_ADVANCED = siteContent("simulator-content.SIM_ADVANCED", {
   heading: 'Advanced',
   sub: 'Optional. Cost the tools your teams build with, and the AI seats of the tools you already use.',
   stackLabel: 'Tools you already use',
@@ -322,9 +323,9 @@ export const SIM_ADVANCED = {
   buildLabel: 'What your builders will pay for',
   buildHint: 'Each line scales with how many people build. Turn off what you will not use.',
   monthly: (usd: string) => `about ${usd} a month`,
-} as const
+} as const)
 
-export const SIM_STACK_LABELS = {
+export const SIM_STACK_LABELS = siteContent("simulator-content.SIM_STACK_LABELS", {
   notion: 'Notion',
   slack: 'Slack',
   linear: 'Linear',
@@ -334,10 +335,10 @@ export const SIM_STACK_LABELS = {
   jira: 'Jira',
   hubspot: 'HubSpot',
   salesforce: 'Salesforce',
-} as const
+} as const)
 
 /** The two ways to get there, and the running total that compares them. */
-export const SIM_DELIVERY = {
+export const SIM_DELIVERY = siteContent("simulator-content.SIM_DELIVERY", {
   label: 'How you get there',
   options: { consultant: 'With Vibrana', diy: 'On your own' },
   hints: {
@@ -356,9 +357,9 @@ export const SIM_DELIVERY = {
     behind: 'At your size, doing it yourself pays back faster.',
   },
   outside: (fee: string, months: number, support: string) => `Outside fees: ${fee} over ${months} months, then ${support} a month of support until month 12.`,
-} as const
+} as const)
 
-export const SIM_DASH = {
+export const SIM_DASH = siteContent("simulator-content.SIM_DASH", {
   nav: {
     overview: 'Overview',
     efficiency: 'Efficiency',
@@ -612,10 +613,10 @@ export const SIM_DASH = {
   },
   fineprint: (date: string) =>
     `Ranges use published research and model prices read on ${date}. Client and vendor figures are illustrations only and never enter the math. Not financial advice or a quote.`,
-} as const
+} as const)
 
 /** Service cards for the gallery, keyed by engine offer id. Images are manifest ids. */
-export const SIM_OFFERS: Record<OfferId, { title: string; body: string; image: string; imageAlt: string; priceNote?: string }> = {
+export const SIM_OFFERS: Record<OfferId, { title: string; body: string; image: string; imageAlt: string; priceNote?: string }> = siteContent("simulator-content.SIM_OFFERS", {
   'readiness-free': {
     title: 'Free readiness assessment',
     body: '24 questions, with your scores on screen when you finish.',
@@ -695,22 +696,22 @@ export const SIM_OFFERS: Record<OfferId, { title: string; body: string; image: s
     image: 'phase-embed',
     imageAlt: 'A handover between two teams',
   },
-}
+})
 
 /** What each person leads, as John set it on 2026-10-15. Names and photos come from ABOUT_TEAM. */
-export const SIM_TEAM: Record<TeamMemberId, { name: string; focus: string; first: string; word: string }> = {
+export const SIM_TEAM: Record<TeamMemberId, { name: string; focus: string; first: string; word: string }> = siteContent("simulator-content.SIM_TEAM", {
   john: { name: 'John Ellison', focus: 'Strategy', first: 'John', word: 'Strategy' },
   stephan: { name: 'Stephan Ledain', focus: 'Governance and behavioral science', first: 'Stephan', word: 'Governance' },
   abe: { name: 'Abe Isleem', focus: 'Workflow automation and engineering', first: 'Abe', word: 'Engineering' },
   chetan: { name: 'Chetan Nandakumar', focus: 'Company brain', first: 'Chetan', word: 'Brain' },
   fatma: { name: 'Fatma Ghedira', focus: 'People and culture', first: 'Fatma', word: 'People' },
-}
+})
 
 // ---------------------------------------------------------------------------
 // Assumptions drawer
 // ---------------------------------------------------------------------------
 
-export const SIM_DRAWER = {
+export const SIM_DRAWER = siteContent("simulator-content.SIM_DRAWER", {
   open: 'Assumptions',
   title: 'Assumptions',
   intro: 'Every value the model uses. Change any of them and the model re-runs at once.',
@@ -750,10 +751,10 @@ export const SIM_DRAWER = {
     ],
   },
   newWork: { label: 'Name the capacity for growth', hint: 'What the freed hours go to in the picture.', placeholder: 'Capacity for growth' },
-} as const
+} as const)
 
 /** Drill-down inside the assumptions drawer: where each number comes from. Display only. */
-export const SIM_DRILL = {
+export const SIM_DRILL = siteContent("simulator-content.SIM_DRILL", {
   heading: 'Where the numbers come from',
   intro: 'Open a group to see each value the model used, with its source.',
   ours: 'Our assumption',
@@ -804,13 +805,13 @@ export const SIM_DRILL = {
     saved: (low: string, high: string) => `${low} to ${high} of hours`,
     extrapolated: 'No study covers this team directly; the range is our extrapolation.',
   },
-} as const
+} as const)
 
 // ---------------------------------------------------------------------------
 // Leads and sharing
 // ---------------------------------------------------------------------------
 
-export const SIM_LEAD = {
+export const SIM_LEAD = siteContent("simulator-content.SIM_LEAD", {
   heading: 'Take this to your leadership team',
   sub: 'The full model as a PDF: every line item, the month-by-month plan and the assumptions appendix.',
   planCta: 'Get the full model (PDF)',
@@ -831,9 +832,9 @@ export const SIM_LEAD = {
   privacyLink: 'privacy policy',
   consentAfter: ', or email hello@vibrana.ai to delete your data.',
   cancel: 'Cancel',
-} as const
+} as const)
 
-export const SIM_SHARE = {
+export const SIM_SHARE = siteContent("simulator-content.SIM_SHARE", {
   heading: 'Share this dashboard',
   sub: 'An unlisted link with a preview card, using your company name, logo and homepage imagery. Anyone with the link can see it, and you can delete it any time.',
   copy: 'Copy link',
@@ -842,17 +843,17 @@ export const SIM_SHARE = {
   download: 'Download image',
   error: 'Could not create the link. Try again.',
   cardLine: 'Modeled with headcount flat',
-} as const
+} as const)
 
-export const SIM_SHARED_PAGE = {
+export const SIM_SHARED_PAGE = siteContent("simulator-content.SIM_SHARED_PAGE", {
   eyebrow: 'A shared simulation',
   intro: 'Someone shared this model with you. Run your own to change the numbers.',
   runYours: 'Run it for your company',
   gone: { title: 'This simulation was deleted', body: 'Its creator removed it. You can run your own; it is free.' },
-} as const
+} as const)
 
 /** Share card (OG image and downloadable PNG). */
-export const SIM_CARD = {
+export const SIM_CARD = siteContent("simulator-content.SIM_CARD", {
   eyebrow: 'AI Transformation Simulator',
   sizeLine: (sector: string, band: string, name: string | null) => `${name ? `${name} · ` : ''}${sector} · ${band} people`,
   value: 'Extra capacity a year',
@@ -861,4 +862,4 @@ export const SIM_CARD = {
   adoption: 'Work time freed',
   line: SIM_SHARE.cardLine,
   footer: (date: string) => `Model ranges, prices read ${date}. vibrana.ai/simulator`,
-} as const
+} as const)

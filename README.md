@@ -10,6 +10,6 @@ Draft case studies are hidden by default. Explicit local review requires `NODE_E
 
 This public demo uses cleared illustrations, synthetic SAMPLE interface diagrams and text attribution in place of excluded portraits and company marks. Decorative video is static. The download fixture is a text guide; the sticker ZIP contains32approved WebP previews, not original print files. Production private data and media delivery are separate configuration.
 
-Feedback recipients and invite tokens are synthetic public-demo fixtures, enabled only in local development and tests. Hosted deployments resolve named invitations only from server-only FEEDBACK_RECIPIENTS_JSON. Its schema is {schema:1,forms:{formSlug:{token:{name,role?}}}}. Generate private random lowercase tokens of16to32characters; never use public demo tokens. Invalid configuration is rejected. Configure the private mapping before production named invitations are enabled.
+Feedback forms are anonymous unless a respondent voluntarily provides contact details. Both the dynamic page and submission API use the same server-only `FEEDBACK_FORMS_JSON` configuration: `{ "schema": 1, "forms": { "form-slug": FeedbackFormConfig } }`. See [feedback configuration](docs/feedback-configuration.md). Hosted deployments require this configuration; the synthetic `sample-feedback` fixture is available only in local development and tests. No invitation tokens or recipient mapping are used.
 
 Source-available under FSL-1.1-ALv2, with the Apache-2.0 future license as described in LICENSE. The npm package remains private.

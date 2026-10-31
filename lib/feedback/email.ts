@@ -6,8 +6,8 @@ import { consentHeadline, type ConsentOutcome } from './submission'
 export type NotificationInput = {
   form: FeedbackFormConfig
   id: string
-  respondentName: string | null
-  respondentRole: string | null
+  /** From the optional contact step; null when the respondent stayed anonymous. */
+  contactName: string | null
   score: number
   answers: Record<string, unknown>
   consent: ConsentOutcome
@@ -17,8 +17,8 @@ function oneLine(value: string): string {
   return value.replace(/[\r\n]+/g, ' ').trim()
 }
 
-export function feedbackSubject(input: Pick<NotificationInput, 'form' | 'respondentName' | 'score' | 'consent'>): string {
-  const who = input.respondentName ? oneLine(input.respondentName) : 'an anonymous respondent'
+export function feedbackSubject(input: Pick<NotificationInput, 'form' | 'contactName' | 'score' | 'consent'>): string {
+  const who = input.contactName ? oneLine(input.contactName) : 'an anonymous respondent'
   const base = `${input.form.clientName} feedback from ${who}: ${input.score}/10`
   return input.score >= input.form.consent.minScore ? `${base}, ${consentHeadline(input.consent)}` : base
 }
@@ -37,9 +37,9 @@ function answerRows(question: FeedbackQuestion, raw: unknown): Row[] {
     }
     case 'text':
       return typeof raw === 'string' && raw ? [{ label: question.prompt, value: raw }] : []
-    case 'fields': {
-      const map = raw as Record<string, string>
-      const parts = question.fields.filter((f) => map[f.id]).map((f) => `${f.label}: ${map[f.id]}`)
+    case 'contact': {
+      const value = raw as { name?: string; email?: string }
+      const parts = [value.name, value.email].filter((part): part is string => typeof part === 'string' && part !== '')
       return parts.length ? [{ label: question.prompt, value: parts.join('\n') }] : []
     }
     case 'chips': {
@@ -54,9 +54,6 @@ function answerRows(question: FeedbackQuestion, raw: unknown): Row[] {
 export function notificationRows(input: NotificationInput): Row[] {
   const rows: Row[] = []
   for (const question of input.form.questions) rows.push(...answerRows(question, input.answers[question.id]))
-  const followUp = input.answers.follow_up as { draft_quote_requested?: boolean; who_else?: string } | undefined
-  if (followUp?.draft_quote_requested) rows.push({ label: 'Draft a quote for them to edit', value: 'Yes, please' })
-  if (followUp?.who_else) rows.push({ label: input.form.consent.referralLabel, value: followUp.who_else })
   return rows
 }
 
@@ -65,15 +62,11 @@ function consentLines(input: NotificationInput): string[] {
   if (consent.status !== 'recorded') {
     return [input.score >= form.consent.minScore ? 'Consent screen not completed.' : 'Consent screen not shown (score below threshold).']
   }
-  const lines = form.consent.options.map((o) => `${consent.flags[o.id] ? 'YES' : 'no '}  ${o.label}`)
-  lines.push(`Consent wording version: ${consent.version}`)
-  return lines
+  return [`Quote anonymously: ${consent.anonymousQuote ? 'Yes' : 'No'}`, `Consent wording version: ${consent.version}`]
 }
 
 export function feedbackEmailText(input: NotificationInput): string {
-  const who = input.respondentName
-    ? `${input.respondentName}${input.respondentRole ? `, ${input.respondentRole}` : ''}`
-    : 'Anonymous respondent'
+  const who = input.contactName ?? 'Anonymous respondent'
   return [
     `${input.form.clientName} feedback: ${input.score}/10`,
     `From: ${who}`,
@@ -87,9 +80,7 @@ export function feedbackEmailText(input: NotificationInput): string {
 }
 
 export function feedbackEmailHtml(input: NotificationInput): string {
-  const who = input.respondentName
-    ? `${input.respondentName}${input.respondentRole ? `, ${input.respondentRole}` : ''}`
-    : 'Anonymous respondent'
+  const who = input.contactName ?? 'Anonymous respondent'
   const rows = notificationRows(input)
     .map(
       (r) => `<tr><td style="padding:14px 0;border-top:1px solid #e4e4e7;">

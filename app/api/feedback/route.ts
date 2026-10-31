@@ -3,8 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { FROM_EMAIL, sendEmail } from '@/lib/resend'
 import { FORM_GUARDS, guardFieldsFromBody, guardSubmission } from '@/lib/form-guard/server'
-import { getFeedbackForm } from '@/src/feedback-content'
-import { resolveRecipient } from '@/lib/feedback/recipients'
+import { FeedbackFormsConfigurationError, getFeedbackForm } from '@/lib/feedback/forms'
 import {
   MAX_BODY_CHARS,
   buildSubmissionSchema,
@@ -26,8 +25,8 @@ function hashUserAgent(ua: string | null): string | null {
 
 /**
  * Saves one response. The row is written first and is the source of truth: a failed email is
- * logged and never turns into an error for the respondent, while a failed write is reported so
- * the form can offer a retry. The client supplies the row id, so a retry cannot double-save.
+ * logged and never turns into an error for the respondent, while a failed write is reported so the
+ * form can offer a retry. The client supplies the row id, so a retry cannot double-save.
  */
 export async function POST(request: NextRequest) {
   const declared = Number(request.headers.get('content-length') ?? 0)
@@ -46,7 +45,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
   }
 
-  const form = getFeedbackForm((raw as { slug?: unknown } | null)?.slug)
+  let form
+  try { form = getFeedbackForm((raw as { slug?: unknown } | null)?.slug) }
+  catch (error) {
+    if (error instanceof FeedbackFormsConfigurationError) return NextResponse.json({ error: SAVE_FAILED }, { status: 503 })
+    throw error
+  }
   if (!form) return NextResponse.json({ error: 'Unknown form.' }, { status: 404 })
 
   const parsed = buildSubmissionSchema(form).safeParse(raw)
@@ -82,28 +86,19 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const { token, recipient } = resolveRecipient(form.slug, submission.r)
-
   const answers = compactAnswers(submission.answers) as Record<string, unknown>
-  if (consent.status === 'recorded' && (consent.draftQuote || consent.referrals)) {
-    answers.follow_up = {
-      ...(consent.draftQuote ? { draft_quote_requested: true } : {}),
-      ...(consent.referrals ? { who_else: consent.referrals } : {}),
-    }
-  }
+  const contact = (answers.contact ?? {}) as { name?: unknown; email?: unknown }
+  const contactName = typeof contact.name === 'string' && contact.name ? contact.name : null
 
   const row = {
     id: submission.submissionId,
     slug: form.slug,
-    // Only a recognized token is stored; nothing from an unknown one is kept.
-    respondent_token: recipient ? token : null,
-    respondent_name: recipient?.name ?? null,
     answers,
     overall_score: score,
-    consent: consent.status === 'recorded' ? consent.flags : null,
+    consent: consent.status === 'recorded' ? { anonymous_quote: consent.anonymousQuote } : null,
     consent_text_version: consent.status === 'recorded' ? consent.version : null,
     consent_text_snapshot: consent.status === 'recorded' ? consent.snapshot : null,
-    consent_at: consent.status === 'recorded' && consent.anyGiven ? new Date().toISOString() : null,
+    consent_at: consent.status === 'recorded' && consent.anonymousQuote ? new Date().toISOString() : null,
     user_agent_hash: hashUserAgent(request.headers.get('user-agent')),
   }
 
@@ -111,7 +106,7 @@ export async function POST(request: NextRequest) {
   if (error) {
     // 23505: this id is already saved, so the first attempt worked and only its response was lost.
     if (error.code === '23505') return NextResponse.json({ success: true, saved: true })
-    console.error('[feedback] insert failed:', error.code, error.message)
+    console.error('[feedback] insert failed')
     return NextResponse.json({ error: SAVE_FAILED }, { status: 500 })
   }
 
@@ -123,13 +118,13 @@ export async function POST(request: NextRequest) {
       const input = {
         form,
         id: row.id,
-        respondentName: recipient?.name ?? null,
-        respondentRole: recipient?.role ?? null,
+        contactName,
         score,
         answers,
         consent,
       }
       const result = await sendEmail({
+        suppressErrorDetails: true,
         from: FROM_EMAIL,
         to: notifyTo,
         subject: feedbackSubject(input),
@@ -137,9 +132,9 @@ export async function POST(request: NextRequest) {
         text: feedbackEmailText(input),
         tags: [{ name: 'type', value: 'client-feedback' }],
       })
-      if (result.error) console.error('[feedback] notification email failed:', result.error.message)
-    } catch (err) {
-      console.error('[feedback] notification email threw:', err instanceof Error ? err.message : err)
+      if (result.error) console.error('[feedback] notification email failed')
+    } catch {
+      console.error('[feedback] notification email threw')
     }
   }
 

@@ -1,3 +1,4 @@
+import { siteContent } from '@/src/site-content'
 import { PublicDemoImg } from '@/src/components/PublicDemoImage'
 /**
  * FoundersNote — founder story card. Prism Light (strict DS).
@@ -42,7 +43,7 @@ export function FoundersNote({ className = '' }: { className?: string }) {
             <div className="flex flex-col items-start justify-between gap-4 border-t border-line-subtle pt-6 sm:flex-row sm:items-center">
               <div className="flex items-center gap-4">
                 <PublicDemoImg
-                  src="public-demo:portrait"
+                  src={siteContent("media.c3JjL2NvbXBvbmVudHMvRm91bmRlcnNOb3RlLnRzeDow", "public-demo:portrait")}
                   alt="John Ellison"
                   className="h-16 w-16 rounded-full object-cover"
                   style={{ border: '2px solid rgba(124,58,237,0.3)' }}

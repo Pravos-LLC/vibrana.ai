@@ -13,7 +13,7 @@ export default defineConfig({
     environment: 'node',
     // Hermetic: a developer shell that exports the Supabase key must not switch the form guard on.
     // Guard tests set FORM_GUARD_SECRET themselves.
-    env: { FORM_GUARD_SECRET: '', SUPABASE_SERVICE_KEY: '', SUPABASE_URL: '', FORM_GUARD_MIN_FILL_MS: '', VERCEL: '', VERCEL_ENV: '', FEEDBACK_RECIPIENTS_JSON: '' },
+    env: { FORM_GUARD_SECRET: '', SUPABASE_SERVICE_KEY: '', SUPABASE_URL: '', FORM_GUARD_MIN_FILL_MS: '', VERCEL: '', VERCEL_ENV: '', FEEDBACK_FORMS_JSON: '' },
     include: ['tests/**/*.test.ts'],
     coverage: {
       provider: 'v8',

@@ -1,7 +1,8 @@
+import { siteContent } from '@/src/site-content'
 // Simulator landing page, Team and FAQ section. Copy is data.
 // Facts: research/simulator-copy-brief.md (verified-facts table). Nothing here is invented.
 
-export const TEAM_CONTENT = {
+export const TEAM_CONTENT = siteContent("simulator-landing-faq-content.TEAM_CONTENT", {
   id: 'team',
   eyebrow: 'The team',
   title: 'Who you would work with',
@@ -11,7 +12,7 @@ export const TEAM_CONTENT = {
     { id: 'stephan', name: 'Stephan', focus: 'Governance', photo: 'public-demo:portrait', alt: 'Stephan Ledain' },
     { id: 'fatma', name: 'Fatma', focus: 'People', photo: 'public-demo:portrait', alt: 'Fatma Ghedira' },
   ],
-} as const
+} as const)
 
 export interface FaqItem {
   id: string
@@ -19,7 +20,7 @@ export interface FaqItem {
   answer: string
 }
 
-export const FAQ_CONTENT = {
+export const FAQ_CONTENT = siteContent("simulator-landing-faq-content.FAQ_CONTENT", {
   id: 'faq',
   eyebrow: 'Fair questions',
   title: 'Before you forward it',
@@ -61,4 +62,4 @@ export const FAQ_CONTENT = {
         'Read it as a range, not a single figure. Three scenarios run over 24 months, from low benefit with high cost to the reverse, and headline values are read at month 12. Prices were read on 2026-10-15 and are re-read at least every 90 days.',
     },
   ] satisfies FaqItem[],
-} as const
+} as const)

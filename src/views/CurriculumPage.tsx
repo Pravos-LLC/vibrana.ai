@@ -1,4 +1,6 @@
 'use client'
+import { CURRICULUM_HERO_GEOMETRY } from '@/src/curriculum-content'
+import { siteContent } from '@/src/site-content'
 
 import Link from 'next/link'
 import Image from '@/src/components/PublicDemoImage'
@@ -57,10 +59,10 @@ export default function CurriculumPage() {
               phone (day lesson) screenshots, layered as one hero collage. */}
           <div className="hidden lg:block" aria-hidden>
             <Image
-              src="/assets/public-demo/platform-hero.svg"
+              src={siteContent("media.c3JjL3ZpZXdzL0N1cnJpY3VsdW1QYWdlLnRzeDow", "/assets/public-demo/platform-hero.svg")}
               alt=""
-              width={1200}
-              height={760}
+              width={CURRICULUM_HERO_GEOMETRY.width}
+              height={CURRICULUM_HERO_GEOMETRY.height}
               className="mx-auto h-auto w-full max-w-xl"
               priority
             />
@@ -112,7 +114,7 @@ export default function CurriculumPage() {
           <div className="mt-12 grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto]">
             <figure>
               <BrowserFrame
-                src="/assets/public-demo/daily-lesson-desktop.svg"
+                src={siteContent("media.c3JjL3ZpZXdzL0N1cnJpY3VsdW1QYWdlLnRzeDox", "/assets/public-demo/daily-lesson-desktop.svg")}
                 alt="A learner's daily curriculum lesson in the Vibrana platform"
                 width={1600}
                 height={1000}
@@ -123,7 +125,7 @@ export default function CurriculumPage() {
             </figure>
             <figure className="mx-auto w-[228px] lg:mx-0">
               <PhoneFrame
-                src="/assets/public-demo/daily-lesson-mobile.svg"
+                src={siteContent("media.c3JjL3ZpZXdzL0N1cnJpY3VsdW1QYWdlLnRzeDoy", "/assets/public-demo/daily-lesson-mobile.svg")}
                 alt="The Vibrana daily lesson on a mobile phone"
                 width={600}
                 height={1300}
@@ -138,7 +140,7 @@ export default function CurriculumPage() {
           <div className="mt-12 grid gap-8 sm:grid-cols-2">
             <figure>
               <BrowserFrame
-                src="/assets/public-demo/readiness-profile-desktop.svg"
+                src={siteContent("media.c3JjL3ZpZXdzL0N1cnJpY3VsdW1QYWdlLnRzeDoz", "/assets/public-demo/readiness-profile-desktop.svg")}
                 alt="A participant's AI-readiness profile with a composite score and category breakdown"
                 width={1600}
                 height={1000}
@@ -149,7 +151,7 @@ export default function CurriculumPage() {
             </figure>
             <figure>
               <BrowserFrame
-                src="/assets/public-demo/admin-dashboard-desktop.svg"
+                src={siteContent("media.c3JjL3ZpZXdzL0N1cnJpY3VsdW1QYWdlLnRzeDo0", "/assets/public-demo/admin-dashboard-desktop.svg")}
                 alt="The Vibrana admin dashboard showing engagement and progress analytics"
                 width={1600}
                 height={1000}

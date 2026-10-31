@@ -5,6 +5,8 @@ const resendClient = new Resend(process.env.RESEND_API_KEY)
 export const FROM_EMAIL = process.env.FROM_EMAIL || 'John Ellison <john@vibrana.ai>'
 
 interface EmailPayload {
+  /** Sensitive feedback never logs provider exception payloads. Not forwarded to Resend. */
+  suppressErrorDetails?: boolean
   from: string
   to: string
   subject: string
@@ -50,8 +52,12 @@ export async function sendEmail(payload: EmailPayload): Promise<EmailResult> {
     }
   } catch (e) {
     const error = e as Error
-    console.error('Resend SDK error:', error)
-    console.error('Error details:', JSON.stringify(e))
+    if (payload.suppressErrorDetails) {
+      console.error('Resend SDK error')
+    } else {
+      console.error('Resend SDK error:', error)
+      console.error('Error details:', JSON.stringify(e))
+    }
     return {
       data: null,
       error: { message: error.message, name: 'sdk_error' }

@@ -1,4 +1,5 @@
 'use client';
+import { siteContent } from '@/src/site-content'
 import { PublicDemoImg } from '@/src/components/PublicDemoImage'
 
 /**
@@ -323,7 +324,7 @@ Thanks!`;
               >
                 <div className="aspect-video overflow-hidden">
                   <PublicDemoImg 
-                    src="/assets/imagery/homepage/prism-grid-solar.webp"
+                    src={siteContent("media.c3JjL3ZpZXdzL1ZpYnJhbmFJbW1lcnNpdmVQYWdlLnRzeDow", "/assets/imagery/homepage/prism-grid-solar.webp")}
                     alt="Panorama Point of Taghazout"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -352,7 +353,7 @@ Thanks!`;
               >
                 <div className="aspect-video overflow-hidden">
                   <PublicDemoImg 
-                    src="/assets/imagery/homepage/prism-grid-solar.webp"
+                    src={siteContent("media.c3JjL3ZpZXdzL1ZpYnJhbmFJbW1lcnNpdmVQYWdlLnRzeDox", "/assets/imagery/homepage/prism-grid-solar.webp")}
                     alt="Retreat setting — palm valley"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -381,7 +382,7 @@ Thanks!`;
               >
                 <div className="aspect-video overflow-hidden">
                   <PublicDemoImg 
-                    src="/assets/imagery/homepage/prism-grid-solar.webp"
+                    src={siteContent("media.c3JjL3ZpZXdzL1ZpYnJhbmFJbW1lcnNpdmVQYWdlLnRzeDoy", "/assets/imagery/homepage/prism-grid-solar.webp")}
                     alt="Banana Point Surf"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -410,7 +411,7 @@ Thanks!`;
               >
                 <div className="aspect-video overflow-hidden">
                   <PublicDemoImg 
-                    src="/assets/imagery/homepage/prism-grid-solar.webp"
+                    src={siteContent("media.c3JjL3ZpZXdzL1ZpYnJhbmFJbW1lcnNpdmVQYWdlLnRzeDoz", "/assets/imagery/homepage/prism-grid-solar.webp")}
                     alt="Moroccan Village"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />

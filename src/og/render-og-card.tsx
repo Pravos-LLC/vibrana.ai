@@ -1,3 +1,4 @@
+import { siteContent } from '@/src/site-content'
 import { PublicDemoImg } from '@/src/components/PublicDemoImage'
 // Shared renderer for the Open Graph / Twitter share cards (app/**/opengraph-image.tsx).
 // Prism Light: white canvas, Bricolage Grotesque display, one Playfair italic
@@ -44,7 +45,7 @@ async function png(publicPath: string, size: number) {
 const TILES = {
   team: { src: '/assets/imagery/sprint/sprint-whiteboard-team.webp', w: 272, h: 340 },
   laptop: { src: '/assets/imagery/sprint/sprint-prototype-laptop.webp', w: 270, h: 180 },
-  hourglass: { src: '/assets/imagery/homepage/prism-grid-solar.webp', w: 136, h: 136 },
+  hourglass: { src: siteContent("media.c3JjL29nL3JlbmRlci1vZy1jYXJkLnRzeDoy", '/assets/imagery/homepage/prism-grid-solar.webp'), w: 136, h: 136 },
 } as const
 
 export async function renderOgCard(copy: OgCardCopy) {
@@ -52,7 +53,7 @@ export async function renderOgCard(copy: OgCardCopy) {
     font('BricolageGrotesque-SemiBold.ttf'),
     font('PlayfairDisplay-SemiBoldItalic.ttf'),
     font('HankenGrotesk-Medium.ttf'),
-    png('/assets/vibrana-v-prism-96.webp', 48),
+    png(siteContent("media.c3JjL29nL3JlbmRlci1vZy1jYXJkLnRzeDoz", '/assets/vibrana-v-prism-96.webp'), 48),
     tile(TILES.team.src, TILES.team.w, TILES.team.h),
     tile(TILES.laptop.src, TILES.laptop.w, TILES.laptop.h),
     tile(TILES.hourglass.src, TILES.hourglass.w, TILES.hourglass.h),

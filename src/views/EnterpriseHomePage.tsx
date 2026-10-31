@@ -1,4 +1,5 @@
 'use client'
+import { siteContent } from '@/src/site-content'
 
 import React from 'react'
 import Link from 'next/link'
@@ -75,7 +76,7 @@ const HERO_FLOATING_TILES: FloatingCardsTile[] = [
   // Mixed orientation and scale, after the /ai-build-sprint collage: a tall portrait,
   // a wide frame, a landscape and two small circles, so the sides read as composed.
   { src: '/assets/imagery/sprint/sprint-whiteboard-team.webp', width: 'w-[12%] 2xl:w-[15%]', aspect: 'aspect-4/5', top: '4%', left: '3%', rotate: -3, depth: 70, index: 0 },
-  { src: '/assets/imagery/homepage/prism-grid-solar.webp', width: 'w-[13%] 2xl:w-[16%]', aspect: 'aspect-video', top: '64%', left: '6%', rotate: 2.5, depth: 150, index: 1 },
+  { src: siteContent("media.c3JjL3ZpZXdzL0VudGVycHJpc2VIb21lUGFnZS50c3g6MQ", '/assets/imagery/homepage/prism-grid-solar.webp'), width: 'w-[13%] 2xl:w-[16%]', aspect: 'aspect-video', top: '64%', left: '6%', rotate: 2.5, depth: 150, index: 1 },
   { src: '/assets/imagery/homepage/teams-call-diptych.webp', width: 'w-[15%] 2xl:w-[18%]', aspect: 'aspect-16/10', top: '8%', right: '3%', rotate: 3, depth: 110, index: 3 },
   { src: '/assets/imagery/homepage/ppl-cafe-laptop.webp', width: 'w-[11%] 2xl:w-[14%]', aspect: 'aspect-3/2', top: '60%', right: '6%', rotate: -2.5, depth: 170, index: 4 },
 ]
@@ -96,7 +97,7 @@ const S = ENTERPRISE_HOME_SECTIONS
 
 // Sampleca6cf3fe07ce's card image: the company-wide call the six-week season ran on.
 const SECOND_CASE_STUDY_IMAGE = {
-  src: '/assets/imagery/homepage/prism-grid-solar.webp',
+  src: siteContent("media.c3JjL3ZpZXdzL0VudGVycHJpc2VIb21lUGFnZS50c3g6NA", '/assets/imagery/homepage/prism-grid-solar.webp'),
   alt: 'Over the shoulder of someone on a company-wide video call, a gallery of colleagues from several offices on the laptop screen',
 }
 

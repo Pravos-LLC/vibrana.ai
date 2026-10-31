@@ -1,3 +1,4 @@
+import { siteContent } from '@/src/site-content'
 /**
  * Constants for Vibrana landing page
  * - DAYS: 5-day curriculum nodes with icons
@@ -33,14 +34,14 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Charlie Pool",
     role: "Head of Carbon Advisory",
     company: "Howden",
-    image: "/assets/imagery/homepage/prism-grid-solar.webp",
+    image: siteContent("media.c3JjL2NvbnN0YW50cy50c3g6MA", "/assets/imagery/homepage/prism-grid-solar.webp"),
   },
   {
     quote: "In just two weeks, I've been able to build several apps and websites. Your emails have honestly been clearer and more helpful than many YouTube tutorials.",
     name: "Patrick Amiabi",
     role: "Founder",
     company: "CivicChain",
-    image: "public-demo:portrait",
+    image: siteContent("media.c3JjL2NvbnN0YW50cy50c3g6MQ", "public-demo:portrait"),
     linkedin: "https://www.linkedin.com/in/patrickamaibi",
   },
 ];

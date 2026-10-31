@@ -1,12 +1,10 @@
 // Validation and consent gating for client feedback, built from the form config so a new client
 // form needs no new schema code. Pure functions: the route handler and the tests both use them.
 import { z } from 'zod'
-import type { FeedbackConsentOptionId, FeedbackFormConfig, FeedbackQuestion } from '@/src/feedback-content'
+import type { FeedbackFormConfig, FeedbackQuestion } from '@/src/feedback-content'
 
 /** Hard cap on the request body, in characters. A full response is well under 10 KB. */
 export const MAX_BODY_CHARS = 32_000
-
-export type ConsentFlags = Record<FeedbackConsentOptionId, boolean>
 
 function cleanText(max: number) {
   return z
@@ -26,11 +24,16 @@ function questionSchema(question: FeedbackQuestion): z.ZodType {
     }
     case 'text':
       return cleanText(question.maxLength)
-    case 'fields': {
-      const shape: Record<string, z.ZodType> = {}
-      for (const field of question.fields) shape[field.id] = cleanText(question.maxLength).optional()
-      return z.object(shape).strict()
-    }
+    case 'contact':
+      // Optional follow-up details. Empty strings are fine; a non-empty email must look like one.
+      return z
+        .object({
+          name: cleanText(question.nameMaxLength).optional(),
+          email: cleanText(question.emailMaxLength)
+            .refine((value) => value === '' || z.email().safeParse(value).success, { message: 'invalid email' })
+            .optional(),
+        })
+        .strict()
     case 'chips':
       return z
         .object({
@@ -49,24 +52,16 @@ export function buildSubmissionSchema(form: FeedbackFormConfig) {
     answerShape[question.id] = question.id === form.scoreQuestionId ? questionSchema(question) : questionSchema(question).optional()
   }
 
-  const consentShape = Object.fromEntries(form.consent.options.map((o) => [o.id, z.boolean()])) as Record<
-    FeedbackConsentOptionId,
-    z.ZodBoolean
-  >
-
   return z.object({
     slug: z.literal(form.slug),
     // Client-generated, so a retry after a lost response cannot save the same answers twice.
     submissionId: z.string().uuid(),
-    r: z.string().max(64).nullish(),
     answers: z.object(answerShape).strict(),
-    // Present only when the respondent was shown the consent screen.
+    // Present only when the respondent answered the yes/no consent screen.
     consent: z
       .object({
         version: z.string().max(100),
-        flags: z.object(consentShape).strict(),
-        draftQuote: z.boolean().optional(),
-        referrals: cleanText(form.consent.referralMaxLength).optional(),
+        anonymous_quote: z.boolean(),
       })
       .strict()
       .nullish(),
@@ -89,32 +84,18 @@ export type ConsentOutcome =
   | { status: 'forbidden' }
   | {
       status: 'recorded'
-      flags: ConsentFlags
+      anonymousQuote: boolean
       version: string
       snapshot: string
-      anyGiven: boolean
-      draftQuote: boolean
-      referrals: string | null
     }
 
 /**
  * Every consent-related string the respondent sees, in screen order: the welcome-screen privacy
- * line, then the consent screen's heading, intro, group label, each checkbox, the draft-quote box
- * with its aside, and the referral prompt with its placeholder. Stored with every consent record.
+ * line, the consent screen heading, and its Yes / No answer options. Stored with every consent record.
  */
 export function consentCopy(form: FeedbackFormConfig): string[] {
   const c = form.consent
-  return [
-    c.privacyLine,
-    c.heading,
-    c.intro,
-    c.groupLabel,
-    ...c.options.map((o) => o.label),
-    c.draftQuoteLabel,
-    c.draftQuoteAside,
-    c.referralLabel,
-    c.referralPlaceholder,
-  ]
+  return [c.privacyLine, c.heading, c.yesLabel, c.noLabel]
 }
 
 export function consentSnapshot(form: FeedbackFormConfig): string {
@@ -122,11 +103,7 @@ export function consentSnapshot(form: FeedbackFormConfig): string {
   const lines = [
     `Welcome screen: ${c.privacyLine}`,
     `Consent screen heading: ${c.heading}`,
-    `Intro: ${c.intro}`,
-    `Group label: ${c.groupLabel}`,
-    ...c.options.map((o) => `[ ] ${o.label}`),
-    `[ ] ${c.draftQuoteLabel} (${c.draftQuoteAside})`,
-    `${c.referralLabel} (${c.referralPlaceholder})`,
+    `Answer options: ${c.yesLabel} / ${c.noLabel}`,
   ]
   return lines.join('\n')
 }
@@ -142,15 +119,11 @@ export function evaluateConsent(form: FeedbackFormConfig, score: number, submiss
   if (score < form.consent.minScore) return block ? { status: 'forbidden' } : { status: 'none' }
   if (!block) return { status: 'none' }
   if (block.version !== form.consent.version) return { status: 'stale' }
-  const flags = block.flags as ConsentFlags
   return {
     status: 'recorded',
-    flags,
+    anonymousQuote: block.anonymous_quote,
     version: form.consent.version,
     snapshot: consentSnapshot(form),
-    anyGiven: Object.values(flags).some(Boolean),
-    draftQuote: block.draftQuote === true,
-    referrals: block.referrals ? block.referrals : null,
   }
 }
 
@@ -174,10 +147,6 @@ export function compactAnswers(value: unknown): unknown {
 
 /** Short summary for the email subject. */
 export function consentHeadline(outcome: ConsentOutcome): string {
-  if (outcome.status !== 'recorded' || !outcome.anyGiven) return 'no consent given'
-  const f = outcome.flags
-  if (f.case_study) return 'case study OK'
-  if (f.named_quote) return 'named quote OK'
-  if (f.anonymous_quote) return 'anonymous quote OK'
-  return 'consent given'
+  if (outcome.status !== 'recorded') return 'no consent given'
+  return `quote anonymously: ${outcome.anonymousQuote ? 'yes' : 'no'}`
 }
