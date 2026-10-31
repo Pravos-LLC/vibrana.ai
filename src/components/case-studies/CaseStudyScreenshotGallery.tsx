@@ -169,7 +169,11 @@ export function CaseStudyArtifactOverview({ studySlug }: { studySlug: string }) 
           <div className="relative border-y border-line-subtle py-10 md:py-12">
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(255,255,255,0.88)_0%,rgba(255,255,255,0)_22%,rgba(255,255,255,0)_78%,rgba(255,255,255,0.88)_100%)]"
+              className="pointer-events-none absolute inset-0 z-10"
+              style={{
+                background:
+                  'linear-gradient(90deg, color-mix(in srgb, var(--surface-base), transparent 12%) 0%, transparent 22%, transparent 78%, color-mix(in srgb, var(--surface-base), transparent 12%) 100%)',
+              }}
             />
 
             <ul
@@ -206,7 +210,7 @@ export function CaseStudyArtifactOverview({ studySlug }: { studySlug: string }) 
                 onClick={() => scrollBy(-1)}
                 disabled={centerIndex <= 0}
                 aria-label="Previous preview"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line-subtle bg-white text-ink transition-colors hover:bg-surface-overlay disabled:pointer-events-none disabled:opacity-30"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line-subtle bg-surface-card text-ink transition-colors hover:bg-surface-overlay disabled:pointer-events-none disabled:opacity-30"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
@@ -230,7 +234,7 @@ export function CaseStudyArtifactOverview({ studySlug }: { studySlug: string }) 
                 onClick={() => scrollBy(1)}
                 disabled={centerIndex >= shots.length - 1}
                 aria-label="Next preview"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line-subtle bg-white text-ink transition-colors hover:bg-surface-overlay disabled:pointer-events-none disabled:opacity-30"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line-subtle bg-surface-card text-ink transition-colors hover:bg-surface-overlay disabled:pointer-events-none disabled:opacity-30"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>

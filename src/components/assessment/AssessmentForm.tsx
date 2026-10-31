@@ -488,7 +488,7 @@ export default function AITransformationPage({ onAssessmentStart }: AssessmentFo
                 {c.shared.selectTeamSize}
               </option>
               {INQUIRY_OPTIONS.teamSizes.map((opt) => (
-                <option key={opt} value={opt} className="bg-white text-ink">
+              <option key={opt} value={opt} className="bg-surface-card text-ink">
                   {opt}
                 </option>
               ))}
@@ -507,7 +507,7 @@ export default function AITransformationPage({ onAssessmentStart }: AssessmentFo
                 {c.shared.selectRevenue}
               </option>
               {INQUIRY_OPTIONS.revenueBands.map((opt) => (
-                <option key={opt} value={opt} className="bg-white text-ink">
+              <option key={opt} value={opt} className="bg-surface-card text-ink">
                   {opt}
                 </option>
               ))}

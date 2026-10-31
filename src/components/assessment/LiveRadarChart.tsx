@@ -107,7 +107,7 @@ export default function LiveRadarChart({
       <div ref={chartContainerRef} className="w-full h-[220px] relative">
         {/* Loading Overlay */}
         {isAnalyzing && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 backdrop-blur-xs rounded-xl">
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-surface-card/80 backdrop-blur-xs rounded-xl">
             <div className="text-center">
               <div className="w-8 h-8 mx-auto mb-2 relative">
                 <div className="absolute inset-0 rounded-full border-2 border-line-subtle" />
