@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { productionSite } from '@/src/site-content'
 import Image from '@/src/components/PublicDemoImage'
 import { EnterprisePageShell } from '@/src/components/enterprise/EnterprisePageShell'
 import { Button, Eyebrow, GradientText, Reveal, Section } from '@/src/components/prism'
@@ -9,6 +10,8 @@ import {
   SWAG_STICKER_SECTION,
   STICKER_THEMES,
   SWAG_STICKER_DOWNLOAD,
+  SWAG_SHIRT_SECTION,
+  SWAG_SHIRTS,
   SWAG_CLOSING,
 } from '@/src/swag-content'
 
@@ -92,6 +95,42 @@ export default function SwagPage() {
           ))}
         </div>
       </Section>
+
+      {productionSite && <>
+      <Section container="wide" rhythm="large" surface="raised">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow gradient={SWAG_SHIRT_SECTION.gradient}>{SWAG_SHIRT_SECTION.eyebrow}</Eyebrow>
+          <h2 className="mt-4 text-2xl font-semibold leading-tight text-ink md:text-3xl">
+            {SWAG_SHIRT_SECTION.heading}
+            <GradientText gradient={SWAG_SHIRT_SECTION.gradient} className="font-serif-accent">
+              {SWAG_SHIRT_SECTION.gradientWord}
+            </GradientText>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-ink-secondary">
+            {SWAG_SHIRT_SECTION.intro}
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
+          {SWAG_SHIRTS.map((shirt) => (
+            <Reveal key={shirt.slug}>
+              <div className={`${panel} overflow-hidden p-4`}>
+                <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-[#111111]">
+                  <Image
+                    src={shirt.image}
+                    alt={shirt.imageAlt}
+                    fill
+                    sizes="(min-width: 640px) 40vw, 90vw"
+                    className="object-contain p-2"
+                  />
+                </div>
+                <p className="mt-4 text-center text-sm leading-snug text-ink-secondary">{shirt.caption}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+      </>}
 
       {/* CLOSING */}
       <Section container="prose" rhythm="large">

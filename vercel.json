@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "next build --webpack",
+  "buildCommand": "npm run build -- --webpack",
   "headers": [
     {
       "source": "/assets/(.*)",

@@ -1,3 +1,4 @@
+import { siteContent } from '@/src/site-content'
 // About page content. Copy is data (repo rule).
 //
 // Vibrana presents as a small, senior, hands-on studio — no Collective framing
@@ -11,7 +12,7 @@
 // planetary-crisis imagery on the right. Narrative-led rather than a plain
 // description, so `topEyebrow` says outright what Vibrana is, and `eyebrow`
 // labels the panel below the headline.
-export const ABOUT_HERO = {
+export const ABOUT_HERO = siteContent("about-content.ABOUT_HERO", {
   topEyebrow: 'AI Transformation Studio',
   eyebrow: 'About Vibrana',
   seamLeft: 'We build for',
@@ -21,7 +22,7 @@ export const ABOUT_HERO = {
     'Vibrana sits between transhumanist ambition and planetary crisis, building the agentic systems that let organizations move fast without losing what matters.',
   ctaPrimary: { label: 'Start a project', href: '/contact' },
   ctaSecondary: { label: 'See our approach', href: '#approach' },
-}
+})
 
 export interface AboutHeroImage {
   /** Path under /public. */
@@ -44,7 +45,7 @@ const HERO_CRISIS_ACCENTS: [string, string] = ['245,158,11', '239,68,68'] // amb
 // Real photography (AI-generated + Unsplash-sourced + one NASA public-domain
 // Earth photo) first; abstract role-art illustrations stay at the end as a
 // fallback so the pool is never empty even if a real asset goes missing.
-export const ABOUT_HERO_IMAGES: { machine: AboutHeroImage[]; crisis: AboutHeroImage[] } = {
+export const ABOUT_HERO_IMAGES: { machine: AboutHeroImage[]; crisis: AboutHeroImage[] } = siteContent("about-content.ABOUT_HERO_IMAGES", {
   machine: [
     {
       src: '/assets/imagery/homepage/prism-grid-solar.webp',
@@ -149,22 +150,22 @@ export const ABOUT_HERO_IMAGES: { machine: AboutHeroImage[]; crisis: AboutHeroIm
       accents: HERO_CRISIS_ACCENTS, seed: 23,
     },
   ],
-}
+})
 
-export const ABOUT_WHAT = {
+export const ABOUT_WHAT = siteContent("about-content.ABOUT_WHAT", {
   eyebrow: 'What we do',
   title: 'We implement. We don\'t advise.',
   body: `Most AI initiatives stall because someone wrote a plan and left. We do the opposite: we pair with your internal teams to build in your environment, mapping how the organization really works, standing up the agentic systems that run on that map, and training every person for their actual job. When we leave, your people own the systems and know how to evolve them.`,
-}
+})
 
-export const ABOUT_WHY = {
+export const ABOUT_WHY = siteContent("about-content.ABOUT_WHY", {
   eyebrow: 'Why it matters',
   title: 'AI transformation is a people change first.',
   body: "The hard part of AI isn't the tools - it's the redesign. The habits, hand-offs, and org structures built for a pre-AI world quietly smother new capability before it takes hold. We believe the goal of transformation should be to build lasting capacity - for your people, your organization, and the world we all depend on. We treat this work as what it is: the hardest professional change most teams will go through, and one worth doing properly.",
-}
+})
 
 // How we work — three plain principles (no collective language).
-export const ABOUT_PRINCIPLES = {
+export const ABOUT_PRINCIPLES = siteContent("about-content.ABOUT_PRINCIPLES", {
   eyebrow: 'How we work',
   title: 'Senior-led. Hands-on. Yours to keep.',
   principles: [
@@ -181,7 +182,7 @@ export const ABOUT_PRINCIPLES = {
       description: 'Every engagement trains a named internal lead who can run and evolve what we built after we go.',
     },
   ],
-}
+})
 
 // Team roster. Abe + Chetan + JE + FGE. Bios/photos are SLOTS — JE to fill.
 // photo: null renders an initials avatar placeholder.
@@ -215,7 +216,7 @@ export interface TeamMember {
 // DRAFT bios — synthesised from public sources (john-ellison.com, cooncircles.com,
 // stephanledain.com/AdaptAI, the Sample235fedd93a54 deck, AIOS, LinkedIn). JE to review + tweak.
 // Photos are still slots (only JE's is set) — null renders an initials avatar.
-export const ABOUT_TEAM: { eyebrow: string; title: string; members: TeamMember[] } = {
+export const ABOUT_TEAM: { eyebrow: string; title: string; members: TeamMember[] } = siteContent("about-content.ABOUT_TEAM", {
   eyebrow: 'The team',
   title: 'The people who do the work.',
   members: [
@@ -277,10 +278,10 @@ export const ABOUT_TEAM: { eyebrow: string; title: string; members: TeamMember[]
       ],
     },
   ],
-}
+})
 
 // The recruiting card that sits in the team grid, next to the last real teammate.
-export const ABOUT_JOIN_US = {
+export const ABOUT_JOIN_US = siteContent("about-content.ABOUT_JOIN_US", {
   image: 'public-demo:portrait',
   imageAlt: 'A soft, anonymous silhouette — a placeholder for whoever joins next',
   caption: 'Your photo here?',
@@ -288,7 +289,7 @@ export const ABOUT_JOIN_US = {
   body: "We're looking for principal-level, multidisciplinary AI transformation specialists: deep expertise in one domain, 10+ years of experience, comfortable being the senior person in the room on day one.",
   cta: { text: 'Get in touch', href: '/contact' },
   angle: -2.5,
-}
+})
 
 // Life on Film culture strip. Reuses the same five real, already-graded team
 // photos as the /prism FilmRoll demo (public/assets/team/polaroid/). No
@@ -296,7 +297,7 @@ export const ABOUT_JOIN_US = {
 // rules. Alt text still carries each real name for accessibility even though
 // FilmRoll never renders name labels visually. See
 // research/homepage-visual-exploration/13-life-on-film-language.md.
-export const ABOUT_FILM_ROLL = {
+export const ABOUT_FILM_ROLL = siteContent("about-content.ABOUT_FILM_ROLL", {
   frames: [
     { src: 'public-demo:portrait', alt: 'John Ellison, founder' },
     { src: 'public-demo:portrait', alt: 'Fatma Ghedira, co-founder' },
@@ -304,11 +305,11 @@ export const ABOUT_FILM_ROLL = {
     { src: 'public-demo:portrait', alt: 'Abe Isleem, principal' },
     { src: 'public-demo:portrait', alt: 'Stephan Ledain, principal' },
   ],
-}
+})
 
-export const ABOUT_CTA = {
+export const ABOUT_CTA = siteContent("about-content.ABOUT_CTA", {
   title: 'See where your organization stands.',
   subtitle: 'Take the AI readiness assessment: 24 questions, with your scores on screen when you finish.',
   primary: { text: 'Take the assessment', href: '/ai-readiness' },
   secondary: { text: 'Contact us', href: '/contact' },
-}
+})

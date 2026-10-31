@@ -1,3 +1,4 @@
+import { siteContent } from '@/src/site-content'
 // AI Build Sprint landing page (/ai-build-sprint). Copy is data (repo rule).
 //
 // Source of every string: research/landing-pages/ai-build-sprint-copy.md (the approved
@@ -11,23 +12,23 @@
 import type { SprintTrackId } from '@/src/lib/sprint-tracks'
 
 /** Where buyers book the call directly (form footnote, thank-you page, confirmation email). */
-export const SPRINT_FIT_CALL_URL = 'https://calendar.app.google/2DswLVndhkpMVx7K7'
+export const SPRINT_FIT_CALL_URL = siteContent("ai-build-sprint-content.SPRINT_FIT_CALL_URL", 'https://calendar.app.google/2DswLVndhkpMVx7K7')
 /** The free AI readiness scorecard: a quiet text link near pricing, never in the hero. */
-export const SPRINT_SCORECARD_URL = '/ai-readiness'
+export const SPRINT_SCORECARD_URL = siteContent("ai-build-sprint-content.SPRINT_SCORECARD_URL", '/ai-readiness')
 
 /** The one action. Identical label everywhere: nav, hero, days, pricing, form, sticky bar. */
-export const SPRINT_CTA = {
+export const SPRINT_CTA = siteContent("ai-build-sprint-content.SPRINT_CTA", {
   label: 'Book a 30-min call',
   href: '#fit-call',
-} as const
+} as const)
 
-export const SPRINT_META = {
+export const SPRINT_META = siteContent("ai-build-sprint-content.SPRINT_META", {
   title: 'AI Build Sprint: working AI in 10 days | Vibrana',
   description: 'We build working AI products and workflows with your team in 10 business days. Your team learns to build the next one.',
-} as const
+} as const)
 
 // 1. Hero
-export const SPRINT_HERO = {
+export const SPRINT_HERO = siteContent("ai-build-sprint-content.SPRINT_HERO", {
   eyebrow: 'AI Build Sprint · 10 business days',
   /** "We build *working* AI with your team in 10 days." split for the opaque-block layout. */
   headline: {
@@ -39,10 +40,10 @@ export const SPRINT_HERO = {
   subhead:
     'Bring us one product or workflow, and our senior builders ship it with your people while your team learns to build the next one.',
   microcopy: '30 minutes. No prep. You talk to a builder, not a salesperson.',
-} as const
+} as const)
 
 // 3. Problem
-export const SPRINT_PROBLEM = {
+export const SPRINT_PROBLEM = siteContent("ai-build-sprint-content.SPRINT_PROBLEM", {
   eyebrow: 'Why AI stalls',
   heading: 'Most AI work stops short.',
   lines: [
@@ -51,12 +52,12 @@ export const SPRINT_PROBLEM = {
     'The tool shows up. Nobody on your team can run it.',
   ],
   close: 'We build the real thing, with the people who will run it.',
-} as const
+} as const)
 
 // 4. What you walk away with
 export type SprintOutcomeVisual = 'product' | 'team' | 'code'
 
-export const SPRINT_OUTCOMES = {
+export const SPRINT_OUTCOMES = siteContent("ai-build-sprint-content.SPRINT_OUTCOMES", {
   eyebrow: 'What you get',
   /** Address-bar text on the product mocks (illustrative, from the case-study mocks). */
   mockUrls: {
@@ -71,21 +72,21 @@ export const SPRINT_OUTCOMES = {
     { visual: 'team', title: 'A team that can build the next one.', body: 'Your team builds with us every day. They keep going after we go.' },
     { visual: 'code', title: 'The code and docs. Yours.', body: 'You keep the code, the docs and the keys. Nothing to renew with us.' },
   ] satisfies { visual: SprintOutcomeVisual; title: string; body: string }[],
-} as const
+} as const)
 
 /**
  * The code-and-docs visual for card 3 (builder-added: file names only). A plain repo
  * view: what the client keeps on day 10.
  */
-export const SPRINT_REPO_MOCK = {
+export const SPRINT_REPO_MOCK = siteContent("ai-build-sprint-content.SPRINT_REPO_MOCK", {
   url: 'github.com/your-company/your-product',
   files: ['src/', 'docs/', 'README.md', 'docs/how-it-works.md', 'docs/setup.md', '.env.example'],
   readmeTitle: 'README.md',
   readmeLines: ['How it works', 'Run it locally', 'Deploy', 'Who to ask'],
-} as const
+} as const)
 
 // 5. The 10 days
-export const SPRINT_DAYS = {
+export const SPRINT_DAYS = siteContent("ai-build-sprint-content.SPRINT_DAYS", {
   eyebrow: 'The 10 days',
   heading: 'Ten days from kickoff to hand over.',
   /** `span` = how many of the ten days the step covers (drives the diagram widths). */
@@ -98,7 +99,7 @@ export const SPRINT_DAYS = {
   /** Day ticks on the diagram (builder-added: the axis label). */
   dayTick: 'Day',
   pricingLink: 'See pricing',
-} as const
+} as const)
 
 // 6. Four tracks (no prices, ever)
 export interface SprintTrackCard {
@@ -112,12 +113,12 @@ export interface SprintTrackCard {
   ledBy: string
 }
 
-export const SPRINT_TRACKS_SECTION = {
+export const SPRINT_TRACKS_SECTION = siteContent("ai-build-sprint-content.SPRINT_TRACKS_SECTION", {
   eyebrow: 'Four tracks',
   heading: 'Pick the kind of work. Meet who leads it.',
-} as const
+} as const)
 
-export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
+export const SPRINT_TRACKS: readonly SprintTrackCard[] = siteContent("ai-build-sprint-content.SPRINT_TRACKS", [
   {
     id: 'product',
     name: 'Product',
@@ -153,12 +154,12 @@ export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
     leads: [{ name: 'Fatma Ghedira', photo: 'public-demo:portrait' }],
     ledBy: 'Led by Fatma Ghedira',
   },
-]
+])
 
 // 7. Work and results (metrics match the published case studies)
 export type SprintWorkMock = 'insurtech-call-qa' | 'proptech-inbox'
 
-export const SPRINT_WORK = {
+export const SPRINT_WORK = siteContent("ai-build-sprint-content.SPRINT_WORK", {
   eyebrow: "Work we've shipped",
   heading: 'Real builds. Real numbers.',
   linkLabel: 'Read the case study',
@@ -190,10 +191,10 @@ export const SPRINT_WORK = {
     mock: SprintWorkMock
     mockUrl: string
   }[],
-} as const
+} as const)
 
 // 8. Who it's for
-export const SPRINT_FIT = {
+export const SPRINT_FIT = siteContent("ai-build-sprint-content.SPRINT_FIT", {
   heading: 'Is this for you?',
   forLabel: 'For you if:',
   notForLabel: 'Not for you if:',
@@ -209,10 +210,10 @@ export const SPRINT_FIT = {
     'Five teams need to change at once.',
     "We can't get access to your tools and data by day 1.",
   ],
-} as const
+} as const)
 
 // 9. The people who build with you (facts from the published /about bios)
-export const SPRINT_TEAM = {
+export const SPRINT_TEAM = siteContent("ai-build-sprint-content.SPRINT_TEAM", {
   eyebrow: 'The team',
   heading: 'The people who build with you.',
   members: [
@@ -222,10 +223,10 @@ export const SPRINT_TEAM = {
     { name: 'Stephan Ledain', role: 'Leads Governance & policy', line: 'EU AI Act specialist. Founder of AdaptAI.', photo: 'public-demo:portrait', angle: 3 },
     { name: 'Fatma Ghedira', role: 'Leads People & culture', line: 'Organizational psychologist. Has worked with Google, Snapchat and the World Economic Forum.', photo: 'public-demo:portrait', angle: -2.5 },
   ],
-} as const
+} as const)
 
 // 10. Pricing (the only section with prices)
-export const SPRINT_PRICING = {
+export const SPRINT_PRICING = siteContent("ai-build-sprint-content.SPRINT_PRICING", {
   eyebrow: 'Pricing',
   heading: 'One fixed price, agreed before you start.',
   price: 'Sprints from $10,000',
@@ -249,10 +250,10 @@ export const SPRINT_PRICING = {
     prompt: 'Not ready to talk?',
     link: 'Take the free AI readiness scorecard.',
   },
-} as const
+} as const)
 
 // 11. FAQ
-export const SPRINT_FAQ = {
+export const SPRINT_FAQ = siteContent("ai-build-sprint-content.SPRINT_FAQ", {
   heading: 'Questions we get asked',
   items: [
     {
@@ -292,18 +293,18 @@ export const SPRINT_FAQ = {
       source: { label: "Read the Uber CTO's post", href: 'https://x.com/praveenTweets/status/2074605343439810922' },
     },
   ] satisfies { question: string; answer: string; source?: { label: string; href: string } }[],
-} as const
+} as const)
 
 // 12. Final CTA
-export const SPRINT_FINAL = {
+export const SPRINT_FINAL = siteContent("ai-build-sprint-content.SPRINT_FINAL", {
   quote: '“Tell me what should work differently in 10 days. I’ll tell you if we can build it.”',
   name: 'John Ellison',
   role: 'Founder',
   photo: 'public-demo:portrait',
-} as const
+} as const)
 
 /** The 5-field fit-call form. The component holds layout only. */
-export const SPRINT_FORM = {
+export const SPRINT_FORM = siteContent("ai-build-sprint-content.SPRINT_FORM", {
   heading: 'Tell us what you want built.',
   labels: {
     name: 'Name',
@@ -338,15 +339,15 @@ export const SPRINT_FORM = {
   footnote: 'Next, you pick a time on our calendar.',
   directBooking: 'Rather skip the form?',
   directBookingLink: 'Open the calendar',
-} as const
+} as const)
 
 // 13. Sticky mobile bar
-export const SPRINT_STICKY = {
+export const SPRINT_STICKY = siteContent("ai-build-sprint-content.SPRINT_STICKY", {
   label: 'AI Build Sprint · 10 days',
-} as const
+} as const)
 
 /** Image credit (the hourglass is CC BY 2.0 and needs attribution). builder-added wording. */
-export const SPRINT_CREDITS = {
+export const SPRINT_CREDITS = siteContent("ai-build-sprint-content.SPRINT_CREDITS", {
   prefix: 'Image credit:',
   work: 'Hourglass with sand',
   workHref: 'https://commons.wikimedia.org/wiki/File:Hourglass_with_sand.jpg',
@@ -355,20 +356,20 @@ export const SPRINT_CREDITS = {
   license: 'CC BY 2.0',
   licenseHref: 'https://creativecommons.org/licenses/by/2.0',
   note: 'graded from the original',
-} as const
+} as const)
 
 /** Short names used in the admin email, confirmation email and admin pipeline. */
-export const SPRINT_TRACK_NAMES: Record<SprintTrackId, string> = {
+export const SPRINT_TRACK_NAMES: Record<SprintTrackId, string> = siteContent("ai-build-sprint-content.SPRINT_TRACK_NAMES", {
   product: 'Product sprint',
   workflow: 'Workflow automation sprint',
   governance: 'Governance & policy sprint',
   people: 'People & culture sprint',
   triage: 'Workflow Triage',
   'not-sure': 'Track not chosen yet',
-}
+})
 
 /** The page after the form. builder-added copy, in the deck's voice. */
-export const SPRINT_THANK_YOU = {
+export const SPRINT_THANK_YOU = siteContent("ai-build-sprint-content.SPRINT_THANK_YOU", {
   eyebrow: 'Request received',
   title: 'Pick a time for your call.',
   description: "We have your request. Pick 30 minutes that suit you. You'll talk to a builder, not a salesperson.",
@@ -376,4 +377,4 @@ export const SPRINT_THANK_YOU = {
   secondaryCta: 'Take the free AI readiness scorecard',
   note: "A confirmation is on its way. If no time works, reply to it and we'll find one.",
   back: 'Return to Vibrana',
-} as const
+} as const)

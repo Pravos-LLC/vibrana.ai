@@ -1,5 +1,6 @@
+import { siteContent } from '@/src/site-content'
 import { PUBLIC_DEMO_DOWNLOAD as D } from '@/src/public-demo-download-content'
-export const ASSESSMENT_NURTURE_DAY10 = {
+export const ASSESSMENT_NURTURE_DAY10 = siteContent("assessment-nurture-day10-content.ASSESSMENT_NURTURE_DAY10", {
   subject: D.heading,
   heading: D.heading,
   tagline: 'Sample download workflow',
@@ -8,4 +9,4 @@ export const ASSESSMENT_NURTURE_DAY10 = {
   insideIntro: 'This public demo includes:',
   insideBullets: ['A synthetic text file', 'A sample email and download workflow'],
   closing: 'Use independent local services and synthetic data.',
-} as const
+} as const)

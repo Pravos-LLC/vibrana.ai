@@ -1,4 +1,5 @@
 'use client';
+import { siteContent } from '@/src/site-content'
 
 /**
  * SplashPage — logo, wordmark, tagline. Prism Light (strict DS).
@@ -32,7 +33,7 @@ export default function SplashPage() {
         className="relative z-10 flex flex-col items-center"
       >
         <motion.img
-          src="/assets/vibrana-v-prism-96.webp"
+          src={siteContent("media.c3JjL3ZpZXdzL1NwbGFzaFBhZ2UudHN4OjA", "/assets/vibrana-v-prism-96.webp")}
           alt="Vibrana Logo"
           className="h-24 w-24 object-contain md:h-32 md:w-32"
           initial={{ opacity: 0, scale: 0.8 }}

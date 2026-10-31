@@ -1,3 +1,4 @@
+import { siteContent } from '@/src/site-content'
 // Content for the AI Transformation whitepaper PDF (public/downloads/public-demo-guide.txt).
 // Page copy is data (repo rule): scripts/whitepaper/*.tsx render these strings and hold
 // layout only. Rebuild with `npm run whitepaper:build`.
@@ -57,10 +58,10 @@ export interface TableRow {
 }
 
 // Label used on every section that is Vibrana's own framework rather than research.
-export const WORKING_MODEL_LABEL = "Vibrana's working model"
+export const WORKING_MODEL_LABEL = siteContent("whitepaper-pdf-content.WORKING_MODEL_LABEL", "Vibrana's working model")
 
 // === METADATA ===
-export const whitepaperMeta: WhitepaperMeta = {
+export const whitepaperMeta: WhitepaperMeta = siteContent("whitepaper-pdf-content.whitepaperMeta", {
   title: 'AI Transformation',
   subtitle: 'Optimism vs. Reality',
   description:
@@ -77,10 +78,10 @@ export const whitepaperMeta: WhitepaperMeta = {
     // KB: findings/bcg-wheres-the-value-in-ai-only-26-percent-beyond-poc
     { value: '26%', label: 'of companies have moved beyond proofs of concept to extract value (BCG, 2024)', accent: 'blue' },
   ],
-}
+})
 
 // === EXECUTIVE SUMMARY ===
-export const executiveSummary = {
+export const executiveSummary = siteContent("whitepaper-pdf-content.executiveSummary", {
   intro:
     'Most organizations now use AI somewhere. Far fewer can point to a result in their financials. This paper sets out what the better-documented research says about that gap, and what the organizations getting value do differently.',
   opportunity: {
@@ -111,10 +112,10 @@ export const executiveSummary = {
     'What operating models drive scale? How should enterprises structure governance, teams, and workflows to move from pilots to production?',
     "Where to start? A phase-based approach to assess readiness, pick a first workflow, and execute with discipline.",
   ],
-}
+})
 
 // === SECTION 1 ===
-export const sectionOne = {
+export const sectionOne = siteContent("whitepaper-pdf-content.sectionOne", {
   definitionTitle: "What 'AI Transformation' Means",
   definition:
     'AI transformation is the redesign of business processes, workflows, and operating models to embed AI decision-making, automation, and augmentation into core functions. It differs materially from automation, analytics modernization, and GenAI copilots.',
@@ -133,10 +134,10 @@ export const sectionOne = {
     { value: '26%', label: 'Of companies past proofs of concept, extracting value (BCG, 2024)' },
     { value: '~6%', label: 'Of respondents are AI high performers (McKinsey, 2026)' },
   ],
-}
+})
 
 // === MATURITY MODEL TABLE (Vibrana's working model, not research) ===
-export const maturityModelTable = {
+export const maturityModelTable = siteContent("whitepaper-pdf-content.maturityModelTable", {
   title: `AI Maturity Model Matrix (${WORKING_MODEL_LABEL})`,
   headers: ['Dimension', 'Nascent (1)', 'Emerging (2)', 'Developing (3)', 'Advanced (4)', 'Optimized (5)'],
   rows: [
@@ -189,12 +190,12 @@ export const maturityModelTable = {
       optimized: 'Impact measured company-wide',
     },
   ],
-}
+})
 
 // === SECTION 2: PRODUCTIVITY IMPACTS ===
 // Only figures with a verified KB finding. Every other row (self-reported 40%, 5.4% of
 // hours, 34% novices, sales and cost-reduction figures) was cut: no KB finding.
-export const productivityImpacts = {
+export const productivityImpacts = siteContent("whitepaper-pdf-content.productivityImpacts", {
   title: 'Measured Productivity Impacts',
   intro:
     'The strongest evidence on productivity comes from controlled studies of specific jobs, not from surveys of expectations. Two of the best documented:',
@@ -222,10 +223,10 @@ export const productivityImpacts = {
       ],
     },
   ],
-}
+})
 
 // === USE CASE TIERS (Vibrana's working model, not research) ===
-export const useCaseTiers = {
+export const useCaseTiers = siteContent("whitepaper-pdf-content.useCaseTiers", {
   title: `Which Use Cases Deliver Value First? (${WORKING_MODEL_LABEL})`,
   tiers: [
     {
@@ -268,10 +269,10 @@ export const useCaseTiers = {
       ],
     },
   ],
-}
+})
 
 // === SECTION 3: THE REALITY ===
-export const failureEvidence = {
+export const failureEvidence = siteContent("whitepaper-pdf-content.failureEvidence", {
   title: 'What the Failure Numbers Measure',
   // KB: findings/mit-nanda-genai-divide-95-percent-zero-return (contested), sources/mit-nanda-2025-genai-divide
   paragraph:
@@ -286,11 +287,11 @@ export const failureEvidence = {
     // KB: findings/mit-nanda-genai-divide-95-percent-zero-return (contested)
     { value: '95%', label: 'Of organizations getting zero return, per MIT NANDA (preliminary; directional)' },
   ],
-}
+})
 
 // Replaces the former "Top 10 AI Adoption Barriers" table, whose percentages had no KB
 // finding (and whose #1, data quality, conflicts with verified findings below).
-export const barriersTable = {
+export const barriersTable = siteContent("whitepaper-pdf-content.barriersTable", {
   title: 'What Gets in the Way',
   intro: 'Where the research looks at causes, it points at people and process far more often than at technology.',
   rows: [
@@ -316,9 +317,9 @@ export const barriersTable = {
       source: 'MIT NANDA, 2025',
     },
   ] satisfies TableRow[],
-}
+})
 
-export const learningGap = {
+export const learningGap = siteContent("whitepaper-pdf-content.learningGap", {
   title: '"Learning Gap" vs. "Model Gap": The Core Issue',
   // KB: findings/mit-nanda-genai-divide-learning-gap, findings/mit-nanda-genai-divide-driven-by-approach-not-models
   intro:
@@ -334,14 +335,14 @@ export const learningGap = {
     'Continuous retraining on domain-specific data',
     'Human-in-the-loop validation and learning',
   ],
-}
+})
 
 // === SECTION 4: READINESS FRAMEWORK (Vibrana's working model) ===
 // Six pillars, the same six dimensions as the 24-question assessment
 // (src/lib/assessment/scoring.ts ORG_DIMENSIONS). `evidence` appears only where a verified
 // KB finding supports it; the former per-pillar figures (40% timelines, 3x talent, 6%
 // governance, 35%/68% bias) had none and were cut.
-export const readinessFramework = {
+export const readinessFramework = siteContent("whitepaper-pdf-content.readinessFramework", {
   title: 'AI Readiness Framework',
   intro: `${WORKING_MODEL_LABEL}: the same six dimensions as our 24-question assessment. Published evidence is cited where it exists.`,
   pillars: [
@@ -380,10 +381,10 @@ export const readinessFramework = {
       evidence: 'Resistance to adopting new tools was rated the most frequent barrier to scaling gen AI pilots (MIT NANDA, 2025)',
     },
   ] as { number: number; name: string; description: string; evidence?: string }[],
-}
+})
 
 // === SECTION 5: PHASED IMPLEMENTATION ROADMAP (Vibrana's working model) ===
-export const implementationRoadmap = {
+export const implementationRoadmap = siteContent("whitepaper-pdf-content.implementationRoadmap", {
   title: `Phased Implementation (${WORKING_MODEL_LABEL})`,
   // KB: findings/mckinsey-state-of-ai-2025-workflow-redesign-biggest-ebit-effect
   intro:
@@ -445,13 +446,13 @@ export const implementationRoadmap = {
       deliverable: 'Production use cases your team owns and runs',
     },
   ],
-}
+})
 
 // === SECTION 6: HIGH PERFORMERS VS. THE REST ===
 // Only characteristics with a verified KB finding. Cut (no KB finding): "3x further advanced
 // with AI agents", "3x human-validation processes", "20%+ of digital budget", "2+ business
 // functions", and every outcome line ("5%+ EBIT vs <1%", "39% see productivity double").
-export const highPerformerProfile = {
+export const highPerformerProfile = siteContent("whitepaper-pdf-content.highPerformerProfile", {
   title: "What AI High Performers Do (About 6% of McKinsey's Respondents)",
   characteristicsLabel: 'WHAT THE RESEARCH SHOWS',
   characteristics: [
@@ -470,16 +471,16 @@ export const highPerformerProfile = {
     'Governance absent or reactive',
     'Leaders not visibly championing AI',
   ],
-}
+})
 
 // === SECTION 7: CRITICAL SUCCESS FACTORS ===
 // The former intro ("Based on analysis of 50+ successful AI transformations") described an
 // analysis that never happened and was cut. `evidence` cites a verified KB finding where one
 // exists; the rest are labeled as Vibrana's working model.
 export const criticalSuccessFactorsIntro =
-  "Eight factors that separate AI programs that scale from those that stall. Where published research supports a factor, the evidence line cites it. The rest are Vibrana's working model and are labeled that way."
+  siteContent("whitepaper-pdf-content.criticalSuccessFactorsIntro", "Eight factors that separate AI programs that scale from those that stall. Where published research supports a factor, the evidence line cites it. The rest are Vibrana's working model and are labeled that way.")
 
-export const criticalSuccessFactors = [
+export const criticalSuccessFactors = siteContent("whitepaper-pdf-content.criticalSuccessFactors", [
   {
     number: 1,
     title: 'Workflow Redesign (Not Automation)',
@@ -531,13 +532,13 @@ export const criticalSuccessFactors = [
     // KB: findings/mit-nanda-genai-divide-learning-gap
     evidence: "MIT NANDA names the learning gap, tools that don't learn, integrate poorly, or match workflows, as the primary factor keeping organizations from value (2025).",
   },
-]
+])
 
 // === SECTION 8: AI READINESS DIAGNOSTIC ===
 // A discussion checklist on the same six dimensions as the 24-question assessment. The
 // former "30 minutes" and seven-dimension framing, and the scoring guide (unsourced bands and
 // a "6-12 month build-out before pilots" recommendation), were cut.
-export const readinessDiagnostic = {
+export const readinessDiagnostic = siteContent("whitepaper-pdf-content.readinessDiagnostic", {
   intro:
     "A checklist for a leadership team to talk through, grouped by the same six dimensions as Vibrana's 24-question readiness assessment. It is a conversation aid, not a scored test. For a scored version, take the assessment at vibrana.ai/ai-transformation/assessment.",
   dimensions: [
@@ -574,10 +575,10 @@ export const readinessDiagnostic = {
       questions: ['Change management plan documented?', 'Employee AI trust / adoption readiness?', 'Workforce reskilling program in place?'],
     },
   ],
-}
+})
 
 // === GOVERNANCE CHECKLIST ===
-export const governanceChecklist = {
+export const governanceChecklist = siteContent("whitepaper-pdf-content.governanceChecklist", {
   intro: 'Before deploying any AI system to production, enterprises should validate the following.',
   categories: [
     {
@@ -622,14 +623,14 @@ export const governanceChecklist = {
       ],
     },
   ],
-}
+})
 
 // === MYTH VS TRUTH TABLE ===
 // The former "Data quality can be fixed later" row (52%, "#1 blocker", "4-8 weeks") and the
 // "reduce risk by 40% and compress timelines by 50%" claim had no KB finding and were cut.
 // "We should wait for better models" was cut too: its truth line was unsourced and the
 // first row already makes the point with MIT NANDA's finding.
-export const mythVsTruthTable = {
+export const mythVsTruthTable = siteContent("whitepaper-pdf-content.mythVsTruthTable", {
   title: 'AI Transformation: Myth vs. Truth',
   rows: [
     {
@@ -651,12 +652,12 @@ export const mythVsTruthTable = {
         'Define baselines and success metrics before launch. AI high performers are twice as likely as others to report defined processes to measure the impact of AI initiatives (McKinsey, 2026).',
     },
   ],
-}
+})
 
 // === CONCLUSION ===
 // Replaces the former "Recommendations by Readiness Score" page (unsourced score bands and
 // 6-12 / 9-18 / 18-36 month timelines). Restates only what the cited findings above say.
-export const conclusion = {
+export const conclusion = siteContent("whitepaper-pdf-content.conclusion", {
   title: 'Conclusion',
   paragraphs: [
     'The research cited here agrees on more than it disagrees. Value from AI that shows up in the financials is still a minority result: PwC, McKinsey and BCG each find this, measured three different ways.',
@@ -665,13 +666,13 @@ export const conclusion = {
     // Vibrana's own position (product-marketing-context: "scaling, not cutting"; sprint FAQ: you own what is built).
     "How Vibrana works: our builders sit alongside your team, not in place of it. The aim is more capacity and wider scope for the people who do the work, not fewer people. Your team owns and runs what is built after handover.",
   ],
-}
+})
 
 // === REFERENCES ===
 // One row per source cited above. Each has a source page in the hub knowledge base
 // (knowledge/sources/<slug>.md); publisher, title and date are taken from it.
 // WHITEPAPER_SOURCE_COUNT in src/whitepaper-claims-content.ts must equal references.length.
-export const references: WhitepaperReference[] = [
+export const references: WhitepaperReference[] = siteContent("whitepaper-pdf-content.references", [
   {
     source: 'PwC',
     title: "PwC's 29th Global CEO Survey: Leading through uncertainty in the age of AI",
@@ -715,7 +716,7 @@ export const references: WhitepaperReference[] = [
       'Navigating the Jagged Technological Frontier: Field Experimental Evidence of the Effects of AI on Knowledge Worker Productivity and Quality',
     details: 'First circulated 2023 as HBS Working Paper 24-013. Preregistered randomized experiment with 758 BCG consultants.',
   },
-]
+])
 
 // === TABLE OF CONTENTS ===
 // Page numbers below are verified against the actual built PDF (see
@@ -723,7 +724,7 @@ export const references: WhitepaperReference[] = [
 // page), not estimated. Section 10 spans Myth vs. Truth, the conclusion, references and
 // the back-cover CTA. Re-verify after any content or style change that could shift
 // pagination, by rebuilding and re-checking each section's actual start page.
-export const tableOfContents = [
+export const tableOfContents = siteContent("whitepaper-pdf-content.tableOfContents", [
   { section: 'Executive Summary', pages: '3-4' },
   { section: '1. Framing AI Transformation', pages: '5-6' },
   { section: '2. The Promise: What AI Delivers', pages: '7-8' },
@@ -735,12 +736,12 @@ export const tableOfContents = [
   { section: '8. AI Readiness Diagnostic', pages: '18-19' },
   { section: '9. Governance Checklist', pages: '20-21' },
   { section: '10. Conclusion & Call to Action', pages: '22-25' },
-]
+])
 
 // === CTA (back cover) ===
 // Matches Vibrana's real, existing offer (src/ai-transformation-content.ts `assessment`
 // block: 24 questions, six dimensions, personalized report, no obligation).
-export const whitepaperCta: WhitepaperCtaContent = {
+export const whitepaperCta: WhitepaperCtaContent = siteContent("whitepaper-pdf-content.whitepaperCta", {
   title: 'Where Does Your Organization Stand?',
   subtitle:
     'The next step is mapping your own readiness risks. If you then want to build, a sprint has a fixed price, scope and end date agreed before it starts, from $10,000, and you own what we build.',
@@ -749,4 +750,4 @@ export const whitepaperCta: WhitepaperCtaContent = {
   featuresLabel: 'The Free Readiness Assessment Includes:',
   features: ['24 self-reported questions', 'Six readiness dimensions', 'A personalized discussion report', 'No obligation to enter a transformation engagement'],
   reassurance: 'A structured conversation aid, not a validated prediction.',
-}
+})
