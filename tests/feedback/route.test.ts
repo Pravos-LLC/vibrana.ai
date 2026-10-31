@@ -29,12 +29,9 @@ vi.mock('@/lib/resend', () => ({
 }))
 
 const { POST } = await import('@/app/api/feedback/route')
-const { SAMPLEB544654A4D1A_PST_FORM: form } = await import('@/src/feedback-content')
-const { tokenFor } = await import('@/lib/feedback/recipients')
-const REVIEWERONE = tokenFor('sample-feedback', 'ReviewerOne')!
+const { SAMPLE_FEEDBACK_FORM: form } = await import('@/src/feedback-content')
 
 const id = '3f2b9c1e-8a4d-4c57-9f01-2b6e7a1d5c90'
-const flags = (value: boolean) => ({ anonymous_quote: value, named_quote: false, include_company: value, case_study: value, promote: false, testimonial_chat: false })
 
 function post(body: unknown, raw?: string) {
   return POST(
@@ -49,7 +46,6 @@ function post(body: unknown, raw?: string) {
 const base = (score: number, extra: Record<string, unknown> = {}) => ({
   slug: 'sample-feedback',
   submissionId: id,
-  r: REVIEWERONE,
   answers: { overall: score, went_well: 'It saves us hours.' },
   ...extra,
 })
@@ -66,9 +62,35 @@ describe('POST /api/feedback', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {})
   })
 
-  it('saves a high score with consent, the wording snapshot and hashed user agent, then emails', async () => {
+  it('uses the current hosted envelope, ignores forged recipient attribution and rejects stale consent', async () => {
+    const configured = { ...structuredClone(form), slug: 'configured-example', clientName: 'Configured sample' }
+    vi.stubEnv('FEEDBACK_FORMS_JSON', JSON.stringify({ schema: 1, forms: { [configured.slug]: configured } }))
+    vi.stubEnv('VERCEL_ENV', 'production')
+    try {
+      expect((await post(base(7))).status).toBe(404)
+      const stale = await post({ ...base(9), slug: configured.slug, consent: { version: 'stale-version', anonymous_quote: true } })
+      expect(stale.status).toBe(409)
+      expect(inserts).toHaveLength(0)
+      const response = await post({ ...base(7), slug: configured.slug, r: 'forged-recipient', respondent_name: 'Forged identity' })
+      expect(response.status).toBe(200)
+      expect(inserts[0].row).toMatchObject({ slug: configured.slug })
+      expect(inserts[0].row).not.toHaveProperty('respondent_token')
+      expect(inserts[0].row).not.toHaveProperty('respondent_name')
+      expect(JSON.stringify(inserts[0].row)).not.toContain('Forged identity')
+      vi.stubEnv('FEEDBACK_FORMS_JSON', '{SECRET_CANARY')
+      const invalid = await post({ ...base(7), slug: configured.slug })
+      expect(invalid.status).toBe(503)
+      expect(JSON.stringify(await invalid.json())).not.toContain('SECRET_CANARY')
+      expect(inserts).toHaveLength(1)
+    } finally { vi.unstubAllEnvs() }
+  })
+
+  it('saves a high score with contact details and quote consent, the wording snapshot and hashed user agent, then emails', async () => {
     const res = await post(
-      base(9, { consent: { version: form.consent.version, flags: flags(true), draftQuote: true, referrals: 'Their COO' } }),
+      base(9, {
+        answers: { overall: 9, went_well: 'It saves us hours.', contact: { name: 'Rob', email: 'rob@example.com' } },
+        consent: { version: form.consent.version, anonymous_quote: true },
+      }),
     )
     expect(res.status).toBe(200)
     expect(await res.json()).toEqual({ success: true, saved: true })
@@ -79,26 +101,47 @@ describe('POST /api/feedback', () => {
     expect(row).toMatchObject({
       id,
       slug: 'sample-feedback',
-      respondent_token: REVIEWERONE,
-      respondent_name: 'ReviewerOne',
       overall_score: 9,
+      consent: { anonymous_quote: true },
       consent_text_version: form.consent.version,
     })
-    expect(row.consent).toEqual(flags(true))
-    expect(row.consent_text_snapshot).toContain('You may quote me anonymously')
+    expect(row.consent_text_snapshot).toContain('Are you happy for us to quote you anonymously?')
     expect(row.consent_at).toEqual(expect.any(String))
-    expect(row.answers).toMatchObject({ overall: 9, follow_up: { draft_quote_requested: true, who_else: 'Their COO' } })
+    expect(row.answers).toMatchObject({ overall: 9, contact: { name: 'Rob', email: 'rob@example.com' } })
+    // No per-recipient attribution exists at all.
+    expect(row).not.toHaveProperty('respondent_token')
+    expect(row).not.toHaveProperty('respondent_name')
     expect(typeof row.user_agent_hash).toBe('string')
     expect(JSON.stringify(row)).not.toContain('vitest-agent')
 
     expect(emails).toHaveLength(1)
     expect(emails[0].to).toBe('notify@example.test')
-    expect(emails[0].subject).toBe('Sampleb544654a4d1a feedback from ReviewerOne: 9/10, case study OK')
+    expect(emails[0].subject).toBe('Sample organization feedback from Rob: 9/10, quote anonymously: yes')
     expect(emails[0].html).toContain('It saves us hours.')
+    expect(emails[0].html).toContain('rob@example.com')
+    expect(emails[0].text).toContain('Quote anonymously: Yes')
+  })
+
+  it('saves an anonymous response with no contact details', async () => {
+    const res = await post(base(9, { consent: { version: form.consent.version, anonymous_quote: false } }))
+    expect(res.status).toBe(200)
+    const { row } = inserts[0]
+    expect(row.consent).toEqual({ anonymous_quote: false })
+    expect(row.consent_at).toBeNull()
+    expect(row.consent_text_snapshot).toEqual(expect.any(String))
+    expect(emails[0].subject).toBe('Sample organization feedback from an anonymous respondent: 9/10, quote anonymously: no')
+    expect(emails[0].text).toContain('Quote anonymously: No')
   })
 
   it('rejects a crafted request that carries consent with a score below 8, and saves nothing', async () => {
-    const res = await post(base(6, { consent: { version: form.consent.version, flags: flags(true), draftQuote: true, referrals: 'x' } }))
+    const res = await post(base(6, { consent: { version: form.consent.version, anonymous_quote: true } }))
+    expect(res.status).toBe(400)
+    expect(inserts).toHaveLength(0)
+    expect(emails).toHaveLength(0)
+  })
+
+  it('rejects an invalid contact email and saves nothing', async () => {
+    const res = await post(base(9, { answers: { overall: 9, contact: { email: 'not-an-email' } } }))
     expect(res.status).toBe(400)
     expect(inserts).toHaveLength(0)
     expect(emails).toHaveLength(0)
@@ -112,27 +155,13 @@ describe('POST /api/feedback', () => {
     expect(row.consent_text_version).toBeNull()
     expect(row.consent_text_snapshot).toBeNull()
     expect(row.consent_at).toBeNull()
-    expect(emails[0].subject).toBe('Sampleb544654a4d1a feedback from ReviewerOne: 6/10')
-  })
-
-  it('stores an unticked consent screen without a consent timestamp', async () => {
-    await post(base(10, { consent: { version: form.consent.version, flags: flags(false) } }))
-    const { row } = inserts[0]
-    expect(row.consent).toEqual(flags(false))
-    expect(row.consent_at).toBeNull()
-    expect(row.consent_text_snapshot).toEqual(expect.any(String))
+    expect(emails[0].subject).toBe('Sample organization feedback from an anonymous respondent: 6/10')
   })
 
   it('rejects consent given under outdated wording and saves nothing', async () => {
-    const res = await post(base(9, { consent: { version: 'old', flags: flags(true) } }))
+    const res = await post(base(9, { consent: { version: 'old', anonymous_quote: true } }))
     expect(res.status).toBe(409)
     expect(inserts).toHaveLength(0)
-  })
-
-  it('treats an unknown token as anonymous and stores nothing from it', async () => {
-    await post(base(8, { r: 'stranger' }))
-    expect(inserts[0].row).toMatchObject({ respondent_token: null, respondent_name: null })
-    expect(emails[0].subject).toContain('anonymous respondent')
   })
 
   it('returns 400 for invalid answers, 400 for bad JSON, 404 for an unknown form, 413 for an oversized body', async () => {
@@ -151,11 +180,12 @@ describe('POST /api/feedback', () => {
   })
 
   it('surfaces a failed database write so the form can retry, and sends no email', async () => {
-    insertError = { code: '42P01', message: 'relation does not exist' }
+    insertError = { code: '42P01', message: 'PRIVATE_REJECTED_ROW_CANARY' }
     const res = await post(base(9))
     expect(res.status).toBe(500)
     expect((await res.json()).error).toMatch(/could not save/i)
     expect(emails).toHaveLength(0)
+    expect(JSON.stringify(vi.mocked(console.error).mock.calls)).not.toContain('PRIVATE_REJECTED_ROW_CANARY')
   })
 
   it('treats a duplicate id as already saved and does not email twice', async () => {

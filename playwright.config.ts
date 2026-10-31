@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test'
+import { SAMPLE_FEEDBACK_FORM } from './src/feedback-content'
 
 // E2E runs against a production build (`next build` then `next start`) backed by a
 // local Supabase stack, with Resend pointed at e2e/stub-server.mjs.
@@ -31,6 +32,7 @@ export default defineConfig({
     },
     {
       command: `npx next start -p ${APP_PORT}`,
+      env: { FEEDBACK_FORMS_JSON: JSON.stringify({ schema: 1, forms: { [SAMPLE_FEEDBACK_FORM.slug]: SAMPLE_FEEDBACK_FORM } }) },
       url: `http://localhost:${APP_PORT}/`,
       reuseExistingServer: false,
       timeout: 60_000,

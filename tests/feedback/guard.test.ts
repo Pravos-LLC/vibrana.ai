@@ -31,7 +31,7 @@ function post(extra: Record<string, unknown>) {
   return POST(
     new NextRequest('http://localhost/api/feedback', {
       method: 'POST',
-      body: JSON.stringify({ slug: 'sample-feedback', submissionId: id, r: null, answers, ...extra }),
+      body: JSON.stringify({ slug: 'sample-feedback', submissionId: id, answers, ...extra }),
       headers: { 'x-real-ip': '203.0.113.9' },
     }),
   )
@@ -127,9 +127,8 @@ describe('feedback route with the form guard live', () => {
   it('a crafted request with a score under 8 and a consent block is rejected and saves nothing', async () => {
     const token = issueFormToken()!
     vi.setSystemTime(Date.now() + 10_000)
-    const { SAMPLEB544654A4D1A_PST_FORM: form } = await import('@/src/feedback-content')
-    const flags = Object.fromEntries(form.consent.options.map((o) => [o.id, true]))
-    const res = await post({ _ft: token, answers: { overall: 6 }, consent: { version: form.consent.version, flags } })
+    const { SAMPLE_FEEDBACK_FORM: form } = await import('@/src/feedback-content')
+    const res = await post({ _ft: token, answers: { overall: 6 }, consent: { version: form.consent.version, anonymous_quote: true } })
     expect(res.status).toBe(400)
     expect(inserts).toHaveLength(0)
   })
