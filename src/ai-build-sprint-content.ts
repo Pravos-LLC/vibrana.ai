@@ -252,6 +252,15 @@ export const SPRINT_PRICING = siteContent("ai-build-sprint-content.SPRINT_PRICIN
   },
 } as const)
 
+// First-sprint terms, agreed for the Build Sprint page.
+export const SPRINT_GUARANTEE = {
+  eyebrow: 'Your first sprint',
+  heading: 'A clear decision at handover.',
+  timeline: 'Week one builds to a demo. Week two covers feedback, iteration and change requests.',
+  offer: 'At first-sprint handover, an unsatisfied client can receive a full refund of first-sprint fees. Third-party charges are separate.',
+  conditions: 'The build is not deployed or handed over, and access to the studio-controlled build ends. The contract governs ownership and cleanup.',
+} as const
+
 // 11. FAQ
 export const SPRINT_FAQ = siteContent("ai-build-sprint-content.SPRINT_FAQ", {
   heading: 'Questions we get asked',

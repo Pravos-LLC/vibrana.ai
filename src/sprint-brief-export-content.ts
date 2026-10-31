@@ -32,6 +32,8 @@ export const BRIEF_EXPORT = {
   companyReported: 'Organization-reported result',
   vendorReported: 'Vendor-reported result',
   evidenceNote: 'Industry context from a different setting, not evidence for the same task or a forecast for your build.',
+  nextSteps: 'Your next conversation',
+  roadmapNote: 'Together, we’ll map the product roadmap, possible releases and integrations, and how many sprints the work may need.',
   preparation: 'To confirm before building',
   assumptions: 'Scope assumptions',
   answers: 'Your answers',

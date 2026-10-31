@@ -19,6 +19,8 @@ describe('saved sprint brief exports', () => {
     brief.benchmark = { company: 'A reported example', descriptor: 'Related property work', result: 'A reported result in a different setting.', url: 'https://example.org/report', publisher: 'Example publisher', date: '2026-10-01', reportedBy: 'company' }
     const html = renderSprintBriefHtml(brief)
     expect(html).toContain('Northbank &amp; Co')
+    expect(html).toContain('Your next conversation')
+    expect(html).toContain('product roadmap, possible releases and integrations')
     expect(html).toContain('20 hours')
     expect(html).toContain('13.3 hours')
     expect(html).toContain('£1,000')

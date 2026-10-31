@@ -124,6 +124,9 @@ export function BriefPdf({ brief, assets = {} }: { brief: SprintBrief; assets?: 
           <Text style={s.note}>{evidence.reportedBy === 'company' ? C.companyReported : C.vendorReported}. {C.evidenceNote}</Text>
         </View>
       </View> : null}
+      <View style={s.section}>
+        <Text style={[s.heading, display]} minPresenceAhead={35}>{C.nextSteps}</Text><Text>{C.roadmapNote}</Text>
+      </View>
       {brief.preparation.length ? <View style={s.section}>
         <Text style={[s.heading, display]} minPresenceAhead={35}>{C.preparation}</Text><Items items={brief.preparation} checklist />
       </View> : null}

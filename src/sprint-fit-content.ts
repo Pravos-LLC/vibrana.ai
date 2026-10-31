@@ -43,6 +43,7 @@ export const FIT = {
 
 /** Plain interface copy for the integrated assessment. */
 export const SPRINT_FLOW = {
+  overview: { title: 'What you’ll cover', intro: 'A few questions to shape your brief.', items: ['Your starting point and first users', 'What you want to build and how to measure it', 'Your preparation, timing and budget'] },
   title: 'Build your sprint brief',
   back: 'AI Build Sprints',
   summary: 'Sprint summary', summaryCount: 'answered', edit: 'Edit',
@@ -69,3 +70,6 @@ export const SPRINT_FLOW = {
   reviewHelp: 'Help defining the first release', notBuilt: 'Nothing built yet',
   errors: { contact: 'Add your name, valid email and role.', website: 'Enter a public company website, or choose “No website yet”.', company: 'Confirm the company context before creating your brief.', save: 'We could not save your brief. Your answers are still here. Please try again.', numbers: 'Use zero or a positive number. People per task must be at least one.' },
 } as const
+
+/** Search and sharing metadata for the readiness assessment. */
+export const SPRINT_READINESS_META = { title: 'AI Build Sprint Brief | Vibrana', description: 'Shape a useful first release and create a sprint brief with company context and an optional business case.' } as const
