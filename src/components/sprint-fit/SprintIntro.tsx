@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/src/components/prism'
 import { Headphones, Network, MessagesSquare, BookOpen, UsersRound, GraduationCap, Workflow, ChartNoAxesCombined } from 'lucide-react'
 import { LogoRow } from '@/src/components/proof/LogoRow'
@@ -7,9 +10,29 @@ import styles from './intro.module.css'
 const exampleIcons = [[Headphones, Network, MessagesSquare, BookOpen], [UsersRound, GraduationCap, Workflow, ChartNoAxesCombined]]
 
 export function SprintIntro({ onStart }: { onStart: () => void }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [playing, setPlaying] = useState(false)
+  useEffect(() => {
+    const video = videoRef.current
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!video || media.matches) return
+    void video.play().then(() => setPlaying(true)).catch(() => setPlaying(false))
+    const stopForReducedMotion = (event: MediaQueryListEvent) => {
+      if (event.matches) { video.pause(); setPlaying(false) }
+    }
+    media.addEventListener('change', stopForReducedMotion)
+    return () => media.removeEventListener('change', stopForReducedMotion)
+  }, [])
+  const toggleVideo = () => {
+    const video = videoRef.current
+    if (!video) return
+    if (!video.paused) { video.pause(); setPlaying(false) }
+    else { void video.play().then(() => setPlaying(true)).catch(() => setPlaying(false)) }
+  }
   return <div className={styles.intro}>
     <section className={styles.hero}>
-      <video className={styles.heroVideo} autoPlay muted loop playsInline aria-hidden="true" poster="/assets/imagery/homepage/prism-glass-grid.webp"><source src="/assets/sprint-fit/prism-loop.mp4" type="video/mp4" /></video>
+      <video ref={videoRef} className={styles.heroVideo} muted loop playsInline aria-hidden="true" poster="/assets/imagery/homepage/prism-glass-grid.webp"><source src="/assets/sprint-fit/prism-loop.mp4" type="video/mp4" /></video>
+      <button type="button" className={styles.videoControl} onClick={toggleVideo}>{playing ? C.pauseVideo : C.playVideo}</button>
       <div className={styles.heroInner}>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>{C.eyebrow}</p>

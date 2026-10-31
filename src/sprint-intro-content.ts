@@ -5,6 +5,8 @@ export const SPRINT_INTRO = {
   description: 'Tell us what you want to make. We’ll help you shape a practical first release that your team can build and learn from with us.',
   start: 'Start my assessment',
   deliverables: 'You’ll leave with a scoped brief, your company context and, if you add the numbers, an optional business case.',
+  pauseVideo: 'Pause background video',
+  playVideo: 'Play background video',
   previewLabel: 'A sample of your brief',
   previewAlt: 'Example first page of a sprint brief for a fictional property advisory business',
   exampleEyebrow: 'What could we build?',
