@@ -101,3 +101,16 @@
 .overviewColumns ul { display: grid; gap: .65rem; padding: 0 0 0 1.2rem; list-style: disc; color: #53475e; line-height: 1.5; }
 @media(max-width:760px) { .landingOverview { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem 0; } }
 @media(max-width:420px) { .overviewColumns { grid-template-columns: 1fr; } }
+
+/* The shared Prism theme changes semantic tokens; these explicitly styled surfaces follow it. */
+:global([data-theme="dark"]) .intro { color: var(--text-primary); }
+:global([data-theme="dark"]) .hero::before { background: linear-gradient(90deg, rgba(10,10,18,.92), rgba(18,13,27,.82)); }
+:global([data-theme="dark"]) .heroCopy .lead, :global([data-theme="dark"]) .heroCopy .deliverables, :global([data-theme="dark"]) .preview figcaption { color: var(--text-primary); }
+:global([data-theme="dark"]) .eyebrow, :global([data-theme="dark"]) .featuredCase span, :global([data-theme="dark"]) .exampleGrid li svg { color: #c4b5fd; }
+:global([data-theme="dark"]) .logos, :global([data-theme="dark"]) .examples, :global([data-theme="dark"]) .team, :global([data-theme="dark"]) .landingOverview { border-color: var(--border-default); }
+:global([data-theme="dark"]) .exampleGrid > div, :global([data-theme="dark"]) .testimonial, :global([data-theme="dark"]) .person, :global([data-theme="dark"]) .overviewColumns > div { background: var(--surface-raised); border-color: var(--border-default); }
+:global([data-theme="dark"]) .featuredCase { background: var(--surface-raised); border-color: var(--border-default); }
+:global([data-theme="dark"]) .examples > p:not(.eyebrow), :global([data-theme="dark"]) .team > p, :global([data-theme="dark"]) .imageNote, :global([data-theme="dark"]) .testimonial footer, :global([data-theme="dark"]) .person small, :global([data-theme="dark"]) .person p, :global([data-theme="dark"]) .person .experience span, :global([data-theme="dark"]) .duration, :global([data-theme="dark"]) .overviewColumns ul, :global([data-theme="dark"]) .closingContent > p:not(.eyebrow) { color: var(--text-secondary); }
+:global([data-theme="dark"]) .experience b { color: var(--text-primary); }
+:global([data-theme="dark"]) .person .experience img[src$='.svg'] { filter: brightness(0) invert(1); }
+:global([data-theme="dark"]) .closing { background: linear-gradient(145deg, #191322, #101722 55%, #21151f); }

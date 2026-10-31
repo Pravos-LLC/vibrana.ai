@@ -131,7 +131,7 @@ export function BriefPdf({ brief, assets = {} }: { brief: SprintBrief; assets?: 
         <Text style={[s.heading, display]} minPresenceAhead={35}>{C.preparation}</Text><Items items={brief.preparation} checklist />
       </View> : null}
       {brief.narrative.assumptions.length ? <View style={s.section}>
-        <Text style={[s.heading, display]} minPresenceAhead={35}>{C.assumptions}</Text><Items items={brief.narrative.assumptions} />
+        <Text style={[s.heading, display]} minPresenceAhead={35}>{C.assumptions}</Text><Items items={brief.narrative.assumptions} checklist />
       </View> : null}
       {brief.rows.length ? <View style={s.section}>
         <Text style={[s.heading, display]} minPresenceAhead={35}>{C.answers}</Text><Rows rows={brief.rows} />

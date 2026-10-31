@@ -88,7 +88,7 @@ ${caseRows.length || inputRows.length ? `<section class="section"><h2>${C.busine
 ${benchmark && evidenceUrl ? `<section class="section"><h2>${C.evidence}</h2><div class="example"><strong>${esc(benchmark.company)}</strong><p class="source-meta">${esc(benchmark.descriptor)}</p><p>${esc(benchmark.result)}</p><a href="${esc(evidenceUrl)}" rel="noreferrer">${esc(benchmark.publisher)} · ${esc(benchmark.date)}</a><p class="note">${benchmark.reportedBy === 'company' ? C.companyReported : C.vendorReported}. ${C.evidenceNote}</p></div></section>` : ''}
 <section class="section"><h2>${C.nextSteps}</h2><p>${C.roadmapNote}</p></section>
 ${brief.preparation.length ? `<section class="section"><h2>${C.preparation}</h2>${checklist(brief.preparation)}</section>` : ''}
-${brief.narrative.assumptions.length ? `<section class="section"><h2>${C.assumptions}</h2>${list(brief.narrative.assumptions)}</section>` : ''}
+${brief.narrative.assumptions.length ? `<section class="section"><h2>${C.assumptions}</h2>${checklist(brief.narrative.assumptions)}</section>` : ''}
 ${brief.rows.length ? `<section class="section"><h2>${C.answers}</h2>${table(brief.rows)}</section>` : ''}
 ${source ? `<section class="section"><h2>${C.provenance}</h2><p class="source-meta"><a href="${esc(source)}" rel="noreferrer">${esc(source)}</a>${brief.company.researchedAt ? ` · ${C.researched} ${esc(briefDate(brief.company.researchedAt))}` : ''}</p></section>` : ''}
 <section class="call">${john ? `<img src="${john}" alt="${C.john}">` : ''}<div><a href="${esc(SPRINT_FIT_CALL_URL)}" rel="noreferrer">${C.book}</a><p>${C.john} · ${C.johnRole}<br>${C.studio} · ${C.bookingNote}</p></div></section><footer>${C.footer}</footer></main></body></html>`

@@ -224,7 +224,7 @@ export default function AIBuildSprintPage() {
                 <Eyebrow className="mb-3">{SPRINT_GUARANTEE.eyebrow}</Eyebrow>
                 <h3 id="sprint-guarantee-heading" className="font-display text-2xl font-semibold tracking-tight text-ink">{SPRINT_GUARANTEE.heading}</h3>
               </div>
-              <span aria-hidden="true" className="flex h-16 w-16 shrink-0 rotate-[-15deg] items-center justify-center rounded-full border-2 border-brand-violet bg-surface-base font-display text-lg font-semibold text-brand-violet sm:h-20 sm:w-20 sm:text-xl">100%</span>
+              <span aria-hidden="true" className="flex h-16 w-16 shrink-0 rotate-[-15deg] items-center justify-center rounded-full border-2 border-current bg-surface-base font-display text-lg font-semibold text-ink sm:h-20 sm:w-20 sm:text-xl">100%</span>
             </div>
             <p className="type-sm mt-4 text-ink-secondary">{SPRINT_GUARANTEE.timeline}</p>
             <p className="type-sm mt-4 font-medium text-ink">{SPRINT_GUARANTEE.offer}</p>

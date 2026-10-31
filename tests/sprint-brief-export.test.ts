@@ -78,6 +78,12 @@ describe('saved sprint brief exports', () => {
     expect(html).not.toContain('class="intro"')
     expect(renderSprintBriefEmail(brief)).not.toContain('>Business context</h2>')
   })
+  it('renders unconfirmed assumptions as an empty checklist in the HTML brief', () => {
+    const brief = sample()
+    brief.narrative.assumptions = ['A person reviews each draft']
+    const html = renderSprintBriefHtml(brief)
+    expect(html).toContain('<h2>Scope assumptions</h2><ul class="checklist"><li>A person reviews each draft</li></ul>')
+  })
   it('keeps email content based on the same brief with no misleading delivery promise', () => {
     const brief = sample()
     brief.preparation = ['Arrange a sample input']

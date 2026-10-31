@@ -56,6 +56,17 @@
 @media(max-width:480px){.documentHeader,.narrative,.documentSection{padding:23px}.documentMeta{margin-bottom:22px}.scopeDiagram{margin:0 23px 24px;grid-template-columns:1fr;padding:0}.scopeDiagram li{padding:20px;border-right:0!important;border-bottom:1px solid var(--border-subtle)}.scopeDiagram li:last-child{border-bottom:0}.evidence{margin:0 23px 24px;padding:20px}.document .narrative .proposal{font-size:18px}.document .companyIdentity h2{font-size:26px}.document .contextSummary{font-size:15px}.documentSection>.stats{padding:19px;gap:20px}.stats dd{font-size:29px}.companyLogo{width:48px;height:48px}.booking{padding:23px}}
 
 .introMain{padding-top:72px}
-.overview{align-self:start;padding:24px;border:1px solid var(--border-subtle);border-radius:14px;background:var(--surface-muted, #f8f5fb)}
+.overview{align-self:start;padding:24px;border:1px solid var(--border-subtle);border-radius:14px;background:var(--surface-raised)}
 .overview h2{font-family:var(--font-display);font-size:20px;margin:0 0 10px}.overview p{line-height:1.5;color:var(--text-secondary)}.overview ol{padding-left:1.2rem;margin:16px 0 0;line-height:1.7}
 @media(max-width:800px){.introMain{padding-top:72px}.overview{order:-1}}
+
+:global([data-theme="dark"]) .page { --violet-strong: #a78bfa; --violet: #a78bfa; --error: #fca5a5; --border-default: rgba(255,255,255,.42); --border-subtle: rgba(255,255,255,.2); }
+/* Control outlines remain visible independently of the card border in both themes. */
+.choice input:not(:checked), .field input:not(:disabled), .field textarea, .field select { border-color: var(--text-secondary); }
+:global([data-theme="dark"]) .page { --text-secondary: rgba(250,250,252,.78); --text-tertiary: rgba(250,250,252,.68); }
+/* On narrow screens each figure gets the full card width. Long values remain
+   intact and can be scrolled rather than splitting a currency amount. */
+.stats dd { max-width: 100%; white-space: nowrap; overflow-x: auto; overflow-wrap: normal; }
+@media (max-width: 480px) { .documentSection > .stats, .stats { grid-template-columns: 1fr; } }
+
+.stats dd:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }

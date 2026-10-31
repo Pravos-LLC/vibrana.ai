@@ -473,3 +473,47 @@ test('intro links the published case and shows an overview before answers', asyn
   await expect(page.getByRole('heading', { name: 'What you’ll cover' })).toHaveCount(0)
   await expect(page.getByText('Sprint summary').first()).toBeVisible()
 })
+
+test('theme toggle keeps the intro and unanswered controls readable in dark mode', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/ai-build-sprint/readiness')
+  await page.getByRole('button', { name: 'Switch to dark mode' }).first().click()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await page.getByRole('button', { name: 'Start my assessment' }).first().click()
+  const overview = page.locator('aside').filter({ has: page.getByRole('heading', { name: 'What you’ll cover' }) })
+  await expect(overview).toHaveCSS('background-color', 'rgb(17, 17, 20)')
+  const radio = page.getByRole('radio', { name: 'An idea', exact: true })
+  await expect(radio).toHaveCSS('border-top-color', 'rgba(250, 250, 252, 0.78)')
+  await radio.focus()
+  await expect(radio).toBeFocused()
+  await page.setViewportSize({ width: 320, height: 900 })
+  expect(await page.locator('body').evaluate(element => element.scrollWidth)).toBe(320)
+})
+
+for (const currency of ['GBP', 'EUR', 'USD'] as const) {
+  test(`narrow brief keeps ${currency} amounts on one line`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 900 })
+    await page.route('**/api/sprint-inquiries', async route => {
+      const body = route.request().postDataJSON() as InquiryPayload
+      const brief = buildSprintBrief(body.fitCheck, body.briefRequest, null, '2026-10-31T08:00:00.000Z')
+      brief.calculation.inputs.currency = currency
+      brief.calculation.currentCost = 1000
+      brief.calculation.capacityValue = 123456789012345
+      await route.fulfill({ json: { success: true, inquiryId: 'synthetic-receipt', brief, emailDelivered: true } })
+    })
+    await completeToReview(page, { numbers: true })
+    await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
+    const stats = page.getByRole('article').locator('dl').filter({ hasText: 'Current effort cost' })
+    const currencySymbol = { GBP: '£', EUR: '€', USD: '$' }[currency]
+    const amount = stats.locator('dd').filter({ hasText: currencySymbol })
+    await expect(amount).toHaveCount(2)
+    for (const item of await amount.all()) {
+      await expect(item).toHaveCSS('white-space', 'nowrap')
+      const measure = await item.evaluate(element => { const range = document.createRange(); range.selectNodeContents(element); return { lines: range.getClientRects().length, width: element.clientWidth } })
+      expect(measure.lines).toBe(1)
+      expect(measure.width).toBeGreaterThan(0)
+    }
+    await expect(amount.last()).toHaveAttribute('tabindex', '0')
+    expect(await page.locator('body').evaluate(element => element.scrollWidth)).toBe(320)
+  })
+}
