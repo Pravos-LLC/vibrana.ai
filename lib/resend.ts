@@ -7,6 +7,8 @@ export const FROM_EMAIL = process.env.FROM_EMAIL || 'John Ellison <john@vibrana.
 interface EmailPayload {
   /** Sensitive feedback never logs provider exception payloads. Not forwarded to Resend. */
   suppressErrorDetails?: boolean
+  /** Stable key for retrying one transactional message without duplicate delivery. */
+  idempotencyKey?: string
   from: string
   to: string
   subject: string
@@ -37,7 +39,7 @@ export async function sendEmail(payload: EmailPayload): Promise<EmailResult> {
       tags: payload.tags,
       headers: payload.headers,
       attachments: payload.attachments,
-    })
+    }, payload.idempotencyKey ? { idempotencyKey: payload.idempotencyKey } : undefined)
 
     if (error) {
       return {

@@ -119,7 +119,7 @@ export async function sweepExpiredAssets(now = new Date()): Promise<number> {
 export async function getCachedProfile(domain: string): Promise<CompanyProfile | null> {
   const { data, error } = await db()
     .from('simulator_company_profiles')
-    .select('domain, sector, sector_confidence, alternatives, function_mix, signals, source, title, summary, offerings, hq_country, logo_path, screenshot_path, company_name, ai_role, levers')
+    .select('domain, sector, sector_confidence, alternatives, function_mix, signals, source, title, summary, offerings, hq_country, logo_path, screenshot_path, company_name, ai_role, levers, classified_at')
     .eq('domain', domain)
     .gt('expires_at', new Date().toISOString())
     // Rows from the v1 read have no summary, logo or screenshot: treat them as stale so the domain is
@@ -129,6 +129,7 @@ export async function getCachedProfile(domain: string): Promise<CompanyProfile |
   if (error || !data) return null;
   return {
     domain: data.domain,
+    researchedAt: data.classified_at,
     sector: data.sector,
     confidence: data.sector_confidence,
     alternatives: data.alternatives ?? [],

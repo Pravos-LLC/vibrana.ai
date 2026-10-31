@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import { SPRINT_FLOW } from '@/src/sprint-fit-content'
 import Image from '@/src/components/PublicDemoImage'
 import { Check, X } from 'lucide-react'
 import { EnterprisePageShell } from '@/src/components/enterprise/EnterprisePageShell'
@@ -20,6 +21,7 @@ import {
   SPRINT_DAYS,
   SPRINT_FAQ,
   SPRINT_FINAL,
+  SPRINT_GUARANTEE,
   SPRINT_FIT,
   SPRINT_OUTCOMES,
   SPRINT_PRICING,
@@ -214,7 +216,23 @@ export default function AIBuildSprintPage() {
           <SprintCta location="pricing" className="mt-8" />
         </Reveal>
 
-        <div className="mx-auto mt-14 max-w-xl space-y-4 text-center">
+        <aside aria-labelledby="sprint-guarantee-heading" className="mx-auto mt-14 max-w-2xl overflow-hidden rounded-2xl border border-line-subtle bg-surface-raised text-left">
+          <div className="h-1 bg-linear-to-r from-brand-violet via-brand-blue to-brand-cyan" aria-hidden="true" />
+          <div className="p-6 sm:p-8">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <Eyebrow className="mb-3">{SPRINT_GUARANTEE.eyebrow}</Eyebrow>
+                <h3 id="sprint-guarantee-heading" className="font-display text-2xl font-semibold tracking-tight text-ink">{SPRINT_GUARANTEE.heading}</h3>
+              </div>
+              <span aria-hidden="true" className="flex h-16 w-16 shrink-0 rotate-[-15deg] items-center justify-center rounded-full border-2 border-current bg-surface-base font-display text-lg font-semibold text-ink sm:h-20 sm:w-20 sm:text-xl">100%</span>
+            </div>
+            <p className="type-sm mt-4 text-ink-secondary">{SPRINT_GUARANTEE.timeline}</p>
+            <p className="type-sm mt-4 font-medium text-ink">{SPRINT_GUARANTEE.offer}</p>
+            <p className="type-sm mt-4 text-ink-secondary">{SPRINT_GUARANTEE.conditions}</p>
+          </div>
+        </aside>
+
+        <div className="mx-auto mt-10 max-w-xl space-y-4 text-center">
           <div className="rounded-2xl border border-line-subtle bg-surface-raised px-6 py-5">
             <p className="type-sm text-ink">
               <span className="font-semibold">{SPRINT_PRICING.triage.lead}</span> {SPRINT_PRICING.triage.body}
@@ -228,6 +246,11 @@ export default function AIBuildSprintPage() {
             {SPRINT_PRICING.roi.prompt}{' '}
             <TrackedLink href={SPRINT_PRICING.roi.href} event="sprint_roi_click" className={textLink}>
               {SPRINT_PRICING.roi.link}
+            </TrackedLink>
+          </p>
+          <p className="type-sm pt-4 text-ink-secondary">
+            <TrackedLink href="/ai-build-sprint/readiness" event="sprint_brief_click" className={textLink}>
+              {SPRINT_FLOW.title}
             </TrackedLink>
           </p>
           <p className="type-sm pt-4 text-ink-secondary">

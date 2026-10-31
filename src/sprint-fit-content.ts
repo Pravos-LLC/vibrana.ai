@@ -1,0 +1,75 @@
+/** Sprint fit check: founder-visionary / builder-identity; Gatekeeper secondary.
+ * Working source: campaign brief and owner execution direction, 2026-10-30.
+ * No maturity scores, speed guarantees, required prototype or invented outcomes.
+ */
+export const FIT = {
+  brand: 'VIBRANA', back: 'AI Build Sprints', eyebrow: 'Your next build',
+  title: 'AI Build Sprint',
+  intro: 'Build brief and sprint preparation.',
+  privacy: 'Your answers stay in this tab until you create your brief. Leave out confidential information.',
+  next: 'Continue', previous: 'Back', finish: 'Create my brief', reset: 'Start over',
+  step: 'Step', of: 'of', draft: 'Sprint summary', draftHint: 'Sprint summary',
+  empty: 'To confirm', select: 'Select', optional: 'Optional',
+  steps: [
+    { title: 'What are you starting with?', hint: '', nav: 'Starting point' },
+    { title: 'What should the first version do?', hint: '', nav: 'First release' },
+    { title: 'What exists today?', hint: '', nav: 'Current state' },
+    { title: 'How will you know it works?', hint: '', nav: 'Success' },
+    { title: 'Build preparation', hint: '', nav: 'Preparation' },
+    { title: 'When are you thinking?', hint: '', nav: 'Timing' },
+    { title: 'Where does funding stand?', hint: '', nav: 'Funding' },
+  ],
+  labels: { user: 'First users', outcome: 'Description of first release', shape: 'I would like help shaping this', current: 'Current process or prototype', tools: 'Tools or systems involved', metric: 'Your main sign of success', baseline: 'Current baseline, if known', target: 'What would a good result look like?', access: 'Sample data and access', owner: 'Who will own the result?', participation: 'Time to test and learn', review: 'Specialist review', timing: 'Preferred start', funding: 'Funding position', name: 'Your name', email: 'Email', company: 'Company or project', honeypot: 'Leave empty' },
+  placeholders: { user: 'For example, an account manager', outcome: 'Turn meeting notes into a proposal they can review', current: 'A rough idea, a working demo, or the steps in the current process…', tools: 'For example, Google Drive and our CRM. None yet is fine.', baseline: 'For example, two hours per proposal. Leave blank if unknown.', target: 'For example, a usable draft that the account manager can approve', company: 'Your company or the name of your idea' },
+  starting: [
+    { value: 'idea', label: 'An idea', detail: 'I can see an opportunity. I want help making it real.' },
+    { value: 'experiment', label: 'An AI experiment', detail: 'I have started exploring and want a clear next step.' },
+    { value: 'prototype', label: 'A prototype', detail: 'Something works. It needs a path to a useful release.' },
+    { value: 'workflow', label: 'An existing workflow', detail: 'There is a specific way of working I want to improve.' },
+  ],
+  metrics: [ { value: 'time', label: 'Less time' }, { value: 'capacity', label: 'More output' }, { value: 'quality', label: 'Better quality' }, { value: 'spend', label: 'Lower costs' }, { value: 'customer', label: 'Customer demand' }, { value: 'other', label: 'Other' } ],
+  access: [ { value: 'ready', label: 'Available' }, { value: 'arrange', label: 'Needs arranging' }, { value: 'unknown', label: 'Not sure yet' }, { value: 'blocked', label: 'A known access constraint' } ],
+  owner: [ { value: 'yes', label: 'Identified. This can be me.' }, { value: 'identify', label: 'Needs identifying' }, { value: 'unknown', label: 'Not sure yet' } ],
+  participation: [ { value: 'yes', label: 'We can make time' }, { value: 'arrange', label: 'We need to arrange it' }, { value: 'no', label: 'Not currently possible' } ],
+  review: [ { value: 'standard', label: 'No additional review identified' }, { value: 'required', label: 'Specialist review needed' }, { value: 'unknown', label: 'Not sure yet' } ],
+  timing: [ { value: 'soon', label: 'As soon as practical', detail: 'I am ready to start a conversation.' }, { value: 'month', label: 'In the next month or two', detail: 'There is time to prepare.' }, { value: 'later', label: 'Later', detail: 'I am planning ahead.' }, { value: 'exploring', label: 'Just exploring', detail: 'I want to understand the possibilities.' } ],
+  funding: [ { value: 'funded', label: 'Budget available', detail: 'We can discuss a scoped proposal.' }, { value: 'proposal', label: 'Approval needs a proposal', detail: 'We know who makes the decision.' }, { value: 'case', label: 'Building the business case', detail: 'We need to make the value clear.' }, { value: 'exploring', label: 'No allocation yet', detail: 'We are exploring the fit.' }, { value: 'private', label: 'Prefer to discuss', detail: 'We can cover it in conversation.' } ],
+  result: { eyebrow: 'A starting point, made clear', title: 'Your sprint brief', intro: '', preparation: 'Before we scope the build', next: 'Your next step', saved: 'Brief copied', copy: 'Copy my brief', download: 'Download my brief', edit: 'Refine my answers', send: 'Create my brief', sendHint: 'Share this brief with the studio. We will read it before the conversation.', submit: 'Send my brief', sending: 'Sending…', sent: 'Your brief is with the studio.', sentHint: 'You can choose a time for a conversation below. A copy of the brief is also included in your confirmation email.', call: 'Book a call with John', emailSubject: 'Your first-build brief from Vibrana', emailIntro: 'Here is the brief you shared with the studio. Our next conversation can confirm scope, preparation and the right people for the build.', footer: 'Preparation is based on your answers. Scope, delivery dates and cost are agreed after a conversation.' },
+  rows: { startingPoint: 'Starting point', user: 'First user', outcome: 'First useful release', current: 'Current state', tools: 'Tools', metric: 'Success measures', baseline: 'Baseline', target: 'A good result', access: 'Access', owner: 'Operating and approval owner', participation: 'Learning alongside delivery', review: 'Specialist review', timing: 'Timing', funding: 'Funding' },
+  routes: { ready: 'Ready for a scoping conversation', shape: 'Shape the first release', confirm: 'Confirm a few essentials', dependency: 'Resolve a dependency first' },
+  actions: { access: 'Confirm sample inputs and access to the systems involved.', blocked: 'Resolve the known access constraint before committing to a build.', owner: 'Identify who will approve the release and run it afterward.', participation: 'Agree time to try the product and learn during delivery.', unavailable: 'Work out who can participate before planning the build.', review: 'Confirm the review needed for the intended use.', specialist: 'Arrange the required specialist review.', scope: 'Choose one first user and one useful first-release outcome.', success: 'Agree a success indicator and acceptance check.', ready: 'Bring this brief to a conversation about scope, people and delivery.' },
+  errors: { metricOther: 'Describe the other measure of success.', answer: 'Choose an answer to continue.', outcome: 'Add a first user and describe the first release.', current: 'Add a few words about the current state. An idea is fine.', contact: 'Add your name, email and company or project.', send: 'We could not send the brief. Your answers are still here. Please try again.', copy: 'Copy is unavailable here. Download the brief instead.' },
+} as const
+
+/** Plain interface copy for the integrated assessment. */
+export const SPRINT_FLOW = {
+  overview: { title: 'What you’ll cover', intro: 'A few questions to shape your brief.', items: ['Your starting point and first users', 'What you want to build and how to measure it', 'Your preparation, timing and budget'] },
+  title: 'Build your sprint brief',
+  back: 'AI Build Sprints',
+  summary: 'Sprint summary', summaryCount: 'answered', edit: 'Edit',
+  flow: ['Starting point', 'About you', 'First release', 'Current state', 'Success', 'Preparation', 'Timing and budget', 'Review'],
+  headings: ['What are you starting with?', 'About you', 'What should the first version do?', 'What exists today?', 'How will you know it works?', 'Build preparation', 'Timing and budget', 'Review your brief'],
+  role: 'Role', website: 'Company website', noWebsite: 'No website yet', companyDescription: 'What your company does', industry: 'Industry',
+  profileNotice: 'We read your public website to add company context. Creating your brief saves your details and sends you a copy.',
+  researching: 'Reading your website…', retryResearch: 'Read website again', researchReady: 'Company context added', researchManual: 'Add your company context below.',
+  metricOther: 'Other measure of success',
+  loading: { title: 'Creating your sprint brief', details: 'Checking your details', confirmed: 'Company context confirmed', preparing: 'Preparing and saving your brief', delivery: 'Your email copy follows once the brief is saved' },
+  noBuild: 'Nothing built yet', addNumbers: 'Add numbers', numbersOptional: 'Optional',
+  numbers: { tasksPerWeek: 'Tasks per week, across the team', minutesPerTask: 'Minutes per person, per task', peoplePerTask: 'People per task', targetMinutesPerTask: 'Target minutes per person, per task', hourlyCost: 'Hourly cost per person', currency: 'Currency', softwareCostMonthly: 'Current software cost per month' },
+  volumeHint: 'Use total team volume. Include review time in your target.',
+  confirmCompany: 'This company context is correct', proposedScope: 'Proposed first release', companyContext: 'Company context',
+  scopeLabels: ['First users', 'Current state', 'First release', 'Success measures'],
+  businessCase: 'Business case', currentHours: 'Current hours / week', targetHours: 'Target hours / week', releasedHours: 'Potential capacity / week', additionalHours: 'Additional effort / week', currentCost: 'Current effort cost / week', capacityValue: 'Capacity value / week', additionalCost: 'Additional effort cost / week', softwareCost: 'Current software cost / month',
+  calculationNote: 'Based on your figures. Targets are estimates, not guaranteed savings.',
+  example: 'Industry example', reported: 'Reported by', source: 'Source', preparation: 'Before the sprint', assumptions: 'To confirm',
+  created: 'Your sprint brief', companyName: 'Company name (optional)', emailDomainSuggestion: 'If your email domain is your company website:', useEmailDomain: 'Use', projectName: 'Project name (optional)', defaultDescription: '',
+  john: 'John Ellison', johnRole: 'CEO and Founder, Vibrana', johnAlt: 'John Ellison', call: 'Book a call with John',
+  callHint: 'Review the scope, questions and next steps together.',
+  downloadHtml: 'Download HTML', downloadPdf: 'Download PDF', preparing: 'Preparing download…', exportError: 'The download could not be prepared. Please try again.',
+  emailSent: 'A copy of your brief has been sent to your email.', emailFailed: 'Your brief is saved. Email delivery was unsuccessful. You can download a copy below.', resendEmail: 'Retry email delivery', emailRetryFailed: 'Email delivery was unsuccessful. Your saved brief is still available.',
+  reviewHelp: 'Help defining the first release', notBuilt: 'Nothing built yet',
+  errors: { contact: 'Add your name, valid email and role.', website: 'Enter a public company website, or choose “No website yet”.', company: 'Confirm the company context before creating your brief.', save: 'We could not save your brief. Your answers are still here. Please try again.', numbers: 'Use zero or a positive number. People per task must be at least one.' },
+} as const
+
+/** Search and sharing metadata for the readiness assessment. */
+export const SPRINT_READINESS_META = { title: 'AI Build Sprint Brief | Vibrana', description: 'Shape a useful first release and create a sprint brief with company context and an optional business case.' } as const

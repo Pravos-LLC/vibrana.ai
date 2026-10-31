@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Image from '@/src/components/PublicDemoImage';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useHydratedReducedMotion } from '@/src/components/prism/motion/useHydratedReducedMotion';
 import { cn } from '@/src/components/prism/utils/cn';
 import { getImagery, type ImageryAsset } from '@/src/imagery-manifest';
 
@@ -94,7 +95,7 @@ export function VibranaImage({
   imageClassName,
   captionClassName,
 }: VibranaImageProps) {
-  const reduce = useReducedMotion();
+  const reduce = useHydratedReducedMotion();
   const resolvedAsset = asset ?? (id ? getImagery(id) : undefined);
 
   const finalSrc = src ?? resolvedAsset?.file;

@@ -8,7 +8,7 @@
 import type { CompanyProfile, ProfileResponse } from '../api';
 import { assetPublicUrl, budgetHit, getCachedProfile, saveProfile, sweepExpiredAssets } from '../server/db';
 import { storeLogo, storeScreenshot } from './assets';
-import { classifierModel, classifyPage } from './classify';
+import { classifierModel, classifyPage, cleanPhrase, SUMMARY_MAX } from './classify';
 import { normalizeWebsite } from './domain';
 import { adjustMix } from './mix';
 import { scrapeHomepage } from './scrape';
@@ -26,29 +26,34 @@ export const DAILY_CLASSIFY_CAP = cap('SIMULATOR_DAILY_CLASSIFY_CAP', 300);
 /** Share of fresh profiles that also sweep expired screenshots and logos. */
 const ASSET_SWEEP_RATE = 0.02;
 
-export async function buildProfile(rawUrl: unknown): Promise<ProfileResponse> {
+export async function buildProfile(rawUrl: unknown, options: { requireSummary?: boolean } = {}): Promise<ProfileResponse> {
   const site = normalizeWebsite(rawUrl);
   if (!site) return { ok: false, reason: 'manual', domain: null };
   const manual: ProfileResponse = { ok: false, reason: 'manual', domain: site.domain };
 
+  let cached: CompanyProfile | null = null;
   try {
-    const cached = await getCachedProfile(site.domain);
-    if (cached) return { ok: true, profile: cached };
+    cached = await getCachedProfile(site.domain);
+    // Share pages can use logo-only profiles. The sprint description field cannot.
+    if (cached && (!options.requireSummary || cached.summary?.trim())) return { ok: true, profile: cached };
 
     // Over the daily paid cap the site is still read directly (no credits, no screenshot).
     const paid = await budgetHit('scrapes', DAILY_SCRAPE_CAP);
     const page = await scrapeHomepage(site.url, { paid });
-    if (!page) return manual;
+    if (!page) return cached ? { ok: true, profile: cached } : manual;
+    const pageDescription = cleanPhrase(page.meta?.description, SUMMARY_MAX);
+    const researchedFallback = cached ? { ...cached, ...(pageDescription ? { summary: pageDescription, source: page.source, researchedAt: new Date().toISOString() } : {}) } : null;
 
     // Images are copied while the classifier runs. Neither step can throw.
     const assets = Promise.all([storeLogo(site.domain, page.iconCandidates), storeScreenshot(site.domain, page.screenshotUrl)]);
 
-    if (!(await budgetHit('classifications', DAILY_CLASSIFY_CAP))) return manual;
+    if (!(await budgetHit('classifications', DAILY_CLASSIFY_CAP))) return researchedFallback ? { ok: true, profile: researchedFallback } : manual;
     const c = await classifyPage(page.markdown);
-    if (!c) return manual;
+    if (!c) return researchedFallback ? { ok: true, profile: researchedFallback } : manual;
     const [logoPath, screenshotPath] = await assets;
 
     const profile: CompanyProfile = {
+      researchedAt: new Date().toISOString(),
       domain: site.domain,
       sector: c.sector,
       confidence: c.confidence,
@@ -57,7 +62,7 @@ export async function buildProfile(rawUrl: unknown): Promise<ProfileResponse> {
       signals: { mentionsAi: c.mentionsAi, b2b: c.b2b },
       source: page.source,
       title: page.meta?.title ?? null,
-      summary: c.summary,
+      summary: c.summary || pageDescription,
       offerings: c.offerings,
       name: c.companyName,
       aiRole: c.aiRole,
@@ -71,6 +76,6 @@ export async function buildProfile(rawUrl: unknown): Promise<ProfileResponse> {
     return { ok: true, profile };
   } catch (err) {
     console.error('[simulator] profile failed; manual path.', err instanceof Error ? err.message : err);
-    return manual;
+    return cached ? { ok: true, profile: cached } : manual;
   }
 }

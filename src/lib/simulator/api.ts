@@ -18,6 +18,8 @@ export type ProfileRequest = {
 };
 
 export type CompanyProfile = {
+  /** Timestamp of classification, including when this profile came from cache. */
+  researchedAt?: string;
   domain: string;
   sector: SectorId;
   confidence: number;

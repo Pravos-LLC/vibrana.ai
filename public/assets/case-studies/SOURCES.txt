@@ -1,0 +1,8 @@
+Case-study cover thumbnails
+
+These owned vector product illustrations summarize the interfaces described in the two published case studies. They are not photographs, client logos, product screenshots, or representations of named client systems.
+
+european-proptech-rag.webp: document search and a checked answer; source content/case-studies/european-proptech-rag.md.
+insurtech-qa-knowledge-base.webp: call waveform and a review check; source content/case-studies/insurtech-qa-knowledge-base.md.
+
+The website only includes these covers when the corresponding case study is published. No draft case content is included.
