@@ -453,3 +453,23 @@ test('intro uses a still hero, existing logo reel and closing assessment action'
   await expect(page.getByRole('heading', { name: 'What are you starting with?' })).toBeVisible()
   expect(await page.locator('body').evaluate(element => element.scrollWidth)).toBe(320)
 })
+
+
+test('logo reel can be paused and resumed with the keyboard', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.goto('/ai-build-sprint/readiness')
+  const track = page.locator('.logo-marquee-track')
+  await expect(track).toHaveCSS('animation-name', 'logo-marquee-slide')
+  const control = page.getByRole('button', { name: 'Pause logo reel' })
+  await control.focus()
+  await page.keyboard.press('Enter')
+  await expect(page.getByRole('button', { name: 'Play logo reel' })).toBeFocused()
+  await expect(track).toHaveCSS('animation-play-state', 'paused')
+  await page.getByRole('button', { name: 'Start my assessment' }).first().focus()
+  await expect(track).toHaveCSS('animation-play-state', 'paused')
+  await page.getByRole('button', { name: 'Play logo reel' }).focus()
+  await page.keyboard.press('Space')
+  await expect(page.getByRole('button', { name: 'Pause logo reel' })).toBeFocused()
+  await page.getByRole('button', { name: 'Start my assessment' }).first().focus()
+  await expect(track).toHaveCSS('animation-play-state', 'running')
+})

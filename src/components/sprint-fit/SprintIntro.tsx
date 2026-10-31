@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Button } from '@/src/components/prism'
 import { Headphones, Network, MessagesSquare, BookOpen, UsersRound, GraduationCap, Workflow, ChartNoAxesCombined } from 'lucide-react'
 import { LogoRow } from '@/src/components/proof/LogoRow'
@@ -9,6 +10,7 @@ import styles from './intro.module.css'
 const exampleIcons = [[Headphones, Network, MessagesSquare, BookOpen], [UsersRound, GraduationCap, Workflow, ChartNoAxesCombined]]
 
 export function SprintIntro({ onStart }: { onStart: () => void }) {
+  const [logosPaused, setLogosPaused] = useState(false)
   return <div className={styles.intro}>
     <section className={styles.hero}>
       <div className={styles.heroInner}>
@@ -27,7 +29,10 @@ export function SprintIntro({ onStart }: { onStart: () => void }) {
       </div>
     </section>
     <div className={styles.container}>
-      <LogoRow className={styles.logos} />
+      <div className={`${styles.logoSection} ${logosPaused ? styles.logosPaused : ''}`}>
+        <LogoRow className={styles.logos} />
+        <button type="button" className={styles.logoControl} onClick={() => setLogosPaused(value => !value)}>{logosPaused ? C.playLogos : C.pauseLogos}</button>
+      </div>
       <section className={styles.examples}>
         <p className={styles.eyebrow}>{C.exampleEyebrow}</p>
         <h2>{C.exampleTitle}</h2>

@@ -51,3 +51,9 @@
   .logos :global(.logo-marquee-item) { padding: .5rem .75rem; }
 }
 @media (max-width: 760px) { .productGallery { width: 220%; height: 250px; } .productGallery img { width: 44%; } .productGallery img:last-child { width: 28%; } }
+
+.logoSection { text-align: center; }
+.logosPaused :global(.logo-marquee-track) { animation-play-state: paused; }
+.logoControl { margin-top: -2.5rem; margin-bottom: 2.5rem; border: 1px solid #c7b8d3; border-radius: 999px; padding: .45rem .8rem; color: #49355f; background: #fff; font-size: .8rem; cursor: pointer; }
+.logoControl:focus-visible { outline: 3px solid #6d32a8; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .logoControl { display: none; } }
