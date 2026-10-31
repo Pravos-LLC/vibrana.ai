@@ -1,4 +1,5 @@
 'use client'
+import { siteContent } from '@/src/site-content'
 import { PublicDemoImg } from '@/src/components/PublicDemoImage'
 
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
@@ -634,7 +635,7 @@ function AssessmentCta({ href }: { href: string }) {
       body={D.assessment.body}
       primaryCta={{ text: D.assessment.primary, href }}
       secondaryCta={{ text: D.assessment.secondary, href: '/contact' }}
-      scene={{ src: scene?.file ?? '/assets/imagery/homepage/prism-grid-solar.webp', alt: '' }}
+      scene={{ src: scene?.file ?? siteContent("media.c3JjL2NvbXBvbmVudHMvc2ltdWxhdG9yL1Jlc3VsdFZpZXcudHN4OjA", '/assets/imagery/homepage/prism-grid-solar.webp'), alt: '' }}
       screenshot={{ src: CLOSING_MOCK.screenshot.src, alt: D.assessment.screenshotAlt }}
     />
   )

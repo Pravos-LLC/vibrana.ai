@@ -7,6 +7,7 @@
  * helpers — it does not transform or duplicate the data.
  */
 
+import { siteContent } from '@/src/site-content'
 import manifestJson from '../public/assets/imagery/manifest.json'
 
 export interface ImageryAssetSource {
@@ -42,7 +43,11 @@ interface ImageryManifest {
 
 const manifest = manifestJson as ImageryManifest
 
-export const IMAGERY_MANIFEST: ImageryAsset[] = manifest.assets
+const display = siteContent<Record<string, Pick<ImageryAsset, 'file' | 'title' | 'description' | 'aspect'>>>('imagery.display', {})
+export const IMAGERY_MANIFEST: ImageryAsset[] = manifest.assets.map((asset) => {
+  const override = display[asset.id]
+  return override ? { ...asset, file: override.file, title: override.title, description: override.description, aspect: override.aspect } : asset
+})
 
 /** Look up a single asset by id. */
 export function getImagery(id: string): ImageryAsset | undefined {

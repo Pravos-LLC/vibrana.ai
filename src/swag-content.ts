@@ -1,24 +1,25 @@
+import { siteContent } from '@/src/site-content'
 /**
  * Swag / brand-assets page copy -- data, never hardcoded in the view. See
  * DESIGN.md -> "Page copy is data".
  */
 
-export const SWAG_HERO = {
+export const SWAG_HERO = siteContent("swag-content.SWAG_HERO", {
   eyebrow: 'Brand Assets',
   titleLead: 'Vibrana ',
   titleAccent: 'Swag',
   subhead:
     "A retro-arcade sticker pack we made for ourselves, for contributors, and for anyone who's been in the trenches of agentic engineering. 32 sticker previews are included in this public demo.",
-};
+});
 
-export const SWAG_STICKER_SECTION = {
+export const SWAG_STICKER_SECTION = siteContent("swag-content.SWAG_STICKER_SECTION", {
   eyebrow: 'The Pack',
   heading: '32 stickers, ',
   gradientWord: 'zero repeats',
   gradient: 'prism' as const,
   intro:
     "4 themes are included in this public demo. Each one is its own arcade or RPG UI moment. If you've shipped an agent-written PR straight to main, one of these is about you.",
-};
+});
 
 export interface SwagStickerItem {
   slug: string;
@@ -30,7 +31,7 @@ export interface SwagStickerTheme {
   stickers: SwagStickerItem[];
 }
 
-export const STICKER_THEMES: SwagStickerTheme[] = [
+export const STICKER_THEMES: SwagStickerTheme[] = siteContent("swag-content.STICKER_THEMES", [
   {
     theme: 'Vibrana Mythology',
     stickers: [
@@ -86,13 +87,13 @@ export const STICKER_THEMES: SwagStickerTheme[] = [
       { slug: 'human-checkpoint-breathe', title: "CHECKPOINT: BREATHE. YOU'VE GOT THIS." },
     ],
   },
-];
+]);
 
-export const SWAG_STICKER_DOWNLOAD = {
+export const SWAG_STICKER_DOWNLOAD = siteContent("swag-content.SWAG_STICKER_DOWNLOAD", {
   label: 'Download the demo pack',
   href: '/downloads/vibrana-sticker-pack.zip',
   note: '32 approved sticker previews (.webp) in a ZIP. Original print files are not included.',
-};
+});
 
 export interface SwagShirt {
   slug: string;
@@ -101,16 +102,16 @@ export interface SwagShirt {
   caption: string;
 }
 
-export const SWAG_SHIRT_SECTION = {
+export const SWAG_SHIRT_SECTION = siteContent("swag-content.SWAG_SHIRT_SECTION", {
   eyebrow: 'The Shirts',
   heading: 'Wearable ',
   gradientWord: 'evidence',
   gradient: 'warm' as const,
   intro:
     "A couple of the pack's flagship designs, printed big. (Yes, hooks and evals and tests exist. This one's about the moment they don't.)",
-};
+});
 
-export const SWAG_SHIRTS: SwagShirt[] = [
+export const SWAG_SHIRTS: SwagShirt[] = siteContent("swag-content.SWAG_SHIRTS", [
   {
     slug: 'vibe-coded-env-to-main',
     image: '/assets/imagery/homepage/prism-grid-solar.webp',
@@ -123,11 +124,11 @@ export const SWAG_SHIRTS: SwagShirt[] = [
     imageAlt: 'Black t-shirt with a retro pixel-art badge reading "ERROR 404: WETIKO NOT FOUND"',
     caption: 'ERROR 404: WETIKO NOT FOUND',
   },
-];
+]);
 
-export const SWAG_CLOSING = {
+export const SWAG_CLOSING = siteContent("swag-content.SWAG_CLOSING", {
   eyebrow: 'More Coming',
   heading: "That's the pack for now.",
   body: "This page grows as we make more. If you're a contributor or collaborator and want physical copies, ask in your pod.",
   primaryCta: { label: 'Get in touch', href: '/contact' },
-};
+});

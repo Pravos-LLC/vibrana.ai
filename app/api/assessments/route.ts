@@ -1,3 +1,4 @@
+import { renderDay2Email } from '@/lib/assessment/day2-render';
 import { PUBLIC_DEMO_DOWNLOAD as DEMO_DOWNLOAD } from '@/src/public-demo-download-content';
 import { NextRequest, NextResponse, after } from 'next/server';
 import { saveAssessment, claimAssessmentNotification, releaseAssessmentNotificationClaim, isWhitepaperAlreadySent } from '@/src/lib/assessment/db';
@@ -389,7 +390,7 @@ async function scheduleNurtureSequence(
   const footer = nurtureFooterHtml(unsubscribeUrl);
 
   const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3002').replace(/\/+$/, '');
-  const whitepaperUrl = `${baseUrl}/downloads/public-demo-guide.txt`;
+  const whitepaperUrl = `${baseUrl}${DEMO_DOWNLOAD.href}`;
   const calendarUrl = 'https://calendar.app.google/2DswLVndhkpMVx7K7';
 
   // Day 2: "One thing I'd prioritize" + whitepaper offer
@@ -497,8 +498,8 @@ async function scheduleNurtureSequence(
   }
 }
 
-function generateDay2Email(_companyName: string, _priorityArea: string, _score: number, whitepaperUrl: string, footer: string): string {
-  return `<!doctype html><html><body><h1>${DEMO_DOWNLOAD.heading}</h1><p>${DEMO_DOWNLOAD.followup}</p><a href="${whitepaperUrl}">${DEMO_DOWNLOAD.label}</a>${footer}</body></html>`;
+function generateDay2Email(companyName: string, priorityArea: string, score: number, whitepaperUrl: string, footer: string): string {
+  return renderDay2Email(companyName, priorityArea, score, whitepaperUrl, footer);
 }
 
 function generateDay5Email(companyName: string, archetype: string, calendarUrl: string, footer: string): string {

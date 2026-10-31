@@ -1,3 +1,4 @@
+import { siteContent } from '@/src/site-content'
 // ── /ai-readiness: the AI Readiness Assessment landing page ─────────────────
 // Copy is data (DESIGN.md § Page copy is data): src/views/AIReadinessPage.tsx renders these strings.
 //
@@ -12,28 +13,28 @@
 // - Quotes are verbatim from a finding's quote or an engagement's Approved quotes.
 // - To add a number: add its finding to evidence-selection.json, run the sync, then cite it here.
 
-export const ASSESSMENT_HREF = '/ai-transformation/assessment'
-export const CALL_HREF = 'https://calendar.app.google/2DswLVndhkpMVx7K7'
+export const ASSESSMENT_HREF = siteContent("ai-readiness-content.ASSESSMENT_HREF", '/ai-transformation/assessment')
+export const CALL_HREF = siteContent("ai-readiness-content.CALL_HREF", 'https://calendar.app.google/2DswLVndhkpMVx7K7')
 
-export const READINESS_CTA = {
+export const READINESS_CTA = siteContent("ai-readiness-content.READINESS_CTA", {
   primary: { label: 'Take the assessment', href: ASSESSMENT_HREF },
   secondary: { label: 'Book a 30-min call', href: CALL_HREF },
-} as const
+} as const)
 
-export const READINESS_META = {
+export const READINESS_META = siteContent("ai-readiness-content.READINESS_META", {
   title: 'AI Readiness Assessment: 24 questions, six areas, research behind your results | Vibrana',
   description:
     'Most companies cannot yet show a return on AI. See where your organization stands across six areas of readiness, with published research behind your two lowest areas.',
   ogTitle: 'AI Readiness Assessment | Vibrana',
-} as const
+} as const)
 
-export const READINESS_OG = {
+export const READINESS_OG = siteContent("ai-readiness-content.READINESS_OG", {
   eyebrow: 'AI Readiness Assessment',
   headline: { lead: 'Before the next AI budget, see ', accent: 'what’s in the way.', trail: '' },
   alt: 'Vibrana AI Readiness Assessment: before the next AI budget, see what’s in the way.',
-} as const
+} as const)
 
-export const READINESS_HERO = {
+export const READINESS_HERO = siteContent("ai-readiness-content.READINESS_HERO", {
   eyebrow: 'AI Readiness Assessment',
   headline: 'Before the next AI budget, see what’s in the way.',
   subtitle: 'Free. 24 questions about what your organization does today give you a six-area profile, not a peer rank, with research behind your two lowest areas.',
@@ -41,7 +42,7 @@ export const READINESS_HERO = {
     id: 'obj-magnifier-notes-orion',
     alt: 'A brass magnifying glass over handwritten notes on a worn desk, lit by one warm lamp',
   },
-} as const
+} as const)
 
 // ── 1. The problem ───────────────────────────────────────────────────────────
 
@@ -55,7 +56,7 @@ export interface ReadinessStat {
   sampleFrom?: string
 }
 
-export const READINESS_PROBLEM = {
+export const READINESS_PROBLEM = siteContent("ai-readiness-content.READINESS_PROBLEM", {
   heading: 'Most companies can’t yet show what AI returns.',
   intro:
     'Three large surveys, three different measures. In each one, most companies can’t yet show a return. Read them side by side, not as one trend.',
@@ -92,7 +93,7 @@ export const READINESS_PROBLEM = {
     ],
     takeaway: 'Most of the hard part is people and process, not the model.',
   },
-} as const
+} as const)
 
 // ── 2. What separates the companies getting value ──────────────────────────
 
@@ -103,7 +104,7 @@ export interface GapRow {
   finding: string
 }
 
-export const READINESS_FACTORS = {
+export const READINESS_FACTORS = siteContent("ai-readiness-content.READINESS_FACTORS", {
   heading: 'What the companies getting value do differently',
   lead: {
     text: 'Of 25 attributes McKinsey tested, redesigning workflows had the biggest effect on whether a company saw EBIT impact from gen AI. In its report published in early 2025, only 21% of respondents whose organizations use gen AI said they had fundamentally redesigned at least some workflows. In its 2026 survey, nearly three-quarters of AI high performers, a much smaller group, said the same.',
@@ -166,7 +167,7 @@ export const READINESS_FACTORS = {
     body: 'Every link above is a correlation from surveys, mostly self-reported. McKinsey’s model of 25 attributes explains about a fifth of the variation in reported EBIT impact (an R-squared of 0.20). In its 2025 ranking, technology and data infrastructure matter but sit behind practices like workflow redesign. So our assessment gives you a profile across six areas, not a verdict on which one matters most.',
     findings: ['mckinsey-state-of-ai-2025-25-attributes-r-squared-020', 'mckinsey-state-of-ai-nov-2025-tech-data-meaningful-not-top'],
   },
-} as const
+} as const)
 
 // ── 3. Enterprise cases ──────────────────────────────────────────────────────
 
@@ -181,7 +182,7 @@ export interface EnterpriseCase {
   counterCase?: boolean
 }
 
-export const READINESS_CASES = {
+export const READINESS_CASES = siteContent("ai-readiness-content.READINESS_CASES", {
   heading: 'What the famous AI cases actually show',
   intro:
     'Read at their primary sources, the best-known enterprise cases report adoption and task time, nearly all self-reported. None publishes an audited return on AI. Here is what each one does show, and the caveat that goes with it.',
@@ -250,7 +251,7 @@ export const READINESS_CASES = {
       ],
     },
   ] satisfies EnterpriseCase[],
-} as const
+} as const)
 
 // ── 4. Our own proof ─────────────────────────────────────────────────────────
 
@@ -268,7 +269,7 @@ export interface OwnCase {
   href: string
 }
 
-export const READINESS_OWN_CASES = {
+export const READINESS_OWN_CASES = siteContent("ai-readiness-content.READINESS_OWN_CASES", {
   heading: 'What it looked like in our own work',
   intro: 'Three engagements, with only the numbers each client approved for publication. Most are adoption and time figures. Two look forward and are not audited returns: the real-estate firm’s hours are the client’s estimate, and the tech company’s payout hours are projected.',
   readCase: 'Read the case',
@@ -311,11 +312,11 @@ export const READINESS_OWN_CASES = {
       href: '/case-studies/orion-tech',
     },
   ] satisfies OwnCase[],
-} as const
+} as const)
 
 // ── 5. What the assessment measures, and why ────────────────────────────────
 
-export const READINESS_METHOD = {
+export const READINESS_METHOD = siteContent("ai-readiness-content.READINESS_METHOD", {
   heading: 'What the assessment measures, and what it doesn’t',
   intro:
     'Six areas, 24 multiple-choice questions about what your organization does today (22 for teams of 50 or fewer, who skip two that assume several teams). Next to each area: what we ask about, and how strong the published research behind it is, in our reading of it.',
@@ -351,11 +352,11 @@ export const READINESS_METHOD = {
       { label: 'Talent', value: 20 },
     ],
   },
-} as const
+} as const)
 
 // ── 6. What you get, how long it takes, what happens to your data ──────────
 
-export const READINESS_DETAILS = {
+export const READINESS_DETAILS = siteContent("ai-readiness-content.READINESS_DETAILS", {
   heading: 'What you get, and what happens to your answers',
   screenshot: {
     src: '/assets/imagery/homepage/prism-grid-solar.webp',
@@ -395,7 +396,7 @@ export const READINESS_DETAILS = {
   ],
   privacyLink: { label: 'Read the privacy policy', href: '/privacy' },
   noObligation: 'No obligation to buy anything. If you want help afterward, our build sprints start from $10,000.',
-} as const
+} as const)
 
 // ── 7. Quotes ────────────────────────────────────────────────────────────────
 
@@ -403,7 +404,7 @@ export type ReadinessQuote =
   | { text: string; finding: string; attribution: string }
   | { text: string; engagement: string; attribution: string }
 
-export const READINESS_QUOTES = {
+export const READINESS_QUOTES = siteContent("ai-readiness-content.READINESS_QUOTES", {
   heading: 'In their words',
   research: [
     {
@@ -434,19 +435,19 @@ export const READINESS_QUOTES = {
       attribution: 'An engineer at a mid-sized tech company, after redirecting an AI agent that was going in circles',
     },
   ] satisfies ReadinessQuote[],
-} as const
+} as const)
 
 // ── Closing ──────────────────────────────────────────────────────────────────
 
-export const READINESS_CLOSING = {
+export const READINESS_CLOSING = siteContent("ai-readiness-content.READINESS_CLOSING", {
   eyebrow: 'Start with your own profile',
   title: 'Know your two weakest areas before the next AI budget is set.',
   body: '24 questions. Your profile on screen when you finish, with the research behind your two lowest areas and the hours AI could free in the workflows you name. If it’s useful, book a 30-minute call to walk through it with us.',
   scene: { id: 'scene-desk-wood-b', alt: '' },
-} as const
+} as const)
 
-export const READINESS_SOURCE_LABELS = {
+export const READINESS_SOURCE_LABELS = siteContent("ai-readiness-content.READINESS_SOURCE_LABELS", {
   source: 'Source',
   studied: 'Studied',
   ledgerNote: 'Every figure on this page links to its source. Findings come from our research library, checked at source; client numbers are the ones each client approved.',
-} as const
+} as const)

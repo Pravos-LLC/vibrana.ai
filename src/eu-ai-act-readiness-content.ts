@@ -1,3 +1,4 @@
+import { siteContent } from '@/src/site-content'
 // ── /eu-ai-act-readiness: the EU AI Act Readiness Assessment ────────────────
 // Copy is data (DESIGN.md § Page copy is data): src/views/EUAIActReadinessPage.tsx, the form
 // (src/components/eu-ai-act/*) and the report email render these strings.
@@ -12,23 +13,23 @@
 // - The draft implementing act is always called a draft.
 // - Not legal advice; the page says so.
 
-export const EU_ASSESSMENT_HREF = '/eu-ai-act-readiness/assessment'
-export const EU_RESULTS_HREF = '/eu-ai-act-readiness/results'
-export const EU_CALL_HREF = 'https://calendar.app.google/2DswLVndhkpMVx7K7'
+export const EU_ASSESSMENT_HREF = siteContent("eu-ai-act-readiness-content.EU_ASSESSMENT_HREF", '/eu-ai-act-readiness/assessment')
+export const EU_RESULTS_HREF = siteContent("eu-ai-act-readiness-content.EU_RESULTS_HREF", '/eu-ai-act-readiness/results')
+export const EU_CALL_HREF = siteContent("eu-ai-act-readiness-content.EU_CALL_HREF", 'https://calendar.app.google/2DswLVndhkpMVx7K7')
 
-export const EU_CTA = {
+export const EU_CTA = siteContent("eu-ai-act-readiness-content.EU_CTA", {
   primary: { label: 'Take the EU AI Act Readiness Assessment', short: 'Take the assessment', href: EU_ASSESSMENT_HREF },
   secondary: { label: 'Book a 30-min call', href: EU_CALL_HREF },
-} as const
+} as const)
 
-export const EU_META = {
+export const EU_META = siteContent("eu-ai-act-readiness-content.EU_META", {
   title: 'EU AI Act Readiness Assessment: your obligations, dates and gaps, cited to the law | Vibrana',
   description:
     'Find out which EU AI Act obligations apply to your company, from when, and where you stand. 25 questions, with every obligation cited to the article it comes from.',
   ogTitle: 'EU AI Act Readiness Assessment | Vibrana',
-} as const
+} as const)
 
-export const EU_HERO = {
+export const EU_HERO = siteContent("eu-ai-act-readiness-content.EU_HERO", {
   eyebrow: 'EU AI Act Readiness Assessment',
   headline: 'Which parts of the EU AI Act apply to you, and from when?',
   subtitle:
@@ -41,16 +42,16 @@ export const EU_HERO = {
   // Decorative loop (aria-hidden). Pexels video 30156205, Pexels license: free commercial use, no
   // attribution required. Credited anyway in the PR and in public/assets/eu-ai-act/video/CREDITS.md.
   media: { video: 'eu-hero-flag' },
-} as const
+} as const)
 
 // ── Page media: real footage (Pexels, credited in public/assets/eu-ai-act/video/CREDITS.md)
 // and generated stills (catalogued in public/assets/imagery/manifest.json). Videos are
 // decorative unless they carry an `alt`.
-export const EU_VIDEO_BASE = '/assets/eu-ai-act/video'
+export const EU_VIDEO_BASE = siteContent("eu-ai-act-readiness-content.EU_VIDEO_BASE", '/assets/eu-ai-act/video')
 
 // ── 1. Who the Act covers ────────────────────────────────────────────────────
 
-export const EU_COVERAGE = {
+export const EU_COVERAGE = siteContent("eu-ai-act-readiness-content.EU_COVERAGE", {
   heading: 'If you use AI at work, the Act probably covers you.',
   intro:
     'The Act is not only for companies that build AI. It assigns duties by role, and a company that uses AI tools at work holds the role of deployer.',
@@ -112,7 +113,7 @@ export const EU_COVERAGE = {
     caveat: 'A system in these areas is not high-risk if it poses no significant risk of harm, including by not materially influencing the outcome of a decision. One that profiles people always is.',
     caveatFindings: ['eu-ai-act-art-6-3-annex-iii-derogation', 'eu-ai-act-art-6-3-profiling-always-high-risk'],
   },
-} as const
+} as const)
 
 // ── 1b. The risk tiers ───────────────────────────────────────────────────────
 // Colors carry meaning page-wide: red = prohibited and penalties, amber = high-risk,
@@ -120,7 +121,7 @@ export const EU_COVERAGE = {
 
 export type EUTone = 'prohibited' | 'high-risk' | 'transparency' | 'baseline'
 
-export const EU_TIERS = {
+export const EU_TIERS = siteContent("eu-ai-act-readiness-content.EU_TIERS", {
   heading: 'Four tiers, set by what the AI is used for.',
   tiers: [
     {
@@ -151,7 +152,7 @@ export const EU_TIERS = {
       findings: ['eu-ai-act-art-4-ai-literacy-as-amended'],
     },
   ] satisfies { tone: EUTone; label: string; body: string; fine?: string; findings: string[] }[],
-} as const
+} as const)
 
 // ── 2. The dates ─────────────────────────────────────────────────────────────
 
@@ -166,7 +167,7 @@ export interface EUMilestone {
   findings: readonly string[]
 }
 
-export const EU_TIMELINE = {
+export const EU_TIMELINE = siteContent("eu-ai-act-readiness-content.EU_TIMELINE", {
   heading: 'The dates, after the Digital Omnibus.',
   intro:
     'The Digital Omnibus on AI, in force since 27 July 2026, pushed the high-risk rules back. The bans and AI literacy have applied since 2 February 2025, and most transparency duties apply from 2 August 2026, with a short grace period for content marking.',
@@ -222,11 +223,11 @@ export const EU_TIMELINE = {
       findings: ['eu-ai-act-art-113-c-high-risk-2027-2028'],
     },
   ] satisfies EUMilestone[],
-} as const
+} as const)
 
 // ── 3. Penalties ─────────────────────────────────────────────────────────────
 
-export const EU_PENALTIES = {
+export const EU_PENALTIES = siteContent("eu-ai-act-readiness-content.EU_PENALTIES", {
   heading: 'What non-compliance can cost.',
   intro: 'Fines are capped at a fixed amount or a share of worldwide annual turnover, whichever is higher.',
   tiers: [
@@ -246,11 +247,11 @@ export const EU_PENALTIES = {
     ],
     note: 'Part of a larger group? Confirm with counsel which group figures count before you rely on either cap.',
   },
-} as const
+} as const)
 
 // ── 4. The enforcement clock (the October 2026 draft) ────────────────────────
 
-export const EU_CLOCK = {
+export const EU_CLOCK = siteContent("eu-ai-act-readiness-content.EU_CLOCK", {
   eyebrow: 'Draft rules, not yet adopted',
   heading: 'Draft rules would let each AI Office investigative step restart the five-year window to fine.',
   body: [
@@ -280,11 +281,11 @@ export const EU_CLOCK = {
     drafted: 'As drafted: each step restarts it',
     findings: ['ec-2026-draft-75c-investigative-steps-interrupt-clock', 'ec-2026-draft-75c-clock-restarts-ten-year-cap', 'eu-ai-act-art-75c-8-five-year-limitation'],
   },
-} as const
+} as const)
 
 // ── 5. What the assessment does ──────────────────────────────────────────────
 
-export const EU_METHOD = {
+export const EU_METHOD = siteContent("eu-ai-act-readiness-content.EU_METHOD", {
   heading: 'What the assessment checks',
   intro:
     'The first section maps your exposure: where your AI touches the EU, your role, and whether you work in any high-risk area. The other five check the controls behind each obligation.',
@@ -357,9 +358,9 @@ export const EU_METHOD = {
       body: 'It tells you which obligations are likely to apply and where your answers show gaps. Confirm the conclusions with counsel before you rely on them.',
     },
   ],
-} as const
+} as const)
 
-export const EU_DETAILS = {
+export const EU_DETAILS = siteContent("eu-ai-act-readiness-content.EU_DETAILS", {
   heading: 'What you get, and what happens to your answers',
   screenshot: {
     src: '/assets/imagery/homepage/prism-grid-solar.webp',
@@ -389,9 +390,9 @@ export const EU_DETAILS = {
   ],
   privacyLink: { label: 'Read the privacy policy', href: '/privacy' },
   disclaimer: 'This assessment gives general information about Regulation (EU) 2024/1689 as amended. It is not legal advice.',
-} as const
+} as const)
 
-export const EU_CLOSING = {
+export const EU_CLOSING = siteContent("eu-ai-act-readiness-content.EU_CLOSING", {
   eyebrow: 'Start with your own obligations',
   title: 'Know which dates are yours, and the article behind each one.',
   body: '25 questions. Your obligations, their dates and your gaps on screen when you finish, each cited to the article. If it’s useful, book a 30-minute call to walk through it with us.',
@@ -400,17 +401,17 @@ export const EU_CLOSING = {
     src: '/assets/imagery/homepage/prism-grid-solar.webp',
     alt: 'EU AI Act Readiness report: the readiness score, scope, role, risk tier and size, where the obligations stand and the days until the next date that applies',
   },
-} as const
+} as const)
 
-export const EU_SOURCE_LABELS = {
+export const EU_SOURCE_LABELS = siteContent("eu-ai-act-readiness-content.EU_SOURCE_LABELS", {
   source: 'Source',
   ledgerNote:
     'Every legal statement on this page links to the provision it comes from, quoted from the official text of Regulation (EU) 2024/1689 as amended by Regulation (EU) 2026/1744. This page is general information, not legal advice.',
-} as const
+} as const)
 
 // ── The form and results ─────────────────────────────────────────────────────
 
-export const EU_FORM = {
+export const EU_FORM = siteContent("eu-ai-act-readiness-content.EU_FORM", {
   badge: 'EU AI Act Readiness Assessment',
   title: 'Map your obligations under the EU AI Act',
   intro: 'Answer for your company as it works today. Not sure is a fine answer: it counts as not yet in place.',
@@ -438,9 +439,9 @@ export const EU_FORM = {
   submitError: 'Something went wrong sending your answers. Please try again.',
   retry: 'Try again',
   disclaimer: EU_DETAILS.disclaimer,
-} as const
+} as const)
 
-export const EU_RESULTS = {
+export const EU_RESULTS = siteContent("eu-ai-act-readiness-content.EU_RESULTS", {
   eyebrow: 'Your EU AI Act readiness',
   emptyTitle: 'No results on this device yet',
   emptyBody: 'Take the assessment to see your obligations. Results stay in this browser for seven days, and a copy goes to your email.',
@@ -540,9 +541,9 @@ export const EU_RESULTS = {
     callBody: 'Book 30 minutes and we’ll walk through your obligations and the order to tackle them.',
     retake: 'Retake the assessment',
   },
-} as const
+} as const)
 
-export const EU_EMAIL = {
+export const EU_EMAIL = siteContent("eu-ai-act-readiness-content.EU_EMAIL", {
   subject: 'Your EU AI Act Readiness results',
   heading: 'Your EU AI Act Readiness results',
   intro: (company: string) => `Here are the results for ${company}: the obligations your answers point to, the date each one applies and where you stand. Every obligation links to the article it comes from.`,
@@ -575,4 +576,4 @@ export const EU_EMAIL = {
   admin: {
     subject: (company: string) => `[Vibrana EU AI Act] ${company}`,
   },
-} as const
+} as const)
