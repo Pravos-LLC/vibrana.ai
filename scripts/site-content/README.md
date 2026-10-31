@@ -1,13 +1,13 @@
 # Trusted production display data
 
-Public CI, local development and previews use the committed demo defaults. `npm run build`
+Public CI, local development and the separate held sample preview use the committed demo defaults. The live website uses this contract in Production; real-project preview execution remains disabled. `npm run build`
 prepares production data only for the canonical repository's protected `master` release.
 
 The canonical project and repository IDs, GitHub provider, protected branch, deployment
 ID and actual application commit are validated before loading production data. Server
 consumption revalidates the emitted deployment binding.
 
-Production configuration is server/build-only `PRODUCTION_SITE_CONTENT_JSON` or compressed
+Production input configuration is server/build-only `PRODUCTION_SITE_CONTENT_JSON` or compressed
 `PRODUCTION_SITE_CONTENT_GZIP_BASE64`, plus `PRODUCTION_SITE_CONTENT_DIGEST` (SHA256 of the
 uncompressed JSON bytes). Both input forms together are rejected.
 
@@ -24,8 +24,8 @@ separate ignored JSON module selected by the production bundler configuration. T
 preparer restores overwritten sample assets and removes fetched assets before a
 subsequent preview build, preventing stale production payloads from serving there.
 
-Only reviewed public display values may be placed in `content`. The preparation step emits
-those values for the application; it never emits the input envelope, delivery URLs or pins.
+Only reviewed public display values may be placed in `content`. Selected assessment questions and approved display values intentionally reach the browser; they are not all server-only. The preparation step emits
+those values for the application. The public release manifest intentionally exposes nonsecret provenance: the data revision, digest and provider/deployment binding. Generated display output also carries its nonsecret binding. The full private input envelope, credentials and asset-fetch URLs are not emitted.
 Credentials, invitation identities, private strategy and unpublished content do not belong
 in this envelope. Downloaded asset/document bytes are build outputs, never Git inputs.
 
@@ -33,3 +33,5 @@ in this envelope. Downloaded asset/document bytes are build outputs, never Git i
 Public source layout and behavior remain authoritative for future changes. Reconcile any
 changed display key against the private envelope before a production release. Missing pins,
 incomplete content, failed downloads and byte/hash mismatches fail the production build.
+
+The production cutover completed on October 31, 2026. This is an active release path, not source-only preparation. Refer to [operations](../../docs/operations.md) for canonical repository/deployment routing. Keep data-source revision/digest checks and automatic application/deployment binding; do not add a per-head release environment pin for ordinary reviewed application changes.
