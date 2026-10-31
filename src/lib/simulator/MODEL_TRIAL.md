@@ -1,5 +1,7 @@
 # Simulator classifier: model trial
 
+Historical research record from October 13, 2026. Preserve its measurements and selection rationale. Current deployment topology and release instructions are governed by [operations](../../../docs/operations.md), which supersedes pre-cutover operational assumptions.
+
 Spec: hub `gtm/simulator/SPEC.md` section 10. The website step asks one model to pick a
 sector from `SECTOR_IDS` and score each function. Rule (John, 2026-10-12): an open-weight
 model through OpenRouter, chosen by a trial, never an Anthropic model.
