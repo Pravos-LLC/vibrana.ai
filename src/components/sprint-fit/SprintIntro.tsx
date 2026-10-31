@@ -29,6 +29,7 @@ export function SprintIntro({ onStart }: { onStart: () => void }) {
         <p>{C.exampleNote}</p>
         <div className={styles.exampleGrid}>{C.examples.map(group => <div key={group.period}><h3>{group.period}</h3><ul>{group.items.map(item => <li key={item}>{item}</li>)}</ul></div>)}</div>
       </section>
+      <blockquote className={styles.testimonial}><p>“{C.testimonial.quote}”</p><footer>{C.testimonial.attribution}</footer></blockquote>
       <section className={styles.team}>
         <h2>{C.teamTitle}</h2><p>{C.teamIntro}</p>
         <div className={styles.teamGrid}>{C.team.map(person => <div className={styles.person} key={person.name}>

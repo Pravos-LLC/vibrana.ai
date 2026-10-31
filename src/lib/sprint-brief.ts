@@ -47,10 +47,13 @@ export function calculateBusinessCase(input: BusinessCaseInputs): BusinessCaseRe
 }
 
 const PERSONAL_EMAIL_DOMAINS = new Set(['gmail.com','googlemail.com','hotmail.com','hotmail.co.uk','outlook.com','outlook.co.uk','live.com','live.co.uk','msn.com','yahoo.com','yahoo.co.uk','ymail.com','icloud.com','me.com','mac.com','aol.com','proton.me','protonmail.com','pm.me','hey.com','fastmail.com','mail.com','gmx.com','gmx.de','zoho.com','yandex.com','qq.com','163.com'])
+// Regional domains of common mailbox providers are personal too. Match the
+// provider as a complete domain label, never a substring of a business domain.
+const PERSONAL_EMAIL_PROVIDER = /^(?:gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|icloud|me|mac|aol|proton|protonmail|pm|hey|fastmail|mail|gmx|yandex|qq|163|web|tuta|tutanota|orange|free)\.[a-z]{2,}(?:\.[a-z]{2,})?$/i
 /** A suggestion only. The visitor must confirm/edit it before a website is read. */
 export function inferWebsiteFromEmail(email: string): string {
   const domain = email.trim().toLowerCase().split('@')[1]
-  return domain && /^[a-z0-9][a-z0-9.-]+\.[a-z]{2,}$/.test(domain) && !PERSONAL_EMAIL_DOMAINS.has(domain) ? `https://${domain}` : ''
+  return domain && /^[a-z0-9][a-z0-9.-]+\.[a-z]{2,}$/.test(domain) && !PERSONAL_EMAIL_DOMAINS.has(domain) && !PERSONAL_EMAIL_PROVIDER.test(domain) ? `https://${domain}` : ''
 }
 
 // A sector example is industry context, not a claim that the visitor's task is comparable.

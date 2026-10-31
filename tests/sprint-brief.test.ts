@@ -48,6 +48,10 @@ describe('grounded sprint brief', () => {
   it('suggests exact business domains without reading personal mail services', () => {
     expect(inferWebsiteFromEmail('ada@gmail.com')).toBe('')
     expect(inferWebsiteFromEmail('ada@proton.me')).toBe('')
+    expect(inferWebsiteFromEmail('ada@yahoo.ca')).toBe('')
+    expect(inferWebsiteFromEmail('ada@gmx.net')).toBe('')
+    expect(inferWebsiteFromEmail('ada@protonmail.ch')).toBe('')
+    for (const domain of ['mail.ru', 'web.de', 'tuta.com', 'tutanota.com', 'orange.fr', 'free.fr']) expect(inferWebsiteFromEmail(`ada@${domain}`)).toBe('')
     expect(inferWebsiteFromEmail('ada@mygmail.com')).toBe('https://mygmail.com')
     expect(inferWebsiteFromEmail('Ada@EXAMPLE.COM')).toBe('https://example.com')
   })
