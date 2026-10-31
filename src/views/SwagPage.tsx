@@ -96,7 +96,7 @@ export default function SwagPage() {
         </div>
       </Section>
 
-      {productionSite && <>
+      {productionSite && SWAG_SHIRTS.length > 0 && <>
       <Section container="wide" rhythm="large" surface="raised">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow gradient={SWAG_SHIRT_SECTION.gradient}>{SWAG_SHIRT_SECTION.eyebrow}</Eyebrow>
