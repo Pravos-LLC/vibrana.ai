@@ -50,7 +50,7 @@ export function AboutHero() {
         {/* Plainspeak label above the mission-statement headline — says
             outright what Vibrana is, since "we build for the edge of two
             futures" alone doesn't. */}
-        <div className="mx-auto mb-4 w-fit bg-surface-base px-2 py-1 text-center">
+        <div className="mx-auto mb-4 w-fit bg-surface-base px-2 py-1 text-center dark:bg-surface-raised">
           <Eyebrow>{ABOUT_HERO.topEyebrow}</Eyebrow>
         </div>
       </Reveal>
@@ -73,13 +73,13 @@ export function AboutHero() {
             full column width instead of hugging just the text.
           */}
           <span
-            className="w-fit whitespace-nowrap bg-surface-base py-1 pl-2 pr-1 md:justify-self-end md:text-right"
+            className="w-fit whitespace-nowrap bg-surface-base py-1 pl-2 pr-1 md:justify-self-end md:text-right dark:bg-surface-raised"
             style={{ boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone' }}
           >
             {ABOUT_HERO.seamLeft}
           </span>
           <span
-            className="w-fit whitespace-nowrap bg-surface-base px-1 py-1 md:px-2"
+            className="w-fit whitespace-nowrap bg-surface-base px-1 py-1 md:px-2 dark:bg-surface-raised"
             style={{ boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone' }}
           >
             <GradientText gradient="prism" className="font-serif-accent text-4xl leading-[1.15] md:text-5xl md:leading-none lg:text-6xl">
@@ -87,7 +87,7 @@ export function AboutHero() {
             </GradientText>
           </span>
           <span
-            className="w-fit whitespace-nowrap bg-surface-base py-1 pl-1 pr-2 md:justify-self-start md:text-left"
+            className="w-fit whitespace-nowrap bg-surface-base py-1 pl-1 pr-2 md:justify-self-start md:text-left dark:bg-surface-raised"
             style={{ boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone' }}
           >
             {ABOUT_HERO.seamRight}

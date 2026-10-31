@@ -34,7 +34,7 @@ const MOBILE = [
   tile('sprint-hourglass'),
 ]
 
-const block = 'bg-surface-base px-2 py-1'
+const block = 'bg-surface-base px-2 py-1 dark:bg-surface-raised'
 const clone = { boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone' } as const
 
 export function SprintHero() {
@@ -52,7 +52,7 @@ export function SprintHero() {
       mobileSizes="34vw"
     >
       <div className="w-full">
-        <div className="mx-auto mb-4 w-fit bg-surface-base px-2 py-1 text-center">
+        <div className="mx-auto mb-4 w-fit bg-surface-base px-2 py-1 text-center dark:bg-surface-raised">
           <Eyebrow>{eyebrow}</Eyebrow>
         </div>
       </div>

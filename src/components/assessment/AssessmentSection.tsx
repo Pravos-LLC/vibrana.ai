@@ -104,7 +104,7 @@ export function AssessmentSection({ headingAs: Heading = 'h2' }: AssessmentSecti
           <div className="absolute -inset-px bg-linear-to-r/srgb from-violet-500/40 via-blue-500/40 to-cyan-500/40 rounded-2xl blur-xs opacity-60" />
 
           {/* Main content container */}
-          <div className="relative bg-white/95 backdrop-blur-xs rounded-2xl p-8 md:p-12 overflow-hidden">
+          <div className="relative bg-surface-card backdrop-blur-xs rounded-2xl p-8 md:p-12 overflow-hidden">
             <div className="flex flex-col lg:flex-row gap-12 items-start">
               {/* Left side - What You'll Learn (fades out when started) */}
               <div

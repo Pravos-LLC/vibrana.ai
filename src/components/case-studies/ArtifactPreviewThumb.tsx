@@ -59,6 +59,20 @@ export function ArtifactPreviewThumb({
           'group-hover:shadow-lg group-focus-visible:ring-2',
         className,
       )}
+      style={{
+        '--text-primary': '#1f2937',
+        '--text-secondary': '#475569',
+        '--text-tertiary': '#64748b',
+        '--surface-base': '#ffffff',
+        '--surface-raised': '#f8fafc',
+        '--surface-overlay': '#ffffff',
+        '--surface-card': '#ffffff',
+        '--surface-card-hover': '#f1f5f9',
+        '--surface-frost': '#f8fafc',
+        '--border-subtle': '#e2e8f0',
+        '--border-default': '#cbd5e1',
+        '--border-strong': '#94a3b8',
+      } as React.CSSProperties}
     >
       <div className="flex items-center gap-1.5 border-b border-line-subtle bg-surface-frost px-3 py-2">
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" aria-hidden />
