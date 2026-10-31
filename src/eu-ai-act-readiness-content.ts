@@ -285,11 +285,10 @@ export const EU_CLOCK = siteContent("eu-ai-act-readiness-content.EU_CLOCK", {
 
 // ── 5. What the assessment does ──────────────────────────────────────────────
 
-export const EU_METHOD = siteContent("eu-ai-act-readiness-content.EU_METHOD", {
+const EU_METHOD_DISPLAY = siteContent("eu-ai-act-readiness-content.EU_METHOD", {
   heading: 'What the assessment checks',
   intro:
     'The first section maps your exposure: where your AI touches the EU, your role, and whether you work in any high-risk area. The other five check the controls behind each obligation.',
-  questionsLabel: (n: number) => `${n} questions`,
   // One real question screen per section (the first question of each), captured from the live
   // form for a sample company by scripts/eu-ai-act-screens/capture.mjs. Wide screens show them in
   // a sticky panel that follows the section in view; small screens stack each under its section.
@@ -359,6 +358,12 @@ export const EU_METHOD = siteContent("eu-ai-act-readiness-content.EU_METHOD", {
     },
   ],
 } as const)
+
+// Runtime formatters remain code; a JSON display override cannot carry them.
+export const EU_METHOD = {
+  ...EU_METHOD_DISPLAY,
+  questionsLabel: (n: number) => `${n} questions`,
+} as const
 
 export const EU_DETAILS = siteContent("eu-ai-act-readiness-content.EU_DETAILS", {
   heading: 'What you get, and what happens to your answers',

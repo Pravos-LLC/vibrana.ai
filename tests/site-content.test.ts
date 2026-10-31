@@ -18,3 +18,14 @@ describe('website display data port', () => {
     expect(siteContent('caption', 'Sample')).toBe('')
   })
 })
+
+it('retains the EU question formatter when its display data comes from JSON', async () => {
+  vi.doMock('@/src/site-content/generated.json', () => ({ default: {
+    schema: 1, production: false,
+    content: { 'eu-ai-act-readiness-content.EU_METHOD': { heading: 'Synthetic configured heading', sections: [], principles: [] } },
+  } }))
+  const { EU_METHOD } = await import('@/src/eu-ai-act-readiness-content')
+  expect(EU_METHOD.heading).toBe('Synthetic configured heading')
+  expect(EU_METHOD.sections).toEqual([])
+  expect(EU_METHOD.questionsLabel(4)).toBe('4 questions')
+})
