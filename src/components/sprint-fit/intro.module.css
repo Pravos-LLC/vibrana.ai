@@ -91,3 +91,13 @@
 
 .experience b { color: #49355f; font-size: .72rem; font-weight: 600; }
 .person .experience img[src$='.svg'] { filter: brightness(0); }
+
+.landingOverview { display: grid; grid-template-columns: .8fr 1.2fr; gap: 3rem; padding: 5rem 0; border-bottom: 1px solid #e7e1ec; }
+.landingOverview h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -.03em; margin: .8rem 0; }
+.duration { color: #62586d; font-size: .9rem; }
+.overviewColumns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.overviewColumns > div { padding: 1.5rem; border: 1px solid #e4daeb; border-radius: 1rem; background: #faf7fc; }
+.overviewColumns h3 { font-family: var(--font-display); font-size: 1.15rem; margin: 0 0 1rem; }
+.overviewColumns ul { display: grid; gap: .65rem; padding: 0 0 0 1.2rem; list-style: disc; color: #53475e; line-height: 1.5; }
+@media(max-width:760px) { .landingOverview { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem 0; } }
+@media(max-width:420px) { .overviewColumns { grid-template-columns: 1fr; } }

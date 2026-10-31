@@ -29,6 +29,10 @@ export function SprintIntro({ onStart, caseStudies }: { onStart: () => void; cas
     </section>
     <div className={styles.container}>
       <LogoRow className={styles.logos} />
+      <section className={styles.landingOverview} aria-labelledby="sprint-overview-heading">
+        <div><p className={styles.eyebrow}>{C.overview.eyebrow}</p><h2 id="sprint-overview-heading">{C.overview.title}</h2><p className={styles.duration}>{C.overview.duration}</p></div>
+        <div className={styles.overviewColumns}><div><h3>{C.overview.questionsTitle}</h3><ul>{C.overview.questions.map(item => <li key={item}>{item}</li>)}</ul></div><div><h3>{C.overview.outputsTitle}</h3><ul>{C.overview.outputs.map(item => <li key={item}>{item}</li>)}</ul></div></div>
+      </section>
       <section className={styles.examples}>
         <p className={styles.eyebrow}>{C.exampleEyebrow}</p>
         <h2>{C.exampleTitle}</h2>

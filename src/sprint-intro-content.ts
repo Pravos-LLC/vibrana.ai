@@ -7,6 +7,7 @@ export const SPRINT_INTRO = {
   deliverables: 'Includes a scoped brief, company context and an optional business case.',
   previewLabel: 'Build your own brief in 3–5 minutes',
   previewAlt: 'Example first page of a sprint brief for a fictional property advisory business',
+  overview: { eyebrow: 'Before you start', title: 'A few minutes to shape your brief.', duration: 'About 3–5 minutes', questionsTitle: 'What we’ll ask', questions: ['Your starting point and first users', 'What you want to build and how to measure it', 'Your preparation, timing and budget'], outputsTitle: 'What you’ll get', outputs: ['A scoped sprint brief', 'Company context you can review and edit', 'An optional business case based on your inputs'] },
   exampleEyebrow: 'What we can build together',
   exampleTitle: 'Production-ready applications in two weeks?',
   exampleNote: 'Our clients couldn’t believe what we could build in a single sprint either. The right scope depends on your team, data and needs.',
