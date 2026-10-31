@@ -96,7 +96,7 @@ export default function WorkflowModule({ onSubmit, onBack, isSubmitting }: Workf
             >
               <option value="" disabled>{c.typePlaceholder}</option>
               {WORKFLOW_IDS.map((id) => (
-                <option key={id} value={id} disabled={taken.has(id) && row.id !== id} className="bg-surface-card text-ink">
+                <option key={id} value={id} disabled={taken.has(id) && row.id !== id} className="bg-surface-raised text-ink">
                   {ROI_WORKFLOWS[id].name}
                 </option>
               ))}
