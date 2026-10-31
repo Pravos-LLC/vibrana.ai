@@ -5,12 +5,10 @@ export const SPRINT_INTRO = {
   description: 'Tell us what you want to make. We’ll help you shape a practical first release that your team can build and learn from with us.',
   start: 'Start my assessment',
   deliverables: 'You’ll leave with a scoped brief, your company context and, if you add the numbers, an optional business case.',
-  pauseVideo: 'Pause background video',
-  playVideo: 'Play background video',
   previewLabel: 'A sample of your brief',
   previewAlt: 'Example first page of a sprint brief for a fictional property advisory business',
-  exampleEyebrow: 'What could we build?',
-  exampleTitle: 'Small enough to start. Useful enough to matter.',
+  exampleEyebrow: 'What we can build together',
+  exampleTitle: 'Production-ready applications in two weeks?',
   exampleNote: 'These are illustrative possibilities. The right scope depends on your team, data and needs.',
   examples: [
     { period: 'One Sprint · two weeks', items: ['Quality-assurance call monitoring for a regulated insurer', 'Partner segmentation for a B2B business', 'A sales assistant and knowledge base', 'A customer-service knowledge base'] },
@@ -26,5 +24,7 @@ export const SPRINT_INTRO = {
     { name: 'Stephan Ledain', role: 'Adoption and governance', photo: '/assets/team/stephan-ledain.webp' },
     { name: 'Fatma Ghedira', role: 'People and change', photo: '/assets/team/fatma-ghedira.webp' },
   ],
+  closingEyebrow: 'Your idea, made real',
   finalTitle: 'Ready to shape your first release?',
+  closingDescription: 'Start with a brief, then explore what we could build together.',
 } as const
