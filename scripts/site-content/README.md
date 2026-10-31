@@ -35,3 +35,12 @@ changed display key against the private envelope before a production release. Mi
 incomplete content, failed downloads and byte/hash mismatches fail the production build.
 
 The production cutover completed on October 31, 2026. This is an active release path, not source-only preparation. Refer to [operations](../../docs/operations.md) for canonical repository/deployment routing. Keep data-source revision/digest checks and automatic application/deployment binding; do not add a per-head release environment pin for ordinary reviewed application changes.
+
+For recovery from a retained protected deployment, `assetOrigin` may also pin an
+immutable `https://vibrana-<9-character-hash>-johnellisons-projects.vercel.app`
+origin. Set `PRODUCTION_SITE_ASSET_BYPASS_SECRET` in Production only. Preparation
+sends it as a protection-bypass header exclusively to that exact pinned origin,
+never to the public domains. Missing credentials fail before downloading. The
+credential is not emitted in display data or the release manifest. Keep existing
+hash/size pins and redirect rejection. After recovery, asset URLs can return to
+the public first-party paths and the temporary delivery credential can be revoked.

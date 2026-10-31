@@ -57,3 +57,23 @@ test('sample cleanup restores an overwritten public sample asset', () => fixture
   await prepareSite({ root, env: { VERCEL_ENV: 'preview' } })
   assert.equal(await readFile(path.join(root, 'public/assets/sample.webp'), 'utf8'), 'original public sample')
 }))
+test('protected asset delivery scopes its header to the pinned immutable origin', () => fixture(async ({ root, config, bytes, envFor }) => {
+  const origin = 'https://vibrana-abcdef123-johnellisons-projects.vercel.app'
+  const value = { ...config, assetOrigin: origin, assets: [...config.assets, { ...config.assets[0], path: '/assets/portrait.webp', url: origin + '/assets/portrait.webp' }] }
+  const secret = 'synthetic-build-only-secret'
+  const calls = []
+  await prepareSite({ root, env: { ...envFor(value), PRODUCTION_SITE_ASSET_BYPASS_SECRET: secret }, fetcher: async (url, options) => { calls.push({ url, ...options }); return new Response(bytes) } })
+  assert.deepEqual(calls.map(c => c.headers), [{}, { 'x-vercel-protection-bypass': secret }])
+  assert.ok(calls.every(c => c.redirect === 'error'))
+  for (const file of ['src/site-content/generated.production.json', 'public/.well-known/site-content-release.json']) assert.ok(!(await readFile(path.join(root, file), 'utf8')).includes(secret))
+}))
+test('protected assets reject missing credentials and malformed or unpinned origins before fetching', () => fixture(async ({ root, config, envFor }) => {
+  const origin = 'https://vibrana-abcdef123-johnellisons-projects.vercel.app'
+  const protectedAsset = { ...config.assets[0], url: origin + config.assets[0].path }
+  const invalid = [
+    { ...config, assets: [protectedAsset] },
+    { ...config, assetOrigin: origin, assets: [protectedAsset] },
+    ...['https://example.com', origin + '/', origin + ':443', 'https://vibrana-git-master-johnellisons-projects.vercel.app', origin + '@example.com'].map(assetOrigin => ({ ...config, assetOrigin })),
+  ]
+  for (const value of invalid) await assert.rejects(prepareSite({ root, env: envFor(value), fetcher: () => { throw Error('must not fetch') } }), /Untrusted|credential/)
+}))

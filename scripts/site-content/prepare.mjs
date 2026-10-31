@@ -68,13 +68,18 @@ export async function prepareSite({ root = process.cwd(), env = process.env, fet
   inspectDisplay(config.content)
   const allowedOrigins = new Set(['https://www.vibrana.ai', 'https://vibrana.ai'])
   // An exact immutable deployment may be pinned by the operator; arbitrary hosts are rejected.
-  if (typeof config.assetOrigin === 'string' && /^https:\/\/vibrana-ai-[a-z0-9-]+\.vercel\.app$/.test(config.assetOrigin)) allowedOrigins.add(config.assetOrigin)
+  const protectedOrigin = typeof config.assetOrigin === 'string' && /^https:\/\/vibrana-[a-z0-9]{9}-johnellisons-projects\.vercel\.app$/.test(config.assetOrigin)
+  if (config.assetOrigin !== undefined) {
+    if (!protectedOrigin && !(typeof config.assetOrigin === 'string' && /^https:\/\/vibrana-ai-[a-z0-9-]+\.vercel\.app$/.test(config.assetOrigin))) throw new Error('Untrusted website asset origin')
+    allowedOrigins.add(config.assetOrigin)
+  }
   const seen = new Set()
   for (const asset of config.assets) {
     if (!plain(asset) || !safePath(asset.path) || seen.has(asset.path) || !/^[a-f0-9]{64}$/.test(asset.sha256 ?? '') || !Number.isSafeInteger(asset.bytes) || asset.bytes < 1 || asset.bytes > 150_000_000) throw new Error('Invalid website asset record')
     const url = new URL(asset.url)
     if (!allowedOrigins.has(url.origin) || url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || decodeURIComponent(url.pathname) !== asset.path) throw new Error('Untrusted website asset URL')
     seen.add(asset.path)
+    if (protectedOrigin && url.origin === config.assetOrigin && !env.PRODUCTION_SITE_ASSET_BYPASS_SECRET) throw new Error('Website asset delivery credential required')
   }
   const cache = path.join(root, '.site-content-cache')
   const staged = []
@@ -83,7 +88,10 @@ export async function prepareSite({ root = process.cwd(), env = process.env, fet
   try {
     await mkdir(cache, { recursive: true })
     for (const asset of config.assets) {
-      const response = await fetcher(asset.url, { redirect: 'error', signal: AbortSignal.timeout(60_000) })
+      const headers = protectedOrigin && new URL(asset.url).origin === config.assetOrigin
+        ? { 'x-vercel-protection-bypass': env.PRODUCTION_SITE_ASSET_BYPASS_SECRET }
+        : {}
+      const response = await fetcher(asset.url, { headers, redirect: 'error', signal: AbortSignal.timeout(60_000) })
       if (!response.ok || !response.body) throw new Error('Website asset delivery failed')
       const chunks = []
       let length = 0
