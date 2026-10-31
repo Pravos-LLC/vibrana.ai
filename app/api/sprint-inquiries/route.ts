@@ -88,16 +88,23 @@ export async function POST(request: NextRequest) {
       if (input.briefRequest.company.website && !site) return NextResponse.json({ error: 'Enter a public company website or choose no website.' }, { status: 400 })
       const profile = site ? await getCachedProfile(site.domain).catch(() => null) : null
       // The client can correct company facts, but cannot supply trusted website provenance or image URLs.
-      const confirmed = { ...input.briefRequest, company: { ...input.briefRequest.company, website: site?.url ?? '' } }
+      const confirmed = { ...input.briefRequest, company: { ...input.briefRequest.company, name: input.briefRequest.company.name || input.name, website: site?.url ?? '' } }
       brief = await enrichSprintNarrative(buildSprintBrief(input.fitCheck, confirmed, profile))
     }
     const companyName = brief?.company.name ?? input.companyName
     const website = brief?.company.website ?? input.companyWebsite
-    const { data: company, error: companyError } = await supabase.from('companies')
-      .upsert({ name: companyName, website: website || null }, { onConflict: 'name' }).select('id').single()
-    if (companyError || !company) {
-      console.error('Sprint company save failed')
-      return NextResponse.json({ error: 'We couldn’t save the company details. Please try again.' }, { status: 500 })
+    // An unnamed founder has no company record to merge by name. The contact name
+    // remains a prepared-for display value on the brief and inquiry only.
+    const hasCompany = input.briefRequest ? Boolean(input.briefRequest.company.name) : Boolean(input.companyName)
+    let companyId: string | null = null
+    if (hasCompany) {
+      const { data: company, error: companyError } = await supabase.from('companies')
+        .upsert({ name: companyName, website: website || null }, { onConflict: 'name' }).select('id').single()
+      if (companyError || !company) {
+        console.error('Sprint company save failed')
+        return NextResponse.json({ error: 'We couldn’t save the company details. Please try again.' }, { status: 500 })
+      }
+      companyId = company.id
     }
     const metadata: SavedMetadata = {
       desired_outcome: input.desiredOutcome, internal_owner: input.internalOwner || null,
@@ -109,7 +116,7 @@ export async function POST(request: NextRequest) {
       entry_point: parseEntryPoint(raw?.entry) ?? 'sprint',
     }
     const { data: inquiry, error: inquiryError } = await supabase.from('engagement_inquiries').insert({
-      ...(id ? { id } : {}), company_id: company.id, company_name: companyName, contact_name: input.name, email,
+      ...(id ? { id } : {}), company_id: companyId, company_name: companyName, contact_name: input.name, email,
       team_size: NOT_COLLECTED, revenue_band: NOT_COLLECTED, department_focus: DEPARTMENT_FOCUS[input.track],
       timeline: input.startWindow || NOT_COLLECTED, goals: input.desiredOutcome, status: 'new', source: input.utm_source || 'vibrana-website',
       intent: 'ai_build_sprint', track: input.track, role: input.role || null, website: website || null, metadata,

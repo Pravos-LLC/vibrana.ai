@@ -1,0 +1,30 @@
+.intro { color: var(--color-ink, #241c36); }
+.hero { background: linear-gradient(90deg, rgba(248,245,252,.98) 0%, rgba(248,245,252,.92) 48%, rgba(248,245,252,.7) 100%), url('/assets/imagery/homepage/prism-glass-grid.webp') center/cover; }
+.heroInner, .container { width: min(100% - 3rem, 1120px); margin: 0 auto; }
+.heroInner { display: grid; grid-template-columns: 1fr .7fr; gap: 5rem; align-items: center; padding: clamp(3.5rem, 8vw, 7rem) 0; }
+.heroCopy { max-width: 640px; }
+.eyebrow { color: var(--color-brand-violet-strong, #6d32a8); font-size: .75rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.hero h1 { font-family: var(--font-display); font-size: clamp(2.6rem, 5.5vw, 5rem); line-height: 1.03; letter-spacing: -.04em; margin: 1rem 0 1.4rem; }
+.heroCopy p:not(.eyebrow) { max-width: 37rem; line-height: 1.6; margin-bottom: 1.4rem; }
+.lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); }
+.preview { margin: 0; max-width: 340px; justify-self: center; transform: rotate(3deg); }
+.preview img { display: block; width: 100%; height: auto; border-radius: .4rem; box-shadow: 0 24px 60px #30204b30; }
+.preview figcaption { margin-top: .8rem; font-size: .8rem; text-align: center; }
+.logos { padding: 4rem 0; border-bottom: 1px solid #e7e1ec; }
+.examples, .team { padding: 5rem 0; border-bottom: 1px solid #e7e1ec; }
+.examples h2, .team h2, .closing h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -.03em; margin: .8rem 0; }
+.examples > p:not(.eyebrow), .team > p { color: #62586d; line-height: 1.6; }
+.exampleGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+.exampleGrid > div { background: #f5f0fa; padding: 2rem; border-radius: 1rem; }
+.exampleGrid h3 { font-family: var(--font-display); font-size: 1.3rem; margin: 0 0 1rem; }
+.exampleGrid ul { padding-left: 1.2rem; line-height: 1.8; }
+.teamGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.person { display: flex; align-items: center; gap: .8rem; }
+.person img, .person span { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+.person span { display: grid; place-items: center; background: #e9dcf5; color: #59347c; font-size: 1.4rem; }
+.person strong, .person small { display: block; }
+.person small { color: #62586d; margin-top: .2rem; }
+.closing { text-align: center; padding: 5rem 0; }
+.closing h2 { margin-bottom: 1.5rem; }
+@media (max-width: 760px) { .heroInner { grid-template-columns: 1fr; gap: 2.5rem; } .preview { max-width: 220px; } .teamGrid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 420px) { .heroInner, .container { width: min(100% - 2rem, 1120px); } .exampleGrid, .teamGrid { grid-template-columns: 1fr; } .examples, .team { padding: 3rem 0; } }

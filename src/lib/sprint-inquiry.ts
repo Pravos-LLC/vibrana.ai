@@ -12,7 +12,7 @@ const honeypot = z.string().max(0, 'Leave the hidden field empty').optional().de
 export const sprintInquirySchema = z.object({
   name: z.string().trim().min(1, 'Name is required').max(120),
   email: z.string().trim().email('Enter a valid work email').max(255),
-  companyName: z.string().trim().min(1, 'Company is required').max(160),
+  companyName: z.string().trim().max(160),
   track: z.enum(SPRINT_TRACK_IDS, { message: 'Choose a track, or "Not sure yet"' }),
   desiredOutcome: z.string().trim().min(10, 'Tell us in a line what should work differently').max(4000),
   // Fields from the retired two-step application. Optional so older clients and
@@ -34,6 +34,7 @@ export const sprintInquirySchema = z.object({
   utm_content: z.string().max(200).optional().default(''),
   referrer: z.string().max(1000).optional().default(''),
 }).superRefine((input, context) => {
+  if (!input.briefRequest && !input.companyName) context.addIssue({ code: 'custom', path: ['companyName'], message: 'Company is required' })
   if (input.briefRequest && !input.fitCheck) context.addIssue({ code: 'custom', path: ['fitCheck'], message: 'Complete the fit check before creating your brief' })
   if (input.briefRequest && !input.role.trim()) context.addIssue({ code: 'custom', path: ['role'], message: 'Role is required' })
 })

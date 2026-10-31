@@ -15,11 +15,11 @@ export const businessCaseSchema = z.object({
 export type BusinessCaseInputs = z.infer<typeof businessCaseSchema>
 export const EMPTY_BUSINESS_CASE: BusinessCaseInputs = { tasksPerWeek: null, minutesPerTask: null, peoplePerTask: null, targetMinutesPerTask: null, hourlyCost: null, currency: 'GBP', softwareCostMonthly: null }
 export const companyContextSchema = z.object({
-  name: z.string().trim().min(1).max(160), website: z.string().trim().max(500), description: z.string().trim().max(1200),
-  sector: z.enum(SECTOR_IDS), confirmed: z.boolean(), profileDomain: z.string().max(253).optional(), researchedAt: z.string().max(40).optional(),
+  name: z.string().trim().max(160), website: z.string().trim().max(500), description: z.string().trim().max(1200),
+  sector: z.enum(SECTOR_IDS), confirmed: z.boolean().optional().default(false), projectName: z.string().trim().max(160).optional(), profileDomain: z.string().max(253).optional(), researchedAt: z.string().max(40).optional(),
 })
 export type CompanyContext = z.infer<typeof companyContextSchema>
-export const briefRequestSchema = z.object({ company: companyContextSchema.refine(v => v.confirmed, 'Confirm your company details'), businessCase: businessCaseSchema, submissionId: z.uuid() })
+export const briefRequestSchema = z.object({ company: companyContextSchema, businessCase: businessCaseSchema, submissionId: z.uuid() })
 export type BriefRequest = z.infer<typeof briefRequestSchema>
 export type BusinessCaseResult = { inputs: BusinessCaseInputs; currentHours: number | null; targetHours: number | null; releasedHours: number | null; currentCost: number | null; targetCost: number | null; capacityValue: number | null; formulaVersion: string }
 export type SprintBrief = {
@@ -53,23 +53,11 @@ export function inferWebsiteFromEmail(email: string): string {
   return domain && /^[a-z0-9][a-z0-9.-]+\.[a-z]{2,}$/.test(domain) && !PERSONAL_EMAIL_DOMAINS.has(domain) ? `https://${domain}` : ''
 }
 
-// Curated task eligibility. An industry match alone is not evidence of relevance.
-const EXAMPLE_TASKS: Partial<Record<CompanyContext['sector'], RegExp>> = {
-  'real-estate': /research|search|knowledge|report|document|property|listing/i,
-  'manufacturing-logistics': /analysis|report|data|hr|people/i,
-  'ecommerce-retail': /support|service|customer|search|knowledge|report/i,
-  education: /lesson|teach|plan|admin|report/i,
-  'public-nonprofit': /admin|report|document|draft|analysis/i,
-  'financial-services': /advisor|sales|train|appointment/i,
-  software: /agent|internal|knowledge|team|support/i,
-  insurance: /agent|internal|knowledge|team|support/i,
-  'professional-services': /knowledge|staff|train|internal|research/i,
-  'marketing-media': /campaign|creative|marketing|client/i,
-  healthcare: /internal|knowledge|staff|research/i,
-}
-export function selectSprintExample(company: CompanyContext, answers: FitAnswers): SprintBrief['benchmark'] {
-  const eligible = EXAMPLE_TASKS[company.sector]?.test(`${answers.outcome} ${answers.current} ${answers.user}`)
-  const example = eligible ? SECTOR_EXAMPLES[company.sector] : null
+// A sector example is industry context, not a claim that the visitor's task is comparable.
+// "other" is intentionally excluded: its simulator example is a retailer, not a
+// representative example for an unknown industry.
+export function selectSprintExample(company: CompanyContext, _answers: FitAnswers): SprintBrief['benchmark'] {
+  const example = company.sector === 'other' ? null : SECTOR_EXAMPLES[company.sector]
   if (!example || !example.url.startsWith('https://')) return null
   const { company: name, descriptor, result, url, publisher, date, reportedBy } = example
   return { company: name, descriptor, result, url, publisher, date, reportedBy }
@@ -79,7 +67,7 @@ export function selectSprintExample(company: CompanyContext, answers: FitAnswers
 export function buildSprintBrief(answers: FitAnswers, request: BriefRequest, profile: CompanyProfile | null = null, createdAt = new Date().toISOString()): SprintBrief {
   const result = evaluateFit(answers)
   const metric = fitMetricText(answers)
-  const company = { name: request.company.name, website: request.company.website, description: request.company.description, sector: request.company.sector, confirmed: request.company.confirmed }
+  const company = { name: request.company.name, website: request.company.website, description: request.company.description, sector: request.company.sector, confirmed: request.company.confirmed, projectName: request.company.projectName }
   const website = company.website.trim()
   const successMeasure = [metric, answers.target.trim()].filter(Boolean).join(' · ')
   return {

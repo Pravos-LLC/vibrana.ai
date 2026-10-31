@@ -16,8 +16,8 @@ export function registerBriefFonts(assets: BriefAssets) {
 }
 
 const s = StyleSheet.create({
-  page: { padding: 40, paddingBottom: 57, color: '#211b2b', fontSize: 10, lineHeight: 1.55 },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 0.6, borderBottomColor: '#e8e3ed', paddingBottom: 16, marginBottom: 26 },
+  page: { padding: 36, paddingTop: 36, paddingBottom: 57, color: '#211b2b', fontSize: 10, lineHeight: 1.55 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 0.6, borderBottomColor: '#e8e3ed', paddingBottom: 11, marginBottom: 16 },
   brand: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   mark: { width: 27, height: 27, objectFit: 'contain' },
   wordmark: { fontSize: 12, letterSpacing: 0.4 },
@@ -26,16 +26,16 @@ const s = StyleSheet.create({
   logo: { width: 56, height: 36, objectFit: 'contain' },
   eyebrow: { fontSize: 7, color: '#7131ca', letterSpacing: 0.8, textTransform: 'uppercase' },
   companyName: { fontSize: 19, lineHeight: 1.2, marginTop: 5 },
-  title: { fontSize: 32, lineHeight: 1.1, letterSpacing: -1, marginTop: 10, marginBottom: 17 },
+  title: { fontSize: 32, lineHeight: 1.1, letterSpacing: -1, marginTop: 8, marginBottom: 11 },
   intro: { fontSize: 11, lineHeight: 1.65, color: '#51475e', marginTop: 10, marginBottom: 4 },
-  section: { marginTop: 22, paddingTop: 17, borderTopWidth: 0.6, borderTopColor: '#e8e3ed' },
+  section: { marginTop: 15, paddingTop: 12, borderTopWidth: 0.6, borderTopColor: '#e8e3ed' },
   heading: { fontSize: 16, lineHeight: 1.2, marginBottom: 11, letterSpacing: -0.3 },
   subheading: { fontSize: 11, marginTop: 14, marginBottom: 7 },
   paragraph: { marginBottom: 8 },
-  scopeGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginTop: 18 },
-  scopeNode: { width: '48.5%', padding: 13, borderWidth: 0.7, borderColor: '#e0d7ed', backgroundColor: '#faf8fd', borderRadius: 6 },
-  scopeValue: { fontSize: 11, lineHeight: 1.55, color: '#211b2b', marginTop: 10 },
-  stats: { backgroundColor: '#f5f1fa', padding: 15, flexDirection: 'row', flexWrap: 'wrap', gap: 15 },
+  scopeGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 10 },
+  scopeNode: { width: '49%', padding: 10, borderWidth: 0.7, borderColor: '#e0d7ed', backgroundColor: '#faf8fd', borderRadius: 6 },
+  scopeValue: { fontSize: 11, lineHeight: 1.55, color: '#211b2b', marginTop: 6 },
+  stats: { backgroundColor: '#f5f1fa', padding: 10, flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   stat: { width: '30%' },
   statValue: { fontSize: 17, marginTop: 5, lineHeight: 1.2 },
   note: { fontSize: 8, color: '#6b6375', marginTop: 9 },
@@ -48,6 +48,7 @@ const s = StyleSheet.create({
   listRow: { flexDirection: 'row', marginBottom: 7 },
   bullet: { width: 10, color: '#7131ca' },
   listText: { flex: 1 },
+  checkbox: { width: 9, height: 9, borderWidth: 0.8, borderColor: '#7131ca', borderRadius: 1, marginTop: 3, marginRight: 7 },
   call: { backgroundColor: '#f5f1fa', padding: 16, marginTop: 25, flexDirection: 'row', gap: 16, alignItems: 'center' },
   portrait: { width: 52, height: 65, objectFit: 'cover', borderRadius: 4 },
   callTitle: { fontSize: 15, color: '#7131ca', textDecoration: 'none', marginBottom: 6 },
@@ -60,9 +61,9 @@ function Rows({ rows }: { rows: [string, string][] }) {
     <Text style={s.label}>{label}</Text><Text style={s.value}>{value}</Text>
   </View>)}</View>
 }
-function Items({ items }: { items: string[] }) {
+function Items({ items, checklist = false }: { items: string[]; checklist?: boolean }) {
   return <View>{items.map((item, index) => <View key={index} style={s.listRow}>
-    <Text style={s.bullet}>•</Text><Text style={s.listText}>{item}</Text>
+    {checklist ? <View style={s.checkbox} /> : <Text style={s.bullet}>•</Text>}<Text style={s.listText}>{item}</Text>
   </View>)}</View>
 }
 
@@ -96,6 +97,7 @@ export function BriefPdf({ brief, assets = {} }: { brief: SprintBrief; assets?: 
         </View>
       </View>
       <Text style={[s.title, display]}>{C.title}</Text>
+      {brief.company.projectName ? <Text style={s.meta}>{C.project}: {brief.company.projectName}</Text> : null}
       {brief.narrative.summary ? <Text style={s.intro}>{brief.narrative.summary}</Text> : null}
       {brief.company.description && brief.company.description !== brief.narrative.summary ? <View style={s.section}>
         <Text style={[s.heading, display]} minPresenceAhead={30}>{C.businessContext}</Text><Text>{brief.company.description}</Text>
@@ -106,7 +108,7 @@ export function BriefPdf({ brief, assets = {} }: { brief: SprintBrief; assets?: 
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7 }}><ScopeIcon index={index} /><Text style={{ fontSize: 9, fontWeight: 600, color: '#211b2b' }}>{C.scopeLabels[index]}</Text></View><Text style={s.scopeValue}>{value}</Text>
         </View>)}</View>
       </View>
-      {caseRows.length || inputRows.length ? <View style={s.section} wrap={false}>
+      {caseRows.length || inputRows.length ? <View style={s.section}>
         <Text style={[s.heading, display]} minPresenceAhead={70}>{C.businessCase}</Text>
         {caseRows.length ? <View style={s.stats}>{caseRows.map(([label, value]) => <View style={s.stat} key={label} wrap={false}>
           <Text style={s.meta}>{label}</Text><Text style={[s.statValue, display]}>{value}</Text>
@@ -123,7 +125,7 @@ export function BriefPdf({ brief, assets = {} }: { brief: SprintBrief; assets?: 
         </View>
       </View> : null}
       {brief.preparation.length ? <View style={s.section}>
-        <Text style={[s.heading, display]} minPresenceAhead={35}>{C.preparation}</Text><Items items={brief.preparation} />
+        <Text style={[s.heading, display]} minPresenceAhead={35}>{C.preparation}</Text><Items items={brief.preparation} checklist />
       </View> : null}
       {brief.narrative.assumptions.length ? <View style={s.section}>
         <Text style={[s.heading, display]} minPresenceAhead={35}>{C.assumptions}</Text><Items items={brief.narrative.assumptions} />

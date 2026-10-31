@@ -23,7 +23,7 @@ describe('saved sprint brief exports', () => {
     expect(html).toContain('13.3 hours')
     expect(html).toContain('£1,000')
     expect(html).toContain('https://example.org/report')
-    expect(html).toContain('Company-reported result')
+    expect(html).toContain('Organization-reported result')
     expect(html).toContain("img-src data:")
     expect(html).not.toContain('<script')
     expect(html).not.toMatch(/(?:src|href)="(?:https?:\/\/[^\"]+)\.(?:png|webp|ttf)/)

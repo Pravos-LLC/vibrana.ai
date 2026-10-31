@@ -8,5 +8,5 @@ export const BRIEF_CONTENT = {
   emailSubject: 'Your sprint brief from Vibrana',
   emailIntro: 'Here is your saved sprint brief.',
   capacityNote: 'The time estimate is potential capacity, not a cash-saving forecast. Targets are your assumptions.',
-  publicSourceNote: 'Reported example. Different setting; not a forecast for your build.',
+  publicSourceNote: 'Industry context from a different setting, not evidence for the same task or a forecast for your build.',
 } as const

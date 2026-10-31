@@ -19,7 +19,7 @@ describe('Sprint fit routing', () => {
   })
   it('offers scope shaping for a founder who cannot yet define the user/outcome', () => {
     const a = { ...ready, user: '', outcome: '', shapeFirst: true }
-    expect(fitStepError(a, 1)).toBe(''); expect(evaluateFit(a).route).toBe('shape')
+    expect(fitStepError(a, 1)).toBe(FIT.errors.outcome); expect(evaluateFit(a).route).toBe('shape')
   })
   it('does not call an unknown success indicator ready', () => { expect(evaluateFit({ ...ready, metric: 'unknown' }).route).toBe('confirm') })
   it('carries every unresolved preparation item', () => {

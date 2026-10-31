@@ -35,7 +35,7 @@ export function fitMetricText(a: FitAnswers): string {
 
 export function fitStepError(a: FitAnswers, step: number): string {
   if (step === 0 && !a.startingPoint) return FIT.errors.answer
-  if (step === 1 && !a.shapeFirst && (!a.user.trim() || !a.outcome.trim())) return FIT.errors.outcome
+  if (step === 1 && (!a.user.trim() || !a.outcome.trim())) return FIT.errors.outcome
   if (step === 2 && !a.current.trim()) return FIT.errors.current
   if (step === 3 && !selectedFitMetrics(a).length && a.metric !== 'unknown') return FIT.errors.answer
   if (step === 3 && a.metrics !== undefined && !a.metrics.length) return FIT.errors.answer
@@ -45,7 +45,7 @@ export function fitStepError(a: FitAnswers, step: number): string {
   if (step === 6 && !a.funding) return FIT.errors.answer
   return ''
 }
-export function isCompleteFit(a: FitAnswers) { return FIT.steps.every((_, i) => !fitStepError(a, i)) }
+export function isCompleteFit(a: FitAnswers) { return FIT.steps.every((_, i) => (i === 1 && a.shapeFirst) || !fitStepError(a, i)) }
 
 export function evaluateFit(a: FitAnswers): { route: FitRoute; actions: string[] } {
   const actions: string[] = []

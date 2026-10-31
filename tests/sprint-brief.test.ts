@@ -20,10 +20,10 @@ describe('sprint business case', () => {
     const result = calculateBusinessCase({ ...EMPTY_BUSINESS_CASE, tasksPerWeek: 10, minutesPerTask: 6, peoplePerTask: 1, targetMinutesPerTask: 12, hourlyCost: 100, softwareCostMonthly: 500 })
     expect(result.releasedHours).toBe(-1); expect(result.capacityValue).toBe(-100)
   })
-  it('rejects negative, nonfinite or excessive quantities and invalid confirmation', () => {
+  it('rejects negative, nonfinite or excessive quantities and accepts legacy confirmation values', () => {
     expect(briefRequestSchema.safeParse({ ...request, businessCase: { ...EMPTY_BUSINESS_CASE, tasksPerWeek: -1 } }).success).toBe(false)
     expect(briefRequestSchema.safeParse({ ...request, businessCase: { ...EMPTY_BUSINESS_CASE, hourlyCost: Infinity } }).success).toBe(false)
-    expect(briefRequestSchema.safeParse({ ...request, company: { ...request.company, confirmed: false } }).success).toBe(false)
+    expect(briefRequestSchema.safeParse({ ...request, company: { ...request.company, confirmed: false } }).success).toBe(true)
   })
 })
 
@@ -32,15 +32,17 @@ describe('grounded sprint brief', () => {
     const brief = buildSprintBrief({ ...FIT_SAMPLE, shapeFirst: true, user: '', outcome: '' }, request)
     expect(brief.company.logoUrl).toBeNull(); expect(brief.company.sourceUrl).toBeNull()
     expect(brief.narrative.proposal).toBeTruthy(); expect(brief.scope.firstRelease).toBeTruthy(); expect(brief.scope.user).toBeTruthy()
-    expect(brief.benchmark).toBeNull()
+    expect(brief.benchmark?.company).toBe('PwC')
   })
   it('does not trust client-supplied research timestamps, domains or image fields', () => {
     const brief = buildSprintBrief(FIT_SAMPLE, { ...request, company: { ...request.company, profileDomain: 'forged.example', researchedAt: 'yesterday' } })
     expect(brief.company.researchedAt).toBeNull(); expect(brief.company).not.toHaveProperty('profileDomain')
   })
-  it('requires both a relevant sector and task for industry evidence', () => {
-    expect(buildSprintBrief(FIT_SAMPLE, request).benchmark).toBeNull()
-    expect(buildSprintBrief({ ...FIT_SAMPLE, outcome: 'Internal knowledge search for staff' }, request).benchmark?.company).toBe('PwC')
+  it('shows sector evidence for a different task, but omits it for an unknown industry', () => {
+    const unrelatedTask = { ...FIT_SAMPLE, outcome: 'Review calls for quality', current: 'Listen to calls', user: 'Quality reviewers' }
+    const insurer = { ...request, company: { ...request.company, sector: 'insurance' as const } }
+    expect(buildSprintBrief(unrelatedTask, insurer).benchmark).toMatchObject({ company: 'Univé', publisher: 'OpenAI', reportedBy: 'vendor' })
+    expect(buildSprintBrief(unrelatedTask, insurer).calculation).toEqual(calculateBusinessCase(EMPTY_BUSINESS_CASE))
     expect(buildSprintBrief({ ...FIT_SAMPLE, outcome: 'Internal knowledge search for staff' }, { ...request, company: { ...request.company, sector: 'other' } }).benchmark).toBeNull()
   })
   it('suggests exact business domains without reading personal mail services', () => {

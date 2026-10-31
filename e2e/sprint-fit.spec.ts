@@ -38,22 +38,24 @@ const profile: CompanyProfile = {
 }
 async function savedBrief(route: Route, emailDelivered = true) {
   const body = route.request().postDataJSON() as InquiryPayload
-  const brief = buildSprintBrief(body.fitCheck, body.briefRequest, body.companyWebsite ? profile : null, '2026-10-31T08:00:00.000Z')
+  const brief = buildSprintBrief(body.fitCheck, { ...body.briefRequest, company: { ...body.briefRequest.company, name: body.briefRequest.company.name || body.name } }, body.companyWebsite ? profile : null, '2026-10-31T08:00:00.000Z')
   await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, inquiryId: 'saved-sprint-inquiry', brief, emailDelivered }) })
 }
 async function next(page: Page) { await page.getByRole('button', { name: 'Continue', exact: false }).click() }
 async function start(page: Page, type = 'An idea') {
   await page.goto('/ai-build-sprint/readiness')
+  await expect(page.getByRole('button', { name: 'Start my assessment', exact: true }).first()).toBeVisible()
+  await page.getByRole('button', { name: 'Start my assessment', exact: true }).first().click()
   await expect(page.getByRole('heading', { name: 'Sprint summary', exact: true })).toHaveCount(0)
   if (test.info().title.startsWith('idea founders')) await capture(page, 'assessment-first-screen.png')
   await page.getByRole('radio', { name: type, exact: true }).check()
   await expect(page.getByRole('heading', { name: 'About you', exact: true })).toBeVisible()
 }
-async function details(page: Page, website = false) {
+async function details(page: Page, website = false, company = 'Example Studio') {
   await page.getByRole('textbox', { name: 'Your name', exact: true }).fill('Test Founder')
   await page.getByRole('textbox', { name: 'Email', exact: true }).fill(website ? 'founder@studio.example.com' : 'founder@gmail.com')
   await page.getByRole('textbox', { name: 'Role', exact: true }).fill('Founder')
-  await page.getByRole('textbox', { name: 'Company or project', exact: true }).fill('Example Studio')
+  await page.getByRole('textbox', { name: 'Company name (optional)', exact: true }).fill(company)
   if (website) await page.getByRole('textbox', { name: 'Company website', exact: true }).fill('https://studio.example.com')
   else await page.getByRole('checkbox', { name: 'No website yet', exact: true }).check()
   await next(page)
@@ -101,7 +103,7 @@ async function buildQuestions(page: Page, options: { numbers?: boolean; noBuild?
 }
 async function review(page: Page) {
   await page.getByRole('textbox', { name: 'What your company does', exact: true }).fill('We help professional services teams prepare proposals.')
-  await page.getByRole('checkbox', { name: 'This company context is correct', exact: true }).check()
+  await expect(page.getByRole('checkbox', { name: 'This company context is correct', exact: true })).toHaveCount(0)
 }
 async function completeToReview(page: Page, options: { numbers?: boolean; noBuild?: boolean; website?: boolean; other?: boolean } = {}) {
   await start(page, options.website ? 'An existing workflow' : 'An idea')
@@ -121,7 +123,7 @@ test('idea founders can complete with personal email and no website before recei
   await expect(summary.locator('dt')).toHaveCount(1)
   await capture(page, 'assessment-growing-summary.png')
   await expect(page.getByText('Still to shape', { exact: true })).toHaveCount(0)
-  await details(page)
+  await details(page, false, '')
   await buildQuestions(page, { noBuild: true })
   await review(page)
   await expect(page.getByRole('button', { name: 'Download HTML', exact: true })).toHaveCount(0)
@@ -131,7 +133,7 @@ test('idea founders can complete with personal email and no website before recei
   await expect(page.getByRole('link', { name: 'Book a call with John', exact: false })).toBeVisible()
   await expect(page.getByRole('textbox', { name: 'Email', exact: true })).toHaveCount(0)
   expect(profileRequests).toBe(0)
-  expect(received[0]).toMatchObject({ name: 'Test Founder', email: 'founder@gmail.com', role: 'Founder', companyWebsite: '', fitCheck: { startingPoint: 'idea', current: 'Nothing built yet' } })
+  expect(received[0]).toMatchObject({ name: 'Test Founder', email: 'founder@gmail.com', role: 'Founder', companyWebsite: '', briefRequest: { company: { name: '' } }, fitCheck: { startingPoint: 'idea', current: 'Nothing built yet' } })
   const downloaded = page.waitForEvent('download')
   await page.getByRole('button', { name: 'Download HTML', exact: true }).click()
   const download = await downloaded
@@ -150,7 +152,7 @@ test('company context and optional supplied figures produce a coherent brief and
   await details(page, true)
   await buildQuestions(page, { numbers: true })
   await expect(page.getByRole('textbox', { name: 'What your company does', exact: true })).toHaveValue(profile.summary!)
-  await page.getByRole('checkbox', { name: 'This company context is correct', exact: true }).check()
+  await expect(page.getByRole('checkbox', { name: 'This company context is correct', exact: true })).toHaveCount(0)
   await expect(page.getByRole('combobox', { name: 'Industry', exact: true })).toHaveValue('real-estate')
   await capture(page, 'assessment-company-review.png')
   await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
@@ -200,7 +202,7 @@ test('a silent guard drop cannot unlock the full brief and retry retains the sub
   await expect(page.getByRole('alert').filter({ hasText: 'We could not save your brief' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Your sprint brief', exact: true })).toHaveCount(0)
   await expect(page.getByRole('button', { name: 'Download HTML', exact: true })).toHaveCount(0)
-  await expect(page.getByRole('textbox', { name: 'Company or project', exact: true })).toHaveValue('Example Studio')
+  await expect(page.getByRole('textbox', { name: 'Company name (optional)', exact: true })).toHaveValue('Example Studio')
   await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
   await expect(page.getByRole('heading', { name: 'Your sprint brief', exact: true })).toBeVisible()
   expect(ids).toHaveLength(2)
@@ -331,4 +333,101 @@ test('changing success measures drops hidden stale targets but preserves a remai
   expect(received?.fitCheck.target).toBe('')
   await expect(page.getByRole('article')).toContainText('Less time')
   await expect(page.getByRole('article')).not.toContainText('Every recommendation has auditable evidence')
+})
+
+
+test('company suggestions can be corrected and an optional project name survives the saved brief', async ({ page }) => {
+  let received: InquiryPayload | undefined
+  await page.route('**/api/sprint-fit/profile', route => route.fulfill({ json: { ok: true, profile } }))
+  await page.route('**/api/sprint-inquiries', async route => { received = route.request().postDataJSON(); await savedBrief(route) })
+  await start(page)
+  await page.getByRole('textbox', { name: 'Your name', exact: true }).fill('Test Founder')
+  const email = page.getByRole('textbox', { name: 'Email', exact: true })
+  await email.fill('founder@studio.example.com')
+  await email.blur()
+  const company = page.getByRole('textbox', { name: 'Company name (optional)', exact: true })
+  await expect(company).toHaveValue('Studio')
+  await company.fill('Corrected Studio')
+  await page.getByRole('textbox', { name: 'Project name (optional)', exact: true }).fill('Proposal Companion')
+  await page.getByRole('textbox', { name: 'Role', exact: true }).fill('Founder')
+  await next(page)
+  await buildQuestions(page)
+  await expect(page.getByRole('textbox', { name: 'Company name (optional)', exact: true })).toHaveValue('Corrected Studio')
+  await expect(page.getByRole('checkbox', { name: 'I would like help shaping this', exact: true })).toHaveCount(0)
+  await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
+  await expect(page.getByRole('heading', { name: 'Your sprint brief', exact: true })).toBeVisible()
+  expect(received?.briefRequest.company).toMatchObject({ name: 'Corrected Studio', projectName: 'Proposal Companion' })
+  await expect(page.getByRole('article')).toContainText('Proposal Companion')
+})
+
+test('switching to personal email clears an uncorrected company suggestion', async ({ page }) => {
+  await start(page)
+  const email = page.getByRole('textbox', { name: 'Email', exact: true })
+  await email.fill('founder@studio.example.com'); await email.blur()
+  const company = page.getByRole('textbox', { name: 'Company name (optional)', exact: true })
+  await expect(company).toHaveValue('Studio')
+  await email.fill('founder@gmail.com'); await email.blur()
+  await expect(company).toHaveValue('')
+  await expect(page.getByRole('textbox', { name: 'Company website', exact: true })).toHaveValue('')
+})
+
+test('a lookup completing after create cannot change the reviewed submission', async ({ page }) => {
+  let release!: () => void
+  const pending = new Promise<void>(resolve => { release = resolve })
+  let received: InquiryPayload | undefined
+  await page.route('**/api/sprint-fit/profile', async route => { await pending; await route.fulfill({ json: { ok: true, profile } }) })
+  await page.route('**/api/sprint-inquiries', async route => { received = route.request().postDataJSON(); await savedBrief(route) })
+  await start(page, 'An existing workflow')
+  await details(page, true)
+  await buildQuestions(page)
+  await page.getByRole('textbox', { name: 'What your company does', exact: true }).fill('Visitor reviewed description.')
+  await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
+  await expect(page.getByRole('heading', { name: 'Your sprint brief', exact: true })).toBeVisible()
+  release()
+  expect(received?.briefRequest.company.description).toBe('Visitor reviewed description.')
+  await expect(page.getByRole('article')).toContainText('Visitor reviewed description.')
+})
+
+test('changing website clears researched context if the replacement lookup fails', async ({ page }) => {
+  let received: InquiryPayload | undefined
+  await page.route('**/api/sprint-fit/profile', async route => {
+    const body = route.request().postDataJSON()
+    await route.fulfill({ json: body.website.includes('studio.example.com') ? { ok: true, profile } : { ok: false, reason: 'manual' } })
+  })
+  await page.route('**/api/sprint-inquiries', async route => { received = route.request().postDataJSON(); await savedBrief(route) })
+  await start(page, 'An existing workflow')
+  await details(page, true)
+  await buildQuestions(page)
+  await expect(page.getByRole('textbox', { name: 'What your company does', exact: true })).toHaveValue(profile.summary!)
+  await page.getByRole('button', { name: 'Company name (optional)', exact: false }).first().click()
+  await page.getByRole('textbox', { name: 'Company website', exact: true }).fill('https://replacement.example.com')
+  for (let i = 0; i < 6; i++) await next(page)
+  await expect(page.getByRole('textbox', { name: 'What your company does', exact: true })).toHaveValue('')
+  await expect(page.getByRole('combobox', { name: 'Industry', exact: true })).toHaveValue('other')
+  await page.getByRole('button', { name: 'Create my brief', exact: false }).click()
+  await expect(page.getByRole('heading', { name: 'Your sprint brief', exact: true })).toBeVisible()
+  expect(received?.briefRequest.company.profileDomain).toBeUndefined()
+  expect(received?.briefRequest.company.researchedAt).toBeUndefined()
+  expect(received?.briefRequest.company.sector).toBe('other')
+})
+
+test('revisiting unchanged email retains researched context even if a retry fails', async ({ page }) => {
+  let requests = 0
+  await page.route('**/api/sprint-fit/profile', async route => {
+    requests++
+    await route.fulfill({ json: requests === 1 ? { ok: true, profile } : { ok: false, reason: 'manual' } })
+  })
+  await start(page, 'An existing workflow')
+  await page.getByRole('textbox', { name: 'Your name', exact: true }).fill('Test Founder')
+  await page.getByRole('textbox', { name: 'Email', exact: true }).fill('founder@studio.example.com')
+  await page.getByRole('textbox', { name: 'Role', exact: true }).fill('Founder')
+  await next(page)
+  await buildQuestions(page)
+  await expect(page.getByRole('textbox', { name: 'What your company does', exact: true })).toHaveValue(profile.summary!)
+  await page.getByRole('button', { name: 'Company name (optional)', exact: false }).first().click()
+  const email = page.getByRole('textbox', { name: 'Email', exact: true })
+  await email.focus(); await email.blur()
+  for (let i = 0; i < 6; i++) await next(page)
+  await expect(page.getByRole('textbox', { name: 'What your company does', exact: true })).toHaveValue(profile.summary!)
+  await expect(page.getByRole('combobox', { name: 'Industry', exact: true })).toHaveValue('real-estate')
 })

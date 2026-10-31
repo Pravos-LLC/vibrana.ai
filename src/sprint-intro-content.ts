@@ -1,0 +1,26 @@
+/** Assessment introduction. Examples are illustrative scopes, not client case claims. */
+export const SPRINT_INTRO = {
+  eyebrow: 'AI Build Sprint assessment',
+  title: 'Build something useful. Learn by building it with us.',
+  description: 'Tell us what you want to make. We’ll help you shape a practical first release that your team can build and learn from with us.',
+  start: 'Start my assessment',
+  deliverables: 'You’ll leave with a scoped brief, your company context and, if you add the numbers, an optional business case.',
+  previewLabel: 'A sample of your brief',
+  previewAlt: 'Example first page of a sprint brief for a fictional property advisory business',
+  exampleEyebrow: 'What could we build?',
+  exampleTitle: 'Small enough to start. Useful enough to matter.',
+  exampleNote: 'These are illustrative possibilities. The right scope depends on your team, data and needs.',
+  examples: [
+    { period: 'One week', items: ['Quality-assurance call monitoring for a regulated insurer', 'Partner segmentation for a B2B business', 'A sales assistant and knowledge base', 'A customer-service knowledge base'] },
+    { period: 'Two weeks', items: ['A first release of an AI-powered CRM', 'A first release of an AI learning platform'] },
+  ],
+  teamTitle: 'People behind the work',
+  teamIntro: 'The expertise we can bring together around your sprint.',
+  team: [
+    { name: 'John Ellison', role: 'CEO and Founder', photo: '/assets/team/john-ellison.webp' },
+    { name: 'Abe Isleem', role: 'AI engineering', photo: '' },
+    { name: 'Stephan Ledain', role: 'Adoption and governance', photo: '' },
+    { name: 'Fatma Ghedira', role: 'People and change', photo: '' },
+  ],
+  finalTitle: 'Ready to shape your first release?',
+} as const

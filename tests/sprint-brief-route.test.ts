@@ -3,13 +3,13 @@ import { NextRequest } from 'next/server'
 import { FIT_SAMPLE } from '@/src/lib/sprint-fit'
 import { EMPTY_BUSINESS_CASE } from '@/src/lib/sprint-brief'
 
-const state = vi.hoisted(() => ({ rows: new Map<string, Record<string, unknown>>(), emails: [] as {to:string}[], guard: 'allow', failInsert: false, failEmail: false }))
+const state = vi.hoisted(() => ({ rows: new Map<string, Record<string, unknown>>(), emails: [] as {to:string}[], guard: 'allow', companyUpserts: 0, failInsert: false, failEmail: false }))
 vi.mock('@/lib/form-guard/server', () => ({ FORM_GUARDS: { sprintInquiries: {} }, guardFieldsFromBody: () => ({}), guardSubmission: async () => ({ action: state.guard }) }))
 vi.mock('@/src/lib/simulator/server/db', () => ({ getCachedProfile: async () => null }))
 vi.mock('@/src/lib/sprint-fit/narrative', () => ({ enrichSprintNarrative: async (brief: unknown) => brief }))
 vi.mock('@/lib/resend', () => ({ FROM_EMAIL: 'hello@vibrana.ai', sendEmail: async (message: {to:string}) => { state.emails.push(message); return { error: state.failEmail ? { message: 'unavailable' } : null } } }))
 vi.mock('@/lib/supabase', () => ({ supabase: { from: (table: string) => {
-  if (table === 'companies') return { upsert: () => ({ select: () => ({ single: async () => ({ data: { id: 'company-1' }, error: null }) }) }) }
+  if (table === 'companies') return { upsert: () => { state.companyUpserts++; return ({ select: () => ({ single: async () => ({ data: { id: 'company-1' }, error: null }) }) }) } }
   return {
     select: () => {
       const filters: Record<string, unknown> = {}
@@ -36,8 +36,19 @@ const input = { name: 'Ada', email: 'ada@example.com', companyName: 'Example', r
   briefRequest: { submissionId: '16cbb772-776f-4da6-b347-26468f9bba84', company: { name: 'Example', website: '', description: 'Professional services.', sector: 'professional-services', confirmed: true }, businessCase: { ...EMPTY_BUSINESS_CASE, tasksPerWeek: 20, minutesPerTask: 30, peoplePerTask: 1, hourlyCost: 50 } },
 }
 const post = (body: unknown) => POST(new NextRequest('http://localhost/api/sprint-inquiries', { method: 'POST', body: JSON.stringify(body) }))
-beforeEach(() => { state.rows.clear(); state.emails.length = 0; state.guard = 'allow'; state.failInsert = false; state.failEmail = false })
+beforeEach(() => { state.rows.clear(); state.emails.length = 0; state.companyUpserts = 0; state.guard = 'allow'; state.failInsert = false; state.failEmail = false })
 describe('saved sprint brief', () => {
+  it('keeps same-named founders without companies separate and creates no company records', async () => {
+    const founder = { ...input, companyName: '', briefRequest: { ...input.briefRequest, company: { ...input.briefRequest.company, name: '', description: '', sector: 'other' } } }
+    const first = await (await post(founder)).json()
+    const second = await (await post({ ...founder, email: 'other@example.com' })).json()
+    expect(first.brief.company.name).toBe('Ada')
+    expect(second.inquiryId).not.toBe(first.inquiryId)
+    expect(state.companyUpserts).toBe(0)
+    expect(state.rows.get(first.inquiryId)).toMatchObject({ company_id: null, company_name: 'Ada' })
+    expect(state.rows.get(second.inquiryId)).toMatchObject({ company_id: null, company_name: 'Ada' })
+  })
+
   it('saves the server-computed snapshot before returning a real receipt', async () => {
     const response = await post(input); const result = await response.json()
     expect(response.status).toBe(200); expect(result.inquiryId).toBeTruthy(); expect(result.emailDelivered).toBe(true)
