@@ -219,8 +219,13 @@ export default function AIBuildSprintPage() {
         <aside aria-labelledby="sprint-guarantee-heading" className="mx-auto mt-14 max-w-2xl overflow-hidden rounded-2xl border border-line-subtle bg-surface-raised text-left">
           <div className="h-1 bg-linear-to-r from-brand-violet via-brand-blue to-brand-cyan" aria-hidden="true" />
           <div className="p-6 sm:p-8">
-            <Eyebrow className="mb-3">{SPRINT_GUARANTEE.eyebrow}</Eyebrow>
-            <h3 id="sprint-guarantee-heading" className="font-display text-2xl font-semibold tracking-tight text-ink">{SPRINT_GUARANTEE.heading}</h3>
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <Eyebrow className="mb-3">{SPRINT_GUARANTEE.eyebrow}</Eyebrow>
+                <h3 id="sprint-guarantee-heading" className="font-display text-2xl font-semibold tracking-tight text-ink">{SPRINT_GUARANTEE.heading}</h3>
+              </div>
+              <span aria-hidden="true" className="flex h-16 w-16 shrink-0 rotate-[-15deg] items-center justify-center rounded-full border-2 border-brand-violet bg-surface-base font-display text-lg font-semibold text-brand-violet sm:h-20 sm:w-20 sm:text-xl">100%</span>
+            </div>
             <p className="type-sm mt-4 text-ink-secondary">{SPRINT_GUARANTEE.timeline}</p>
             <p className="type-sm mt-4 font-medium text-ink">{SPRINT_GUARANTEE.offer}</p>
             <p className="type-sm mt-4 text-ink-secondary">{SPRINT_GUARANTEE.conditions}</p>

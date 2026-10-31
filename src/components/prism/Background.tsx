@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, MotionValue, useReducedMotion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, MotionValue } from 'framer-motion';
+import { useHydratedReducedMotion } from '@/src/components/prism/motion/useHydratedReducedMotion';
 
 /**
  * Background — the recolored mycelium field for Prism Light. Layered thin
@@ -302,7 +303,7 @@ export function Background({
   position = 'fixed',
 }: BackgroundProps) {
   const preset = getScaledPreset(variant, coverage);
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useHydratedReducedMotion();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
