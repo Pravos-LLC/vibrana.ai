@@ -115,6 +115,7 @@ describe('POST /api/feedback', () => {
     expect(JSON.stringify(row)).not.toContain('vitest-agent')
 
     expect(emails).toHaveLength(1)
+    expect(emails[0]).toMatchObject({ suppressErrorDetails: true })
     expect(emails[0].to).toBe('notify@example.test')
     expect(emails[0].subject).toBe('Sample organization feedback from Rob: 9/10, quote anonymously: yes')
     expect(emails[0].html).toContain('It saves us hours.')

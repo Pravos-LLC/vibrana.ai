@@ -124,6 +124,7 @@ export async function POST(request: NextRequest) {
         consent,
       }
       const result = await sendEmail({
+        suppressErrorDetails: true,
         from: FROM_EMAIL,
         to: notifyTo,
         subject: feedbackSubject(input),
