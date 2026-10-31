@@ -33,7 +33,7 @@ export function SprintIntro({ onStart }: { onStart: () => void }) {
       <section className={styles.team}>
         <h2>{C.teamTitle}</h2><p>{C.teamIntro}</p>
         <div className={styles.teamGrid}>{C.team.map(person => <div className={styles.person} key={person.name}>
-          {person.photo ? <img src={person.photo} alt="" width="80" height="80" /> : <span aria-hidden>{person.name[0]}</span>}
+          <img src={person.photo} alt={person.name} width="80" height="80" />
           <div><strong>{person.name}</strong><small>{person.role}</small></div>
         </div>)}</div>
       </section>

@@ -61,7 +61,7 @@ export const SPRINT_FLOW = {
   businessCase: 'Business case', currentHours: 'Current hours / week', targetHours: 'Target hours / week', releasedHours: 'Potential capacity / week', additionalHours: 'Additional effort / week', currentCost: 'Current effort cost / week', capacityValue: 'Capacity value / week', additionalCost: 'Additional effort cost / week', softwareCost: 'Current software cost / month',
   calculationNote: 'Based on your figures. Targets are estimates, not guaranteed savings.',
   example: 'Industry example', reported: 'Reported by', source: 'Source', preparation: 'Before the sprint', assumptions: 'To confirm',
-  created: 'Your sprint brief', companyName: 'Company name (optional)', companySuggestion: 'A suggested company name can be edited or cleared.', projectName: 'Project name (optional)', defaultDescription: '',
+  created: 'Your sprint brief', companyName: 'Company name (optional)', emailDomainSuggestion: 'If your email domain is your company website:', useEmailDomain: 'Use', projectName: 'Project name (optional)', defaultDescription: '',
   john: 'John Ellison', johnRole: 'CEO and Founder, Vibrana', johnAlt: 'John Ellison', call: 'Book a call with John',
   callHint: 'Review the scope, questions and next steps together.',
   downloadHtml: 'Download HTML', downloadPdf: 'Download PDF', preparing: 'Preparing download…', exportError: 'The download could not be prepared. Please try again.',

@@ -1,7 +1,7 @@
 /** Assessment introduction. Examples are illustrative scopes, not client case claims. */
 export const SPRINT_INTRO = {
   eyebrow: 'AI Build Sprint assessment',
-  title: 'Build something useful. Learn by building it with us.',
+  title: 'Scope your first AI build. Learn alongside the people who build it with you.',
   description: 'Tell us what you want to make. We’ll help you shape a practical first release that your team can build and learn from with us.',
   start: 'Start my assessment',
   deliverables: 'You’ll leave with a scoped brief, your company context and, if you add the numbers, an optional business case.',
@@ -19,9 +19,9 @@ export const SPRINT_INTRO = {
   teamIntro: 'The expertise we can bring together around your sprint.',
   team: [
     { name: 'John Ellison', role: 'CEO and Founder', photo: '/assets/team/john-ellison.webp' },
-    { name: 'Abe Isleem', role: 'AI engineering', photo: '' },
-    { name: 'Stephan Ledain', role: 'Adoption and governance', photo: '' },
-    { name: 'Fatma Ghedira', role: 'People and change', photo: '' },
+    { name: 'Abe Isleem', role: 'AI engineering', photo: '/assets/team/abe-isleem.webp' },
+    { name: 'Stephan Ledain', role: 'Adoption and governance', photo: '/assets/team/stephan-ledain.webp' },
+    { name: 'Fatma Ghedira', role: 'People and change', photo: '/assets/team/fatma-ghedira.webp' },
   ],
   finalTitle: 'Ready to shape your first release?',
 } as const
