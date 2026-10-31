@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import { SPRINT_FLOW } from '@/src/sprint-fit-content'
 import Image from '@/src/components/PublicDemoImage'
 import { Check, X } from 'lucide-react'
 import { EnterprisePageShell } from '@/src/components/enterprise/EnterprisePageShell'
@@ -228,6 +229,11 @@ export default function AIBuildSprintPage() {
             {SPRINT_PRICING.roi.prompt}{' '}
             <TrackedLink href={SPRINT_PRICING.roi.href} event="sprint_roi_click" className={textLink}>
               {SPRINT_PRICING.roi.link}
+            </TrackedLink>
+          </p>
+          <p className="type-sm pt-4 text-ink-secondary">
+            <TrackedLink href="/ai-build-sprint/readiness" event="sprint_brief_click" className={textLink}>
+              {SPRINT_FLOW.title}
             </TrackedLink>
           </p>
           <p className="type-sm pt-4 text-ink-secondary">

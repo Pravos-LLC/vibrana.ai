@@ -1,4 +1,6 @@
 import { z } from 'zod'
+import { fitAnswersSchema, isCompleteFit } from './sprint-fit'
+import { briefRequestSchema } from './sprint-brief'
 import { SPRINT_TRACK_IDS } from './sprint-tracks'
 
 export { SPRINT_TRACK_IDS, isSprintTrackId, type SprintTrackId } from './sprint-tracks'
@@ -20,6 +22,9 @@ export const sprintInquirySchema = z.object({
   internalOwner: optionalText(500),
   startWindow: z.enum(['within-30-days', '30-60-days', '60-90-days', 'exploring', '']).optional().default(''),
   budgetBand: z.enum(['15-25k', '25-50k', '50k-plus', '']).optional().default(''),
+  fitCheck: fitAnswersSchema.refine(isCompleteFit, 'Complete the fit check before sharing the brief').optional(),
+  briefRequest: briefRequestSchema.optional(),
+  resendEmail: z.boolean().optional().default(false),
   botField: honeypot,
   /** Legacy honeypot name, still rejected if a cached old form posts it filled. */
   faxNumber: honeypot,
@@ -28,6 +33,9 @@ export const sprintInquirySchema = z.object({
   utm_campaign: z.string().max(200).optional().default(''),
   utm_content: z.string().max(200).optional().default(''),
   referrer: z.string().max(1000).optional().default(''),
+}).superRefine((input, context) => {
+  if (input.briefRequest && !input.fitCheck) context.addIssue({ code: 'custom', path: ['fitCheck'], message: 'Complete the fit check before creating your brief' })
+  if (input.briefRequest && !input.role.trim()) context.addIssue({ code: 'custom', path: ['role'], message: 'Role is required' })
 })
 
 export type SprintInquiry = z.infer<typeof sprintInquirySchema>

@@ -66,7 +66,7 @@ export const SECTOR_EXAMPLES: Partial<Record<SectorId, SectorExample>> = {
     company: 'JLL',
     logo: { src: 'public-demo:logo', mono: true },
     descriptor: 'Global commercial real estate firm',
-    result: 'Gave its whole workforce an internal GPT: more than 47,000 professionals have used it, running over 200,000 prompts a week.',
+    result: 'Gave its whole workforce an internal GPT: more than 47,000 professionals have used it.',
     quote: 'More than 47,000 JLL professionals have already used the tool to provide more creative, customized solutions for clients.',
     url: 'https://ir.jll.com/news-releases/press-release-details/2024/JLL-Falcon-kicks-off-new-era-of-AI-powered-CRE-innovation/default.aspx',
     publisher: 'JLL investor relations',

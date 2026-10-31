@@ -49,6 +49,7 @@ export async function buildProfile(rawUrl: unknown): Promise<ProfileResponse> {
     const [logoPath, screenshotPath] = await assets;
 
     const profile: CompanyProfile = {
+      researchedAt: new Date().toISOString(),
       domain: site.domain,
       sector: c.sector,
       confidence: c.confidence,

@@ -23,14 +23,14 @@ export default defineConfig({
       // helpers, and assessment scoring. UI components are covered by e2e.
       include: ['app/api/**/*.ts', 'lib/**/*.ts', 'src/lib/**/*.ts'],
       exclude: ['**/*.d.ts', '**/*.test.ts'],
-      // Ratchet: floors set just below the numbers measured when this was added
-      // (statements 49.17, branches 50.63, functions 62.96, lines 50.00). Raise
-      // them when coverage goes up; never lower them to make a PR pass.
+      // Ratchet: measured after the sprint assessment overhaul at 76.06% statements,
+      // 76.11% branches, 87.01% functions and 77.54% lines. Keep floors below
+      // that verified run; never lower them to make a PR pass.
       thresholds: {
-        statements: 49,
-        branches: 50,
-        functions: 62,
-        lines: 49,
+        statements: 75,
+        branches: 75,
+        functions: 86,
+        lines: 76,
       },
     },
   },

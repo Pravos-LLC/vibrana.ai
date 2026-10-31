@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { FIT_SAMPLE } from '@/src/lib/sprint-fit'
 import { NextRequest } from 'next/server'
 
 // The route talks to Supabase and Resend. Both are mocked so this test never touches
@@ -105,5 +106,26 @@ describe('POST /api/sprint-inquiries', () => {
     await post({ ...fitCall, name: '<script>x</script>' })
 
     expect(emails[0].html).not.toContain('<script>')
+  })
+})
+
+describe('fit-check handoff', () => {
+  beforeEach(() => { inserts.length = 0; emails.length = 0 })
+  it('stores structured answers and emails the actual brief without trusting a client route', async () => {
+    const response = await post({ ...fitCall, fitCheck: FIT_SAMPLE, fit_route: 'ready' })
+    expect(response.status).toBe(200)
+    expect(inserts[0].metadata).toMatchObject({ form_version: 'sprint-fit-v1', fit_check: FIT_SAMPLE, fit_route: 'confirm' })
+    expect(emails[0].html).toContain('Funding: Approval needs a proposal')
+    expect(emails[1].subject).toBe('Your first-build brief from Vibrana')
+    expect(emails[1].html).toContain(FIT_SAMPLE.outcome)
+    expect(emails[1].html).toContain('Confirm a few essentials')
+  })
+  it('escapes every answer in the fit confirmation email', async () => {
+    await post({ ...fitCall, fitCheck: { ...FIT_SAMPLE, outcome: '<script>alert(1)</script>' } })
+    expect(emails[1].html).not.toContain('<script>'); expect(emails[1].html).toContain('&lt;script&gt;')
+  })
+  it('rejects incomplete fit data before any database or email work', async () => {
+    const response = await post({ ...fitCall, fitCheck: { ...FIT_SAMPLE, funding: '' } })
+    expect(response.status).toBe(400); expect(inserts).toHaveLength(0); expect(emails).toHaveLength(0)
   })
 })

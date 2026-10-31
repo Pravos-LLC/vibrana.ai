@@ -79,6 +79,14 @@ export const FORM_GUARDS = {
   },
   // The simulator's website step costs a Firecrawl scrape plus a model call (spec 11).
   // A dropped request gets the manual sector path, same as an unreadable site.
+  sprintFitProfile: {
+    endpoint: 'sprint-fit-profile', minFillMs: 1500, turnstile: true,
+    limits: [
+      { key: 'ip', max: 30, windowSec: HOUR },
+      { key: 'ip', max: 100, windowSec: DAY },
+      { key: 'token', max: 5, windowSec: DAY },
+    ],
+  },
   simulatorProfile: {
     endpoint: 'simulator-profile',
     minFillMs: 1500,

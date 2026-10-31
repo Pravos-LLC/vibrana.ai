@@ -14,6 +14,7 @@ initBotId({
     { path: '/api/whitepaper', method: 'POST' },
     { path: '/api/enterprise-inquiry', method: 'POST' },
     { path: '/api/sprint-inquiries', method: 'POST' },
+    { path: '/api/sprint-fit/profile', method: 'POST' },
     { path: '/api/feedback', method: 'POST' },
     { path: '/api/roi-leads', method: 'POST' },
     { path: '/api/simulator/profile', method: 'POST' },

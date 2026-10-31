@@ -117,9 +117,11 @@ export function Nav({
               <ThemeToggle />
             </div>
             {cta && (
-              <Button href={cta.href} size="sm" showArrow className="hidden lg:inline-flex">
-                {cta.label}
-              </Button>
+              <div className="hidden lg:block">
+                <Button href={cta.href} size="sm" showArrow>
+                  {cta.label}
+                </Button>
+              </div>
             )}
             <button
               type="button"
