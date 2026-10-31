@@ -1,0 +1,3 @@
+# Large screenshots in project root (not needed for deployment)
+agent-flywheel-*.png
+tsconfig.tsbuildinfo

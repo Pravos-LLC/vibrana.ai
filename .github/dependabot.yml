@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      # One PR a week for routine bumps; majors still arrive individually.
+      minor-and-patch:
+        update-types: [minor, patch]
+    ignore:
+      # @types/node must not run ahead of the Node major production runs on:
+      # Vercel project nodeVersion 24.x (mirrored by package.json engines and
+      # node-version in .github/workflows/*.yml). Patch/minor 24.x updates still
+      # flow. Bump this ceiling when the runtime moves to a new major.
+      - dependency-name: "@types/node"
+        versions: [">=25.0.0"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      # Same idea as npm: routine minor/patch action bumps land together and
+      # are eligible for dependabot-auto-merge.yml. Majors (e.g. actions/checkout
+      # v4 -> v7) stay ungrouped so they always get a human look.
+      minor-and-patch:
+        update-types: [minor, patch]

@@ -1,0 +1,953 @@
+{
+  "_comment": "Analyses from deepseek/deepseek-v4.1-flash on 2026-10-15 that passed the code checks and the judge (qwen/qwen3.6-27b). CI re-checks them against the golden profiles.",
+  "outputs": [
+    {
+      "profile": "insurer-strong",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Northgate Mutual self-reports an overall 73, with leadership and governance ahead of operations. The gap is talent and capability: one FTE or a junior-heavy data science team, turnover of 20 to 30 percent, half to seven in ten roles filled, and ad-hoc development. Public website signals show an AI assistant triaging first notice of loss for motor claims and a job ad for a data platform engineer.",
+        "strongest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show a named executive sponsor with C-suite visibility, a documented strategy approved by leadership, and AI discussed quarterly as core to annual strategy. You report half to three-quarters of leadership using AI tools themselves.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l1",
+                "l2",
+                "l5",
+                "l4"
+              ]
+            }
+          },
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show a comprehensive governance policy covering development, deployment and monitoring, bias testing on most high-risk models, and audit trails for high-risk decisions. You report a mature compliance framework that is audit-ready.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g2",
+                "g4",
+                "g5"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show one FTE or a junior-heavy data science team, turnover of 20 to 30 percent, and only half to seven in ten roles filled. Development pathways are ad-hoc. The constraint is hiring and retention, not training hours.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta5",
+                "ta6",
+                "ta7"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Write a one-page model card for the claims triage assistant: inputs, decision logic, known failure modes, and when a handler should override it. Give it to the claims team lead. This documents the tool you already run and reduces reliance on scarce specialist time.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "ta1",
+              "ta7"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "agency-early",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Brightline Studio is a 25-person creative agency in Austin making brand campaigns and social content for consumer brands, with case studies in food and beverage. Your answers put you early on both vision and operations: no executive owner, no documented strategy, no governance, and no in-house data or AI capability. Culture is the exception, with experimentation encouraged and mostly positive sentiment. The scores are self-reported, so treat them as a starting picture, not a measurement.",
+        "strongest": [
+          {
+            "area": "Culture & Change Readiness",
+            "text": "Your answers show experimentation is encouraged and employees are mostly positive about AI, with some safe spaces to admit knowledge gaps. That is the one area where your answers sit above the bottom of the scale.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "c1",
+                "c4",
+                "c5"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show no governance policy, no bias testing, no explainability, no audit trails, and minimal compliance preparation. Slack's survey of desk workers found those at companies with defined AI guidelines were nearly six times more likely to have tried AI tools than those without guidelines.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g2",
+                "g3",
+                "g4",
+                "g5"
+              ]
+            }
+          },
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show no in-house data science or ML capability, no AI leadership role, under five percent trained in the past year, and no structured career pathways. BCG reports regular AI use is sharply higher among employees with at least five hours of training plus in-person coaching.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta2",
+                "ta3",
+                "ta7"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Write a one-page AI use policy for the studio this month. Cover which tools are approved for client work, what client or campaign data may never be pasted into them, who reviews output before it ships, and where questions go. You do not need outside help for this. It fits an agency handling brand and social content for food and beverage clients, and it gives the experimentation your culture already encourages a boundary to work inside.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "g1",
+              "g5"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "inflated-fast",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Quanta Labs is a fifteen-person startup making scheduling software for dental clinics, and every answer in this assessment came back at the top of the scale, in about a minute and a half. That pattern suggests the scores may reflect intent more than practice. Your answers describe a named executive sponsor, a documented strategy with a three-year budget, centralized data, a mature in-house ML team, and a complete governance framework. For a company of this size and stage, those answers are worth checking against what actually exists today, since the site itself shows only a product page and a contact form.",
+        "strongest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show a named executive sponsor with C-suite visibility, a documented strategy with a three-year budget commitment, and AI discussed quarterly as core to annual strategy. You also report that most of the leadership team uses AI tools in their own work.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l1",
+                "l2",
+                "l4",
+                "l5"
+              ]
+            }
+          },
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show a comprehensive governance framework covering development, deployment and monitoring, automated bias testing for high-risk models, defined explainability standards, complete audit trails, and a compliance posture you describe as audit-ready.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g2",
+                "g3",
+                "g4",
+                "g5"
+              ]
+            }
+          }
+        ],
+        "weakest": [],
+        "startingPoint": {
+          "text": "Pick the three answers that would be hardest to evidence today, such as the three-year budget commitment, the centralized data warehouse, and the five or more production AI integrations, and write down for each what exists now, who owns it, and where the proof lives. That gives you a grounded baseline before you act on any of it.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "l2",
+              "d3",
+              "t5"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "sparse-site",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Carver Freight is early on both fronts, and the answers back that up. Leadership has an executive sponsor emerging and a strategy in draft, with pilot projects and project-based budget. Data sits between centralized and siloed, with manual quality checks. Talent is the clear gap: one or junior-heavy data science staff, no structured pathways, and hiring gaps. Governance is in development. Culture shows mixed sentiment and some leader use. The scores are self-reported, so read them as intent as much as practice.",
+        "strongest": [
+          {
+            "area": "Technology Infrastructure",
+            "text": "Your answers show significant workloads on cloud and maturing platform use, with access controls and encryption in place. That gives you a base to build on.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "t1",
+                "t4"
+              ]
+            }
+          },
+          {
+            "area": "Culture & Change Readiness",
+            "text": "Your answers show minority concerns about job risk, mostly addressed, and mostly safe spaces to admit AI knowledge gaps. Some leaders use AI, though not widely visible.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "c2",
+                "c5"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show one or junior-heavy data science staff, five to ten percent trained, no structured pathways, and significant hiring gaps. The leadership role is emerging, not formalized.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta2",
+                "ta3",
+                "ta6",
+                "ta7"
+              ]
+            }
+          },
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show a governance policy in development, manual and inconsistent bias testing, limited explainability, and inconsistent audit trails. Compliance strategy is in place, mostly ready.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g2",
+                "g3",
+                "g4"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Pick one freight workflow, such as quote-to-book or shipment status updates, and write a one-page AI use guideline for it: what data can be used, who reviews outputs, and how decisions get logged. Then run a short training session on it for the staff who touch that workflow. This uses your existing compliance strategy and cloud base, and starts closing the governance and talent gaps without outside help.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "g1",
+              "g4",
+              "ta2",
+              "t1"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "bank-visionary",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Your answers show a bank with board-level AI intent and thin delivery underneath. Leadership and strategy score 87, governance 82, culture 76, while talent is 17, technology 25 and data 29. The named Chief AI Officer and board-approved strategy on your website match the leadership answers. The digital client portal is the visible output so far. Nothing in your answers shows production AI integrations, in-house data science, or data you can trust at scale.",
+        "strongest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show a named executive sponsor with C-suite visibility, a documented strategy with a three-year budget commitment, AI core to annual strategy and discussed quarterly, and leadership use of AI tools at 50-75%. Budget sits at one to three percent of IT spend.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l1",
+                "l2",
+                "l5",
+                "l4",
+                "l6"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show no in-house data science or ML engineering, an emerging rather than formalized AI leadership role, five to ten percent of employees trained in the past year, basic stakeholder understanding, turnover above thirty percent, hiring gaps, and no structured career pathways.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta3",
+                "ta2",
+                "ta4",
+                "ta5",
+                "ta6",
+                "ta7"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Pick one client-facing workflow the portal already touches, such as onboarding or periodic portfolio reporting, and have the team that owns it write down the data it needs, who owns each field, and where it currently lives. That is a paper exercise, needs no vendor, and gives the Chief AI Officer a first concrete map of what data readiness would require.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "d1",
+              "d4",
+              "d5"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "manufacturer-tactical",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Your answers put Operations well ahead of Vision, which is the Tactical Powerhouse profile. Data Readiness and Technology Infrastructure are your high marks: centralized data, quality monitoring on critical data, cloud workloads, and access controls. Everything about direction, ownership, and permission is thin. No executive sponsor, no strategy, no governance, no budget. Culture and Governance both sit low, with mixed sentiment and low psychological safety reported. The machining sensor data your website describes is a real asset. What is missing is anyone authorized to say what may be done with it.",
+        "strongest": [
+          {
+            "area": "Data Readiness",
+            "text": "Your answers show data quality monitoring running on all critical data, half to most of it cataloged, and the majority centralized rather than siloed. That is the foundation any machining analytics work needs, and it is further along than most of the rest of this assessment.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "d1",
+                "d2",
+                "d3",
+                "d6"
+              ]
+            }
+          },
+          {
+            "area": "Technology Infrastructure",
+            "text": "Your answers show significant workloads already on cloud, role based access with encryption and audit trails, and a few integrations between AI systems and operational systems. Security and access controls are the mature part; platform standardization and scaling readiness lag.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "t1",
+                "t4",
+                "t5",
+                "t2"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show no executive ownership, no documented strategy, no budget beyond project based spend, and AI outside strategic planning. BCG reports that CEOs who personally own the AI transformation outperform on every dimension it measured. That research is about other organizations, not yours.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l1",
+                "l2",
+                "l6",
+                "l5",
+                "l7"
+              ]
+            }
+          },
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show no governance policy, no bias testing, limited explainability, inconsistent audit trails, and gaps on regulatory compliance. With EU AI Act preparation named in your own answer, this is the area where the absence of a written framework is most concrete.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g2",
+                "g3",
+                "g4",
+                "g5"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Write a one page AI use policy for the shop floor and quality teams, covering what sensor and machine data people may put into approved tools, what stays out, and who answers questions. Name an executive owner and a review date on the same page, then post it at both plants where sensor data is collected. Slack's survey of desk workers found that those at companies with defined AI guidelines were nearly six times more likely to have tried AI tools than those at companies without guidelines.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "g1",
+              "l1"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "clinic-governance-gap",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Meadowbrook Health Partners runs eleven outpatient clinics in Ohio with online booking and a patient portal, and your answers show operations ahead of vision. Leadership has a named sponsor, half to three quarters of leaders use AI tools, and a budget of one to three percent of IT spend, but the strategy is still in draft and AI sits in pilots. Data and infrastructure are mid-stage. Governance is the gap: no policy, no bias testing, no audit trails. Talent is thin, with one junior-heavy team and hiring below need. Scores are self-reported and may reflect intent more than practice.",
+        "strongest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show a named sponsor, a budget line, and leaders who use AI tools themselves, with AI success measured on a mix of qualitative and quantitative metrics and tied to business goals.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l1",
+                "l3",
+                "l4",
+                "l6",
+                "l7"
+              ]
+            }
+          },
+          {
+            "area": "Culture & Change Readiness",
+            "text": "Your answers show employees mostly positive on AI, leaders visibly using it, and a culture where experimentation is encouraged, which gives you somewhere to start.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "c1",
+                "c3",
+                "c4"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show no formal governance, no bias testing, no audit trails, and models that cannot be explained, with compliance efforts still emerging. Nothing here yet covers how AI decisions are reviewed or documented.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g2",
+                "g3",
+                "g4",
+                "g5"
+              ]
+            }
+          },
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show one junior-heavy team, an unformalized data leader role, turnover of twenty to thirty percent, hiring filling only half to seventy percent of roles, and ad-hoc development paths.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta3",
+                "ta5",
+                "ta6",
+                "ta7"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Write a one-page AI use policy for the clinics this month: which tools staff may use, what patient data may never be entered, who reviews outputs before they reach a patient, and where decisions get logged. Have the named sponsor approve it and circulate it to all eleven sites.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "g1",
+              "g4"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "proptech-mixed",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Keystone Lettings scores 54 overall, with Culture & Change Readiness at 64 and Technology Infrastructure at 60 as the higher areas, and Talent & Capability at 39 and Governance & Responsible AI at 38 as the lower ones. Your answers show a named sponsor below the executive level, an AI strategy still in draft, and pilots that are not yet part of strategic planning. Data is mostly centralized with partial ownership, but quality checks are manual. The website says maintenance requests are categorized automatically in the app, and your answers do not say whether that work is covered by a governance policy.",
+        "strongest": [
+          {
+            "area": "Culture & Change Readiness",
+            "text": "Your answers show employees are mostly positive about AI, few see their jobs at risk, and many leaders use AI visibly. Experimentation is encouraged, and a minority of employees have concerns that your answers describe as mostly addressed.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "c1",
+                "c2",
+                "c3",
+                "c4"
+              ]
+            }
+          },
+          {
+            "area": "Technology Infrastructure",
+            "text": "Your answers show significant workloads on cloud, access controls and encryption in place, and a few integrations between AI systems and operational systems. Platform tooling is in use, though not yet standardized.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "t1",
+                "t3",
+                "t4",
+                "t5"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show no bias testing, limited explainability, inconsistent audit trails, and a governance policy still in development. A compliance strategy is in place, but bias testing and audit documentation are not.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g2",
+                "g3",
+                "g4"
+              ]
+            }
+          },
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show a small junior-heavy data team, an emerging rather than formalized data leader, no structured career pathways, and hiring that fills only part of open roles. Training reach is limited to a small share of employees.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta2",
+                "ta3",
+                "ta6",
+                "ta7"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Draft a short written policy for how AI decisions are documented and reviewed, covering bias testing and audit trails, since your answers show both are missing. Circulate it to the team for comment, then route it to whoever holds approval authority for company policy.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "g1",
+              "g2",
+              "g4"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "law-firm-cautious",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Ashby Reid LLP is a Bristol and London commercial law firm advising mid-market companies on contracts, employment and disputes. Your answers show governance ahead of everything else: a comprehensive AI policy, explainability standards, audit trails and audit-ready compliance. Operations lag. Talent scores lowest, with no in-house capability, no AI leadership role, little training and high turnover. Technology is mostly on-premise with no AI platform or production integrations. Leadership has no approved strategy, no formal sponsor and a cost-reduction focus. Data is partly siloed with slow access.",
+        "strongest": [
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show a comprehensive governance policy covering development, deployment and monitoring, bias testing on most high-risk models, documented explainability standards, complete audit trails, and a mature compliance framework you describe as audit-ready.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g2",
+                "g3",
+                "g4",
+                "g5"
+              ]
+            }
+          },
+          {
+            "area": "Data Readiness",
+            "text": "Your answers show automated quality monitoring for most critical data, a mature documented data governance framework for regulatory compliance, and partial assignment of data ownership.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "d6",
+                "d7",
+                "d4"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show no in-house data science or ML capability, no Chief Data Officer or equivalent, under five percent of employees trained in the past year, no structured career pathways, turnover above thirty percent, and hiring gaps.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta2",
+                "ta3",
+                "ta5",
+                "ta6",
+                "ta7"
+              ]
+            }
+          },
+          {
+            "area": "Technology Infrastructure",
+            "text": "Your answers show pilot cloud projects with most systems on-premise, primarily manual deployments, no dedicated AI or ML platform, no production AI integrations, and traditional VMs that are not container-ready.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "t1",
+                "t2",
+                "t3",
+                "t5",
+                "t6"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Pick one recurring internal task, such as first-pass review of standard contract clauses or an employment query log, and have two or three fee earners run it with an off-the-shelf AI tool for a month. Keep a written log of what worked, what needed correction and where the tool did not fit the workflow. That gives you evidence for the draft strategy and a first training case, without hiring or new infrastructure.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "ta1",
+              "ta2",
+              "l2",
+              "l5"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "nonprofit-culture",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Riverside Food Network is early on AI, and your answers say so plainly. Leadership and Strategy, Data Readiness, Technology Infrastructure, Talent and Capability, and Governance all sit at the bottom of the scale, with no executive owner, no documented strategy, no success metrics, and no in-house data or AI capability. Culture is the exception: your answers describe positive staff attitudes, visible leader use of AI, and strong psychological safety. That combination, willing people and no structure around them, is the clearest thing in this assessment. Scores are self-reported and reflect what you selected, not verified practice.",
+        "strongest": [
+          {
+            "area": "Culture & Change Readiness",
+            "text": "Your answers show employees see AI as augmentation rather than a threat, leaders visibly use it, and people can admit what they do not know. That is the foundation any later work would rest on.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "c1",
+                "c2",
+                "c3",
+                "c4",
+                "c5"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show no executive owner, no documented strategy, no success metrics, and no AI budget, with AI absent from strategic planning. Culture is ready while leadership structure is not, which is the gap McKinsey's Superagency report names as the biggest barrier.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l1",
+                "l2",
+                "l3",
+                "l5",
+                "l6"
+              ]
+            }
+          },
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show no in-house data science or ML capability, no data or AI leadership role, no structured career pathways, and only a small share of employees trained in the past year. BCG reports that five hours of training plus coaching sharply raises regular AI use.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta2",
+                "ta3",
+                "ta7"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Name one person, likely your most AI-positive leader, as the accountable owner of AI, and have them write a one-page plan covering what you want AI to do for food collection and distribution, how you will judge success, and a small budget line. Bring it to the next leadership meeting for approval.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "l1",
+              "l2",
+              "l3",
+              "l6"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "retailer-talent-gap",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Fernhill Outdoor self-reports strong data and technology foundations and weak talent and governance. Your answers show centralized cloud data, self-service access under a day, mature pipelines and five or more production AI integrations, alongside no in-house data science, under five percent trained, no formal AI leadership and a governance framework still in development. Recommendations and chat support on the store suggest AI already touches customers. Scores are self-reported, not measured.",
+        "strongest": [
+          {
+            "area": "Technology Infrastructure",
+            "text": "Your answers show primary workloads on a mature cloud platform, mature CI/CD with most deployments automated, access controls and encryption in place, and five or more production AI integrations with well-designed APIs. Containers are in use with some orchestration.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "t1",
+                "t2",
+                "t4",
+                "t5",
+                "t6"
+              ]
+            }
+          },
+          {
+            "area": "Data Readiness",
+            "text": "Your answers show over eighty percent of enterprise data cataloged, a centralized cloud warehouse or lake, self-service access in under a day, automated quality monitoring for most critical data, and analysts spending twenty to forty percent of time on cleaning.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "d1",
+                "d3",
+                "d5",
+                "d6",
+                "d8"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show no in-house data science or ML engineering, fully external, under five percent of employees trained in the past year, no formal AI leadership role, no structured career pathways, and hiring gaps. The BCG 2025 work reports regular AI use is higher with at least five hours of training plus coaching.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta2",
+                "ta3",
+                "ta7",
+                "ta6"
+              ]
+            }
+          },
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show a governance framework in development and not approved, manual and inconsistent bias testing, limited explainability with documentation gaps, and emerging compliance efforts with gaps. Slack's 2024 survey found people at organizations with defined AI guidelines were far more likely to have tried AI tools.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g2",
+                "g3",
+                "g5"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Write a one-page AI use policy for the store and support teams, covering what staff may do with customer data, what must be reviewed before a recommendation or chat reply goes live, and who approves it. Approve it internally this month, then run a short training session on it. Your answers show the framework is in development and training is under five percent.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "g1",
+              "ta2"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "all-zero",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Pellham Builders answered every question at the bottom of the scale, so all six areas score zero and the profile is Scout, early on both vision and operations. Your answers show no executive sponsor, no documented strategy, no success metrics, no AI budget, siloed data with no ownership or monitoring, on-premise infrastructure with manual deployments, no in-house data capability, no governance policy, and a culture your answers describe as risk-averse with fear of job displacement. The scores are self-reported, not measured. For a family-owned Vermont builder of homes and small commercial projects, that is a coherent starting picture rather than a failure.",
+        "strongest": [],
+        "weakest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show no named executive sponsor, no documented strategy, no success metrics, no AI budget, and no place for AI in strategic planning. Leadership adoption is under a quarter or unknown. Nothing here yet connects AI to how Pellham decides what to build and bid.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l1",
+                "l2",
+                "l3",
+                "l4",
+                "l5",
+                "l6",
+                "l7"
+              ]
+            }
+          },
+          {
+            "area": "Data Readiness",
+            "text": "Your answers show data siloed across legacy systems, under a fifth cataloged, no clear ownership, no quality monitoring, and access taking over two weeks. Analysts spend most of their time cleaning rather than analyzing. Bain argues the real barriers to AI are organizational, not technical, which fits what your answers describe.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "d1",
+                "d2",
+                "d3",
+                "d4",
+                "d5",
+                "d6",
+                "d7",
+                "d8"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Pick one recurring estimate or bid process and write down, on a single page, where its numbers come from, who owns each source, and how long it takes to pull them together. That gives Pellham a named owner and a first data inventory without buying anything or hiring anyone.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "d1",
+              "d4",
+              "d5"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "injection-site",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Vantor Systems sells payroll software to restaurants, and your answers show a company early on both vision and operations. Leadership interest is real: half to three quarters of your leaders use AI tools themselves. But the strategy is in draft, the budget is project-based, and success is measured mainly by cost reduction. Data is partly cataloged yet still slow to access and manually checked. Governance is the thinnest area, with no formal policy, no bias testing, and minimal compliance preparation. These scores are self-reported and may reflect intent more than practice.",
+        "strongest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your leadership team is not just sponsoring AI on paper. Half to three quarters of the C-suite actively use AI tools in their own work, which is the kind of visible modeling that makes the rest of the organization pay attention.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l4"
+              ]
+            }
+          },
+          {
+            "area": "Technology Infrastructure",
+            "text": "You have significant workloads on cloud and access controls and encryption in place. That gives you a working base to build on rather than starting from nothing.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "t1",
+                "t4"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show no formal governance, no bias testing, models that are not explainable, and minimal compliance preparation. For payroll software handling employee pay data, that gap is the one most likely to surface first.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g2",
+                "g3",
+                "g5"
+              ]
+            }
+          },
+          {
+            "area": "Talent & Capability",
+            "text": "You have one FTE or a junior-heavy team, no structured career pathways, and hiring fills only half to seventy percent of positions. Training reached five to ten percent of employees in the past year.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta2",
+                "ta6",
+                "ta7"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Write a one-page AI use policy for Vantor Systems this month. Cover which tools employees may use on payroll and employee data, what must never be entered into external tools, and who approves new AI features. You do not need outside help, and it directly addresses your lowest-scoring area.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "g1",
+              "g5"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "numbers-in-site",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Tellus Engineering Group self-reports an overall score of 49, with vision ahead of operations. Governance and leadership score highest, and your answers show a documented strategy, an executive sponsor lower in the organization, and a compliance approach for AI regulation. Data readiness and talent score lowest: partial catalogs, manual quality checks, slow data access, and a small in-house team. Your website mentions a pilot using AI to review engineering drawings, which fits the pattern of a few pilots rather than scaled work. These scores are self-reported and may reflect intent more than practice.",
+        "strongest": [
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show a documented governance framework, partial audit trails with high-risk decisions logged, and a compliance strategy you describe as mostly ready for AI regulation. That is a real base for public-sector work.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g1",
+                "g4",
+                "g5"
+              ]
+            }
+          },
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show a named sponsor, a documented strategy with annual budget approval, AI discussed in strategic review, and alignment with business goals. The direction is stated, even where funding and metrics are thin.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l1",
+                "l2",
+                "l5",
+                "l7"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Data Readiness",
+            "text": "Your answers show a partial data catalog, quality described as forty to sixty percent with manual spot checks, a mix of centralized and siloed data, one to two weeks for access, and analysts spending more than sixty percent of their time cleaning data.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "d1",
+                "d2",
+                "d3",
+                "d5",
+                "d6",
+                "d8"
+              ]
+            }
+          },
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show one full-time equivalent or a junior-heavy team, five to ten percent trained in the past year, basic stakeholder understanding, turnover of twenty to thirty percent, and only half to seventy percent of positions filled.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta1",
+                "ta2",
+                "ta4",
+                "ta5",
+                "ta6"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Pick the drawing-review pilot and write down which data it reads, who owns that data, and how long access took. Assign one named owner per source and set a weekly quality check on the drawings it uses. That gives your governance framework something concrete to audit and shows whether the pilot can extend to other project types.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "d4",
+              "d5",
+              "d6",
+              "g4"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

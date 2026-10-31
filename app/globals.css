@@ -1,0 +1,1363 @@
+/* ===========================================================================
+   Tailwind CSS v4 — CSS-first configuration (replaces tailwind.config.ts).
+   Token values are unchanged from the v3 config; see DESIGN.md.
+   =========================================================================== */
+@import 'tailwindcss' source(none);
+/* Replaces the v3 animate plugin (animate-in/out, fade-*, zoom-*, slide-in-from-*). */
+@import 'tw-animate-css';
+
+/* Class sources = the v3 `content` globs (app/, src/). Automatic detection
+   would also scan research/, docs/, .claude/ etc. and ship their classes. */
+@source '../app';
+@source '../src';
+@source not '../app/fonts';
+
+/* Dark mode is driven by data-theme="dark" on <html> (ThemeToggle, #86), not a
+   `.dark` class. Nothing uses `dark:` yet; this keeps the variant truthful. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* v4 wraps `hover:` in @media (hover: hover). Prism's own :hover rules below
+   are unconditional, so keep v3 semantics to stay consistent on touch. */
+@custom-variant hover (&:hover);
+
+/* `between:` targets every child after the first, with Tailwind v3's
+   `divide-*` selector and specificity. Use `between:border-t
+   between:border-line-subtle` (or `md:between:border-l …`) for separators,
+   and `between:mt-N` where a `space-y-N` stack starts with an inline element.
+   v4's `divide-*` moved the line to the bottom/right of every child but the
+   last (shifting row content 1px and letting a child's own border colour paint
+   the separator), and v4's `space-y-*` puts margin-bottom on the preceding
+   child, which does nothing when that child is inline (e.g. a <label>). */
+@custom-variant between (& > :not([hidden]) ~ :not([hidden]));
+
+/* `inline`: utilities inline the runtime var (e.g. `text-ink` → color:
+   var(--text-primary)) exactly as v3 did, so dark-mode / scoped overrides of the
+   Prism vars flow through, and next/font's --next-font-display / --next-font-mono
+   (set on <html>) are never shadowed by a self-referencing theme variable.
+
+   The font keys below point at --next-font-* (not --font-*): next/font's
+   `variable` names in app/layout.tsx are deliberately distinct from these theme
+   keys. If a next/font variable shared a name with its own theme key, Tailwind
+   would emit a self-referencing `:root { --font-body: var(--font-body), ... }`
+   (a cyclic custom property, invalid per spec) alongside the real value — see
+   the note on bricolageGrotesque/hankenGrotesk/jetbrainsMono in app/layout.tsx. */
+@theme inline {
+  --font-display: var(--next-font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--next-font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--next-font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--next-font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-arabic: 'Noto Sans Arabic', system-ui, sans-serif;
+
+  /* shadcn semantic layer: channels in :root below; `/NN` opacity modifiers
+     work via color-mix (v3 used rgb(var(--x) / <alpha-value>)). */
+  --color-border: rgb(var(--border));
+  --color-input: rgb(var(--input));
+  --color-ring: rgb(var(--ring));
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-primary: rgb(var(--primary));
+  --color-primary-foreground: rgb(var(--primary-foreground));
+  --color-secondary: rgb(var(--secondary));
+  --color-secondary-foreground: rgb(var(--secondary-foreground));
+  --color-destructive: rgb(var(--destructive));
+  --color-destructive-foreground: rgb(var(--destructive-foreground));
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-accent: rgb(var(--accent));
+  --color-accent-foreground: rgb(var(--accent-foreground));
+  --color-popover: rgb(var(--popover));
+  --color-popover-foreground: rgb(var(--popover-foreground));
+  --color-card: rgb(var(--card));
+  --color-card-foreground: rgb(var(--card-foreground));
+
+  /* Prism Light tokens */
+  --color-brand-violet: var(--violet);
+  --color-brand-violet-tint: var(--violet-tint);
+  --color-brand-violet-strong: var(--violet-strong);
+  --color-brand-blue: var(--blue);
+  --color-brand-blue-strong: var(--blue-strong);
+  --color-brand-cyan: var(--cyan);
+  --color-brand-cyan-strong: var(--cyan-strong);
+  --color-brand-emerald: var(--emerald);
+  --color-brand-emerald-strong: var(--emerald-strong);
+  --color-brand-amber: var(--amber);
+  --color-brand-amber-strong: var(--amber-strong);
+  --color-brand-yellow: var(--yellow);
+  --color-brand-red: var(--red);
+  --color-brand-red-strong: var(--red-strong);
+  /* EU AI Act page only (/eu-ai-act-readiness): the EU flag's blue and gold as meaning, not
+     decoration. Blue = the EU and transparency duties, gold = the EU marker. See DESIGN.md
+     § Scoped page palettes. */
+  --color-eu-blue: #003399;
+  --color-eu-gold: #ffcc00;
+  /* EU blue as text/strokes: deep on light, lifted on dark (WCAG AA both ways). */
+  --color-eu-ink: var(--eu-ink);
+
+  --color-surface-base: var(--surface-base);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-surface-card: var(--surface-card);
+  --color-surface-card-hover: var(--surface-card-hover);
+  --color-surface-frost: var(--surface-frost);
+
+  --color-ink: var(--text-primary);
+  --color-ink-secondary: var(--text-secondary);
+  --color-ink-tertiary: var(--text-tertiary);
+
+  --color-line-subtle: var(--border-subtle);
+  --color-line: var(--border-default);
+  --color-line-strong: var(--border-strong);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+@theme {
+  /* v3 default palette (sRGB hex), pinned so default-palette utilities render
+     exactly as before and sit consistently beside the hex Prism tokens. v4 ships
+     an oklch palette with visibly shifted hues (e.g. violet-600 #7c3aed → #7f22fe). */
+  --color-slate-50: #f8fafc; --color-slate-100: #f1f5f9; --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1; --color-slate-400: #94a3b8; --color-slate-500: #64748b;
+  --color-slate-600: #475569; --color-slate-700: #334155; --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a; --color-slate-950: #020617;
+  --color-gray-50: #f9fafb; --color-gray-100: #f3f4f6; --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db; --color-gray-400: #9ca3af; --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563; --color-gray-700: #374151; --color-gray-800: #1f2937;
+  --color-gray-900: #111827; --color-gray-950: #030712;
+  --color-zinc-50: #fafafa; --color-zinc-100: #f4f4f5; --color-zinc-200: #e4e4e7;
+  --color-zinc-300: #d4d4d8; --color-zinc-400: #a1a1aa; --color-zinc-500: #71717a;
+  --color-zinc-600: #52525b; --color-zinc-700: #3f3f46; --color-zinc-800: #27272a;
+  --color-zinc-900: #18181b; --color-zinc-950: #09090b;
+  --color-neutral-50: #fafafa; --color-neutral-100: #f5f5f5; --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4; --color-neutral-400: #a3a3a3; --color-neutral-500: #737373;
+  --color-neutral-600: #525252; --color-neutral-700: #404040; --color-neutral-800: #262626;
+  --color-neutral-900: #171717; --color-neutral-950: #0a0a0a;
+  --color-stone-50: #fafaf9; --color-stone-100: #f5f5f4; --color-stone-200: #e7e5e4;
+  --color-stone-300: #d6d3d1; --color-stone-400: #a8a29e; --color-stone-500: #78716c;
+  --color-stone-600: #57534e; --color-stone-700: #44403c; --color-stone-800: #292524;
+  --color-stone-900: #1c1917; --color-stone-950: #0c0a09;
+  --color-red-50: #fef2f2; --color-red-100: #fee2e2; --color-red-200: #fecaca; --color-red-300:
+  #fca5a5; --color-red-400: #f87171; --color-red-500: #ef4444; --color-red-600: #dc2626;
+  --color-red-700: #b91c1c; --color-red-800: #991b1b; --color-red-900: #7f1d1d; --color-red-950:
+  #450a0a;
+  --color-orange-50: #fff7ed; --color-orange-100: #ffedd5; --color-orange-200: #fed7aa;
+  --color-orange-300: #fdba74; --color-orange-400: #fb923c; --color-orange-500: #f97316;
+  --color-orange-600: #ea580c; --color-orange-700: #c2410c; --color-orange-800: #9a3412;
+  --color-orange-900: #7c2d12; --color-orange-950: #431407;
+  --color-amber-50: #fffbeb; --color-amber-100: #fef3c7; --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d; --color-amber-400: #fbbf24; --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706; --color-amber-700: #b45309; --color-amber-800: #92400e;
+  --color-amber-900: #78350f; --color-amber-950: #451a03;
+  --color-yellow-50: #fefce8; --color-yellow-100: #fef9c3; --color-yellow-200: #fef08a;
+  --color-yellow-300: #fde047; --color-yellow-400: #facc15; --color-yellow-500: #eab308;
+  --color-yellow-600: #ca8a04; --color-yellow-700: #a16207; --color-yellow-800: #854d0e;
+  --color-yellow-900: #713f12; --color-yellow-950: #422006;
+  --color-lime-50: #f7fee7; --color-lime-100: #ecfccb; --color-lime-200: #d9f99d;
+  --color-lime-300: #bef264; --color-lime-400: #a3e635; --color-lime-500: #84cc16;
+  --color-lime-600: #65a30d; --color-lime-700: #4d7c0f; --color-lime-800: #3f6212;
+  --color-lime-900: #365314; --color-lime-950: #1a2e05;
+  --color-green-50: #f0fdf4; --color-green-100: #dcfce7; --color-green-200: #bbf7d0;
+  --color-green-300: #86efac; --color-green-400: #4ade80; --color-green-500: #22c55e;
+  --color-green-600: #16a34a; --color-green-700: #15803d; --color-green-800: #166534;
+  --color-green-900: #14532d; --color-green-950: #052e16;
+  --color-emerald-50: #ecfdf5; --color-emerald-100: #d1fae5; --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7; --color-emerald-400: #34d399; --color-emerald-500: #10b981;
+  --color-emerald-600: #059669; --color-emerald-700: #047857; --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b; --color-emerald-950: #022c22;
+  --color-teal-50: #f0fdfa; --color-teal-100: #ccfbf1; --color-teal-200: #99f6e4;
+  --color-teal-300: #5eead4; --color-teal-400: #2dd4bf; --color-teal-500: #14b8a6;
+  --color-teal-600: #0d9488; --color-teal-700: #0f766e; --color-teal-800: #115e59;
+  --color-teal-900: #134e4a; --color-teal-950: #042f2e;
+  --color-cyan-50: #ecfeff; --color-cyan-100: #cffafe; --color-cyan-200: #a5f3fc;
+  --color-cyan-300: #67e8f9; --color-cyan-400: #22d3ee; --color-cyan-500: #06b6d4;
+  --color-cyan-600: #0891b2; --color-cyan-700: #0e7490; --color-cyan-800: #155e75;
+  --color-cyan-900: #164e63; --color-cyan-950: #083344;
+  --color-sky-50: #f0f9ff; --color-sky-100: #e0f2fe; --color-sky-200: #bae6fd; --color-sky-300:
+  #7dd3fc; --color-sky-400: #38bdf8; --color-sky-500: #0ea5e9; --color-sky-600: #0284c7;
+  --color-sky-700: #0369a1; --color-sky-800: #075985; --color-sky-900: #0c4a6e; --color-sky-950:
+  #082f49;
+  --color-blue-50: #eff6ff; --color-blue-100: #dbeafe; --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd; --color-blue-400: #60a5fa; --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb; --color-blue-700: #1d4ed8; --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a; --color-blue-950: #172554;
+  --color-indigo-50: #eef2ff; --color-indigo-100: #e0e7ff; --color-indigo-200: #c7d2fe;
+  --color-indigo-300: #a5b4fc; --color-indigo-400: #818cf8; --color-indigo-500: #6366f1;
+  --color-indigo-600: #4f46e5; --color-indigo-700: #4338ca; --color-indigo-800: #3730a3;
+  --color-indigo-900: #312e81; --color-indigo-950: #1e1b4b;
+  --color-violet-50: #f5f3ff; --color-violet-100: #ede9fe; --color-violet-200: #ddd6fe;
+  --color-violet-300: #c4b5fd; --color-violet-400: #a78bfa; --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed; --color-violet-700: #6d28d9; --color-violet-800: #5b21b6;
+  --color-violet-900: #4c1d95; --color-violet-950: #2e1065;
+  --color-purple-50: #faf5ff; --color-purple-100: #f3e8ff; --color-purple-200: #e9d5ff;
+  --color-purple-300: #d8b4fe; --color-purple-400: #c084fc; --color-purple-500: #a855f7;
+  --color-purple-600: #9333ea; --color-purple-700: #7e22ce; --color-purple-800: #6b21a8;
+  --color-purple-900: #581c87; --color-purple-950: #3b0764;
+  --color-fuchsia-50: #fdf4ff; --color-fuchsia-100: #fae8ff; --color-fuchsia-200: #f5d0fe;
+  --color-fuchsia-300: #f0abfc; --color-fuchsia-400: #e879f9; --color-fuchsia-500: #d946ef;
+  --color-fuchsia-600: #c026d3; --color-fuchsia-700: #a21caf; --color-fuchsia-800: #86198f;
+  --color-fuchsia-900: #701a75; --color-fuchsia-950: #4a044e;
+  --color-pink-50: #fdf2f8; --color-pink-100: #fce7f3; --color-pink-200: #fbcfe8;
+  --color-pink-300: #f9a8d4; --color-pink-400: #f472b6; --color-pink-500: #ec4899;
+  --color-pink-600: #db2777; --color-pink-700: #be185d; --color-pink-800: #9d174d;
+  --color-pink-900: #831843; --color-pink-950: #500724;
+  --color-rose-50: #fff1f2; --color-rose-100: #ffe4e6; --color-rose-200: #fecdd3;
+  --color-rose-300: #fda4af; --color-rose-400: #fb7185; --color-rose-500: #f43f5e;
+  --color-rose-600: #e11d48; --color-rose-700: #be123c; --color-rose-800: #9f1239;
+  --color-rose-900: #881337; --color-rose-950: #4c0519;
+
+  /* v3 font-size line-heights. v4 sets a unitless ratio (e.g. text-sm →
+     calc(1.25 / 0.875)), which children then re-apply at their own size; v3
+     set an absolute rem that children inherited as-is. Prism's .type-* sizes
+     sit inside text-* containers, so pin v3's absolute values. */
+  /* v3 ring default: 3px blue-500 at 50%. Bare `ring` was migrated to ring-3,
+     so only the colour of width-only rings (ring-1, focus:ring-2, …) needs it. */
+  --default-ring-color: rgb(59 130 246 / 0.5);
+
+  --text-xs--line-height: 1rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl--line-height: 1.75rem;
+  --text-2xl--line-height: 2rem;
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl--line-height: 2.5rem;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+}
+
+/* v3 → v4 Preflight compatibility. v3 defaulted borders to gray-200 (the
+   `border` utility with no colour), placeholders to gray-400 and buttons to
+   cursor:pointer; v4 uses currentColor / 50% currentColor / default. The
+   design was built on the v3 defaults, so restore them (the palette above is
+   pinned to v3 hex, so the rendered colour is identical). */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  /* v3 only reset buttons; v4 also zeroes radius/background on text fields
+     and selects. Hand those back to the UA, as v3 did. */
+  input:where(:not([type='button'], [type='reset'], [type='submit'])),
+  select,
+  optgroup,
+  textarea {
+    border-radius: revert-layer;
+    background-color: revert-layer;
+  }
+  /* v4 zeroes padding on every element; v3 left the UA's 1px on table cells. */
+  td,
+  th {
+    padding: revert-layer;
+  }
+}
+
+/* ===========================================================================
+   Everything below sits in the `utilities` cascade layer, after Tailwind's
+   generated utilities. In v3 Tailwind's output was unlayered, so these Prism
+   rules competed with utilities by specificity + source order. v4 layers its
+   utilities, and unlayered CSS would beat every utility regardless of
+   specificity (e.g. `:where(.prism-light) p` would override `text-ink`).
+   Keeping this block in the same layer, later in source, preserves the v3
+   cascade exactly. Do not move rules out of this block without checking.
+   =========================================================================== */
+@layer utilities {
+
+:root {
+  /* Effects — repointed to Prism hues (low-alpha colored glows, no grey) */
+  --glow-emerald: 0 0 60px rgba(45, 212, 191, 0.18);
+  --glow-amber:   0 0 60px rgba(245, 158, 11, 0.18);
+  --glow-lime:    0 0 60px rgba(74, 222, 128, 0.18);
+  --glow-purple:  0 0 60px rgba(124, 58, 237, 0.18);
+
+  /* Gradient shorthands — repointed to Prism prism/regenerative */
+  --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #2dd4bf 100%);
+  --gradient-success: linear-gradient(135deg, #4ade80 0%, #2dd4bf 100%);
+  --gradient-warning: linear-gradient(90deg,  #f59e0b 0%, #fcd34d 100%);
+}
+
+/* Noise Texture for Depth */
+.noise-texture {
+  position: relative;
+}
+
+.noise-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+.noise-texture > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Mesh Gradient Backgrounds */
+.mesh-gradient-hero {
+  background:
+    radial-gradient(at 20% 30%, rgba(124, 58, 237, 0.06) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(59, 130, 246, 0.07) 0px, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(45, 212, 191, 0.05) 0px, transparent 50%),
+    radial-gradient(at 90% 70%, rgba(124, 58, 237, 0.04) 0px, transparent 50%);
+}
+
+.mesh-gradient-section {
+  background:
+    radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.05) 0px, transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(124, 58, 237, 0.04) 0px, transparent 60%);
+}
+
+/* Radial Glow Effects */
+.glow-emerald {
+  box-shadow: var(--glow-emerald);
+}
+
+.glow-amber {
+  box-shadow: var(--glow-amber);
+}
+
+.glow-lime {
+  box-shadow: var(--glow-lime);
+}
+
+/* Accessibility - Focus States */
+*:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Remove default focus outline */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Ensure links and buttons have visible focus */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 4px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===========================================================================
+   PRISM LIGHT — design system tokens + components.
+   Light variant of the Prism system (canonical dark: john-ellison.com).
+   See DESIGN.md at repo root. Scoped under `.prism-light` so it is opt-in and
+   coexists with the assessment.css system.
+   Reference the semantic vars below in components — never hard-code surfaces.
+   =========================================================================== */
+:root {
+  /* --- Accent spectrum (invariant across variants) ---
+     Cool family (primary): violet / blue / cyan — the Prism spectrum.
+     Warm family: emerald / red / amber / yellow — used ONLY in the rainbow
+     gradient (button hover borders, nav underlines, prismatic dividers),
+     form error states (.field-error), and success indicators. Never used
+     as independent accent colors in page composition. See DESIGN.md
+     palette-discipline rule. */
+  --violet:      #7c3aed;   /* primary accent, CTAs, prism start */
+  --violet-tint: #8b5cf6;   /* button fills + glows */
+  --blue:        #3b82f6;   /* secondary accent, prism mid */
+  --cyan:        #2dd4bf;   /* tertiary accent, prism end */
+  --emerald:     #4ade80;   /* positive, regenerative start */
+  --red:         #ef4444;   /* warm start, error */
+  --amber:       #f59e0b;   /* warm mid */
+  --yellow:      #fcd34d;   /* warm end */
+
+  /* Deepened accent text colors — WCAG AA on white for small text/labels.
+     Use these (not the spectrum vars) whenever an accent is rendered as text. */
+  --violet-strong:  #6d28d9;
+  --blue-strong:    #2563eb;
+  --cyan-strong:    #0d9488;
+  --emerald-strong: #16a34a;
+  --amber-strong:   #b45309;
+  --red-strong:     #dc2626;
+  --eu-ink:         #003399;
+
+  /* --- Semantic surfaces / text / borders (LIGHT values) --- */
+  --surface-base:       #ffffff;
+  --surface-raised:     #fafafa;
+  --surface-overlay:    #f4f4f5;
+  --surface-card:       rgba(0, 0, 0, 0.02);
+  --surface-card-hover: rgba(0, 0, 0, 0.04);
+  /* Frosted card fill — translucent white for cards that sit over the ambient
+     background field; pair with backdrop-blur. Invisible over plain white,
+     legible over glows. */
+  --surface-frost:      rgba(255, 255, 255, 0.66);
+  --surface-nav:        rgba(255, 255, 255, 0.94);  /* near-opaque frosted nav: prevents content bleed-through on scroll */
+  --surface-inset:      rgba(255, 255, 255, 0.95);  /* layer behind masked borders */
+
+  --border-subtle:  rgba(0, 0, 0, 0.08);
+  --border-default: rgba(0, 0, 0, 0.12);
+  --border-strong:  rgba(0, 0, 0, 0.22);
+
+  --text-primary:   rgba(15, 15, 17, 0.95);
+  --text-secondary: rgba(15, 15, 17, 0.66);
+  --text-tertiary:  rgba(15, 15, 17, 0.48);
+
+  /* --- Gradients --- */
+  --gradient-prism:        linear-gradient(135deg, #7c3aed 0%, #3b82f6 50%, #2dd4bf 100%);
+  --gradient-warm:         linear-gradient(135deg, #ef4444 0%, #f59e0b 50%, #fcd34d 100%);
+  --gradient-regenerative: linear-gradient(135deg, #4ade80 0%, #2dd4bf 50%, #3b82f6 100%);
+  /* Deeper stops for gradient *text* on white (adjustment #2 — WCAG contrast).
+     The cyan end of prism is weakest on white, so it is darkened most. */
+  --gradient-prism-text:        linear-gradient(135deg, #6d28d9 0%, #2563eb 50%, #0d9488 100%);
+  --gradient-warm-text:         linear-gradient(135deg, #dc2626 0%, #d97706 50%, #b45309 100%);
+  --gradient-regenerative-text: linear-gradient(135deg, #16a34a 0%, #0d9488 50%, #2563eb 100%);
+  /* Prism as a *fill* under white text (primary button). Deeper stops than
+     --gradient-prism so the label holds AA contrast across the whole sweep. */
+  --gradient-prism-fill:        linear-gradient(135deg, #6d28d9 0%, #4f46e5 45%, #2563eb 75%, #0e7490 100%);
+  /* Light-tuned 6-stop rainbow (adjustment #1 — stops dropped ~10–15% lightness
+     / more saturated so the masked edge reads on white). Same hue order. */
+  --gradient-rainbow: linear-gradient(135deg,
+      rgba(224, 86, 98, 0.95),
+      rgba(232, 150, 40, 0.95),
+      rgba(40, 200, 120, 0.95),
+      rgba(45, 150, 230, 0.95),
+      rgba(150, 70, 230, 0.95),
+      rgba(224, 86, 98, 0.95));
+
+  /* --- Fluid type scale (invariant) --- */
+  --pl-text-xs:   clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
+  --pl-text-sm:   clamp(0.85rem, 0.8rem + 0.25vw, 0.95rem);
+  --pl-text-base: clamp(1rem, 0.95rem + 0.25vw, 1.15rem);
+  --pl-text-lg:   clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
+  --pl-text-xl:   clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem);
+  --pl-text-2xl:  clamp(1.75rem, 1.45rem + 1.4vw, 2.5rem);
+  --pl-text-3xl:  clamp(2rem, 1.7rem + 1.6vw, 3rem);
+  --pl-text-4xl:  clamp(2.5rem, 2.1rem + 1.8vw, 3.75rem);
+
+  --pl-leading-tight:   1.1;
+  --pl-leading-snug:    1.3;
+  --pl-leading-normal:  1.5;
+  --pl-leading-relaxed: 1.7;
+
+  --pl-tracking-tight:  -0.02em;
+  --pl-tracking-wide:   0.05em;
+  --pl-tracking-wider:  0.1em;
+  --pl-tracking-widest: 0.15em;
+
+  /* --- shadcn/ui semantic layer (Prism-mapped) -----------------------------
+     shadcn components reference Tailwind classes like `bg-primary`,
+     `text-muted-foreground`, `border-input`, `ring-ring`. These vars give those
+     classes Prism Light values so shadcn inherits the brand with zero edits.
+     Stored as SPACE-SEPARATED RGB CHANNELS (not hex) so Tailwind opacity
+     modifiers work: `rgb(var(--primary) / <alpha-value>)` → `bg-primary/90` etc.
+     Channels are read 1:1 from the Prism hex above (translucent Prism tokens are
+     flattened onto white to a solid channel). Single source of truth stays the
+     Prism vars; edit those, then mirror the channel here. See DESIGN.md. */
+  --background:            255 255 255;   /* surface-base #ffffff */
+  --foreground:            15 15 17;      /* text-primary */
+  --card:                  255 255 255;   /* cards sit on white; Prism fill is a translucent overlay */
+  --card-foreground:       15 15 17;
+  --popover:               255 255 255;   /* surface-inset */
+  --popover-foreground:    15 15 17;
+  --primary:               124 58 237;    /* violet #7c3aed */
+  --primary-foreground:    255 255 255;
+  --secondary:             250 250 250;   /* surface-raised #fafafa */
+  --secondary-foreground:  15 15 17;
+  --muted:                 244 244 245;   /* surface-overlay #f4f4f5 */
+  --muted-foreground:      97 97 99;      /* text-secondary (0.66 black on white) */
+  --accent:                244 244 245;   /* subtle hover surface = surface-overlay */
+  --accent-foreground:     15 15 17;
+  --destructive:           239 68 68;     /* red #ef4444 */
+  --destructive-foreground:255 255 255;
+  --border:                224 224 224;   /* border-default (0.12 black on white) */
+  --input:                 224 224 224;
+  --ring:                  124 58 237;    /* violet — focus ring */
+  --radius:                0.5rem;        /* Prism `md` */
+}
+
+/* ---------------------------------------------------------------------------
+   Base — applied to any Prism Light surface.
+   --------------------------------------------------------------------------- */
+.prism-light {
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-body), -apple-system, sans-serif;
+  font-size: var(--pl-text-base);
+  line-height: var(--pl-leading-relaxed);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.prism-light h1,
+.prism-light h2,
+.prism-light h3,
+.prism-light h4,
+.prism-light h5,
+.prism-light h6 {
+  font-family: var(--font-display), -apple-system, sans-serif;
+  font-weight: 600;
+  line-height: var(--pl-leading-tight);
+  letter-spacing: var(--pl-tracking-tight);
+}
+
+.prism-light h1 { font-size: var(--pl-text-4xl); }
+.prism-light h2 { font-size: var(--pl-text-2xl); }
+.prism-light h3 { font-size: var(--pl-text-xl); line-height: var(--pl-leading-snug); }
+.prism-light h4 { font-size: var(--pl-text-lg); font-weight: 500; line-height: var(--pl-leading-snug); }
+.prism-light h5 { font-size: var(--pl-text-base); }
+.prism-light h6 { font-size: var(--pl-text-sm); }
+.prism-light p  { font-size: var(--pl-text-base); line-height: var(--pl-leading-relaxed); }
+
+/* Default text colors at element specificity (0,0,1 via :where) so any element
+   color utility — text-[color:var(--…)] or .text-*-token (0,1,0) — wins. Fixes the
+   base-rule override that silently muted explicit p/h colors (audit F-01/02/WCAG-01).
+   Font family/size above stay at full specificity, so hero size classes remain inert. */
+:where(.prism-light) h1,
+:where(.prism-light) h2,
+:where(.prism-light) h3,
+:where(.prism-light) h4,
+:where(.prism-light) h5,
+:where(.prism-light) h6 { color: var(--text-primary); }
+:where(.prism-light) p { color: var(--text-secondary); }
+
+/* Font-family + size + leading utilities (scoped) */
+.prism-light .font-display { font-family: var(--font-display), -apple-system, sans-serif; }
+.prism-light .font-body    { font-family: var(--font-body), -apple-system, sans-serif; }
+.prism-light .font-serif-accent { font-family: var(--font-display-serif-italic), Georgia, 'Times New Roman', serif; font-weight: 600; font-style: italic; }
+.prism-light .type-xs   { font-size: var(--pl-text-xs); }
+.prism-light .type-sm   { font-size: var(--pl-text-sm); }
+.prism-light .type-base { font-size: var(--pl-text-base); }
+.prism-light .type-lg   { font-size: var(--pl-text-lg); }
+.prism-light .type-xl   { font-size: var(--pl-text-xl); }
+.prism-light .type-2xl  { font-size: var(--pl-text-2xl); }
+.prism-light .type-3xl  { font-size: var(--pl-text-3xl); }
+.prism-light .type-4xl  { font-size: var(--pl-text-4xl); }
+.prism-light .leading-tight   { line-height: var(--pl-leading-tight); }
+.prism-light .leading-snug    { line-height: var(--pl-leading-snug); }
+.prism-light .leading-normal  { line-height: var(--pl-leading-normal); }
+.prism-light .leading-relaxed { line-height: var(--pl-leading-relaxed); }
+
+.prism-light .heading-section {
+  font-family: var(--font-display), -apple-system, sans-serif;
+  font-size: var(--pl-text-3xl);
+  font-weight: 600;
+  line-height: var(--pl-leading-tight);
+  letter-spacing: var(--pl-tracking-tight);
+}
+.prism-light .heading-card {
+  font-family: var(--font-display), -apple-system, sans-serif;
+  font-size: var(--pl-text-xl);
+  font-weight: 600;
+  line-height: var(--pl-leading-snug);
+  letter-spacing: var(--pl-tracking-tight);
+}
+
+/* Rendered markdown (case-study bodies). Base h2/etc. element styles apply via
+   the .prism-light scope; this just adds rhythm, lists, and blockquotes. */
+.prism-light .cs-prose > :first-child { margin-top: 0; }
+.prism-light .cs-prose h2 {
+  font-size: var(--pl-text-xl);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.prism-light .cs-prose h3 { margin-top: 2rem; margin-bottom: 0.5rem; }
+.prism-light .cs-prose p {
+  color: var(--text-secondary);
+  line-height: var(--pl-leading-relaxed);
+  margin: 1rem 0;
+}
+.prism-light .cs-prose ul { margin: 1rem 0; padding-left: 1.25rem; list-style: disc; }
+.prism-light .cs-prose li { color: var(--text-secondary); margin: 0.375rem 0; }
+.prism-light .cs-prose strong { color: var(--text-primary); font-weight: 600; }
+.prism-light .cs-prose blockquote {
+  border-left: 2px solid var(--border-strong);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: var(--text-primary);
+  font-style: italic;
+}
+.prism-light .cs-prose a { color: var(--violet-strong); text-decoration: underline; }
+.prism-light .cs-prose img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  margin: 1.5rem 0;
+}
+.prism-light .cs-prose figure > figcaption + p img { margin-top: 0.75rem; }
+.prism-light .heading-subsection {
+  font-family: var(--font-display), -apple-system, sans-serif;
+  font-size: var(--pl-text-lg);
+  font-weight: 500;
+  line-height: var(--pl-leading-snug);
+}
+
+/* Text color utilities */
+.prism-light .text-primary-token   { color: var(--text-primary); }
+.prism-light .text-secondary-token { color: var(--text-secondary); }
+.prism-light .text-tertiary-token  { color: var(--text-tertiary); }
+
+/* ---------------------------------------------------------------------------
+   Gradient text. On white, prism/warm use deepened stops (adjustment #2).
+   Reserve gradient text for large display sizes — it can fail WCAG AA at body.
+   --------------------------------------------------------------------------- */
+.prism-light .text-gradient-prism,
+.prism-light .text-gradient-warm,
+.prism-light .text-gradient-regenerative,
+.prism-light .text-gradient-animated {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  padding: 0.12em 0.1em;
+  margin: -0.12em -0.1em;
+}
+.prism-light .text-gradient-prism        { background-image: var(--gradient-prism-text); }
+.prism-light .text-gradient-warm         { background-image: var(--gradient-warm-text); }
+.prism-light .text-gradient-regenerative { background-image: var(--gradient-regenerative-text); }
+.prism-light .text-gradient-animated {
+  background-image: var(--gradient-rainbow);
+  background-size: 200% 100%;
+  animation: pl-rainbowSlide 3s linear infinite;
+}
+
+/* ---------------------------------------------------------------------------
+   Buttons
+   --------------------------------------------------------------------------- */
+.prism-light .btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-family: var(--font-body), -apple-system, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  /* Glass: a translucent prism wash over whatever sits behind, dark-violet label,
+     hairline violet edge. No solid fill (design-system decision, 2026-10-05). */
+  --g-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.17), rgba(59, 130, 246, 0.13) 50%, rgba(45, 212, 191, 0.18));
+  --g-bg-hover: linear-gradient(135deg, rgba(124, 58, 237, 0.26), rgba(59, 130, 246, 0.2) 50%, rgba(45, 212, 191, 0.27));
+  --g-text: #4c1d95;
+  --g-edge: rgba(124, 58, 237, 0.32);
+  color: var(--g-text);
+  background: var(--g-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+  border: 1px solid var(--g-edge);
+  border-radius: 0.5rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 4px 18px rgba(124, 58, 237, 0.10);
+  cursor: pointer;
+  transition: color 0.3s ease, background 0.3s ease, transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+  overflow: hidden;
+  z-index: 1;
+}
+.prism-light .btn-primary:active { transform: scale(0.97); }
+/* Compact size (nav). Same fill, radius and weight as the default button. */
+.prism-light .btn-sm { padding: 0.5rem 1rem; font-size: 0.8125rem; }
+/* Masked rainbow border — hidden until hover */
+.prism-light .btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: var(--gradient-rainbow);
+  background-size: 300% 300%;
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+/* Inner (light) inset layer that makes the masked border read. Hover only:
+   at rest it sat over the violet fill and hid the white label (VIB-369). */
+.prism-light .btn-primary::after { content: none; }
+.prism-light .btn-primary:hover {
+  color: var(--g-text);
+  background: var(--g-bg-hover);
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 8px 34px rgba(124, 58, 237, 0.18),
+    0 0 54px rgba(45, 150, 230, 0.10);
+}
+.prism-light .btn-primary:hover::before {
+  opacity: 1;
+  animation: pl-rainbowBorderShift 3s linear infinite;
+}
+.prism-light .btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.prism-light .btn-primary:disabled:hover::before { opacity: 0; }
+.prism-light .btn-primary:disabled:hover { color: var(--g-text); background: var(--g-bg); }
+/* Hero CTA ripple: one hairline ring leaves the primary CTA as the hero finishes
+   revealing, and again on hover. Lives on a wrapper because .btn-primary already
+   uses both pseudo-elements and clips overflow. Reduced motion: the global rule
+   collapses the animation to its end state, which is invisible. */
+.prism-light .hero-cta-ripple {
+  position: relative;
+  display: inline-flex;
+  border-radius: 0.5rem;
+}
+.prism-light .hero-cta-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  outline: 1px solid rgba(124, 58, 237, 0.4);
+  outline-offset: 0;
+  opacity: 0;
+  pointer-events: none;
+  animation: pl-cta-ripple 1.8s cubic-bezier(0.23, 1, 0.32, 1) 1.4s 1 both;
+}
+.prism-light .hero-cta-ripple:hover::after {
+  animation: pl-cta-ripple-hover 1.4s cubic-bezier(0.23, 1, 0.32, 1) 1 both;
+}
+
+.prism-light .btn-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-family: var(--font-body), -apple-system, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.prism-light .btn-secondary:hover {
+  color: var(--violet);
+  background: transparent;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow:
+    0 8px 30px rgba(124, 58, 237, 0.12),
+    0 0 46px rgba(45, 150, 230, 0.07);
+}
+/* Same masked rainbow edge as the primary on hover, with no fill. */
+.prism-light .btn-secondary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  background: var(--gradient-rainbow);
+  background-size: 300% 300%;
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.prism-light .btn-secondary:hover::before {
+  opacity: 1;
+  animation: pl-rainbowBorderShift 3s linear infinite;
+}
+.prism-light .btn-secondary:disabled:hover::before { opacity: 0; }
+.prism-light .btn-secondary:active { transform: scale(0.97); }
+.prism-light .btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
+.prism-light .btn-secondary:disabled:hover {
+  background: transparent;
+  border-color: var(--border-default);
+}
+
+/* Spinner */
+.prism-light .spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border-strong);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: pl-spin 1s linear infinite;
+}
+
+/* ---------------------------------------------------------------------------
+   Cards
+   --------------------------------------------------------------------------- */
+.prism-light .card {
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: var(--surface-frost);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.3s ease;
+}
+.prism-light .card:hover { border-color: rgba(139, 92, 246, 0.3); }
+
+.prism-light .card-feature {
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-subtle);
+  /* Faint prism gel wash under the frost fill (02a richness) — same two
+     tokens as the rest of the gradient, layered as a low-alpha tint rather
+     than a flat white fill. Barely perceptible at rest, reads as depth. */
+  background:
+    linear-gradient(135deg, rgba(124, 58, 237, 0.035), rgba(45, 212, 191, 0.02)),
+    var(--surface-frost);
+  backdrop-filter: blur(10px);
+}
+
+/* Colored glow on hover — richer than the original half-alpha pass (02a),
+   still well under the full dark-mode value: translucency + glow only,
+   no grey. Three-stop layered glow reads as studio light, not a flat tint. */
+.prism-light .card-glow-hover { transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+.prism-light .card-glow-hover:hover {
+  box-shadow:
+    0 0 24px rgba(124, 58, 237, 0.13),
+    0 0 48px rgba(59, 130, 246, 0.08),
+    0 0 72px rgba(45, 212, 191, 0.05);
+}
+
+/* Media frame: video/image slots in the Card language. Same hairline and frost as .card-feature,
+   with the card prism glow at rest (softer) and the full glow on hover. No dark fill, so no
+   black edge shows around rounded media. */
+.prism-light .media-frame {
+  border-radius: 1rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-frost);
+  box-shadow:
+    0 0 24px rgba(124, 58, 237, 0.09),
+    0 0 48px rgba(59, 130, 246, 0.05),
+    0 0 72px rgba(45, 212, 191, 0.03);
+  transition: box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.prism-light .media-frame:hover {
+  box-shadow:
+    0 0 24px rgba(124, 58, 237, 0.13),
+    0 0 48px rgba(59, 130, 246, 0.08),
+    0 0 72px rgba(45, 212, 191, 0.05);
+}
+
+/* Animated prism gradient border on hover */
+.prism-light .card-gradient-border { position: relative; background: transparent; }
+.prism-light .card-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(135deg,
+      rgba(124, 58, 237, 0.4),
+      rgba(59, 130, 246, 0.4),
+      rgba(13, 148, 136, 0.4));
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.prism-light .card-gradient-border:hover::before { opacity: 1; }
+
+/* Icon box (tinted square inside cards) */
+.prism-light .icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  background: rgba(124, 58, 237, 0.1);
+  color: var(--violet);
+}
+
+/* ---------------------------------------------------------------------------
+   Navigation — frosted bar. surface-nav already carries the higher (0.72)
+   light opacity; the hairline bottom border separates it from white content
+   (adjustment #4).
+   --------------------------------------------------------------------------- */
+.prism-light .site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem;  /* 16px on mobile */
+  background: var(--surface-nav);
+  backdrop-filter: blur(20px) saturate(1.2);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+}
+@media (min-width: 768px) {
+  .prism-light .site-nav {
+    padding: 1rem 2rem;  /* 32px on tablet+ */
+  }
+}
+.prism-light .nav-logo {
+  font-family: var(--font-display), -apple-system, sans-serif;
+  font-weight: 600;
+  letter-spacing: var(--pl-tracking-wide);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.prism-light .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+.prism-light .nav-links a {
+  position: relative;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-variant: small-caps;
+  padding-bottom: 4px;
+  transition: color 0.2s ease;
+}
+.prism-light .nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-rainbow);
+  background-size: 200% 100%;
+  border-radius: 1px;
+  transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/* Dropdown trigger button matches nav links */
+.prism-light .nav-links .nav-dropdown-trigger {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-variant: small-caps;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding-bottom: 4px;
+  transition: color 0.2s ease;
+}
+.prism-light .nav-links .nav-dropdown-trigger:hover { color: var(--text-primary); }
+
+.prism-light .nav-links a:hover,
+.prism-light .nav-links a.active { color: var(--text-primary); }
+.prism-light .nav-links a:hover::after,
+.prism-light .nav-links a.active::after {
+  width: 100%;
+  animation: pl-rainbowSlide 2s linear infinite;
+}
+/* ---------------------------------------------------------------------------
+   Decorative — dividers, conic ring, mesh
+   --------------------------------------------------------------------------- */
+.prism-light .prismatic-divider {
+  position: relative;
+  height: 2px;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(224, 86, 98, 0.62) 10%,
+      rgba(232, 150, 40, 0.62) 25%,
+      rgba(40, 200, 120, 0.62) 50%,
+      rgba(45, 150, 230, 0.62) 75%,
+      rgba(150, 70, 230, 0.62) 90%,
+      transparent);
+  background-size: 200% 100%;
+  /* Soft under-glow so the thin lit edge reads as light, not just a brighter
+     line (02a) — a faint colored halo beneath, still no grey shadow. */
+  filter: drop-shadow(0 0 6px rgba(150, 70, 230, 0.10));
+}
+.prism-light .prismatic-divider.animated { animation: pl-rainbowSlide 4s linear infinite; }
+
+.prism-light .bg-conic-prism {
+  background: conic-gradient(from 0deg,
+      rgba(224, 86, 98, 0.85),
+      rgba(232, 150, 40, 0.85),
+      rgba(40, 200, 120, 0.85),
+      rgba(45, 150, 230, 0.85),
+      rgba(150, 70, 230, 0.85),
+      rgba(224, 86, 98, 0.85));
+}
+.prism-light .animate-prismatic-spin { animation: pl-prismatic-spin 8s linear infinite; }
+
+/* Ambient background atmosphere (02a richness) — same four prism stops,
+   pushed from a single flat wash toward the layered-gel field the approved
+   study (02-color-light-shadow/a-prism-spectrum-rich.html) demonstrates:
+   higher alpha, slightly wider spread, so the tint reads as studio light
+   crossing the page rather than a corner tint. No new hues, no new stops. */
+.prism-light .mesh-prism {
+  background:
+    radial-gradient(at 20% 30%, rgba(124, 58, 237, 0.10) 0px, transparent 55%),
+    radial-gradient(at 80% 20%, rgba(59, 130, 246, 0.10) 0px, transparent 55%),
+    radial-gradient(at 50% 80%, rgba(45, 212, 191, 0.09) 0px, transparent 55%),
+    radial-gradient(at 90% 70%, rgba(124, 58, 237, 0.07) 0px, transparent 52%);
+}
+
+/* ---------------------------------------------------------------------------
+   Form controls
+   --------------------------------------------------------------------------- */
+.prism-light .input,
+.prism-light .select,
+.prism-light .textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body), -apple-system, sans-serif;
+  font-size: var(--pl-text-sm);
+  color: var(--text-primary);
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: 0.5rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.prism-light .textarea { resize: vertical; min-height: 7rem; }
+.prism-light .input::placeholder,
+.prism-light .textarea::placeholder { color: var(--text-tertiary); }
+.prism-light .input:focus,
+.prism-light .select:focus,
+.prism-light .textarea:focus {
+  border-color: rgba(124, 58, 237, 0.5);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+  background: var(--surface-base);
+}
+.prism-light .input:disabled,
+.prism-light .select:disabled,
+.prism-light .textarea:disabled { opacity: 0.5; cursor: not-allowed; }
+.prism-light .select {
+  cursor: pointer;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+}
+.prism-light .field-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-body), -apple-system, sans-serif;
+  font-size: var(--pl-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+.prism-light .field-error { margin-top: 0.375rem; font-size: var(--pl-text-xs); color: var(--red); }
+
+/* Monochrome logo marks: black on light, white on dark. */
+.proof-logo,
+.logo-mono { filter: brightness(0); }
+[data-theme="dark"] .proof-logo,
+[data-theme="dark"] .logo-mono { filter: brightness(0) invert(1); }
+
+/* ===========================================================================
+   DARK MODE — token overrides (class-based, activate via data-theme="dark").
+   Mirrors the light-mode token structure with dark-appropriate values.
+   Active: ThemeToggle sets data-theme on <html> (and the vibrana-theme cookie).
+   See DESIGN.md for the canonical dark variant reference (john-ellison.com).
+   =========================================================================== */
+[data-theme="dark"] {
+  --eu-ink: #8fb0ff;
+  /* Background.tsx base wash (light presets fall back to their own gradient). */
+  --bg-field-base: radial-gradient(ellipse at 60% 40%, #131318 0%, #0d0d10 45%, #0a0a0b 100%);
+  /* Gradient display text: the light-mode stops are tuned for white and sink into
+     near-black, so lift them. */
+  --gradient-prism-text: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #5eead4 100%);
+  --surface-base:       #0a0a0b;
+  --surface-raised:     #111114;
+  --surface-overlay:    #18181b;
+  --surface-card:       rgba(255, 255, 255, 0.03);
+  --surface-card-hover: rgba(255, 255, 255, 0.06);
+  --surface-frost:      rgba(15, 15, 20, 0.72);
+  --surface-nav:        rgba(10, 10, 11, 0.94);
+  --surface-inset:      rgba(15, 15, 20, 0.95);
+
+  --border-subtle:  rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-strong:  rgba(255, 255, 255, 0.22);
+
+  --text-primary:   rgba(250, 250, 252, 0.95);
+  --text-secondary: rgba(250, 250, 252, 0.66);
+  --text-tertiary:  rgba(250, 250, 252, 0.48);
+
+  --background:            10 10 11;
+  --foreground:            250 250 252;
+  --card:                  10 10 11;
+  --card-foreground:       250 250 252;
+  --popover:               15 15 20;
+  --popover-foreground:    250 250 252;
+  --secondary:             17 17 20;
+  --secondary-foreground:  250 250 252;
+  --muted:                 24 24 27;
+  --muted-foreground:      170 170 175;
+  --accent:                24 24 27;
+  --accent-foreground:     250 250 252;
+  --border:                39 39 42;
+  --input:                 39 39 42;
+}
+
+/* ---------------------------------------------------------------------------
+   Keyframes (pl- prefixed to avoid collisions)
+   --------------------------------------------------------------------------- */
+@keyframes pl-rainbowBorderShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes pl-rainbowSlide {
+  0%   { background-position: 0% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes pl-spin { to { transform: rotate(360deg); } }
+@keyframes pl-prismatic-spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Two names so hover restarts the ring after the load-time pass. */
+@keyframes pl-cta-ripple {
+  0%   { opacity: 0; outline-offset: 0; }
+  12%  { opacity: 1; outline-offset: 2px; }
+  100% { opacity: 0; outline-offset: 16px; }
+}
+@keyframes pl-cta-ripple-hover {
+  0%   { opacity: 0; outline-offset: 0; }
+  12%  { opacity: 1; outline-offset: 2px; }
+  100% { opacity: 0; outline-offset: 16px; }
+}
+@keyframes pl-film-roll-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ---------------------------------------------------------------------------
+   FilmRoll (Life on Film track) — 35mm-strip chrome: sprocket rails, the
+   seamless auto-scroll loop, and the warm sepia film grade applied to every
+   frame. See src/components/prism/FilmRoll.tsx and
+   research/homepage-visual-exploration/13-life-on-film-language.md.
+   --------------------------------------------------------------------------- */
+.film-roll-rail {
+  height: 12px;
+  background-color: #1c150d;
+  /* Layered so each perforation reads as light passing through a punched
+     hole, not a printed dot: a thin rim shadow (painted on top) marks the
+     "punched through" edge, over a SMALL warm sepia/cream dot with an
+     explicit radius that fully decays to transparent well inside the 16px
+     pitch — the dark base must dominate between holes (real 35mm: mostly
+     dark rail, small bright perforations). */
+  background-image:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 2.4px,
+      rgba(4, 2, 1, 0.6) 2.6px 3.1px,
+      transparent 3.5px 100%
+    ),
+    radial-gradient(
+      circle 3.4px at 50% 50%,
+      #fdf4e0 0%,
+      #f6e3cd 45%,
+      #ddb383 72%,
+      rgba(158, 110, 64, 0.5) 88%,
+      transparent 100%
+    );
+  background-repeat: repeat-x, repeat-x;
+  background-size: 16px 12px, 16px 12px;
+  background-position: 6px center, 6px center;
+}
+.film-roll-track {
+  animation: pl-film-roll-scroll var(--film-roll-duration, 32s) linear infinite;
+}
+.film-roll-shell:hover .film-roll-track,
+.film-roll-shell:focus-within .film-roll-track {
+  animation-play-state: paused;
+}
+.film-roll-cell + .film-roll-cell,
+.film-roll-cell {
+  border-right: 1px solid rgba(0, 0, 0, 0.65);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.05);
+}
+.film-roll-grade {
+  filter: sepia(0.38) saturate(1.18) contrast(1.06) brightness(1.03) hue-rotate(-6deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-roll-track {
+    animation: none;
+  }
+}
+
+/* Explicit reduced-motion fallback for the named animated utilities */
+@media (prefers-reduced-motion: reduce) {
+  .prism-light .text-gradient-animated,
+  .prism-light .prismatic-divider.animated,
+  .prism-light .animate-prismatic-spin,
+  .prism-light .btn-primary:hover::before,
+  .prism-light .nav-links a:hover::after {
+    animation: none;
+  }
+}
+
+} /* @layer utilities */
+
+/* ============================================================
+   CurriculumGrid — pointer spotlight + focused tile hover.
+   Hover effects are gated to fine pointers; touch gets none.
+   ============================================================ */
+.cg-grid { --cg-ease: cubic-bezier(0.23, 1, 0.32, 1); --cg-wash: 0.07; --cg-focus: 0.16; position: relative; isolation: isolate; }
+[data-theme="dark"] .cg-grid { --cg-wash: 0.13; --cg-focus: 0.26; }
+.cg-spot { pointer-events: none; position: absolute; inset: 0; z-index: 2; opacity: 0; transition: opacity 300ms var(--cg-ease); }
+.cg-spot::before, .cg-spot::after { content: ''; position: absolute; inset: 0; }
+.cg-spot::before { /* wide, soft mix */
+  background:
+    radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), rgba(124,58,237,var(--cg-wash)), transparent 65%),
+    radial-gradient(420px circle at calc(var(--mx, 50%) + 140px) calc(var(--my, 50%) - 60px), rgba(59,130,246,var(--cg-wash)), transparent 65%),
+    radial-gradient(380px circle at calc(var(--mx, 50%) - 120px) calc(var(--my, 50%) + 80px), rgba(45,212,191,var(--cg-wash)), transparent 65%);
+}
+.cg-grid[data-active='true'] .cg-spot { opacity: 1; }
+.cg-tile { position: relative; background: var(--surface-raised); }
+.cg-tile::before { /* gradient ring */
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; padding: 1.5px;
+  background: linear-gradient(135deg, rgba(124,58,237,0.9), rgba(59,130,246,0.8) 50%, rgba(45,212,191,0.9));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  transition: opacity 200ms var(--cg-ease);
+}
+.cg-tile::after { /* focus wash following the pointer inside the tile */
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(170px circle at var(--tx, 50%) var(--ty, 50%), rgba(124,58,237,var(--cg-focus)), rgba(45,212,191,calc(var(--cg-focus) * 0.5)) 55%, transparent 80%);
+  transition: opacity 200ms var(--cg-ease);
+}
+.cg-icon { transition: transform 200ms var(--cg-ease), background-color 200ms var(--cg-ease), box-shadow 200ms var(--cg-ease); background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(45,212,191,0.14)); position: relative; }
+.cg-icon::after { content: ''; position: absolute; inset: 0; border-radius: inherit; opacity: 0; transition: opacity 200ms var(--cg-ease);
+  background: linear-gradient(135deg, #7c3aed, #3b82f6 55%, #2dd4bf); }
+.cg-icon > svg { position: relative; z-index: 1; transition: color 200ms var(--cg-ease); }
+.cg-label { transition: transform 200ms var(--cg-ease), opacity 200ms var(--cg-ease), color 200ms var(--cg-ease); }
+.cg-inner { transition: opacity 200ms var(--cg-ease); }
+@media (hover: hover) and (pointer: fine) {
+  .cg-grid:has(.cg-tile:hover) .cg-tile:not(:hover) .cg-inner { opacity: 0.5; }
+  .cg-tile:hover { z-index: 3; }
+  .cg-tile:hover::before, .cg-tile:hover::after { opacity: 1; }
+  .cg-tile:hover .cg-icon { transform: translateY(-3px); box-shadow: 0 8px 20px -4px rgba(124,58,237,0.5); }
+  .cg-tile:hover .cg-icon::after { opacity: 1; }
+  .cg-tile:hover .cg-icon > svg { color: #fff; }
+  .cg-tile:hover .cg-label { transform: translateY(-2px); font-weight: 600; }
+}
+.cg-tile:focus-within::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .cg-spot, .cg-tile::before, .cg-tile::after, .cg-icon, .cg-icon::after, .cg-icon > svg, .cg-label, .cg-inner { transition: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Logo marquee (LogoRow): slow horizontal carousel with faded edges.
+   --------------------------------------------------------------------------- */
+.logo-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.logo-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+  animation: logo-marquee-slide var(--marquee-duration, 70s) linear infinite;
+}
+.logo-marquee:hover .logo-marquee-track { animation-play-state: paused; }
+.logo-marquee-item {
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding: 0 1.75rem;
+}
+@media (min-width: 768px) {
+  .logo-marquee-item { padding: 0 2.75rem; }
+}
+@keyframes logo-marquee-slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee-track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+  .logo-marquee-item[aria-hidden='true'] { display: none; }
+  .logo-marquee { -webkit-mask-image: none; mask-image: none; }
+}
+
+/* Glass primary button in dark mode: a brighter wash, light label. */
+[data-theme="dark"] .prism-light .btn-primary {
+  --g-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.34), rgba(59, 130, 246, 0.26) 50%, rgba(45, 212, 191, 0.30));
+  --g-bg-hover: linear-gradient(135deg, rgba(139, 92, 246, 0.46), rgba(59, 130, 246, 0.36) 50%, rgba(45, 212, 191, 0.40));
+  --g-text: #f1eaff;
+  --g-edge: rgba(167, 139, 250, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* EU AI Act page: inbound "output used in the EU" arrows dash toward the center. */
+@keyframes eu-flow-dash { to { stroke-dashoffset: -5.6; } }
+.eu-flow-dash { animation: eu-flow-dash 1.6s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .eu-flow-dash { animation: none; } }
+
+/* EU AI Act Readiness report: print / save as PDF. Only the report prints, in full color, with
+   every provision panel open (see ObligationCard). */
+@media print {
+  @page { margin: 14mm; }
+  body:has(.eu-report) .prism-light > :not(main) { display: none !important; }
+  .eu-report { -webkit-print-color-adjust: exact; print-color-adjust: exact; max-width: none; }
+  .eu-report * { animation: none !important; transition: none !important; }
+  /* Scroll reveals that have not run yet (printed before scrolling) print in their end state. */
+  .eu-report [style*="opacity: 0;"] { opacity: 1 !important; }
+  .eu-report [style*="scaleX(0)"],
+  .eu-report [style*="scale(0.2)"],
+  .eu-report [style*="scale(0.96)"],
+  .eu-report [style*="translateY("] { transform: none !important; }
+}

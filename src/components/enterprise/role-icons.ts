@@ -1,0 +1,57 @@
+import {
+  BarChart3,
+  BrainCircuit,
+  Briefcase,
+  Calculator,
+  CodeXml,
+  Compass,
+  Gauge,
+  HeartHandshake,
+  Headset,
+  Layers,
+  Megaphone,
+  Palette,
+  PenLine,
+  PenTool,
+  Rocket,
+  Scale,
+  Server,
+  Settings2,
+  TrendingUp,
+  UserSearch,
+  Users,
+  Wallet,
+  Workflow,
+  type LucideIcon,
+} from 'lucide-react'
+
+/** One icon per job function (names from JOB_FUNCTIONS_DETAILED). */
+export const ROLE_ICONS: Record<string, LucideIcon> = {
+  Accounting: Calculator,
+  Advertising: Megaphone,
+  Analytics: BarChart3,
+  Engineering: CodeXml,
+  Brand: Palette,
+  Content: PenLine,
+  'Customer Support': Headset,
+  'Customer Success': HeartHandshake,
+  Finance: Wallet,
+  'Product Design': PenTool,
+  Growth: TrendingUp,
+  'IT Systems': Server,
+  Leadership: Compass,
+  Legal: Scale,
+  'Machine Learning': BrainCircuit,
+  Marketing: Megaphone,
+  Operations: Settings2,
+  'People Ops': Users,
+  Product: Layers,
+  Recruiting: UserSearch,
+  'Revenue Operations': Gauge,
+  Sales: Rocket,
+  'Engineering Management': Workflow,
+}
+
+export function roleIcon(name: string): LucideIcon {
+  return ROLE_ICONS[name] ?? Briefcase
+}

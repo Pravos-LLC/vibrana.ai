@@ -1,0 +1,91 @@
+permissions:
+  contents: read
+
+name: E2E
+
+# Playwright end-to-end tests of the assessment and inquiry funnels, plus a
+# smoke pass over every public page.
+#
+# Runs entirely inside the runner: a local Supabase stack (every migration replayed
+# from scratch), a production `next build` + `next start`, and a local Resend
+# stub (e2e/stub-server.mjs). No production data or email provider is touched.
+# Vercel previews are not used because they share production Supabase.
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    if: github.repository == 'Pravos-LLC/vibrana.ai'
+    name: e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - uses: supabase/setup-cli@v3
+        with:
+          version: 2.111.0
+
+      # Only the services the app uses: Postgres, PostgREST behind Kong, and Auth
+      # (the CLI only prints API keys when Auth is running).
+      - name: Start local Supabase (replays all migrations)
+        run: supabase start -x studio,imgproxy,vector,logflare,realtime,storage-api,edge-runtime,mailpit,postgres-meta,supavisor
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export E2E environment
+        run: bash scripts/e2e-env.sh | sed -e 's/^export //' -e "s/'//g" >> "$GITHUB_ENV"
+
+      - name: Cache Next.js build cache
+        uses: actions/cache@v6
+        with:
+          path: .next/cache
+          key: next-e2e-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+          restore-keys: next-e2e-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+
+      - name: Build
+        run: npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
+
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright browser
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Playwright system deps
+        if: steps.pw-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Run Playwright
+        run: npx playwright test
+
+      - name: Upload Playwright report and traces
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14

@@ -1,0 +1,564 @@
+{
+  "syncedFrom": "Pravos-LLC/vibrana@44f041f",
+  "findings": {
+    "pwc-ceo-survey-2026-56-percent-no-ai-benefit": {
+      "claim": "More than half of CEOs say their company has seen neither higher revenue nor lower costs from AI in the past year; only one in eight report both.",
+      "quote": "More than half (56%) say their company has seen neither higher revenues nor lower costs from AI, while only one in eight (12%) report both of these positive impacts.",
+      "locator": "Section: AI at enterprise scale",
+      "url": "https://www.pwc.com/gx/en/issues/c-suite-insights/ceo-survey.html",
+      "publishable": "public",
+      "source": {
+        "id": "sources/pwc-2026-global-ceo-survey",
+        "publisher": "PwC",
+        "title": "PwC's 29th Global CEO Survey: Leading through uncertainty in the age of AI",
+        "published": "2026-01-19",
+        "method": "Survey of 4,454 chief executives across 95 countries and territories; analysis adjusted for sector, size and geography"
+      }
+    },
+    "mckinsey-state-of-ai-2026-ebit-impact-flat": {
+      "claim": "Despite wider scaling, the share of respondents reporting any AI contribution to EBIT stayed at about 37%, and high performers stayed at about 6%.",
+      "quote": "Thirty-seven percent of respondents attribute at least some EBIT impact to AI use (about the same share as last year).",
+      "locator": "Key takeaways",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2026-state-of-ai",
+        "publisher": "McKinsey & Company (QuantumBlack, AI by McKinsey)",
+        "title": "The state of AI in 2026: On the road to ROI",
+        "published": "2026-08-25",
+        "method": "Online McKinsey Global Survey, May 4 to June 8 2026, 1,719 participants in 97 nations, weighted by each nation's share of global GDP; 36% from organizations with more than $1B revenue"
+      }
+    },
+    "bcg-widening-ai-value-gap-60-percent-no-material-value": {
+      "claim": "BCG's 2025 study found 60% of companies reap hardly any material value from AI despite substantial investment, while 5% are 'future-built'.",
+      "quote": "But 60% companies are reaping hardly any material value, reporting minimal revenue and cost gains despite substantial investment.",
+      "locator": "Web summary, opening paragraph",
+      "url": "https://www.bcg.com/publications/2025/are-you-generating-value-from-ai-the-widening-gap",
+      "publishable": "public",
+      "source": {
+        "id": "sources/bcg-2025-widening-ai-value-gap",
+        "publisher": "Boston Consulting Group",
+        "title": "The Widening AI Value Gap (Build for the Future 2025)",
+        "published": "2025-09-30",
+        "method": "BCG Build for the Future 2025 survey of senior executives; sample details are in the full report, which was not opened (only the web summary was read)"
+      }
+    },
+    "bcg-widening-ai-value-gap-2025-maturity-distribution": {
+      "claim": "BCG’s 2025 Build for the Future survey of 1,250 executives placed 5% of companies as future-built, 35% scaling, 46% emerging and 14% stagnating on a 41-capability AI maturity score, against 4%, 22%, 49% and 25% in 2024.",
+      "quote": "Only 5% of companies in our 2025 study of more than 1,250 firms worldwide are achieving AI value at scale",
+      "locator": "PDF p. 3, opening section; Exhibit 1 (PDF p. 4); Survey Methodology (PDF pp. 19 to 20)",
+      "url": "https://media-publications.bcg.com/The-Widening-AI-Value-Gap-October-2025.pdf",
+      "publishable": "public",
+      "source": {
+        "id": "sources/bcg-2025-widening-ai-value-gap",
+        "publisher": "Boston Consulting Group",
+        "title": "The Widening AI Value Gap (Build for the Future 2025)",
+        "published": "2025-09-30",
+        "method": "BCG Build for the Future 2025 survey of senior executives; sample details are in the full report, which was not opened (only the web summary was read)"
+      }
+    },
+    "bcg-wheres-the-value-in-ai-70-percent-challenges-people-process": {
+      "claim": "BCG says about 70% of the challenges companies face implementing AI relate to people and process, 20% to technology, and only 10% to algorithms.",
+      "quote": "Our experience, corroborated by our new research, indicates that about 70% of the challenges relate to people and process, about 20% are technology issues, and only 10% involve AI algorithms (which often occupy a lot more organizational time and resources).",
+      "locator": "PDF p. 16, Overcoming Tough Challenges (Exhibit 5)",
+      "url": "https://web-assets.bcg.com/a5/37/be4ddf26420e95aa7107a35aae8d/bcg-wheres-the-value-in-ai.pdf",
+      "publishable": "public",
+      "source": {
+        "id": "sources/bcg-2024-wheres-the-value-in-ai",
+        "publisher": "Boston Consulting Group",
+        "title": "Where's the Value in AI?",
+        "published": "2024-10-24",
+        "method": "BCG Build for the Future 2024 survey of 1,000 CxOs and senior executives across 20+ sectors and 59 countries, scored on 30 AI capabilities (merged with BCG DAI data)"
+      }
+    },
+    "bcg-ai-at-work-2026-measure-value-not-adoption": {
+      "claim": "BCG tells CEOs to change the scoreboard from usage to business outcomes, because adoption says nothing about payoff.",
+      "quote": "Adoption tells you that people use AI, not whether it pays off.",
+      "locator": "Section: Five CEO Imperatives (2. Change the scoreboard: measure value, not adoption)",
+      "url": "https://www.bcg.com/publications/2026/ai-at-work-why-strategy-matters-more-than-tools",
+      "publishable": "public",
+      "source": {
+        "id": "sources/bcg-2026-ai-at-work",
+        "publisher": "Boston Consulting Group",
+        "title": "AI at Work: Strategy Matters More Than Tools",
+        "published": "2026-06-03",
+        "method": "BCG's fourth annual AI at Work survey of close to 12,000 frontline employees, managers and leaders in more than a dozen global markets"
+      }
+    },
+    "mckinsey-state-of-ai-2025-workflow-redesign-biggest-ebit-effect": {
+      "claim": "Out of 25 organizational attributes tested, the redesign of workflows had the biggest effect on whether organizations saw EBIT impact from gen AI.",
+      "quote": "The value of AI comes from rewiring how companies run, and the latest survey shows that, out of 25 attributes tested for organizations of all sizes, the redesign of workflows has the biggest effect on an organization’s ability to see EBIT impact from its use of gen AI.",
+      "locator": "Section: How companies are organizing their gen AI deployment, and who's in charge",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2025-state-of-ai-rewiring",
+        "publisher": "McKinsey & Company (QuantumBlack, AI by McKinsey)",
+        "title": "The state of AI: How organizations are rewiring to capture value",
+        "published": "2025-03-12",
+        "method": "Online McKinsey Global Survey, July 16 to 31 2024, 1,491 participants in 101 nations; correlation analysis of 25 attributes against self-reported gen AI EBIT impact"
+      }
+    },
+    "mckinsey-state-of-ai-2025-only-21-percent-redesigned": {
+      "claim": "Only 21% of respondents whose organizations use gen AI say they have fundamentally redesigned at least some workflows.",
+      "quote": "Twenty-one percent of respondents reporting gen AI use by their organizations say their organizations have fundamentally redesigned at least some workflows.",
+      "locator": "Section: How companies are organizing their gen AI deployment, and who's in charge",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2025-state-of-ai-rewiring",
+        "publisher": "McKinsey & Company (QuantumBlack, AI by McKinsey)",
+        "title": "The state of AI: How organizations are rewiring to capture value",
+        "published": "2025-03-12",
+        "method": "Online McKinsey Global Survey, July 16 to 31 2024, 1,491 participants in 101 nations; correlation analysis of 25 attributes against self-reported gen AI EBIT impact"
+      }
+    },
+    "mckinsey-state-of-ai-2026-high-performers-redesign-workflows": {
+      "claim": "Nearly three-quarters of AI high performers report fundamentally redesigning workflows because of AI, versus about one-quarter of other respondents.",
+      "quote": "Nearly three-quarters of high performers report fundamentally redesigning workflows because of their AI use, up from 55 percent last year. By comparison, just one-quarter of other respondents report doing so.",
+      "locator": "Section: High-performing organizations are transforming with AI (Exhibit 10)",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2026-state-of-ai",
+        "publisher": "McKinsey & Company (QuantumBlack, AI by McKinsey)",
+        "title": "The state of AI in 2026: On the road to ROI",
+        "published": "2026-08-25",
+        "method": "Online McKinsey Global Survey, May 4 to June 8 2026, 1,719 participants in 97 nations, weighted by each nation's share of global GDP; 36% from organizations with more than $1B revenue"
+      }
+    },
+    "mckinsey-state-of-ai-2026-senior-leader-commitment": {
+      "claim": "AI high performers are twice as likely as others to say senior leaders demonstrate commitment to AI initiatives and to have defined processes to measure impact.",
+      "quote": "For example, they are twice as likely as others to say that their senior leaders demonstrate commitment to AI initiatives and to report that their organizations have defined processes to measure the impact of those initiatives.",
+      "locator": "Section: High-performing organizations are transforming with AI (Exhibit 11)",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2026-state-of-ai",
+        "publisher": "McKinsey & Company (QuantumBlack, AI by McKinsey)",
+        "title": "The state of AI in 2026: On the road to ROI",
+        "published": "2026-08-25",
+        "method": "Online McKinsey Global Survey, May 4 to June 8 2026, 1,719 participants in 97 nations, weighted by each nation's share of global GDP; 36% from organizations with more than $1B revenue"
+      }
+    },
+    "mckinsey-state-of-ai-2025-kpis-most-impact": {
+      "claim": "Among 12 gen AI adoption and scaling practices, tracking well-defined KPIs for gen AI solutions had the most impact on the bottom line.",
+      "quote": "The one with the most impact on the bottom line is tracking well-defined KPIs for gen AI solutions, while at larger organizations, establishing a clearly defined road map to drive adoption of gen AI also has one of the biggest impacts.",
+      "locator": "Section: Best practices for adoption and scaling can enable value, and companies are beginning to follow them",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2025-state-of-ai-rewiring",
+        "publisher": "McKinsey & Company (QuantumBlack, AI by McKinsey)",
+        "title": "The state of AI: How organizations are rewiring to capture value",
+        "published": "2025-03-12",
+        "method": "Online McKinsey Global Survey, July 16 to 31 2024, 1,491 participants in 101 nations; correlation analysis of 25 attributes against self-reported gen AI EBIT impact"
+      }
+    },
+    "mckinsey-state-of-ai-nov-2025-tech-infrastructure-60-vs-23": {
+      "claim": "In McKinsey's November 2025 survey (1,993 respondents), 60% of AI high performers (n = 109) said their technology infrastructure and architecture allow core AI initiatives using the latest technologies, against 23% of all other respondents (n = 1,643).",
+      "quote": "Technology infrastructure: Technology infrastructure and architecture allow implementation of core AI initiatives using the latest technologies",
+      "locator": "PDF p. 18, Exhibit 14, Highest prevalence panel (Technology row)",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2025-state-of-ai-agents-innovation",
+        "publisher": "McKinsey & Company (QuantumBlack, AI by McKinsey)",
+        "title": "The state of AI in 2025: Agents, innovation, and transformation",
+        "published": "2025-11",
+        "method": "Online McKinsey Global Survey, June 25 to July 29 2025, 1,993 participants in 105 nations, weighted by each nation's share of global GDP; 38% from organizations with more than $1B revenue. AI high performers (5%+ of EBIT from AI and significant value, about 6%, n = 109) compared with all others; relative weights analysis on 31 variables"
+      }
+    },
+    "mckinsey-state-of-ai-nov-2025-high-performers-ai-budget-over-20-percent": {
+      "claim": "More than one-third of AI high performers (35%) commit more than 20% of their digital budgets to AI, against 7% of other respondents, and about three-quarters of high performers are scaling or have scaled AI vs one-third of others.",
+      "quote": "More than one-third of high performers say their organizations are committing more than 20 percent of their digital budgets to AI technologies",
+      "locator": "PDF p. 19, text and Exhibit 15",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2025-state-of-ai-agents-innovation",
+        "publisher": "McKinsey & Company (QuantumBlack, AI by McKinsey)",
+        "title": "The state of AI in 2025: Agents, innovation, and transformation",
+        "published": "2025-11",
+        "method": "Online McKinsey Global Survey, June 25 to July 29 2025, 1,993 participants in 105 nations, weighted by each nation's share of global GDP; 38% from organizations with more than $1B revenue. AI high performers (5%+ of EBIT from AI and significant value, about 6%, n = 109) compared with all others; relative weights analysis on 31 variables"
+      }
+    },
+    "mckinsey-state-of-ai-nov-2025-tech-data-meaningful-not-top": {
+      "claim": "McKinsey's relative weights analysis of 31 variables found technology and data infrastructure make a meaningful contribution to AI high performance, behind agile product delivery, human-in-the-loop processes and workflow redesign; the only data practice in the top ten by relative importance is reusable data products (25% of high performers vs 21% of others).",
+      "quote": "Establishing robust talent strategies and implementing technology and data infrastructure similarly show meaningful contributions to AI success",
+      "locator": "PDF p. 19, body text following Exhibit 14; Exhibit 14 Relative importance panel (p. 18)",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2025-state-of-ai-agents-innovation",
+        "publisher": "McKinsey & Company (QuantumBlack, AI by McKinsey)",
+        "title": "The state of AI in 2025: Agents, innovation, and transformation",
+        "published": "2025-11",
+        "method": "Online McKinsey Global Survey, June 25 to July 29 2025, 1,993 participants in 105 nations, weighted by each nation's share of global GDP; 38% from organizations with more than $1B revenue. AI high performers (5%+ of EBIT from AI and significant value, about 6%, n = 109) compared with all others; relative weights analysis on 31 variables"
+      }
+    },
+    "mckinsey-state-of-ai-2025-25-attributes-r-squared-020": {
+      "claim": "McKinsey's correlation analysis of 25 organizational attributes against self-reported gen AI EBIT impact (1,491 respondents) had an R-squared of 0.20; the attributes cover governance, time saved, workflow redesign and 12 adoption practices, but none measures technology or data infrastructure.",
+      "quote": "using the Johnson’s Relative Weights regression analysis yielded an R-squared of 0.20",
+      "locator": "Web article, first section footnote on the 25 attributes (archived copy, web.archive.org)",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2025-state-of-ai-rewiring",
+        "publisher": "McKinsey & Company (QuantumBlack, AI by McKinsey)",
+        "title": "The state of AI: How organizations are rewiring to capture value",
+        "published": "2025-03-12",
+        "method": "Online McKinsey Global Survey, July 16 to 31 2024, 1,491 participants in 101 nations; correlation analysis of 25 attributes against self-reported gen AI EBIT impact"
+      }
+    },
+    "gartner-ai-maturity-2025-business-unit-trust-57-vs-14": {
+      "claim": "In Gartner's 2025 maturity survey (n=432), business units trust and are ready to use new AI solutions in 57% of high-maturity organizations against 14% of low-maturity ones.",
+      "quote": "The survey found that in 57% of high-maturity organizations, business units trust and are ready to use new AI solutions compared with only 14% of low-maturity organizations.",
+      "locator": "Press release, paragraph after the method note (June 30, 2025)",
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2025-06-30-gartner-survey-finds-forty-five-percent-of-organizations-with-high-artificial-intelligence-maturity-keep-artificial-intelligence-projects-operational-for-at-least-three-years",
+      "publishable": "public",
+      "source": {
+        "id": "sources/gartner-2025-ai-maturity-survey",
+        "publisher": "Gartner",
+        "title": "Gartner Survey Finds 45% of Organizations With High AI Maturity Keep AI Projects Operational for at Least Three Years",
+        "published": "2025-06-30",
+        "method": "Survey of 432 respondents from organizations in the U.S., U.K., France, Germany, India and Japan, fielded Q4 2024. AI maturity scored with a seven-question instrument based on the Gartner AI Maturity Model (Level 1 planning to Level 5 leadership); high-maturity organizations averaged about 4.2 to 4.5, low-maturity about 1.6 to 2.2. Cross-sectional comparison of high versus low maturity groups"
+      }
+    },
+    "gartner-ai-maturity-2025-45-percent-operational-three-years": {
+      "claim": "In Gartner's Q4 2024 survey (n=432), 45% of leaders at high AI maturity organizations said their AI initiatives stay in production for three years or more, against 20% at low-maturity organizations.",
+      "quote": "Forty-five percent of leaders in organizations with high AI maturity said their AI initiatives remain in production for three years or more to ensure sustained impact and value, according to a survey by Gartner, Inc. This compares to only 20% in low-maturity organizations.",
+      "locator": "Press release, first paragraph (June 30, 2025)",
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2025-06-30-gartner-survey-finds-forty-five-percent-of-organizations-with-high-artificial-intelligence-maturity-keep-artificial-intelligence-projects-operational-for-at-least-three-years",
+      "publishable": "public",
+      "source": {
+        "id": "sources/gartner-2025-ai-maturity-survey",
+        "publisher": "Gartner",
+        "title": "Gartner Survey Finds 45% of Organizations With High AI Maturity Keep AI Projects Operational for at Least Three Years",
+        "published": "2025-06-30",
+        "method": "Survey of 432 respondents from organizations in the U.S., U.K., France, Germany, India and Japan, fielded Q4 2024. AI maturity scored with a seven-question instrument based on the Gartner AI Maturity Model (Level 1 planning to Level 5 leadership); high-maturity organizations averaged about 4.2 to 4.5, low-maturity about 1.6 to 2.2. Cross-sectional comparison of high versus low maturity groups"
+      }
+    },
+    "bcg-ai-at-work-2026-ceo-ownership-outperforms": {
+      "claim": "BCG reports that CEOs who personally own the AI transformation outperform on every dimension it measured: value captured, employee joy, and trust.",
+      "quote": "CEOs who personally own the transformation outperform on every dimension: value captured, employee joy, and trust",
+      "locator": "Section: Five CEO Imperatives (1. Make strategic clarity your top priority, and own it personally)",
+      "url": "https://www.bcg.com/publications/2026/ai-at-work-why-strategy-matters-more-than-tools",
+      "publishable": "public",
+      "source": {
+        "id": "sources/bcg-2026-ai-at-work",
+        "publisher": "Boston Consulting Group",
+        "title": "AI at Work: Strategy Matters More Than Tools",
+        "published": "2026-06-03",
+        "method": "BCG's fourth annual AI at Work survey of close to 12,000 frontline employees, managers and leaders in more than a dozen global markets"
+      }
+    },
+    "bcg-ai-at-work-2025-five-hours-training": {
+      "claim": "Regular AI use is sharply higher among employees with at least five hours of training plus in-person coaching, yet only a third say they were properly trained.",
+      "quote": "Regular usage is sharply higher for employees that receive at least five hours of training and have access to in-person training and coaching. Only one-third of employees say that they have been properly trained.",
+      "locator": "Section: Solving the Frontline Adoption Gap",
+      "url": "https://www.bcg.com/publications/2025/ai-at-work-momentum-builds-but-gaps-remain",
+      "publishable": "public",
+      "source": {
+        "id": "sources/bcg-2025-ai-at-work",
+        "publisher": "Boston Consulting Group",
+        "title": "AI at Work: Momentum Builds, but Gaps Remain",
+        "published": "2025-06-26",
+        "method": "BCG's third annual AI at Work survey of more than 10,600 leaders, managers and frontline white-collar employees in 11 countries and regions"
+      }
+    },
+    "mckinsey-superagency-leadership-biggest-barrier": {
+      "claim": "McKinsey's Superagency report concludes employees are ready for AI and that the biggest barrier to success is leadership.",
+      "quote": "It concludes that employees are ready for AI. The biggest barrier to success is leadership.",
+      "locator": "Introduction (report overview)",
+      "url": "https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/superagency-in-the-workplace-empowering-people-to-unlock-ais-full-potential-at-work",
+      "publishable": "public",
+      "source": {
+        "id": "sources/mckinsey-2025-superagency-in-the-workplace",
+        "publisher": "McKinsey & Company",
+        "title": "Superagency in the workplace: Empowering people to unlock AI's full potential",
+        "published": "2025-01-28",
+        "method": "Survey of 3,613 employees (managers and individual contributors) and 238 C-level executives, October to November 2024; 81% US, rest from Australia, India, New Zealand, Singapore and UK; main findings are US-only; plus interviews"
+      }
+    },
+    "deloitte-state-of-ai-2026-preparedness-by-area": {
+      "claim": "Of 3,235 leaders, 43% rate their technology infrastructure, 42% their strategy, 40% their data management, 30% their risk and governance and 20% their talent as highly prepared for broad AI adoption; infrastructure, data and talent fell from the prior year.",
+      "quote": "Meanwhile, perceptions of high preparedness have shifted down compared with last year for technical infrastructure (43%), data management (40%) and talent (20%), revealing the persistent challenge of modernizing systems and skills at the speed of innovation.",
+      "locator": "PDF p. 29, Key findings (text); distribution from Figure 12, Level of preparedness for AI adoption, PDF p. 28",
+      "url": "https://www.deloitte.com/content/dam/assets-zone3/us/en/docs/services/consulting/2026/state-of-ai-2026.pdf",
+      "publishable": "public",
+      "source": {
+        "id": "sources/deloitte-2026-state-of-ai-in-the-enterprise",
+        "publisher": "Deloitte AI Institute",
+        "title": "State of AI in the Enterprise: The untapped edge",
+        "published": "2026-01",
+        "method": "Survey of 3,235 director-level to C-suite respondents across six industries and 24 countries, August to September 2025, plus 15 executive interviews"
+      }
+    },
+    "uber-2026-agentic-pods-task-time-reductions": {
+      "claim": "Uber's CTO reported that 16 Agentic Pods in two months cut capital allocation across 150 cities from 15 hours to 30 minutes and financial pacing reports from 2 days to 10 minutes.",
+      "quote": "In just the past two months, we've run 16 Agentic Pods across 16 different business functions. • Capital allocation across 150 cities: 15 hours → 30 minutes. • Financial pacing reports: 2 days → 10 minutes.",
+      "locator": "X post, paragraph after the two-week cycle list",
+      "url": "https://x.com/praveenTweets/status/2074605343439810922",
+      "publishable": "public",
+      "source": {
+        "id": "sources/uber-2026-agentic-pods-x-post",
+        "publisher": "Uber (CTO post on X)",
+        "title": "Uber CTO on Agentic Pods: taking agentic AI beyond engineering",
+        "published": "2026-07-07",
+        "method": "Company self-report by Uber's CTO. 16 two-week pods (about 30 engineers each paired with a business domain expert) over two months; before and after task times as stated, no baseline method, no independent measurement"
+      }
+    },
+    "uber-2026-agentic-pods-workflow-unit-of-automation": {
+      "claim": "Uber's CTO concluded from the Agentic Pods that the biggest wins come from redesigning entire workflows around AI, which removes handoffs and approvals, rather than automating individual tasks.",
+      "quote": "The biggest wins rarely come from automating one task. They come from rethinking an entire workflow. Once you redesign the workflow around AI, you often eliminate handoffs, remove unnecessary approvals, replace legacy tooling, reduce vendor spend, and dramatically accelerate decision-making.",
+      "locator": "X post, list of lessons after the pod results",
+      "url": "https://x.com/praveenTweets/status/2074605343439810922",
+      "publishable": "public",
+      "source": {
+        "id": "sources/uber-2026-agentic-pods-x-post",
+        "publisher": "Uber (CTO post on X)",
+        "title": "Uber CTO on Agentic Pods: taking agentic AI beyond engineering",
+        "published": "2026-07-07",
+        "method": "Company self-report by Uber's CTO. 16 two-week pods (about 30 engineers each paired with a business domain expert) over two months; before and after task times as stated, no baseline method, no independent measurement"
+      }
+    },
+    "uber-2026-coo-no-line-from-ai-stats-to-features": {
+      "claim": "Uber's President and COO said in May 2026 that Uber could not yet draw a line from AI usage statistics, such as the share of code written by AI, to producing more useful consumer features.",
+      "quote": "it's very hard to draw a line between one of those stats and okay, now we're actually producing like 25% more useful consumer features.",
+      "locator": "Episode transcript, about 31:36 to 33:34",
+      "url": "https://pod.wave.co/podcast/rapid-response/ubers-swerve-on-gas-prices-hotels-and-a-driverless-future-with-andrew-macdonald",
+      "publishable": "public",
+      "source": {
+        "id": "sources/rapid-response-2026-uber-andrew-macdonald",
+        "publisher": "Rapid Response (WaitWhat), hosted by Bob Safian",
+        "title": "Rapid Response: Uber's swerve on gas prices, hotels, and a driverless future, with Andrew Macdonald",
+        "published": "2026-05-22",
+        "method": "Podcast interview with Uber's President and COO, about 34 minutes. Read via a timestamped automated transcript of the episode hosted by Wave"
+      }
+    },
+    "uber-2026-ai-budget-blown-early": {
+      "claim": "Uber's COO confirmed the CTO had said Uber blew through its 2026 AI budget early in the year, and said token costs will have to be weighed against headcount.",
+      "quote": "Our CTO Praveen, went viral because he effectively said in an interview that we had blown through our AI budget for 2026",
+      "locator": "Episode transcript, about 32:40 to 33:34",
+      "url": "https://pod.wave.co/podcast/rapid-response/ubers-swerve-on-gas-prices-hotels-and-a-driverless-future-with-andrew-macdonald",
+      "publishable": "public",
+      "source": {
+        "id": "sources/rapid-response-2026-uber-andrew-macdonald",
+        "publisher": "Rapid Response (WaitWhat), hosted by Bob Safian",
+        "title": "Rapid Response: Uber's swerve on gas prices, hotels, and a driverless future, with Andrew Macdonald",
+        "published": "2026-05-22",
+        "method": "Podcast interview with Uber's President and COO, about 34 minutes. Read via a timestamped automated transcript of the episode hosted by Wave"
+      }
+    },
+    "jpmorgan-2025-llm-suite-200k-employees-access": {
+      "claim": "JPMorganChase told investors in May 2025 that over 200,000 employees had access to its LLM Suite platform and that certain key subsets of users report gaining several hours a week of productivity.",
+      "quote": "Over 200,000 employees globally have access, and on average, certain key subsets of the users tell us they are gaining several hours a week of productivity, and almost by definition, the time savings is coming from less valuable tasks, which means more time spent on value added.",
+      "locator": "Firm overview (CFO Jeremy Barnum), transcript PDF p. 4",
+      "url": "https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/events/2025/jpmc-2025-investor-day/full-transcript.pdf",
+      "publishable": "public",
+      "source": {
+        "id": "sources/jpmorgan-2025-investor-day-transcript",
+        "publisher": "JPMorganChase",
+        "title": "JPMorganChase 2025 Investor Day Transcript",
+        "published": "2025-05-19",
+        "method": "n/a (company investor event transcript; management statements, self-reported usage figures)"
+      }
+    },
+    "jpmorgan-2026-dimon-genai-time-savings-not-in-npv": {
+      "claim": "Jamie Dimon said in February 2026 that about 150,000 people use the bank's LLM platform weekly and believe they save about four hours a week, but the bank does not count that in its NPVs and does not see it as reduced headcount.",
+      "quote": "150,000 people use it every week. They think they're saving four hours a day (sic) [week]. That's not in an NPV. We don't see the four hours a day (sic) [week] in terms of reduced headcount like that.",
+      "locator": "Q&A with Mike Mayo (Wells Fargo), transcript PDF p. 24",
+      "url": "https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/2026-company-updates/company-update-full-event-transcript.pdf",
+      "publishable": "public",
+      "source": {
+        "id": "sources/jpmorgan-2026-company-update-transcript",
+        "publisher": "JPMorganChase",
+        "title": "JPMorganChase 2026 Company Update Transcript",
+        "published": "2026-02-23",
+        "method": "n/a (company investor event transcript; management statements and analyst Q&A)"
+      }
+    },
+    "jpmorgan-2026-coo-goal-not-fewer-headcount": {
+      "claim": "JPMorgan's COO wrote that AI productivity gains will free capacity to reinvest in growth and that, while fewer jobs will likely be the outcome in certain roles, the goal is not fewer headcount.",
+      "quote": "We will continue to upskill, reskill and redeploy talent as technology evolves and productivity increases. While it will likely be the outcome in certain jobs, the goal is not fewer headcount",
+      "locator": "Chief Operating Officer letter (Jennifer Piepszak), printed p. 50 (PDF p. 1), \"Investing in technology, data and AI\"",
+      "url": "https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/line-of-business-ceo-letters-to-shareholders-2025.pdf",
+      "publishable": "public",
+      "source": {
+        "id": "sources/jpmorgan-2026-lob-ceo-letters",
+        "publisher": "JPMorganChase",
+        "title": "Line of Business CEO Letters to Shareholders (2025 Annual Report)",
+        "published": "2026-04-06",
+        "method": "n/a (annual report letters from business heads; company self-report, not audited KPIs)"
+      }
+    },
+    "openai-2024-moderna-100-percent-adoption-target": {
+      "claim": "Moderna aimed for 100% adoption and proficiency of generative AI among employees with digital access within six months, and staffed a dedicated team running individual, collective and structural change management.",
+      "quote": "Moderna’s objective was to achieve 100% adoption and proficiency of generative AI by all its people with access to digital solutions in six months.",
+      "locator": "Section \"Moderna brings AI to everyone\"",
+      "url": "https://openai.com/index/moderna/",
+      "publishable": "public",
+      "source": {
+        "id": "sources/openai-2024-moderna-case-study",
+        "publisher": "OpenAI",
+        "title": "Moderna and OpenAI (ChatGPT Enterprise customer story)",
+        "published": "2024-04-24",
+        "method": "n/a (vendor customer story; usage metrics as reported by Moderna and OpenAI)"
+      }
+    },
+    "openai-2024-moderna-mchat-80-percent-adoption": {
+      "claim": "Moderna's internal chatbot mChat, built on OpenAI's API and launched at the beginning of 2023, was adopted by more than 80% of employees before the ChatGPT Enterprise rollout.",
+      "quote": "This work led to an early win with the launch of an internal AI chatbot tool, mChat, at the beginning of 2023. Built on OpenAI’s API, mChat was a success, adopted by more than 80% of employees across the company",
+      "locator": "Section \"Moderna brings AI to everyone\"",
+      "url": "https://openai.com/index/moderna/",
+      "publishable": "public",
+      "source": {
+        "id": "sources/openai-2024-moderna-case-study",
+        "publisher": "OpenAI",
+        "title": "Moderna and OpenAI (ChatGPT Enterprise customer story)",
+        "published": "2024-04-24",
+        "method": "n/a (vendor customer story; usage metrics as reported by Moderna and OpenAI)"
+      }
+    },
+    "moderna-2024-hr-and-digital-under-one-leader": {
+      "claim": "Moderna combined its people and digital technology functions under one executive, Tracey Franklin, as Chief People and Digital Technology Officer.",
+      "quote": "As Chief People and Digital Technology Officer, Tracey Franklin leads Moderna’s talent and digital organizations.",
+      "locator": "Bio, opening sentence",
+      "url": "https://investors.modernatx.com/tracey-franklin",
+      "publishable": "public",
+      "source": {
+        "id": "sources/moderna-tracey-franklin-bio",
+        "publisher": "Moderna",
+        "title": "Tracey Franklin, Chief People and Digital Technology Officer (leadership bio)",
+        "published": "2024-11-07",
+        "method": "n/a (company leadership page)"
+      }
+    },
+    "shopify-2025-memo-headcount-gate": {
+      "claim": "Shopify's CEO required teams to demonstrate why AI cannot do the work before asking for more headcount and resources.",
+      "quote": "Before asking for more Headcount and resources, teams must demonstrate why they cannot get what they want done using AI.",
+      "locator": "Memo, section 'What This Means'",
+      "url": "https://x.com/tobi/status/1909251946235437514",
+      "publishable": "public",
+      "source": {
+        "id": "sources/shopify-2025-lutke-reflexive-ai-memo",
+        "publisher": "Shopify (CEO post on X)",
+        "title": "Reflexive AI usage is now a baseline expectation at Shopify (Tobi Lütke memo)",
+        "published": "2025-04-07",
+        "method": "n/a (internal CEO memo, published by the author)"
+      }
+    },
+    "shopify-2025-memo-ai-in-performance-reviews": {
+      "claim": "Shopify's CEO made effective AI use a fundamental expectation for everyone, including executives, and added AI usage questions to performance and peer reviews.",
+      "quote": "We will add AI usage questions to our performance and peer review questionnaire.",
+      "locator": "Memo, section 'What This Means'",
+      "url": "https://x.com/tobi/status/1909251946235437514",
+      "publishable": "public",
+      "source": {
+        "id": "sources/shopify-2025-lutke-reflexive-ai-memo",
+        "publisher": "Shopify (CEO post on X)",
+        "title": "Reflexive AI usage is now a baseline expectation at Shopify (Tobi Lütke memo)",
+        "published": "2025-04-07",
+        "method": "n/a (internal CEO memo, published by the author)"
+      }
+    },
+    "shopify-2026-10k-headcount-down-revenue-up": {
+      "claim": "Shopify reported about 7,600 employees at the end of 2025, down from about 8,100 a year earlier, while revenue grew from $8,880 million to $11,556 million; the filing does not attribute this to AI.",
+      "quote": "As of December 31, 2025, Shopify had approximately 7,600 employees worldwide.",
+      "locator": "Form 10-K FY2025, Item 1, Human Capital",
+      "url": "https://www.sec.gov/Archives/edgar/data/1594805/000159480526000007/shop-20251231.htm",
+      "publishable": "public",
+      "source": {
+        "id": "sources/shopify-2026-form-10-k-fy2025",
+        "publisher": "Shopify Inc. (SEC filing)",
+        "title": "Shopify Inc. Form 10-K for fiscal year 2025",
+        "published": "2026-02-11",
+        "method": "Annual report with audited financial statements; employee count as stated in Item 1 Human Capital"
+      }
+    },
+    "klarna-2025-prospectus-ai-assistant-69-percent-chats": {
+      "claim": "Klarna's 2025 IPO prospectus says its AI assistant handled 69% of customer service chats in the year to June 2025, did work equivalent to over 700 full-time agents by its estimate, and delivered about $39 million of cost savings in 2024.",
+      "quote": "Our AI assistant handled 69% of customer service chats in the last twelve months ended June 30, 2025, according to our service chat log data, doing the work equivalent of over 700 full-time agents (estimated based on the average monthly reduction in chat and telephone conversations handled by full-time agents in 2024 following the launch of our AI assistant), and in 2024 delivered approximately $39 million in cost savings.",
+      "locator": "Form 424B4 prospectus (2025-09-10), p. 152",
+      "url": "https://www.sec.gov/Archives/edgar/data/2003292/000200329225000052/klarnagroupplc424b4.htm",
+      "publishable": "public",
+      "source": {
+        "id": "sources/klarna-2025-ipo-prospectus",
+        "publisher": "Klarna Group plc (SEC filing)",
+        "title": "Klarna Group plc final IPO prospectus (Form 424B4)",
+        "published": "2025-09-10",
+        "method": "Securities filing. AI assistant figures from Klarna's service chat log data and internal satisfaction surveys for the twelve months ended June 30, 2025; FTE equivalence estimated from the 2024 reduction in agent-handled conversations; audited financial statements for operating expenses"
+      }
+    },
+    "klarna-2025-prospectus-customer-service-costs-down-15-percent": {
+      "claim": "Klarna's audited customer service and operations expenses fell $37 million, or 15%, in 2024, which the prospectus attributes to efforts to optimize customer service costs.",
+      "quote": "Customer service and operations expenses for the year ended December 31, 2024 decreased by $37 million, or 15%, compared to the year ended December 31, 2023",
+      "locator": "Form 424B4 prospectus, MD&A, operating expenses, p. 163",
+      "url": "https://www.sec.gov/Archives/edgar/data/2003292/000200329225000052/klarnagroupplc424b4.htm",
+      "publishable": "public",
+      "source": {
+        "id": "sources/klarna-2025-ipo-prospectus",
+        "publisher": "Klarna Group plc (SEC filing)",
+        "title": "Klarna Group plc final IPO prospectus (Form 424B4)",
+        "published": "2025-09-10",
+        "method": "Securities filing. AI assistant figures from Klarna's service chat log data and internal satisfaction surveys for the twelve months ended June 30, 2025; FTE equivalence estimated from the 2024 reduction in agent-handled conversations; audited financial statements for operating expenses"
+      }
+    },
+    "klarna-2025-ceo-ahead-of-reality-humans-and-ai": {
+      "claim": "In May 2025 Klarna's CEO said Klarna was hiring humans for higher-end service conversations while expanding AI, and admitted he had overstated how fast AI would replace work.",
+      "quote": "You could definitely place me in the Elon Musk box of saying everything's gonna happen in three months, when it probably will take three years",
+      "locator": "Big Technology article, paragraph 7",
+      "url": "https://www.bigtechnology.com/p/klarna-ceo-were-giving-ai-more-customer",
+      "publishable": "public",
+      "source": {
+        "id": "sources/big-technology-2025-klarna-ceo-more-ai-not-less",
+        "publisher": "Big Technology",
+        "title": "Klarna CEO: We're Giving AI More Customer Service Work, Not Less",
+        "published": "2025-05-16",
+        "method": "Journalist interview with Klarna CEO Sebastian Siemiatkowski; direct quotes plus company-supplied metrics"
+      }
+    }
+  },
+  "engagements": {
+    "samplec0be66822d27-insurance": {
+      "client": "A UK insurtech scale-up, 70 FTE, Series B (anonymized under NDA)",
+      "caseStudy": "vibrana.ai/content/case-studies/insurtech-qa-knowledge-base.md",
+      "facts": [
+        "Calls reviewed for quality and compliance went from about 5% (monthly spot-check) to 100%",
+        "The PDF of FAQs became a knowledge base of 1,441 answers",
+        "One senior expert freed from QA and question-answering to train the floor",
+        "Two weeks on-site, in person; strategy run in parallel with building"
+      ],
+      "quotes": []
+    },
+    "meridian-estates": {
+      "client": "A European cross-border real-estate firm, 50 FTE (anonymized under NDA)",
+      "caseStudy": "vibrana.ai/content/case-studies/european-proptech-rag.md",
+      "facts": [
+        "20 years of one person's expertise made searchable and multilingual",
+        "Knowledge base of 261 real answers; personal data stripped before anything else happens",
+        "7 of their team trained to build with AI",
+        "\"Up to 528 hrs saved per trained person, per year (estimated: 7 to 11 hrs a week x 48 weeks)\". Always show it as an estimate with the arithmetic; the client estimated the hours"
+      ],
+      "quotes": []
+    },
+    "orion-tech": {
+      "client": "A mid-sized, engineering-led tech company on two continents (anonymized under NDA)",
+      "caseStudy": "vibrana.ai/content/case-studies/orion-tech.md",
+      "facts": [
+        "About 80% of the organization completed an AI readiness assessment in week one, across 20+ job functions",
+        "3,200+ personalized daily lessons completed",
+        "Pulse score 4.4 / 5 on \"how the change connects to my day-to-day work\"; almost two thirds answered 5",
+        "Payout automation projected to save about 720 hours a year",
+        "Monthly people-team newsletter cut from about 10 hours to 1",
+        "A shadow AI audit came first and surfaced unapproved tools and data flowing through AI systems with no policy behind it"
+      ],
+      "quotes": [
+        "Impressed and at the same time scared that you have a very similar understanding of what my perception is.",
+        "I realized I could just talk to this thing like a caveman and it would build it for me. I didn't need to know how it all worked.",
+        "It's all about coworking."
+      ]
+    }
+  }
+}

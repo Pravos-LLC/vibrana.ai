@@ -1,0 +1,55 @@
+permissions:
+  contents: read
+
+name: CI
+
+# Fast pre-merge gate: typecheck + lint + Prism design guardrail on every PR and
+# on pushes to master. The full production build is covered by the Vercel check,
+# so it's intentionally not duplicated here (keeps CI ~1-2 min). Cursor Bugbot
+# runs alongside this for AI code review.
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+# One run per branch; newer pushes cancel older in-flight runs.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    if: github.repository == 'Pravos-LLC/vibrana.ai'
+    name: typecheck · lint · guardrail
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Run lint + guardrail even if an earlier check failed, so a PR surfaces
+      # every problem in one run (but skip if the job was cancelled).
+      - name: Lint
+        if: ${{ !cancelled() }}
+        run: npm run lint
+
+      - name: Prism design guardrail
+        if: ${{ !cancelled() }}
+        run: npm run guardrail
+
+      # Unit tests with a coverage ratchet: thresholds in vitest.config.ts fail
+      # the run if coverage drops below the recorded floor.
+      - name: Unit tests + coverage
+        if: ${{ !cancelled() }}
+        run: npm run test:coverage

@@ -1,0 +1,77 @@
+{
+  "_comment": "Which knowledge-base findings, approved case facts and approved quotes the /ai-readiness page may cite. Edit here, then run `node scripts/readiness-evidence/sync.mjs` from a checkout inside the Vibrana hub (or with VIBRANA_HUB set) to refresh evidence-ledger.json. Findings must pass the hub ledger (verified, public or anonymized); case facts and quotes must appear verbatim in an engagement's Approved facts table or Approved quotes list. tests/readiness-page/evidence.test.ts checks every number and quote on the page against this snapshot.",
+  "findings": [
+    "pwc-ceo-survey-2026-56-percent-no-ai-benefit",
+    "mckinsey-state-of-ai-2026-ebit-impact-flat",
+    "bcg-widening-ai-value-gap-60-percent-no-material-value",
+    "bcg-widening-ai-value-gap-2025-maturity-distribution",
+    "bcg-wheres-the-value-in-ai-70-percent-challenges-people-process",
+    "bcg-ai-at-work-2026-measure-value-not-adoption",
+    "mckinsey-state-of-ai-2025-workflow-redesign-biggest-ebit-effect",
+    "mckinsey-state-of-ai-2025-only-21-percent-redesigned",
+    "mckinsey-state-of-ai-2026-high-performers-redesign-workflows",
+    "mckinsey-state-of-ai-2026-senior-leader-commitment",
+    "mckinsey-state-of-ai-2025-kpis-most-impact",
+    "mckinsey-state-of-ai-nov-2025-tech-infrastructure-60-vs-23",
+    "mckinsey-state-of-ai-nov-2025-high-performers-ai-budget-over-20-percent",
+    "mckinsey-state-of-ai-nov-2025-tech-data-meaningful-not-top",
+    "mckinsey-state-of-ai-2025-25-attributes-r-squared-020",
+    "gartner-ai-maturity-2025-business-unit-trust-57-vs-14",
+    "gartner-ai-maturity-2025-45-percent-operational-three-years",
+    "bcg-ai-at-work-2026-ceo-ownership-outperforms",
+    "bcg-ai-at-work-2025-five-hours-training",
+    "mckinsey-superagency-leadership-biggest-barrier",
+    "deloitte-state-of-ai-2026-preparedness-by-area",
+    "uber-2026-agentic-pods-task-time-reductions",
+    "uber-2026-agentic-pods-workflow-unit-of-automation",
+    "uber-2026-coo-no-line-from-ai-stats-to-features",
+    "uber-2026-ai-budget-blown-early",
+    "jpmorgan-2025-llm-suite-200k-employees-access",
+    "jpmorgan-2026-dimon-genai-time-savings-not-in-npv",
+    "jpmorgan-2026-coo-goal-not-fewer-headcount",
+    "openai-2024-moderna-100-percent-adoption-target",
+    "openai-2024-moderna-mchat-80-percent-adoption",
+    "moderna-2024-hr-and-digital-under-one-leader",
+    "shopify-2025-memo-headcount-gate",
+    "shopify-2025-memo-ai-in-performance-reviews",
+    "shopify-2026-10k-headcount-down-revenue-up",
+    "klarna-2025-prospectus-ai-assistant-69-percent-chats",
+    "klarna-2025-prospectus-customer-service-costs-down-15-percent",
+    "klarna-2025-ceo-ahead-of-reality-humans-and-ai"
+  ],
+  "engagements": {
+    "samplec0be66822d27-insurance": {
+      "facts": [
+        "Calls reviewed for quality and compliance went from about 5% (monthly spot-check) to 100%",
+        "The PDF of FAQs became a knowledge base of 1,441 answers",
+        "One senior expert freed from QA and question-answering to train the floor",
+        "Two weeks on-site, in person; strategy run in parallel with building"
+      ],
+      "quotes": []
+    },
+    "meridian-estates": {
+      "facts": [
+        "20 years of one person's expertise made searchable and multilingual",
+        "Knowledge base of 261 real answers; personal data stripped before anything else happens",
+        "7 of their team trained to build with AI",
+        "\"Up to 528 hrs saved per trained person, per year (estimated: 7 to 11 hrs a week x 48 weeks)\". Always show it as an estimate with the arithmetic; the client estimated the hours"
+      ],
+      "quotes": []
+    },
+    "orion-tech": {
+      "facts": [
+        "About 80% of the organization completed an AI readiness assessment in week one, across 20+ job functions",
+        "3,200+ personalized daily lessons completed",
+        "Pulse score 4.4 / 5 on \"how the change connects to my day-to-day work\"; almost two thirds answered 5",
+        "Payout automation projected to save about 720 hours a year",
+        "Monthly people-team newsletter cut from about 10 hours to 1",
+        "A shadow AI audit came first and surfaced unapproved tools and data flowing through AI systems with no policy behind it"
+      ],
+      "quotes": [
+        "Impressed and at the same time scared that you have a very similar understanding of what my perception is.",
+        "I realized I could just talk to this thing like a caveman and it would build it for me. I didn't need to know how it all worked.",
+        "It's all about coworking."
+      ]
+    }
+  }
+}

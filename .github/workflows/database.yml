@@ -1,0 +1,74 @@
+permissions:
+  contents: read
+
+name: Database
+
+# Replays every migration onto a fresh Postgres, lints the schema, and runs the
+# pgTAP security suite in supabase/tests. Runs on every PR (no paths filter) so
+# the required `database` check always reports. Local only: no production access.
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+concurrency:
+  group: database-${{ github.ref }}
+  cancel-in-progress: true
+
+# `shell: bash` makes every run step `bash -eo pipefail`, so a failing
+# command on the left of a pipe fails the step.
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  database:
+    if: github.repository == 'Pravos-LLC/vibrana.ai'
+    name: database
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Cheap guard first: short migration versions sort differently locally
+      # and remotely, which is what broke `db push` (VIB-392).
+      - name: Migration file names
+        run: bash scripts/ci/check-migration-names.sh
+
+      - uses: supabase/setup-cli@v3
+        with:
+          version: 2.111.0
+
+      # `db start` boots Postgres only and applies every migration + seed.sql
+      # from scratch. A migration that can't replay fails here.
+      - name: Replay migrations on a fresh database
+        run: supabase db start
+
+      - name: Schema lint
+        run: supabase db lint --local --level error --fail-on error
+
+      - name: Security tests (pgTAP)
+        # Every .sql file in supabase/tests is pgTAP; run them all, so a new
+        # test file can't be skipped by omission.
+        run: supabase test db
+
+      # Production's advisors flag every SECURITY DEFINER function that `authenticated` can execute. The nightly
+      # drift job allowlists the reviewed ones; fail here, on the PR that adds one, instead of there.
+      - name: Reviewed SECURITY DEFINER functions match the advisor allowlist
+        run: |
+          psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -Atc "
+            select p.proname from pg_proc p
+             where p.pronamespace = 'public'::regnamespace and p.prosecdef
+               and has_function_privilege('authenticated', p.oid, 'execute')
+               and not exists (select 1 from pg_depend d where d.objid = p.oid and d.deptype = 'e')
+             order by 1" > actual.txt
+          jq -r '.[]' scripts/ci/advisor-reviewed-definers.json | sort > reviewed.txt
+          if ! diff reviewed.txt actual.txt; then
+            echo "::error::scripts/ci/advisor-reviewed-definers.json is out of step with the database ('<' listed but absent, '>' executable by authenticated but not listed). Review the new function in supabase/tests/01_schema_security.test.sql, then list it."
+            exit 1
+          fi
+
+      - name: Stop database
+        if: always()
+        run: supabase stop --no-backup

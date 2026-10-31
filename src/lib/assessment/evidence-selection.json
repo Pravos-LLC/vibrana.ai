@@ -1,0 +1,94 @@
+{
+  "_comment": "Which knowledge-base findings and approved case facts back each assessment area. Edit here, then run `node scripts/assessment-evidence/sync.mjs` from a checkout inside the Vibrana hub to refresh evidence-ledger.json. Findings must pass the hub ledger (verified, public or anonymized); case facts must appear verbatim in an engagement's Approved facts table.",
+  "framing": "bcg-wheres-the-value-in-ai-70-percent-challenges-people-process",
+  "dimensions": {
+    "Leadership & Strategy": {
+      "findings": [
+        "mckinsey-superagency-leadership-biggest-barrier",
+        "bcg-ai-at-work-2026-ceo-ownership-outperforms"
+      ],
+      "case": {
+        "engagement": "samplec0be66822d27-insurance",
+        "fact": "Two weeks on-site, in person; strategy run in parallel with building"
+      }
+    },
+    "Data Readiness": {
+      "findings": [
+        "bain-ai-native-enterprise-barriers-organizational-not-technical"
+      ],
+      "case": {
+        "engagement": "meridian-estates",
+        "fact": "Knowledge base of 261 real answers; personal data stripped before anything else happens"
+      }
+    },
+    "Technology Infrastructure": {
+      "findings": [
+        "mit-nanda-genai-divide-learning-gap"
+      ],
+      "case": {
+        "engagement": "samplec0be66822d27-insurance",
+        "fact": "Calls reviewed for quality and compliance went from about 5% (monthly spot-check) to 100%"
+      }
+    },
+    "Talent & Capability": {
+      "findings": [
+        "bcg-ai-at-work-2025-five-hours-training",
+        "bcg-ai-at-work-2026-upskilling-gap"
+      ],
+      "case": {
+        "engagement": "meridian-estates",
+        "fact": "7 of their team trained to build with AI"
+      }
+    },
+    "Governance & Responsible AI": {
+      "findings": [
+        "slack-2024-guidelines-six-times-more-likely",
+        "kpmg-melbourne-2025-training-and-policy-gap"
+      ],
+      "case": {
+        "engagement": "orion-tech",
+        "fact": "A three-tier risk taxonomy plus six CI/CD gates, from credential checks at commit to human sign-off before production; \"friction matches risk\""
+      }
+    },
+    "Culture & Change Readiness": {
+      "findings": [
+        "accenture-work-workforce-workers-job-security-perception-gap",
+        "microsoft-2024-52-percent-reluctant-to-admit-ai"
+      ],
+      "case": {
+        "engagement": "samplec0be66822d27-insurance",
+        "fact": "One senior expert freed from QA and question-answering to train the floor"
+      }
+    }
+  },
+  "engagements": {
+    "orion-tech": {
+      "label": "A mid-sized tech company, 100+ people",
+      "href": "/case-studies/orion-tech"
+    },
+    "samplec0be66822d27-insurance": {
+      "label": "A UK insurtech scale-up, 70 people",
+      "href": "/case-studies/insurtech-qa-knowledge-base"
+    },
+    "meridian-estates": {
+      "label": "A European real-estate firm, 50 people",
+      "href": "/case-studies/european-proptech-rag"
+    }
+  },
+  "sourceLabels": {
+    "slack-2024-guidelines-six-times-more-likely": "Slack Workforce Lab, \"New Slack research shows accelerating AI use at work\" (2024)"
+  },
+  "notes": {
+    "slack-2024-guidelines-six-times-more-likely": "Slack sells AI features. This measures trying AI, not value.",
+    "microsoft-2024-52-percent-reluctant-to-admit-ai": "Microsoft sells AI tools for work.",
+    "mit-nanda-genai-divide-learning-gap": "A small sample; treat it as directional.",
+    "bcg-wheres-the-value-in-ai-70-percent-challenges-people-process": "BCG sells AI consulting.",
+    "mckinsey-superagency-leadership-biggest-barrier": "McKinsey sells AI consulting.",
+    "bcg-ai-at-work-2026-ceo-ownership-outperforms": "BCG sells AI consulting.",
+    "bain-ai-native-enterprise-barriers-organizational-not-technical": "Bain sells AI consulting.",
+    "bcg-ai-at-work-2025-five-hours-training": "BCG sells AI consulting.",
+    "bcg-ai-at-work-2026-upskilling-gap": "BCG sells AI consulting.",
+    "accenture-work-workforce-workers-job-security-perception-gap": "Accenture sells AI consulting.",
+    "kpmg-melbourne-2025-training-and-policy-gap": "KPMG sells AI consulting; the University of Melbourne co-led the study."
+  }
+}

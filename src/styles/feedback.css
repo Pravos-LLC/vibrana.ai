@@ -1,0 +1,31 @@
+/* Client feedback form (/feedback/[slug]). Motion only; layout and color come from Prism tokens. */
+@keyframes fb-step-in-forward {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fb-step-in-back {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.fb-step[data-dir='forward'] { animation: fb-step-in-forward 260ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.fb-step[data-dir='back']    { animation: fb-step-in-back 260ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+.fb-progress-fill {
+  transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fb-choice {
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, transform 120ms ease;
+}
+.fb-choice:active { transform: scale(0.96); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fb-step[data-dir] { animation: none; }
+  .fb-progress-fill, .fb-choice { transition: none; }
+  .fb-choice:active { transform: none; }
+}
+
+/* Headings take programmatic focus on each step; they are not controls, so no ring. */
+.fb-step h1:focus,
+.fb-step h1:focus-visible { outline: none; }

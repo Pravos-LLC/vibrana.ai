@@ -1,0 +1,148 @@
+{
+  "syncedFrom": "Pravos-LLC/vibrana@0c85940",
+  "findings": {
+    "bcg-wheres-the-value-in-ai-70-percent-challenges-people-process": {
+      "claim": "BCG says about 70% of the challenges companies face implementing AI relate to people and process, 20% to technology, and only 10% to algorithms.",
+      "quote": "Our experience, corroborated by our new research, indicates that about 70% of the challenges relate to people and process, about 20% are technology issues, and only 10% involve AI algorithms (which often occupy a lot more organizational time and resources).",
+      "locator": "PDF p. 16, Overcoming Tough Challenges (Exhibit 5)",
+      "url": "https://web-assets.bcg.com/a5/37/be4ddf26420e95aa7107a35aae8d/bcg-wheres-the-value-in-ai.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "Boston Consulting Group",
+        "title": "Where's the Value in AI?",
+        "published": "2024-10-24",
+        "method": "BCG Build for the Future 2024 survey of 1,000 CxOs and senior executives across 20+ sectors and 59 countries, scored on 30 AI capabilities (merged with BCG DAI data)"
+      }
+    },
+    "mckinsey-superagency-leadership-biggest-barrier": {
+      "claim": "McKinsey's Superagency report concludes employees are ready for AI and that the biggest barrier to success is leadership.",
+      "quote": "It concludes that employees are ready for AI. The biggest barrier to success is leadership.",
+      "locator": "Introduction (report overview)",
+      "url": "https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/superagency-in-the-workplace-empowering-people-to-unlock-ais-full-potential-at-work",
+      "publishable": "public",
+      "source": {
+        "publisher": "McKinsey & Company",
+        "title": "Superagency in the workplace: Empowering people to unlock AI's full potential",
+        "published": "2025-01-28",
+        "method": "Survey of 3,613 employees (managers and individual contributors) and 238 C-level executives, October to November 2024; 81% US, rest from Australia, India, New Zealand, Singapore and UK; main findings are US-only; plus interviews"
+      }
+    },
+    "bcg-ai-at-work-2026-ceo-ownership-outperforms": {
+      "claim": "BCG reports that CEOs who personally own the AI transformation outperform on every dimension it measured: value captured, employee joy, and trust.",
+      "quote": "CEOs who personally own the transformation outperform on every dimension: value captured, employee joy, and trust",
+      "locator": "Section: Five CEO Imperatives (1. Make strategic clarity your top priority, and own it personally)",
+      "url": "https://www.bcg.com/publications/2026/ai-at-work-why-strategy-matters-more-than-tools",
+      "publishable": "public",
+      "source": {
+        "publisher": "Boston Consulting Group",
+        "title": "AI at Work: Strategy Matters More Than Tools",
+        "published": "2026-06-03",
+        "method": "BCG's fourth annual AI at Work survey of close to 12,000 frontline employees, managers and leaders in more than a dozen global markets"
+      }
+    },
+    "bain-ai-native-enterprise-barriers-organizational-not-technical": {
+      "claim": "Bain finds executives cite data security, hallucinations and unproven ROI as barriers, while only 4% cite lack of executive support; Bain argues the real barriers are organizational.",
+      "quote": "The most prominent barriers to AI adoption today are organizational, not technical.",
+      "locator": "At a Glance; Section: Executives blame the tech, but organizational barriers matter (Figure 4, Bain GenAI Survey 2026)",
+      "url": "https://www.bain.com/insights/the-ai-native-enterprise-absorption-is-the-new-advantage-technology-report-2026/",
+      "publishable": "public",
+      "source": {
+        "publisher": "Bain & Company",
+        "title": "The AI-Native Enterprise: Absorption Is the New Advantage (Technology Report 2026)",
+        "published": "2026-09-29",
+        "method": "Bain client experience plus the Bain GenAI Survey 2026 (sample size not stated in the article)"
+      }
+    },
+    "mit-nanda-genai-divide-learning-gap": {
+      "claim": "MIT NANDA names the learning gap (tools that do not learn, integrate poorly, or do not match workflows) as the primary factor keeping organizations from value.",
+      "quote": "The primary factor keeping organizations on the wrong side of the GenAI Divide is the learning gap, tools that don't learn, integrate poorly, or match workflows.",
+      "locator": "PDF p. 10, Section 4 Why Pilots Stall",
+      "url": "https://mlq.ai/media/quarterly_decks/v0.1_State_of_AI_in_Business_2025_Report.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "MIT NANDA (Project NANDA, MIT Media Lab)",
+        "title": "The GenAI Divide: State of AI in Business 2025",
+        "published": "2025-07",
+        "method": "Review of 300+ publicly disclosed AI initiatives, structured interviews with representatives of 52 organizations, survey of 153 senior leaders at four industry conferences; research period January to June 2025"
+      }
+    },
+    "bcg-ai-at-work-2025-five-hours-training": {
+      "claim": "Regular AI use is sharply higher among employees with at least five hours of training plus in-person coaching, yet only a third say they were properly trained.",
+      "quote": "Regular usage is sharply higher for employees that receive at least five hours of training and have access to in-person training and coaching. Only one-third of employees say that they have been properly trained.",
+      "locator": "Section: Solving the Frontline Adoption Gap",
+      "url": "https://www.bcg.com/publications/2025/ai-at-work-momentum-builds-but-gaps-remain",
+      "publishable": "public",
+      "source": {
+        "publisher": "Boston Consulting Group",
+        "title": "AI at Work: Momentum Builds, but Gaps Remain",
+        "published": "2025-06-26",
+        "method": "BCG's third annual AI at Work survey of more than 10,600 leaders, managers and frontline white-collar employees in 11 countries and regions"
+      }
+    },
+    "bcg-ai-at-work-2026-upskilling-gap": {
+      "claim": "Close to three-quarters of employees say AI has shifted the skills expected of them, but only 36% feel they have received adequate upskilling.",
+      "quote": "Close to three-quarters (72%) of all respondents say expectations for the skills they need have shifted; however, only 36% feel that they have received adequate upskilling.",
+      "locator": "Section: New Findings Reinforce Trends Observed in 2025",
+      "url": "https://www.bcg.com/publications/2026/ai-at-work-why-strategy-matters-more-than-tools",
+      "publishable": "public",
+      "source": {
+        "publisher": "Boston Consulting Group",
+        "title": "AI at Work: Strategy Matters More Than Tools",
+        "published": "2026-06-03",
+        "method": "BCG's fourth annual AI at Work survey of close to 12,000 frontline employees, managers and leaders in more than a dozen global markets"
+      }
+    },
+    "slack-2024-guidelines-six-times-more-likely": {
+      "claim": "In Slack's survey of 10,281 desk workers, those at companies with defined AI guidelines were nearly six times more likely to have tried AI tools than those at companies without guidelines; even restrictive guidelines beat none.",
+      "quote": "Desk workers at companies that have defined AI guidelines are nearly six times more likely to have tried AI tools, compared with desk workers whose companies have no guidelines around AI usage.",
+      "locator": "Section \"Want to accelerate AI adoption? Start by issuing guidelines for use\"",
+      "url": "https://slack.com/blog/news/new-slack-research-shows-accelerating-ai-use-at-work",
+      "publishable": "public",
+      "source": {
+        "publisher": "Slack (a Salesforce company), Workforce Lab",
+        "title": "Slack Workforce Lab, \"New Slack research shows accelerating AI use at work\" (2024)",
+        "published": "2024-02-27",
+        "method": "Qualtrics survey of 10,281 full-time desk workers in the US, Australia, France, Germany, Japan and the UK, 10 to 29 Jan 2024; not targeted at Slack customers"
+      }
+    },
+    "kpmg-melbourne-2025-training-and-policy-gap": {
+      "claim": "Only 47% of employees say they have received AI training and only 40% say their workplace has a policy or guidance on generative AI.",
+      "quote": "Only 47% of employees say they have received AI training, and only 40% say their workplace has a policy or guidance on generative AI use.",
+      "locator": "Press release, paragraph on workplace risks",
+      "url": "https://kpmg.com/za/en/newsroom/press-releases/2025/05/global-study-reveals-trust-of-ai-remains-a-critical-challenge-reflecting-tension-between-benefits-and-risks.html",
+      "publishable": "public",
+      "source": {
+        "publisher": "University of Melbourne and KPMG",
+        "title": "Trust, attitudes and use of artificial intelligence: A global study 2025",
+        "published": "2025-04-29",
+        "method": "Survey of more than 48,000 people in 47 countries, November 2024 to January 2025; includes a deep dive on employees' use of AI at work. DOI 10.26188/28822919"
+      }
+    },
+    "accenture-work-workforce-workers-job-security-perception-gap": {
+      "claim": "58% of workers worry about job security from gen AI, yet less than one-third of CxOs think job displacement is a concern for their people.",
+      "quote": "When it comes to job security, 58% of workers are worried, yet less than one-third of CxOs feel job displacement is a concern for people.",
+      "locator": "PDF p. 7, Preface: Conflicting views erode trust",
+      "url": "https://www.accenture.com/content/dam/accenture/final/accenture-com/document-2/Accenture-Work-Can-Become-Era-Generative-AI.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "Accenture",
+        "title": "Work, workforce, workers: Reinvented in the age of generative AI",
+        "published": "2024-01-16",
+        "method": "Accenture Change survey of 5,000 workers (Oct to Nov 2023) plus 50 worker interviews, surveys of up to 3,450 CxOs (Sept to Nov 2023), and economic modeling"
+      }
+    },
+    "microsoft-2024-52-percent-reluctant-to-admit-ai": {
+      "claim": "Among people who use AI at work, 52% are reluctant to admit using it for their most important tasks.",
+      "quote": "52% of people who use AI at work are reluctant to admit to using it for their most important tasks.",
+      "locator": "Section: Three Out of Four People Use AI at Work",
+      "url": "https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part",
+      "publishable": "public",
+      "source": {
+        "publisher": "Microsoft and LinkedIn",
+        "title": "2024 Work Trend Index Annual Report: AI at Work Is Here. Now Comes the Hard Part",
+        "published": "2024-05-08",
+        "method": "Survey of 31,000 knowledge workers in 31 countries by Edelman Data & Intelligence, plus Microsoft 365 telemetry and LinkedIn data"
+      }
+    }
+  }
+}

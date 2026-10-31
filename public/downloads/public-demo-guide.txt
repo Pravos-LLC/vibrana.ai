@@ -1,0 +1,5 @@
+PUBLIC DEMO DOWNLOAD
+
+This file exercises the sample download and email workflow.
+The original whitepaper and print-ready sticker files are not included.
+Use independent local services and synthetic data for development.

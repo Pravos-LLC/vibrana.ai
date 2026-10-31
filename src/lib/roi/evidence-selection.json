@@ -1,0 +1,64 @@
+{
+  "_comment": "Which knowledge-base row and findings back each workflow in the Workflow ROI calculator. The conservative, expected and ceiling percentages, the unit and the study design are read from the table in knowledge/questions/how-much-time-does-ai-save-by-workflow.md, never typed here. Each finding listed must pass the hub ledger, and each percentage must appear in its finding's claim or quote. Edit here, then run `node scripts/roi-evidence/sync.mjs` from a checkout inside the Vibrana hub.",
+  "question": "how-much-time-does-ai-save-by-workflow",
+  "workflows": {
+    "support": {
+      "row": "Customer support, ticket triage and answering",
+      "conservative": "brynjolfsson-2023-handle-time-down-8-percent",
+      "expected": "brynjolfsson-2023-15-percent-productivity"
+    },
+    "documents": {
+      "row": "Document processing and data extraction",
+      "conservative": "lukac-2025-scribe-time-in-note-9-percent",
+      "expected": "lukac-2025-scribe-time-in-note-9-percent"
+    },
+    "reports": {
+      "row": "Report writing and reporting",
+      "conservative": "dillon-2025-document-time-no-significant-change",
+      "expected": "dillon-2025-document-time-no-significant-change",
+      "ceiling": "noy-2023-writing-time-down-40-percent"
+    },
+    "research": {
+      "row": "Research and analysis",
+      "conservative": "dellacqua-2023-outside-frontier-worse",
+      "expected": "dellacqua-2023-inside-frontier-gains"
+    },
+    "email-crm": {
+      "row": "Sales and admin email, CRM work",
+      "conservative": "dillon-2025-email-time-down-12-percent",
+      "expected": "dillon-2025-email-time-down-12-percent"
+    },
+    "onboarding": {
+      "row": "Onboarding and internal knowledge Q&A",
+      "conservative": "brynjolfsson-2023-novices-30-percent",
+      "expected": "brynjolfsson-2023-novices-30-percent"
+    },
+    "software": {
+      "row": "Software development",
+      "conservative": "metr-2025-developers-overestimate-speedup",
+      "expected": "paradis-2024-google-21-percent-faster",
+      "ceiling": "peng-2023-copilot-55-percent-faster",
+      "also": ["cui-2025-copilot-26-percent-more-tasks"]
+    }
+  },
+  "wholeJob": {
+    "row": "Whole-job check",
+    "conservative": "humlum-2025-time-savings-by-occupation",
+    "expected": "humlum-2025-time-savings-by-occupation",
+    "also": ["humlum-2025-time-savings-3-percent-of-hours"]
+  },
+  "timeIsNotMoney": ["dillon-2025-email-time-down-12-percent", "humlum-2025-null-earnings-effects"],
+  "vendorNotes": {
+    "dillon-2025-email-time-down-12-percent": "Microsoft researchers are among the authors, and the tool studied is Microsoft's.",
+    "dillon-2025-document-time-no-significant-change": "Microsoft researchers are among the authors, and the tool studied is Microsoft's.",
+    "peng-2023-copilot-55-percent-faster": "GitHub and Microsoft researchers are among the authors, and the tool studied is theirs.",
+    "cui-2025-copilot-26-percent-more-tasks": "Microsoft researchers are among the authors, and the tool studied is theirs.",
+    "paradis-2024-google-21-percent-faster": "Google studied its own engineers using its own tools."
+  },
+  "engagements": {
+    "samplec0be66822d27-insurance": { "fact": "Calls reviewed for quality and compliance went from about 5% (monthly spot-check) to 100%" },
+    "samplec0be66822d27-insurance#kb": { "engagement": "samplec0be66822d27-insurance", "fact": "The PDF of FAQs became a knowledge base of 1,441 answers" },
+    "meridian-estates": { "fact": "\"Up to 528 hrs saved per trained person, per year (estimated: 7 to 11 hrs a week x 48 weeks)\". Always show it as an estimate with the arithmetic; the client estimated the hours" },
+    "orion-tech": { "fact": "Payout automation projected to save about 720 hours a year" }
+  }
+}

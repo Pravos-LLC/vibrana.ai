@@ -1,0 +1,668 @@
+{
+  "syncedFrom": "Pravos-LLC/vibrana@752ca37",
+  "findings": {
+    "eu-ai-act-art-2-1-a-providers-placing-on-eu-market": {
+      "claim": "Subject to the Article 2 exclusions, the EU AI Act applies to providers that place AI systems on the market or put them into service in the EU, or place general-purpose AI models on the EU market, whether those providers are established in the EU or in a third country.",
+      "quote": "(a) providers placing on the market or putting into service AI systems or placing on the market general-purpose AI models in the Union, irrespective of whether those providers are established or located within the Union or in a third country;",
+      "locator": "Article 2(1)(a)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_2",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-002.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-2-1-b-deployers-in-eu": {
+      "claim": "Subject to the Article 2 exclusions (such as military, research and personal use), the EU AI Act applies to any organization established or located in the EU that uses an AI system in a professional capacity.",
+      "quote": "(b) deployers of AI systems that have their place of establishment or are located within the Union;",
+      "locator": "Article 2(1)(b)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_2",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-002.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-2-1-c-non-eu-output-used-in-eu": {
+      "claim": "Subject to the Article 2 exclusions, providers and deployers outside the EU are covered by the EU AI Act when the output of their AI system is used in the EU.",
+      "quote": "(c) providers and deployers of AI systems that have their place of establishment or are located in a third country, where the output produced by the AI system is used in the Union;",
+      "locator": "Article 2(1)(c)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_2",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-002.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-3-3-provider-definition": {
+      "claim": "A provider is whoever develops an AI system or model, or has one developed, and places it on the market or puts it into service under its own name or trademark, paid or free.",
+      "quote": "(3) ‘provider’ means a natural or legal person, public authority, agency or other body that develops an AI system or a general-purpose AI model or that has an AI system or a general-purpose AI model developed and places it on the market or puts the AI system into service under its own name or trademark, whether for payment or free of charge;",
+      "locator": "Article 3(3)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_3",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-003.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-3-4-deployer-definition": {
+      "claim": "A deployer is any person or organization using an AI system under its authority, other than for personal non-professional activity.",
+      "quote": "(4) ‘deployer’ means a natural or legal person, public authority, agency or other body using an AI system under its authority except where the AI system is used in the course of a personal non-professional activity;",
+      "locator": "Article 3(4)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_3",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-003.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-25-1-c-repurposing-general-purpose-ai": {
+      "claim": "Changing the intended purpose of an AI system, including a general-purpose AI system, so that it becomes high-risk makes the organization that did it the provider.",
+      "quote": "(c) they modify the intended purpose of an AI system, including a general-purpose AI system, which has not been classified as high-risk and has already been placed on the market or put into service in such a way that the AI system concerned becomes a high-risk AI system in accordance with Article 6.",
+      "locator": "Article 25(1)(c)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_25",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-025.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-annex-iii-4-a-recruitment-high-risk-current": {
+      "claim": "AI used to recruit or select people, including targeting job ads, filtering applications and evaluating candidates, is high-risk.",
+      "quote": "(a) AI systems intended to be used for the recruitment or selection of natural persons, in particular to place targeted job advertisements, to analyse and filter job applications, and to evaluate candidates;",
+      "locator": "Annex III, point 4(a)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#anx_III",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/annex-iii.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-annex-iii-4-b-worker-management-high-risk": {
+      "claim": "AI used to make decisions on terms of work, promotion or termination, to allocate tasks based on behavior or traits, or to monitor and evaluate workers is high-risk.",
+      "quote": "(b) AI systems intended to be used to make decisions affecting terms of work-related relationships, the promotion or termination of work-related contractual relationships, to allocate tasks based on individual behaviour or personal traits or characteristics or to monitor and evaluate the performance and behaviour of persons in such relationships.",
+      "locator": "Annex III, point 4(b)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#anx_III",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/annex-iii.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-annex-iii-5-b-creditworthiness-high-risk": {
+      "claim": "AI used to evaluate the creditworthiness or credit score of individuals is high-risk, except fraud detection.",
+      "quote": "(b) AI systems intended to be used to evaluate the creditworthiness of natural persons or establish their credit score, with the exception of AI systems used for the purpose of detecting financial fraud;",
+      "locator": "Annex III, point 5(b)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#anx_III",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/annex-iii.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-annex-iii-5-c-life-health-insurance-high-risk": {
+      "claim": "AI used for risk assessment and pricing of individuals in life and health insurance is high-risk.",
+      "quote": "(c) AI systems intended to be used for risk assessment and pricing in relation to natural persons in the case of life and health insurance;",
+      "locator": "Annex III, point 5(c)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#anx_III",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/annex-iii.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-annex-iii-3-education-high-risk": {
+      "claim": "AI used to evaluate learning outcomes in educational and vocational training institutions is high-risk.",
+      "quote": "(b) AI systems intended to be used to evaluate learning outcomes, including when those outcomes are used to steer the learning process of natural persons in educational and vocational training institutions at all levels;",
+      "locator": "Annex III, point 3(b)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#anx_III",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/annex-iii.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-6-3-annex-iii-derogation": {
+      "claim": "An AI system in an Annex III area is not high-risk if it does not pose a significant risk of harm, including by not materially influencing decisions, for example a narrow procedural task.",
+      "quote": "3. By derogation from paragraph 2, an AI system referred to in Annex III shall not be considered to be high-risk where it does not pose a significant risk of harm to the health, safety or fundamental rights of natural persons, including by not materially influencing the outcome of decision making.",
+      "locator": "Article 6(3)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_6",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-006.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-50-1-disclose-ai-interaction": {
+      "claim": "AI systems that interact directly with people must be designed so the people know they are dealing with AI, unless that is obvious.",
+      "quote": "1. Providers shall ensure that AI systems intended to interact directly with natural persons are designed and developed in such a way that the natural persons concerned are informed that they are interacting with an AI system, unless this is obvious from the point of view of a natural person who is reasonably well-informed, observant and circumspect, taking into account the circumstances and the context of use.",
+      "locator": "Article 50(1)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_50",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-050.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-50-4-disclose-deep-fakes": {
+      "claim": "Deployers using AI to generate or manipulate image, audio or video that constitutes a deep fake must disclose that it is artificial.",
+      "quote": "4. Deployers of an AI system that generates or manipulates image, audio or video content constituting a deep fake, shall disclose that the content has been artificially generated or manipulated.",
+      "locator": "Article 50(4)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_50",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-050.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-50-4-disclose-ai-text-public-interest": {
+      "claim": "AI-generated text published to inform the public on matters of public interest must be disclosed, unless it has had human review and someone holds editorial responsibility.",
+      "quote": "Deployers of an AI system that generates or manipulates text which is published with the purpose of informing the public on matters of public interest shall disclose that the text has been artificially generated or manipulated. This obligation shall not apply where the use is authorised by law to detect, prevent, investigate or prosecute criminal offences or where the AI-generated content has undergone a process of human review or editorial control and where a natural or legal person holds editorial responsibility for the publication of the content.",
+      "locator": "Article 50(4), second subparagraph",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_50",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-050.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-5-1-a-manipulation-prohibited": {
+      "claim": "AI that uses subliminal, manipulative or deceptive techniques to materially distort behavior and cause significant harm is prohibited.",
+      "quote": "(a) the placing on the market, the putting into service or the use of an AI system that deploys subliminal techniques beyond a person’s consciousness or purposefully manipulative or deceptive techniques, with the objective, or the effect of materially distorting the behaviour of a person or a group of persons by appreciably impairing their ability to make an informed decision, thereby causing them to take a decision that they would not have otherwise taken in a manner that causes or is reasonably likely to cause that person, another person or group of persons significant harm;",
+      "locator": "Article 5(1)(a)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_5",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-005.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-113-a-prohibitions-2025-02-02": {
+      "claim": "Chapters I and II, including AI literacy and the prohibited practices, have applied since 2 February 2025; the prohibitions added by the Omnibus apply from 2 December 2026.",
+      "quote": "(a) Chapters I and II shall apply from 2 February 2025, with the exception of Article 5(1), first subparagraph, points (ba) and (bb), and Article 5(1a) and (1b) which shall apply from 2 December 2026;",
+      "locator": "Article 113(a) (as amended by Reg. (EU) 2026/1744)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_113",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-113.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-99-3-prohibited-practice-fines": {
+      "claim": "Breaching an Article 5 prohibition can cost up to EUR 35 million or 7% of worldwide annual turnover, whichever is higher.",
+      "quote": "3. Non-compliance with the prohibition of the AI practices referred to in Article 5 shall be subject to administrative fines of up to EUR 35 000 000 or, if the offender is an undertaking, up to 7 % of its total worldwide annual turnover for the preceding financial year, whichever is higher.",
+      "locator": "Article 99(3)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_99",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-099.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-5-1-f-workplace-emotion-recognition-prohibited": {
+      "claim": "Using AI to infer the emotions of people at work or in education is prohibited, except for medical or safety reasons.",
+      "quote": "(f) the placing on the market, the putting into service for this specific purpose, or the use of AI systems to infer emotions of a natural person in the areas of workplace and education institutions, except where the use of the AI system is intended to be put in place or into the market for medical or safety reasons;",
+      "locator": "Article 5(1)(f)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_5",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-005.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-6-3-profiling-always-high-risk": {
+      "claim": "An AI system in an Annex III area that profiles natural persons is always high-risk; the narrow-task exemption does not apply.",
+      "quote": "Notwithstanding the first subparagraph, an AI system referred to in Annex III shall always be considered to be high-risk where the AI system performs profiling of natural persons.",
+      "locator": "Article 6(3), third subparagraph",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_6",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-006.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-25-1-deployer-becomes-provider": {
+      "claim": "A deployer that rebrands, substantially modifies, or repurposes an AI system into a high-risk use takes on the provider obligations of Article 16.",
+      "quote": "1. Any distributor, importer, deployer or other third-party shall be considered to be a provider of a high-risk AI system for the purposes of this Regulation and shall be subject to the obligations of the provider under Article 16, in any of the following circumstances:",
+      "locator": "Article 25(1)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_25",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-025.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-4-ai-literacy-as-amended": {
+      "claim": "Since the Digital Omnibus, providers and deployers must take measures to support the AI literacy of staff who operate or use AI, without having to guarantee any specific level.",
+      "quote": "Providers and deployers of AI systems shall take measures to support the development of AI literacy of their staff and other persons dealing with the operation and use of AI systems on their behalf, taking into account their technical knowledge, experience, education and training and the context the AI systems are to be used in, and considering the persons or groups of persons on whom the AI systems are to be used. This obligation does not require providers or deployers to guarantee any specific level of AI literacy of any individual.",
+      "locator": "Article 4(1) (as amended by Reg. (EU) 2026/1744)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_4",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-004.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-26-2-human-oversight": {
+      "claim": "Deployers must assign human oversight of high-risk AI to people with the competence, training, authority and support to do it.",
+      "quote": "2. Deployers shall assign human oversight to natural persons who have the necessary competence, training and authority, as well as the necessary support.",
+      "locator": "Article 26(2)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_26",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-026.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-26-7-inform-workers": {
+      "claim": "Under the EU AI Act, employers deploying a high-risk AI system in the workplace must first inform workers' representatives and the affected workers.",
+      "quote": "Before putting into service or using a high-risk AI system at the workplace, deployers who are employers shall inform workers’ representatives and the affected workers that they will be subject to the use of the high-risk AI system.",
+      "locator": "Article 26(7)",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689/art-026.md",
+      "source": {
+        "id": "sources/eu-2024-ai-act-regulation-2024-1689",
+        "title": "Regulation (EU) 2024/1689, the Artificial Intelligence Act (Official Journal, 12 July 2024)",
+        "published": "2024-07-12",
+        "version": "as-enacted"
+      }
+    },
+    "eu-ai-act-art-26-1-use-per-instructions": {
+      "claim": "Deployers of high-risk AI must take technical and organizational measures to use the system in line with its instructions for use.",
+      "quote": "1. Deployers of high-risk AI systems shall take appropriate technical and organisational measures to ensure they use such systems in accordance with the instructions for use accompanying the systems, pursuant to paragraphs 3 and 6.",
+      "locator": "Article 26(1)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_26",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-026.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-26-6-keep-logs-six-months": {
+      "claim": "Deployers must keep the logs a high-risk AI system generates, where under their control, for at least six months.",
+      "quote": "6. Deployers of high-risk AI systems shall keep the logs automatically generated by that high-risk AI system to the extent such logs are under their control, for a period appropriate to the intended purpose of the high-risk AI system, of at least six months, unless provided otherwise in applicable Union or national law, in particular in Union law on the protection of personal data.",
+      "locator": "Article 26(6)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_26",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-026.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-26-5-monitor-operation": {
+      "claim": "Deployers must monitor how a high-risk AI system operates and inform the provider where relevant, acting without undue delay if they see a risk.",
+      "quote": "5. Deployers shall monitor the operation of the high-risk AI system on the basis of the instructions for use and, where relevant, inform providers in accordance with Article 72. Where deployers have reason to consider that the use of the high-risk AI system in accordance with the instructions may result in that AI system presenting a risk within the meaning of Article 79(1), they shall, without undue delay",
+      "locator": "Article 26(5)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_26",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-026.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-26-11-inform-affected-people": {
+      "claim": "Deployers of Annex III high-risk AI that makes or assists decisions about people must inform those people that the system is used.",
+      "quote": "11. Without prejudice to Article 50 of this Regulation, deployers of high-risk AI systems referred to in Annex III that make decisions or assist in making decisions related to natural persons shall inform the natural persons that they are subject to the use of the high-risk AI system.",
+      "locator": "Article 26(11)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_26",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-026.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-53-1-a-gpai-technical-documentation": {
+      "claim": "Providers of general-purpose AI models must maintain technical documentation of the model, including training, testing and evaluation results.",
+      "quote": "(a) draw up and keep up-to-date the technical documentation of the model, including its training and testing process and the results of its evaluation, which shall contain, at a minimum, the information set out in Annex XI for the purpose of providing it, upon request, to the AI Office and the national competent authorities;",
+      "locator": "Article 53(1)(a)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_53",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-053.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-113-c-high-risk-2027-2028": {
+      "claim": "After the Digital Omnibus, high-risk obligations apply from 2 December 2027 for Annex III systems and 2 August 2028 for AI in Annex I regulated products.",
+      "quote": "(c) Chapter III, Sections 1, 2, and 3, with the exception of Article 6(5), shall apply from: (i) 2 December 2027 as regards AI systems classified as high-risk pursuant to Article 6(2) and Annex III; and (ii) 2 August 2028 as regards AI systems classified as high-risk pursuant to Article 6(1) and Annex I;",
+      "locator": "Article 113(c) (as amended by Reg. (EU) 2026/1744)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_113",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-113.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-113-general-application-2026-08-02": {
+      "claim": "The EU AI Act applies generally from 2 August 2026, with earlier and later dates for specific chapters.",
+      "quote": "This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union. It shall apply from 2 August 2026.",
+      "locator": "Article 113, first and second paragraphs",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_113",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-113.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-27-1-fundamental-rights-impact-assessment": {
+      "claim": "Before deploying high-risk AI, public bodies, private entities providing public services, and deployers of credit-scoring or life and health insurance AI must assess the impact on fundamental rights.",
+      "quote": "1. Prior to deploying a high-risk AI system referred to in Article 6(2), with the exception of high-risk AI systems intended to be used in the area listed in point 2 of Annex III, deployers that are bodies governed by public law, or are private entities providing public services, and deployers of high-risk AI systems referred to in points 5 (b) and (c) of Annex III, shall perform an assessment of the impact on fundamental rights that the use of such system may produce.",
+      "locator": "Article 27(1)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_27",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-027.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-99-4-operator-obligation-fines": {
+      "claim": "Breaching listed operator obligations can cost up to EUR 15 million or 3% of worldwide annual turnover, whichever is higher.",
+      "quote": "4. Non-compliance with any of the following provisions related to operators or notified bodies, other than those laid down in Articles 5, shall be subject to administrative fines of up to EUR 15 000 000 or, if the offender is an undertaking, up to 3 % of its total worldwide annual turnover for the preceding financial year, whichever is higher:",
+      "locator": "Article 99(4)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_99",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-099.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-99-4-e-g-deployer-and-transparency-fines": {
+      "claim": "Deployers' Article 26 obligations and the Article 50 transparency obligations are both in the EUR 15 million / 3% fine tier.",
+      "quote": "(e) obligations of deployers pursuant to Article 26; (f) requirements and obligations of notified bodies pursuant to Article 31, Article 33(1), (3) and (4) or Article 34; (g) transparency obligations for providers and deployers pursuant to Article 50.",
+      "locator": "Article 99(4)(e) and (g)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_99",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-099.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-99-5-misleading-information-fines": {
+      "claim": "Giving incorrect, incomplete or misleading information to authorities can cost up to EUR 7.5 million or 1% of worldwide annual turnover, whichever is higher.",
+      "quote": "5. The supply of incorrect, incomplete or misleading information to notified bodies or national competent authorities in reply to a request shall be subject to administrative fines of up to EUR 7 500 000 or, if the offender is an undertaking, up to 1 % of its total worldwide annual turnover for the preceding financial year, whichever is higher.",
+      "locator": "Article 99(5)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_99",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-099.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-99-6-sme-lower-cap": {
+      "claim": "For SMEs, including start-ups, each fine is capped at whichever of the fixed amount or the turnover percentage is lower.",
+      "quote": "6. In the case of SMEs, including start-ups, each fine referred to in this Article shall be up to the percentages or amount referred to in paragraphs 3, 4 and 5, whichever thereof is lower.",
+      "locator": "Article 99(6)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_99",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-099.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-99-6a-smc-lower-cap": {
+      "claim": "For small mid-caps (SMCs), each fine under Art. 99(4) (operator obligations, including deployer and transparency duties) and Art. 99(5) (misleading information) is capped at whichever of the fixed amount or the turnover percentage is lower. The Art. 99(3) prohibited-practice fine is not covered.",
+      "quote": "6a. In the case of SMCs, each fine referred to in paragraphs 4 and 5 shall be up to the percentages or amount referred therein, whichever is lower.",
+      "locator": "Article 99(6a) (as amended by Reg. (EU) 2026/1744)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_99",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-099.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-99-1-smc-economic-viability": {
+      "claim": "When imposing penalties, member states must take into account the interests and economic viability of SMEs, start-ups and small mid-caps.",
+      "quote": "The Member States shall take into account the interests of SMEs, including start-ups, and SMCs, and their economic viability when imposing penalties.",
+      "locator": "Article 99(1) (as amended by Reg. (EU) 2026/1744)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_99",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-099.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-recommendation-2003-361-sme-under-250": {
+      "claim": "Under the EU definition the AI Act uses, an SME employs fewer than 250 people and has turnover up to EUR 50 million and/or a balance sheet up to EUR 43 million.",
+      "quote": "1. The category of micro, small and medium-sized enterprises (SMEs) is made up of enterprises which employ fewer than 250 persons and which have an annual turnover not exceeding EUR 50 million, and/or an annual balance sheet total not exceeding EUR 43 million.",
+      "locator": "Annex, Article 2(1)",
+      "url": "https://eur-lex.europa.eu/eli/reco/2003/361/oj",
+      "corpus": "corpus/eu-ai-act/rec-2003-361-sme-definition/full-text.md",
+      "source": {
+        "id": "sources/eu-2003-sme-definition-recommendation-2003-361",
+        "title": "Commission Recommendation 2003/361/EC, the EU definition of micro, small and medium-sized enterprises",
+        "published": "2003-05-20",
+        "version": "as-enacted"
+      }
+    },
+    "eu-recommendation-2025-1099-smc-under-750": {
+      "claim": "A small mid-cap enterprise is a company that is not an SME, employs fewer than 750 people and has turnover up to EUR 150 million or a balance sheet up to EUR 129 million.",
+      "quote": "The category of small mid-cap enterprises is made up of enterprises which are not small and medium-sized enterprises in accordance with Recommendation 2003/361/EC, employ fewer than 750 persons and have an annual turnover not exceeding EUR 150 million or an annual balance sheet total not exceeding EUR 129 million.",
+      "locator": "Annex, point 2",
+      "url": "https://eur-lex.europa.eu/eli/reco/2025/1099/oj",
+      "corpus": "corpus/eu-ai-act/rec-2025-1099-smc-definition/full-text.md",
+      "source": {
+        "id": "sources/eu-2025-smc-definition-recommendation-2025-1099",
+        "title": "Commission Recommendation (EU) 2025/1099, the EU definition of small mid-cap enterprises",
+        "published": "2025-05-21",
+        "version": "as-enacted"
+      }
+    },
+    "eu-ai-act-art-113-b-gpai-2025-08-02": {
+      "claim": "The general-purpose AI model rules (Chapter V), governance and penalties (Chapter XII) have applied since 2 August 2025, except the Article 101 fines on general-purpose AI providers.",
+      "quote": "(b) Chapter III Section 4, Chapter V, Chapter VII and Chapter XII and Article 78 shall apply from 2 August 2025, with the exception of Article 101;",
+      "locator": "Article 113(b)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_113",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-113.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-111-2-legacy-high-risk-systems": {
+      "claim": "High-risk AI systems placed on the market or put into service before the high-risk rules apply are covered only if their design changes significantly from that date (public-authority systems aside).",
+      "quote": "2. Without prejudice to the application of Article 5 as referred to in Article 113, third paragraph, point (a), this Regulation shall apply to operators of high-risk AI systems, other than the systems referred to in paragraph 1 of this Article, that have been placed on the market or put into service before the date of application of Chapter III referred to in Article 113, only if, as from that date, those systems are subject to significant changes in their designs.",
+      "locator": "Article 111(2) (as amended by Reg. (EU) 2026/1744)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_111",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-111.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-111-4-content-marking-grace-2026-12-02": {
+      "claim": "Providers of content-generating AI already on the market before 2 August 2026 must comply with the Article 50(2) marking duty by 2 December 2026.",
+      "quote": "4. Providers of AI systems, including general-purpose AI systems, generating synthetic audio, image, video or text content, that have been placed on the market before 2 August 2026 shall take the necessary steps in order to comply with Article 50(2) by 2 December 2026.",
+      "locator": "Article 111(4) (as amended by Reg. (EU) 2026/1744)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_111",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-111.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-2026-omnibus-entry-into-force": {
+      "claim": "Regulation (EU) 2026/1744, published in the Official Journal on 24 July 2026, entered into force on the third day after publication, 27 July 2026.",
+      "quote": "This Regulation shall enter into force on the third day following that of its publication in the Official Journal of the European Union.",
+      "locator": "Article 4, first paragraph",
+      "url": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj#art_4",
+      "corpus": "corpus/eu-ai-act/reg-2026-1744/art-004.md",
+      "source": {
+        "id": "sources/eu-2026-digital-omnibus-ai-regulation-2026-1744",
+        "title": "Regulation (EU) 2026/1744, the Digital Omnibus on AI (Official Journal, 24 July 2026)",
+        "published": "2026-07-24",
+        "version": "as-enacted"
+      }
+    },
+    "eu-ai-act-art-75-1-ai-office-competence": {
+      "claim": "The EU AI Office is exclusively competent to supervise AI systems built on a general-purpose AI model by the same provider (with exceptions), rather than national authorities.",
+      "quote": "1. The AI Office shall be exclusively competent for the supervision and enforcement of the obligations under this Regulation in relation to the following AI systems: (a) AI systems based on general-purpose AI models where the model and the system are developed by the same provider, or by providers forming part of the same undertaking as that provider, with the exception of:",
+      "locator": "Article 75(1)(a) (as amended by Reg. (EU) 2026/1744)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_75",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-075.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-75c-8-five-year-limitation": {
+      "claim": "For operators under the AI Office's exclusive competence (Art. 75(1)), the AI Office has five years to fine, counted from the infringement, or from the day a continuing or repeated infringement ceases.",
+      "quote": "8. The powers conferred on the AI Office by this Article shall be subject to a limitation period of five years. The limitation period shall begin to run on the day on which the infringement is committed. However, in the case of continuing or repeated infringements, the limitation period shall begin to run on the day on which the infringement ceases.",
+      "locator": "Article 75c(8) (as amended by Reg. (EU) 2026/1744)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_75c",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-075c.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "ec-2026-draft-75c-investigative-steps-interrupt-clock": {
+      "claim": "Under the Commission's October 2026 consultation draft, for operators under the AI Office's exclusive competence (Art. 75(1)), any investigative action, including information requests, system evaluations, inspections and structured dialogue, would interrupt the five-year limitation period for fines.",
+      "quote": "2. Any action taken by the Commission for the purpose of its investigation or proceedings in respect of an operator of an AI system falling within the scope of Article 75(1) of Regulation (EU) 2024/1689 shall interrupt the limitation period for the imposition of fines or periodic penalty payments. Actions which interrupt the running of that period shall include the following: (a) requests for documentation, explanations or other information; (b) requests for access to conduct system evaluations; (c) inspections; (d) invitations to a structured dialogue; (e) the opening of proceedings pursuant to Article 75a(2); or (f) the re-opening of proceedings pursuant to Article 75b.",
+      "locator": "Draft Implementing Regulation, Article 4(2)",
+      "url": "https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/19292-AI-Act-Implementing-Act-Articles-75c-75d_en",
+      "corpus": "corpus/eu-ai-act/draft-impl-reg-75c-75d-2026/full-text.md",
+      "source": {
+        "id": "sources/ec-2026-draft-implementing-regulation-ai-act-75c-75d",
+        "title": "Draft Commission Implementing Regulation on AI Office proceedings under Articles 75c and 75d of the AI Act (consultation draft, 12 October 2026)",
+        "published": "2026-10-12",
+        "version": "draft"
+      }
+    },
+    "ec-2026-draft-75c-clock-restarts-ten-year-cap": {
+      "claim": "Under the October 2026 draft, for AI Office proceedings, each interruption restarts the five-year clock, but the period expires at the latest after twice the limitation period (ten years) without a fine, plus any suspension.",
+      "quote": "3. Each interruption of the period referred to in paragraph 1 shall start time running afresh. However, the limitation period shall expire at the latest on the day on which a period equal to twice the limitation period has elapsed without the Commission having imposed a fine or a periodic penalty payment. That period shall be extended by the time during which limitation is suspended pursuant to paragraph 6.",
+      "locator": "Draft Implementing Regulation, Article 4(3)",
+      "url": "https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/19292-AI-Act-Implementing-Act-Articles-75c-75d_en",
+      "corpus": "corpus/eu-ai-act/draft-impl-reg-75c-75d-2026/full-text.md",
+      "source": {
+        "id": "sources/ec-2026-draft-implementing-regulation-ai-act-75c-75d",
+        "title": "Draft Commission Implementing Regulation on AI Office proceedings under Articles 75c and 75d of the AI Act (consultation draft, 12 October 2026)",
+        "published": "2026-10-12",
+        "version": "draft"
+      }
+    },
+    "ec-2026-draft-75c-not-adopted": {
+      "claim": "The Commission's Article 75c/75d implementing act is a consultation draft (Ref. Ares(2026)9589403, feedback until 9 November 2026) and has not been adopted.",
+      "quote": "This draft has not been adopted or endorsed by the European Commission. Any views expressed are the preliminary views of the Commission services and may not in any circumstances be regarded as stating an official position of the Commission.",
+      "locator": "Draft Implementing Regulation, cover page",
+      "url": "https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/19292-AI-Act-Implementing-Act-Articles-75c-75d_en",
+      "corpus": "corpus/eu-ai-act/draft-impl-reg-75c-75d-2026/full-text.md",
+      "source": {
+        "id": "sources/ec-2026-draft-implementing-regulation-ai-act-75c-75d",
+        "title": "Draft Commission Implementing Regulation on AI Office proceedings under Articles 75c and 75d of the AI Act (consultation draft, 12 October 2026)",
+        "published": "2026-10-12",
+        "version": "draft"
+      }
+    },
+    "eu-ai-act-art-3-1-ai-system-definition": {
+      "claim": "The EU AI Act defines an AI system as a machine-based system that infers from its input how to generate outputs such as predictions, content, recommendations or decisions.",
+      "quote": "(1) ‘AI system’ means a machine-based system that is designed to operate with varying levels of autonomy and that may exhibit adaptiveness after deployment, and that, for explicit or implicit objectives, infers, from the input it receives, how to generate outputs such as predictions, content, recommendations, or decisions that can influence physical or virtual environments;",
+      "locator": "Article 3(1)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_3",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-003.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    },
+    "eu-ai-act-art-5-1-ba-non-consensual-intimate-imagery-prohibited": {
+      "claim": "The Digital Omnibus added a prohibition on AI systems that generate or manipulate intimate or sexually explicit imagery of identifiable people without their consent.",
+      "quote": "(ba) the placing on the market, the putting into service or the use of an AI system that generates or manipulates realistic images, videos, audio or similar material of an identifiable natural person’s intimate parts, or of an identifiable natural person engaged in sexually explicit activities, without that person’s freely-given, specific, informed, unambiguous and explicit consent for that generation or manipulation;",
+      "locator": "Article 5(1)(ba) (as amended by Reg. (EU) 2026/1744)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02024R1689-20260727#art_5",
+      "corpus": "corpus/eu-ai-act/reg-2024-1689-consolidated-2026-07-27/art-005.md",
+      "source": {
+        "id": "sources/eu-2026-ai-act-consolidated-2026-07-27",
+        "title": "Regulation (EU) 2024/1689 (AI Act), consolidated text as of 27 July 2026",
+        "published": "2026-07-27",
+        "version": "consolidated-2026-07-27"
+      }
+    }
+  }
+}

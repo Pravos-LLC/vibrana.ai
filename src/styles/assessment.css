@@ -1,0 +1,17 @@
+/*
+ * Assessment-specific CSS.
+ *
+ * The structural/design classes (.type-*, .heading-*, .btn-primary,
+ * .btn-secondary, .text-gradient-prism) that used to live here are now owned by
+ * the scoped `.prism-light` versions in app/globals.css. The assessment always
+ * renders inside `.prism-light` (now body-global), so those scoped rules apply
+ * and these duplicates were removed to eliminate the specificity collision.
+ *
+ * Only assessment-unique rules remain below.
+ */
+
+/* Reveal animation classes (driven by GSAP) — visibility safety net. */
+.assessment-reveal,
+.results-reveal {
+  will-change: transform, opacity;
+}

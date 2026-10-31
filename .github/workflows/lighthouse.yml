@@ -1,0 +1,57 @@
+permissions:
+  contents: read
+
+name: Lighthouse
+
+# Synthetic-lab performance check. Builds the app, runs Lighthouse (3 runs,
+# median) against the key buyer routes, and asserts the budgets in
+# lighthouserc.json. Required check: a budget regression blocks the merge.
+# Budgets sit just under the scores measured in CI (numbers in PR #70).
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  # Cancel superseded PR runs only; every master push gets a complete run.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# bash => -eo pipefail, so a failed curl in a pipe fails the step.
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  lighthouse:
+    if: github.repository == 'Pravos-LLC/vibrana.ai'
+    name: lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          # Next 16 build OOMs on the default runner heap; give it headroom.
+          NODE_OPTIONS: --max-old-space-size=6144
+          # Build-only placeholders for clients constructed while Next collects
+          # route data. No external service is called by the synthetic build.
+          SUPABASE_URL: https://placeholder.supabase.co
+          SUPABASE_SERVICE_KEY: placeholder-service-key
+          RESEND_API_KEY: re_placeholder_00000000
+
+      - name: Run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.14.0
+          lhci autorun

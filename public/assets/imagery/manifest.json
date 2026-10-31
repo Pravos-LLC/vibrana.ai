@@ -1,0 +1,1440 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "id": "obj-macbook-bali",
+      "file": "/assets/imagery/homepage/obj-macbook-bali.webp",
+      "collection": "homepage",
+      "category": "device",
+      "title": "The laptop, elsewhere",
+      "description": "A workspace transplanted into rice terraces, technology folded into landscape.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-phone-riad",
+      "file": "/assets/imagery/homepage/obj-phone-riad.webp",
+      "collection": "homepage",
+      "category": "device",
+      "title": "Signal, softened",
+      "description": "A phone screen glowing quietly against Marrakech tile and lantern light.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-desk-paddies",
+      "file": "/assets/imagery/homepage/obj-desk-paddies.webp",
+      "collection": "homepage",
+      "category": "device",
+      "title": "Desk at the edge of the field",
+      "description": "Ordinary hardware, extraordinary ground: a desk set down where paddies meet sky.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-macbook-bali2",
+      "file": "/assets/imagery/homepage/obj-macbook-bali2.webp",
+      "collection": "homepage",
+      "category": "device",
+      "title": "Terraces, once more",
+      "description": "A second look at the same rice-terrace desk, technology settling into the landscape again.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-keyboard-desert",
+      "file": "/assets/imagery/homepage/obj-keyboard-desert.webp",
+      "collection": "homepage",
+      "category": "device",
+      "title": "Keys in the sand",
+      "description": "A keyboard set down where dunes meet horizon, its keys catching the same light as the sand.",
+      "aspect": "1365 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-monitor-tokyo",
+      "file": "/assets/imagery/homepage/obj-monitor-tokyo.webp",
+      "collection": "homepage",
+      "category": "device",
+      "title": "A screen over the city",
+      "description": "A monitor glowing against a Tokyo skyline, interface and city trading light.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-tablet-iceland",
+      "file": "/assets/imagery/homepage/obj-tablet-iceland.webp",
+      "collection": "homepage",
+      "category": "device",
+      "title": "Glass on ice",
+      "description": "A tablet resting on volcanic rock, its screen the only warmth in a cold, black landscape.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-guitar-canyon",
+      "file": "/assets/imagery/homepage/obj-guitar-canyon.webp",
+      "collection": "homepage",
+      "category": "poetic-object",
+      "title": "Strings across stone",
+      "description": "A guitar set down where canyon walls hold the echo, the closest thing to a stage for miles.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-suitcase-platform",
+      "file": "/assets/imagery/homepage/obj-suitcase-platform.webp",
+      "collection": "homepage",
+      "category": "poetic-object",
+      "title": "Waiting, packed",
+      "description": "A suitcase set on an empty platform, the whole day folded into a departure.",
+      "aspect": "1152 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-books-window",
+      "file": "/assets/imagery/homepage/obj-books-window.webp",
+      "collection": "homepage",
+      "category": "poetic-object",
+      "title": "Pages at the glass",
+      "description": "A stack of books at a windowsill, the read world meeting the one outside it.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-surfboard-beach",
+      "file": "/assets/imagery/homepage/obj-surfboard-beach.webp",
+      "collection": "homepage",
+      "category": "poetic-object",
+      "title": "Board in the sand",
+      "description": "A surfboard planted at the tideline, waiting on the next set.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-bicycle-alley",
+      "file": "/assets/imagery/homepage/obj-bicycle-alley.webp",
+      "collection": "homepage",
+      "category": "poetic-object",
+      "title": "Parked, mid-errand",
+      "description": "A bicycle leaning in a narrow alley, the day's errands paused mid-stride.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "obj-bicycle-hackney",
+      "file": "/assets/imagery/homepage/obj-bicycle-hackney.webp",
+      "collection": "homepage",
+      "category": "poetic-object",
+      "title": "Last one in",
+      "description": "A vintage bicycle wheeled inside a Hackney cafe at closing, the city dark and wet through the glass.",
+      "aspect": "1152 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-social",
+      "file": "/assets/imagery/homepage/ppl-social.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "Off the clock",
+      "description": "Friends gathered mid-laugh, work nowhere in the frame but everywhere in the ease.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-professional",
+      "file": "/assets/imagery/homepage/ppl-professional.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "At the table",
+      "description": "A cross-border team leaning into the same problem, no stock-photo distance.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-workshop",
+      "file": "/assets/imagery/homepage/ppl-workshop.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "Hands on the work",
+      "description": "A workshop mid-flow, sketches and screens sharing the same surface.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-stickynotes-v2",
+      "file": "/assets/imagery/homepage/ppl-stickynotes-v2.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "Thinking out loud",
+      "description": "A wall of sticky notes and the hands still arranging them, ideas caught mid-sort.",
+      "aspect": "1365 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-cafe-laptop",
+      "file": "/assets/imagery/homepage/ppl-cafe-laptop.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "Café, mid-thought",
+      "description": "A laptop open at a café table, the day's work blurred quietly into everyday life.",
+      "aspect": "1152 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-dinner-v2",
+      "file": "/assets/imagery/homepage/ppl-dinner-v2.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "Dinner, above the city",
+      "description": "A team unwinding over a rooftop table, the day's work traded for company and skyline.",
+      "aspect": "1152 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-rooftop-dinner",
+      "file": "/assets/imagery/homepage/ppl-rooftop-dinner.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "Long table, dusk",
+      "description": "A shared rooftop dinner at dusk, plates and wine passed around as the city lights come up behind.",
+      "aspect": "1152 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-site-laptop",
+      "file": "/assets/imagery/homepage/ppl-site-laptop.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "Laptop on site",
+      "description": "Colleagues crouched around a laptop at a golden-hour worksite, the day's work happening wherever the ground allows.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-stickynotes",
+      "file": "/assets/imagery/homepage/ppl-stickynotes.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "Backs to the wall",
+      "description": "A team seen entirely from behind, reaching to place sticky notes on a sunlit office wall, ideas arriving before faces do.",
+      "aspect": "1365 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-manmachine",
+      "file": "/assets/imagery/homepage/prism-manmachine.webp",
+      "collection": "homepage",
+      "category": "prism-lunar",
+      "title": "Where the hand becomes signal",
+      "description": "The boundary between human gesture and machine light, dissolved.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-glass-grid",
+      "file": "/assets/imagery/homepage/prism-glass-grid.webp",
+      "collection": "homepage",
+      "category": "prism-lunar",
+      "title": "Refracted grid",
+      "description": "Structure seen through glass: order bent into color.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-nature-spiral",
+      "file": "/assets/imagery/homepage/prism-nature-spiral.webp",
+      "collection": "homepage",
+      "category": "prism-lunar",
+      "title": "The spiral returns",
+      "description": "A natural form spun into the brand's own logic, growth as geometry.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-hands-diverse",
+      "file": "/assets/imagery/homepage/prism-hands-diverse.webp",
+      "collection": "homepage",
+      "category": "prism-lunar",
+      "title": "Many hands, one light",
+      "description": "Diverse hands catching the same prismatic beam, a shared spectrum.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-manmachine-lunar",
+      "file": "/assets/imagery/homepage/prism-manmachine-lunar.webp",
+      "collection": "homepage",
+      "category": "prism-lunar",
+      "title": "Night signal",
+      "description": "The same dissolve between hand and light, now read in near-darkness.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-grid-lunar",
+      "file": "/assets/imagery/homepage/prism-grid-lunar.webp",
+      "collection": "homepage",
+      "category": "prism-lunar",
+      "title": "Grid under moonlight",
+      "description": "Structure seen through glass at night, order bent into a darker spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-forest-lunar",
+      "file": "/assets/imagery/homepage/prism-forest-lunar.webp",
+      "collection": "homepage",
+      "category": "prism-lunar",
+      "title": "Forest, after dark",
+      "description": "A natural form spun into the brand's own logic, lit by a colder, later light.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-manmachine-solar",
+      "file": "/assets/imagery/homepage/prism-manmachine-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Day signal",
+      "description": "The same dissolve between hand and light, now read in full sun.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-manmachine-solar-warm",
+      "file": "/assets/imagery/homepage/prism-manmachine-solar-warm.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Day signal, warm",
+      "description": "The same dissolve between hand and light, now read in an orange-red register.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-grid-solar",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "prism-forest-solar",
+      "file": "/assets/imagery/homepage/prism-forest-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Forest, in full light",
+      "description": "A natural form spun into the brand's own logic, lit by an open, daytime sky.",
+      "aspect": "614 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "machine-datacenter-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "machine-robot-02",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "machine-chips-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "machine-dataviz-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "crisis-wildfire-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "crisis-drought-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "crisis-mining-pit-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "crisis-fab-plant-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "crisis-earth-nasa-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "machine-server-racks-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "machine-processor-chip-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "machine-circuit-board-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "machine-robot-arm-factory-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "crisis-drought-cracked-earth-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "crisis-mining-pit-aerial-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "crisis-chip-fab-cleanroom-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "crisis-wildfire-smoke-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "machine-humanoid-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "machine-bci-01",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "sprint-whiteboard-team",
+      "file": "/assets/imagery/sprint/sprint-whiteboard-team.webp",
+      "collection": "sprint",
+      "category": "people",
+      "title": "Sprint Whiteboard Team",
+      "description": "A small cross-border team mapping a product plan on a whiteboard of marker boxes and sticky notes at blue hour, seen from behind, one holding a glowing laptop.",
+      "aspect": "4 / 5",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "sprint-hands-keyboard",
+      "file": "/assets/imagery/sprint/sprint-hands-keyboard.webp",
+      "collection": "sprint",
+      "category": "device",
+      "title": "Sprint Hands Keyboard",
+      "description": "Two pairs of brown hands at one laptop in a lantern-lit courtyard, one typing, one pointing at a prototype taking shape.",
+      "aspect": "1 / 1",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "sprint-prototype-laptop",
+      "file": "/assets/imagery/sprint/sprint-prototype-laptop.webp",
+      "collection": "sprint",
+      "category": "device",
+      "title": "Sprint Prototype Laptop",
+      "description": "A laptop glowing with an early app prototype in a dusk courtyard studio, wireframe sketches and a phone beside it.",
+      "aspect": "3 / 2",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "sprint-track-product",
+      "file": "/assets/imagery/sprint/sprint-track-product.webp",
+      "collection": "sprint",
+      "category": "device",
+      "title": "Sprint Track Product",
+      "description": "Paper wireframes on a workbench with a phone on top showing the same design come to life, a product taking shape from sketch to screen.",
+      "aspect": "4 / 3",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "sprint-track-workflow",
+      "file": "/assets/imagery/sprint/sprint-track-workflow.webp",
+      "collection": "sprint",
+      "category": "poetic-object",
+      "title": "Sprint Track Workflow",
+      "description": "An engineer and a department lead seen from behind at two monitors, one with code and one with a workflow diagram, in a daylight office with a big window and plants.",
+      "aspect": "16 / 10",
+      "source": {
+        "mode": "text",
+        "prompt": "",
+        "license": "generated"
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "sprint-track-governance",
+      "file": "/assets/imagery/sprint/sprint-track-governance.webp",
+      "collection": "sprint",
+      "category": "poetic-object",
+      "title": "Sprint Track Governance",
+      "description": "A bound document, pen and closed laptop squared on a long oak table under an arched dawn window: calm structure, quiet trust.",
+      "aspect": "4 / 3",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "sprint-track-people",
+      "file": "/assets/imagery/sprint/sprint-track-people.webp",
+      "collection": "sprint",
+      "category": "people",
+      "title": "Sprint Track People",
+      "description": "Four colleagues learning together around one laptop at a courtyard table, one explaining, the others leaning in over notebooks and chai.",
+      "aspect": "4 / 3",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "sprint-cta-solar",
+      "file": "/assets/imagery/sprint/sprint-cta-solar.webp",
+      "collection": "sprint",
+      "category": "prism-solar",
+      "title": "Sprint Cta Solar",
+      "description": "Morning sun through a hanging prism throws a rainbow across a plant-filled workbench and an open laptop: a new thing about to start.",
+      "aspect": "16 / 9",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "sprint-hourglass",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eng-transformation-call-a",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eng-sprint-table-a",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eng-journeys-laptop-a",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "phase-embed-a",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "scene-desk-wood-a",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eng-transformation-call-b",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eng-sprint-table-b",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eng-journeys-laptop-b",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "phase-embed-b",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "scene-desk-wood-b",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eng-transformation-call",
+      "file": "/assets/imagery/homepage/eng-transformation-call.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "Transformation all-hands call",
+      "description": "A laptop on a cluttered wooden desk showing a nine-tile all-hands video call where every tile differs: camera-off initials, a person on a phone outdoors, one in a car, rooms and lighting all different; mixed international participants, soft film grade.",
+      "aspect": "16 / 10",
+      "source": {
+        "mode": "text",
+        "prompt": "",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eng-sprint-table",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eng-journeys-laptop",
+      "file": "/assets/imagery/homepage/eng-journeys-laptop.webp",
+      "collection": "homepage",
+      "category": "people",
+      "title": "Learning journeys laptop",
+      "description": "Two colleagues seen from behind at a shared monitor in a bright open-plan small-company office, learning a workflow from an abstract flowchart; casual wardrobe, plants and mismatched mugs.",
+      "aspect": "16 / 10",
+      "source": {
+        "mode": "text",
+        "prompt": "",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "phase-embed",
+      "file": "/assets/imagery/homepage/phase-embed.webp",
+      "collection": "homepage",
+      "category": "poetic-object",
+      "title": "Embed phase handover",
+      "description": "Four colleagues clustered around a team screen showing a workflow with checkmarks in a small bright office: the handover moment, faces turned away.",
+      "aspect": "16 / 10",
+      "source": {
+        "mode": "text",
+        "prompt": "",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "scene-desk-wood",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-john-fatma-session",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "fit-from-office",
+      "file": "/assets/imagery/homepage/fit-from-office.webp",
+      "collection": "homepage",
+      "category": "poetic-object",
+      "title": "Fit section: pilot ignored",
+      "description": "A wide office corridor where colleagues walk past a wall dashboard of a stalled AI pilot without looking at it; cool, flat light.",
+      "aspect": "16 / 9",
+      "source": {
+        "mode": "text",
+        "prompt": "",
+        "license": "generated"
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "fit-to-office",
+      "file": "/assets/imagery/homepage/fit-to-office.webp",
+      "collection": "homepage",
+      "category": "poetic-object",
+      "title": "Fit section: team runs its own workflow",
+      "description": "The same office in warm afternoon sun: operations colleagues maintaining an agentic workflow they built themselves, seen from behind.",
+      "aspect": "16 / 9",
+      "source": {
+        "mode": "text",
+        "prompt": "",
+        "license": "generated"
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "ppl-john-sprint-whiteboard",
+      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "collection": "homepage",
+      "category": "prism-solar",
+      "title": "Grid in daylight",
+      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
+      "aspect": "768 / 768",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "teams-call-diptych",
+      "file": "/assets/imagery/homepage/teams-call-diptych.webp",
+      "collection": "homepage",
+      "category": "device",
+      "title": "Teams call diptych: speaker and listener",
+      "description": "Two colleagues seen from behind at their own desks on the same Teams-style call: she speaks mid-gesture with an open palm, he listens with arms folded. The screens show an active-speaker view with fictional participants.",
+      "aspect": "16 / 10",
+      "source": {
+        "mode": "text",
+        "prompt": "",
+        "license": "generated"
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eu-pocket-watch-brussels",
+      "file": "/assets/imagery/eu-ai-act/eu-pocket-watch-brussels.webp",
+      "collection": "eu-ai-act",
+      "category": "poetic-object",
+      "title": "Eu Pocket Watch Brussels",
+      "description": "An antique pocket watch on a stone balustrade above blurred Brussels rooftops at blue hour: the enforcement clock.",
+      "aspect": "4 / 3",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eu-education-reading-room",
+      "file": "/assets/imagery/eu-ai-act/eu-education-reading-room.webp",
+      "collection": "eu-ai-act",
+      "category": "poetic-object",
+      "title": "Eu Education Reading Room",
+      "description": "Antique books and a school globe on an oak table in a European university reading room at dusk: education and training, softened.",
+      "aspect": "4 / 3",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    },
+    {
+      "id": "eu-credit-ledger",
+      "file": "/assets/imagery/eu-ai-act/eu-credit-ledger.webp",
+      "collection": "eu-ai-act",
+      "category": "poetic-object",
+      "title": "Eu Credit Ledger",
+      "description": "A vintage mechanical adding machine with a curl of paper tape on a marble bank counter at blue hour: credit and insurance decisions, softened.",
+      "aspect": "4 / 3",
+      "source": {
+        "mode": "text",
+        "prompt": ""
+      },
+      "preset": "",
+      "tags": [],
+      "status": "withheld",
+      "createdAt": ""
+    }
+  ]
+}

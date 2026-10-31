@@ -1,0 +1,40 @@
+{
+  "_comment": "Generic failure types from the AI Readiness plan (Workstream B), written as drafts for golden profiles. No client details. Each must be rejected: by the code checks where `caughtBy` is `code`, by the judge where it is `judge`.",
+  "drafts": [
+    {
+      "id": "invented-benchmark",
+      "profile": "agency-early",
+      "caughtBy": "code",
+      "failure": "an unsourced statistic and a peer comparison",
+      "text": "Brightline Studio makes brand campaigns and social content for consumer brands, and agencies of your size are already using AI to cut production time by 40%. Your scores put you behind your peers, which is a real risk in a market that moves this fast.\n\nAs a **Calculated Scout**, your biggest challenge is that most companies in your position stall because nobody owns AI. Without an owner, tools get bought and never used, and the gap to competitors widens every quarter.\n\nStart by naming one person to own AI and give them a budget. Pick one production task, such as resizing campaign assets for each channel, and measure how long it takes today before you try a tool on it."
+    },
+    {
+      "id": "asserted-culture-problem",
+      "profile": "manufacturer-tactical",
+      "caughtBy": "judge",
+      "failure": "tells the buyer about fear and resistance in their culture with no basis in what they said",
+      "text": "Ostrava Precision Parts machines aluminum and steel components for automotive suppliers, and the sensor data you already collect on the shop floor is the obvious place to start with AI. Predictive maintenance and quality inspection both follow from that data.\n\nThe real problem is your people. Your workforce is afraid of automation and your managers are resisting change, which is why nothing has moved despite strong operational foundations. Until leadership confronts this fear directly, every AI project will be quietly blocked on the shop floor.\n\nStart with a town hall where leadership explains that no jobs will be cut, then launch a predictive maintenance pilot on one production line using the sensor data you already have."
+    },
+    {
+      "id": "flattery-and-hype",
+      "profile": "inflated-fast",
+      "caughtBy": "code",
+      "failure": "hype words, flattery and taking all-maximum answers at face value",
+      "text": "Quanta Labs is an impressive, well-positioned startup poised to revolutionize scheduling for dental clinics. With perfect scores across the board, you are clearly ahead of the curve and ready to unlock the full power of AI.\n\nYour only challenge is choosing which of your many strengths to leverage first. As an **Apex Integrator**, your robust foundations mean you can move straight to scaling AI across the business.\n\nEmbark on an ambitious AI roadmap now: launch several AI features at once and position Quanta Labs as the AI leader in dental software."
+    },
+    {
+      "id": "generic-filler",
+      "profile": "sparse-site",
+      "caughtBy": "judge",
+      "failure": "would read the same in any company's report and offers nothing to do this month",
+      "text": "Carver Freight operates in an industry where AI is changing how work gets done. There are many opportunities for organizations to use AI to improve efficiency, reduce costs and serve customers better, and your results suggest you have a foundation to build on.\n\nLike any organization, you will face challenges as you adopt AI. Data, technology, people and governance all matter, and each needs attention if AI is going to deliver value over time.\n\nThe best place to start is to think about your goals, consider where AI might help, and build a plan that brings your people along. With the right approach, AI can become an important part of how you work."
+    },
+    {
+      "id": "scores-as-measurement",
+      "profile": "bank-visionary",
+      "caughtBy": "judge",
+      "failure": "presents self-reported scores as a measurement and a prediction of success",
+      "text": "Halden Private Bank offers wealth management and private banking in Switzerland and the UK, and our assessment has measured your AI readiness precisely. The measurement shows a bank that will succeed with AI, because a Chief AI Officer and a board-approved strategy guarantee results.\n\nAs a **Visionary Architect**, your measured operational capability of 24 confirms that your data cannot support AI today. Your data is poor and your technology is outdated, and this will certainly cause your first projects to fail unless fixed.\n\nYour first step should be a full data platform replacement, then a client-facing AI advisor on the new digital portal."
+    }
+  ]
+}

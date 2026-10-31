@@ -1,0 +1,351 @@
+{
+  "syncedFrom": "Pravos-LLC/vibrana@cda9940",
+  "question": "how-much-time-does-ai-save-by-workflow",
+  "workflows": {
+    "support": {
+      "row": "Customer support, ticket triage and answering",
+      "conservative": {
+        "pct": 8.5,
+        "finding": "brynjolfsson-2023-handle-time-down-8-percent"
+      },
+      "expected": {
+        "pct": 15,
+        "finding": "brynjolfsson-2023-15-percent-productivity"
+      },
+      "unit": "Conservative: time per chat. Expected: issues resolved per hour",
+      "design": "Field, staggered rollout, difference-in-differences, 5,172 agents, one firm",
+      "also": []
+    },
+    "documents": {
+      "row": "Document processing and data extraction (notes, forms, contracts, invoices)",
+      "conservative": {
+        "pct": 0,
+        "finding": "lukac-2025-scribe-time-in-note-9-percent"
+      },
+      "expected": {
+        "pct": 9.5,
+        "finding": "lukac-2025-scribe-time-in-note-9-percent"
+      },
+      "unit": "Time spent writing documentation",
+      "design": "RCT, 238 physicians, two AI scribes: one saved 9.5%, the other had no significant effect. No rigorous study of invoice or contract extraction found",
+      "also": []
+    },
+    "reports": {
+      "row": "Report writing and reporting",
+      "conservative": {
+        "pct": 0,
+        "finding": "dillon-2025-document-time-no-significant-change"
+      },
+      "expected": {
+        "pct": 2,
+        "finding": "dillon-2025-document-time-no-significant-change"
+      },
+      "ceiling": {
+        "pct": 40,
+        "finding": "noy-2023-writing-time-down-40-percent"
+      },
+      "unit": "Elapsed time to complete documents",
+      "design": "Field RCT, 7,137 workers, 66 firms (not significant, could be up to 7% slower). The 40% drafting figure is the lab ceiling from short reports",
+      "also": []
+    },
+    "research": {
+      "row": "Research and analysis (knowledge work inside AI's capability)",
+      "conservative": {
+        "pct": 0,
+        "finding": "dellacqua-2023-outside-frontier-worse"
+      },
+      "expected": {
+        "pct": 25,
+        "finding": "dellacqua-2023-inside-frontier-gains"
+      },
+      "unit": "Time to complete tasks",
+      "design": "Preregistered field experiment, 758 BCG consultants. Outside the frontier, AI users were 19 points less likely to be correct",
+      "also": []
+    },
+    "email-crm": {
+      "row": "Sales and admin email, CRM work",
+      "conservative": {
+        "pct": 12,
+        "finding": "dillon-2025-email-time-down-12-percent"
+      },
+      "expected": {
+        "pct": 17,
+        "finding": "dillon-2025-email-time-down-12-percent"
+      },
+      "unit": "Time in email",
+      "design": "Field RCT, 66 firms, 7,137 workers: 12% for everyone given access, 17% for those who used it. No measured CRM study found",
+      "also": []
+    },
+    "onboarding": {
+      "row": "Onboarding and internal knowledge Q&A",
+      "conservative": {
+        "pct": 0,
+        "finding": "brynjolfsson-2023-novices-30-percent"
+      },
+      "expected": {
+        "pct": 30,
+        "finding": "brynjolfsson-2023-novices-30-percent"
+      },
+      "unit": "Issues resolved per hour (support agents)",
+      "design": "Same support field study: new agents with AI performed like agents with three times the tenure; experienced agents saw minimal gains",
+      "also": []
+    },
+    "software": {
+      "row": "Software development",
+      "conservative": {
+        "pct": 0,
+        "finding": "metr-2025-developers-overestimate-speedup"
+      },
+      "expected": {
+        "pct": 21,
+        "finding": "paradis-2024-google-21-percent-faster"
+      },
+      "ceiling": {
+        "pct": 55.8,
+        "finding": "peng-2023-copilot-55-percent-faster"
+      },
+      "unit": "Time on task; 26% more completed tasks in field; 55.8% lab ceiling",
+      "design": "Conservative: RCT, 16 experienced developers, 19% slower (contested). Expected: RCT, 96 Google engineers. Field: three company RCTs, 4,867 developers. Ceiling: RCT, 95 freelancers, one greenfield task",
+      "also": [
+        "cui-2025-copilot-26-percent-more-tasks"
+      ]
+    }
+  },
+  "wholeJob": {
+    "row": "Whole-job check (all workflows)",
+    "conservative": {
+      "pct": 0.7,
+      "finding": "humlum-2025-time-savings-by-occupation"
+    },
+    "expected": {
+      "pct": 6.1,
+      "finding": "humlum-2025-time-savings-by-occupation"
+    },
+    "unit": "Share of total work hours, self-reported",
+    "design": "Survey linked to Danish administrative data, 11 occupations; all-occupation mean 3%",
+    "also": [
+      "humlum-2025-time-savings-3-percent-of-hours"
+    ]
+  },
+  "timeIsNotMoney": [
+    "dillon-2025-email-time-down-12-percent",
+    "humlum-2025-null-earnings-effects"
+  ],
+  "findings": {
+    "brynjolfsson-2023-handle-time-down-8-percent": {
+      "claim": "In the customer support deployment, AI assistance reduced average chat handle time by 3.7 minutes, an 8.5% decline from a 43 minute baseline, while chats handled per hour rose about 15% because agents also multitasked.",
+      "quote": "Column 1 documents a 3.7 minute decrease in the average duration of customer chats, an 8.5% decline from the baseline mean of 43 minutes",
+      "url": "https://arxiv.org/pdf/2304.11771",
+      "publishable": "public",
+      "source": {
+        "publisher": "arXiv / NBER Working Paper 31161; published in the Quarterly Journal of Economics (2025)",
+        "title": "Generative AI at Work",
+        "published": "2023-04-23",
+        "method": "Staggered rollout of a GPT-based conversational assistant to 5,172 customer support agents at one Fortune 500 software firm; difference-in-differences on administrative data"
+      }
+    },
+    "brynjolfsson-2023-15-percent-productivity": {
+      "claim": "Access to a generative AI assistant increased issues resolved per hour by 15% on average among 5,172 support agents, with wide variation across workers.",
+      "quote": "Access to AI assistance increases worker productivity, as measured by issues resolved per hour, by 15% on average, with substantial heterogeneity across workers.",
+      "url": "https://arxiv.org/pdf/2304.11771",
+      "publishable": "public",
+      "source": {
+        "publisher": "arXiv / NBER Working Paper 31161; published in the Quarterly Journal of Economics (2025)",
+        "title": "Generative AI at Work",
+        "published": "2023-04-23",
+        "method": "Staggered rollout of a GPT-based conversational assistant to 5,172 customer support agents at one Fortune 500 software firm; difference-in-differences on administrative data"
+      }
+    },
+    "lukac-2025-scribe-time-in-note-9-percent": {
+      "claim": "In an RCT of 238 physicians, Nabla users cut time-in-note by 9.5% versus usual care, while DAX users showed no significant change (1.7% decrease, CI 9.4% decrease to 5.9% increase).",
+      "quote": "Nabla users experienced a 9.5% [95% CI:-17.2%,-1.8%] (p=.02) decrease in time-in-note versus the control group and a 7.8% [-15.5%,-0.1%] (p=.05) decrease versus DAX users, while DAX users exhibited no significant change versus control (-1.7% [-9.4%,+5.9%]; p=.66).",
+      "url": "https://www.medrxiv.org/content/10.1101/2025.07.10.25331333v1",
+      "publishable": "public",
+      "source": {
+        "publisher": "medRxiv preprint 10.1101/2025.07.10.25331333; peer-reviewed version in NEJM AI (2025) as 'Ambient AI Scribes in Clinical Practice: A Randomized Trial'",
+        "title": "A Randomized-Clinical Trial of Two Ambient Artificial Intelligence Scribes: Measuring Documentation Efficiency and Physician Burnout",
+        "published": "2025-07-11",
+        "method": "Three-arm pragmatic RCT at a large academic health system in California, November 2024 to January 2025; 238 outpatient physicians in 14 specialties randomized 1:1:1 to Microsoft DAX, Nabla, or usual care; primary outcome change in time-in-note from EHR logs"
+      }
+    },
+    "dillon-2025-document-time-no-significant-change": {
+      "claim": "In the same field RCT, the intent-to-treat effect on time to complete Word documents was a 2% saving, not statistically significant, and an increase of up to 7% could not be ruled out; meeting time also did not change.",
+      "quote": "the ITT point estimate is a savings of only 2% of the pre-period mean, and we cannot rule out that document time to complete increased by as much as 7%.",
+      "url": "https://www.nber.org/system/files/working_papers/w33795/w33795.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "NBER Working Paper 33795 (revised November 2025)",
+        "title": "Shifting Work Patterns with Generative AI",
+        "published": "2025-05",
+        "method": "Randomized field experiment across 66 large firms and 7,137 knowledge workers (September 2023 to October 2024); treated workers got Microsoft 365 Copilot in Outlook, Teams, Word and other Office apps; outcomes from Microsoft telemetry over six months, intent-to-treat and LATE estimates"
+      },
+      "vendorNote": "Microsoft researchers are among the authors, and the tool studied is Microsoft's."
+    },
+    "noy-2023-writing-time-down-40-percent": {
+      "claim": "In a preregistered experiment with 453 professionals, access to ChatGPT reduced the average time taken on 20 to 30 minute occupation-specific writing tasks by 40%.",
+      "quote": "Our results show that ChatGPT substantially raised productivity: The average time taken decreased by 40% and output quality rose by 18%.",
+      "url": "https://doi.org/10.1126/science.adh2586",
+      "publishable": "public",
+      "source": {
+        "publisher": "Science 381(6654), 187-192; working paper circulated at MIT (March 2023)",
+        "title": "Experimental evidence on the productivity effects of generative artificial intelligence",
+        "published": "2023-07-14",
+        "method": "Preregistered online experiment; 453 college-educated professionals (marketers, grant writers, consultants, data analysts, HR professionals, managers) each did two incentivized 20 to 30 minute occupation-specific writing tasks; half randomly given ChatGPT before the second task"
+      }
+    },
+    "dellacqua-2023-outside-frontier-worse": {
+      "claim": "On a business problem chosen to sit outside GPT-4's capability, consultants using AI were less likely to reach the correct answer than those working without it.",
+      "quote": "for a complex managerial task selected to be outside the frontier, subjects using AI were 19% less likely to produce correct solutions compared with those without AI",
+      "url": "https://www.hbs.edu/faculty/Pages/download.aspx?name=dell-acqua-et-al-2026-navigating-the-jagged-technological-frontier.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "Organization Science (INFORMS); first circulated as HBS Working Paper 24-013 (2023)",
+        "title": "Navigating the Jagged Technological Frontier: Field Experimental Evidence of the Effects of AI on Knowledge Worker Productivity and Quality",
+        "published": "2026-03-11",
+        "method": "Preregistered randomized experiment, 758 BCG consultants; no AI vs GPT-4 vs GPT-4 plus prompt-engineering overview; 18 tasks inside the frontier, one strategy task outside it"
+      }
+    },
+    "dellacqua-2023-inside-frontier-gains": {
+      "claim": "On 18 realistic consulting tasks within AI's capability, BCG consultants using GPT-4 completed 12.2% more tasks, 25.1% faster, at significantly higher quality.",
+      "quote": "subjects using AI outperformed those not using AI, completing 12.2% more tasks and completing them 25.1% more quickly on average while also delivering solutions of significantly improved quality",
+      "url": "https://www.hbs.edu/faculty/Pages/download.aspx?name=dell-acqua-et-al-2026-navigating-the-jagged-technological-frontier.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "Organization Science (INFORMS); first circulated as HBS Working Paper 24-013 (2023)",
+        "title": "Navigating the Jagged Technological Frontier: Field Experimental Evidence of the Effects of AI on Knowledge Worker Productivity and Quality",
+        "published": "2026-03-11",
+        "method": "Preregistered randomized experiment, 758 BCG consultants; no AI vs GPT-4 vs GPT-4 plus prompt-engineering overview; 18 tasks inside the frontier, one strategy task outside it"
+      }
+    },
+    "dillon-2025-email-time-down-12-percent": {
+      "claim": "Across 66 firms and 7,137 knowledge workers, randomized access to Microsoft 365 Copilot cut time in Outlook email by 1.4 hours per week (12%) on an intent-to-treat basis, and by 2 hours (17%) among actual users.",
+      "quote": "Intention-to-treat estimates suggest workers with Copilot reduced their time using Outlook for email by 1.4 hours per week, a 12% reduction relative to the pre-period mean. The Local Average Treatment Effect (LATE) estimate from instrumenting Copilot use with treatment assignment implies a 2 hour (17%) reduction in Outlook time.",
+      "url": "https://www.nber.org/system/files/working_papers/w33795/w33795.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "NBER Working Paper 33795 (revised November 2025)",
+        "title": "Shifting Work Patterns with Generative AI",
+        "published": "2025-05",
+        "method": "Randomized field experiment across 66 large firms and 7,137 knowledge workers (September 2023 to October 2024); treated workers got Microsoft 365 Copilot in Outlook, Teams, Word and other Office apps; outcomes from Microsoft telemetry over six months, intent-to-treat and LATE estimates"
+      },
+      "vendorNote": "Microsoft researchers are among the authors, and the tool studied is Microsoft's."
+    },
+    "brynjolfsson-2023-novices-30-percent": {
+      "claim": "Less skilled and less experienced agents improved on every productivity measure, including roughly 30% more issues resolved per hour, while the most experienced agents saw minimal gains.",
+      "quote": "less-skilled and less-experienced workers improve significantly across all productivity measures we consider, including approximate increase of 30% in the number of issues they are able to resolve per hour.",
+      "url": "https://arxiv.org/pdf/2304.11771",
+      "publishable": "public",
+      "source": {
+        "publisher": "arXiv / NBER Working Paper 31161; published in the Quarterly Journal of Economics (2025)",
+        "title": "Generative AI at Work",
+        "published": "2023-04-23",
+        "method": "Staggered rollout of a GPT-based conversational assistant to 5,172 customer support agents at one Fortune 500 software firm; difference-in-differences on administrative data"
+      }
+    },
+    "metr-2025-developers-overestimate-speedup": {
+      "claim": "Before the trial developers forecast AI would cut completion time by 24%, and afterward estimated it had cut time by 20%, while the measured effect was a 19% increase.",
+      "quote": "After completing the study, developers estimate that allowing AI reduced completion time by 20%. Surprisingly, we find that allowing AI actually increases completion time by 19%",
+      "url": "https://arxiv.org/pdf/2507.09089",
+      "publishable": "public",
+      "source": {
+        "publisher": "arXiv 2507.09089 (METR)",
+        "title": "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity",
+        "published": "2025-07-10",
+        "method": "Randomized controlled trial at the task level; 16 experienced open-source developers, 246 real tasks (about 2 hours each) in mature repositories they had worked on for about 5 years; each task randomly allowed or disallowed AI (mainly Cursor Pro with Claude 3.5/3.7 Sonnet); screen recordings"
+      }
+    },
+    "paradis-2024-google-21-percent-faster": {
+      "claim": "In a randomized trial with 96 Google software engineers on an enterprise-grade task, AI assistance cut time on task by about 21%, though the confidence interval is large.",
+      "quote": "Our best estimate of the size of this effect, controlling for factors known to influence developer time on task, stands at about 21%, although our confidence interval is large.",
+      "url": "https://arxiv.org/pdf/2410.12944",
+      "publishable": "public",
+      "source": {
+        "publisher": "arXiv 2410.12944 (Google)",
+        "title": "How much does AI impact development speed? An enterprise-based randomized controlled trial",
+        "published": "2024-10",
+        "method": "Randomized controlled trial with 96 full-time Google software engineers on one complex enterprise-grade task in Google's internal infrastructure; three internal AI features on or off; outcome time on task, controlling for developer and task factors"
+      },
+      "vendorNote": "Google studied its own engineers using its own tools."
+    },
+    "peng-2023-copilot-55-percent-faster": {
+      "claim": "In a randomized experiment with 95 freelance developers, those given GitHub Copilot completed an HTTP server task in JavaScript 55.8% faster than controls (95% CI 21% to 89%).",
+      "quote": "The treatment group, with access to the AI pair programmer, completed the task 55.8% faster than the control group.",
+      "url": "https://arxiv.org/pdf/2302.06590",
+      "publishable": "public",
+      "source": {
+        "publisher": "arXiv 2302.06590 (Microsoft Research, GitHub, MIT Sloan)",
+        "title": "The Impact of AI on Developer Productivity: Evidence from GitHub Copilot",
+        "published": "2023-02-13",
+        "method": "Randomized controlled experiment; 95 freelance developers recruited on Upwork (45 treated, 50 control; 35 completed per arm as reported), one task: implement an HTTP server in JavaScript as fast as possible; outcome is time to completion"
+      },
+      "vendorNote": "GitHub and Microsoft researchers are among the authors, and the tool studied is theirs."
+    },
+    "cui-2025-copilot-26-percent-more-tasks": {
+      "claim": "Pooling randomized field experiments at Microsoft, Accenture and a Fortune 100 firm (4,867 developers), access to an AI coding assistant raised completed tasks (pull requests) by 26.08%, with larger gains for less experienced developers.",
+      "quote": "when data is combined across three experiments and 4,867 developers, our analysis reveals a 26.08% increase (SE: 10.3%) in completed tasks among developers using the AI tool. Notably, less experienced developers had higher adoption rates and greater productivity gains.",
+      "url": "https://demirermert.github.io/Papers/Demirer_AI_productivity.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "Working paper (Princeton, MIT, Microsoft, Wharton), June 2025",
+        "title": "The Effects of Generative AI on High-Skilled Work: Evidence from Three Field Experiments with Software Developers",
+        "published": "2025-06",
+        "method": "Three randomized field experiments run by Microsoft, Accenture and an anonymous Fortune 100 company in the ordinary course of business; 4,867 developers; random subset given an AI coding assistant (GitHub Copilot); main outcome weekly pull requests (completed tasks)"
+      },
+      "vendorNote": "Microsoft researchers are among the authors, and the tool studied is theirs."
+    },
+    "humlum-2025-time-savings-by-occupation": {
+      "claim": "Self-reported time savings as a share of total work hours ranged from 0.7% (teachers) to 6.1% (marketing), with software developers at 5.6%, HR and IT support at 3.5%, customer service at 3.0%, legal at 2.6%, office clerks at 2.2%, financial advisors at 1.9% and accountants at 1.6%.",
+      "quote": "In Column (6), we combine workers' frequency of use with their reported time savings per day of usage to estimate time savings as a percent of total work hours.",
+      "url": "https://www.nber.org/system/files/working_papers/w33777/w33777.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "NBER Working Paper 33777",
+        "title": "Still Waters, Rapid Currents: Early Labor Market Transformation under Generative AI",
+        "published": "2025-05",
+        "method": "Large-scale adoption surveys in 11 AI-exposed occupations linked to Danish administrative labor records; difference-in-differences on earnings and hours"
+      }
+    },
+    "humlum-2025-time-savings-3-percent-of-hours": {
+      "claim": "Combining frequency of use with reported daily time savings, Danish workers in 11 AI-exposed occupations who used chatbots reported saving about 3% of their work hours on average.",
+      "quote": "On average, adopters in our sample report savings of about 3% of their work hours. These estimates align with the nationally representative U.S. survey evidence in Bick, Blandin and Deming (2025).",
+      "url": "https://www.nber.org/system/files/working_papers/w33777/w33777.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "NBER Working Paper 33777",
+        "title": "Still Waters, Rapid Currents: Early Labor Market Transformation under Generative AI",
+        "published": "2025-05",
+        "method": "Large-scale adoption surveys in 11 AI-exposed occupations linked to Danish administrative labor records; difference-in-differences on earnings and hours"
+      }
+    },
+    "humlum-2025-null-earnings-effects": {
+      "claim": "Difference-in-differences on Danish records found precise null effects of AI chatbots on earnings and recorded hours, ruling out effects above 2%.",
+      "quote": "we estimate precise null effects on earnings and recorded hours at both the worker and workplace levels, ruling out effects larger than 2% two years after the launch of ChatGPT",
+      "url": "https://www.nber.org/system/files/working_papers/w33777/w33777.pdf",
+      "publishable": "public",
+      "source": {
+        "publisher": "NBER Working Paper 33777",
+        "title": "Still Waters, Rapid Currents: Early Labor Market Transformation under Generative AI",
+        "published": "2025-05",
+        "method": "Large-scale adoption surveys in 11 AI-exposed occupations linked to Danish administrative labor records; difference-in-differences on earnings and hours"
+      }
+    }
+  },
+  "engagements": {
+    "samplec0be66822d27-insurance": {
+      "engagement": "samplec0be66822d27-insurance",
+      "fact": "Calls reviewed for quality and compliance went from about 5% (monthly spot-check) to 100%"
+    },
+    "samplec0be66822d27-insurance#kb": {
+      "engagement": "samplec0be66822d27-insurance",
+      "fact": "The PDF of FAQs became a knowledge base of 1,441 answers"
+    },
+    "meridian-estates": {
+      "engagement": "meridian-estates",
+      "fact": "\"Up to 528 hrs saved per trained person, per year (estimated: 7 to 11 hrs a week x 48 weeks)\". Always show it as an estimate with the arithmetic; the client estimated the hours"
+    },
+    "orion-tech": {
+      "engagement": "orion-tech",
+      "fact": "Payout automation projected to save about 720 hours a year"
+    }
+  }
+}

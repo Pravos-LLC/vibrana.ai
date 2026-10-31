@@ -1,0 +1,126 @@
+/*
+ * Scoped styles for the curriculum flywheel diagram. Editorial-Minimal, ported
+ * from the AIOS diagram system into Prism Light: greyscale chrome, rationed
+ * prism accents, hairline edges, motion behind prefers-reduced-motion.
+ * Token source: app/globals.css. No globals are touched here.
+ */
+
+.wheel {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+/* slow continuous rotation of the rim group; paused for reduced motion + hover */
+.spinGroup {
+  transform-origin: 50% 50%;
+  animation: fw-spin 64s linear infinite;
+}
+.wheel:hover .spinGroup,
+.wheel:focus-within .spinGroup {
+  animation-play-state: paused;
+}
+@keyframes fw-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* The dotted guide ring behind the nodes. */
+.ring {
+  fill: none;
+  stroke: var(--border-default);
+  stroke-width: 1.25;
+  stroke-dasharray: 2 7;
+  stroke-linecap: round;
+}
+
+/* Hairline arc connectors between nodes, with arrowheads. */
+.edge {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+}
+
+.arrowhead {
+  fill: var(--text-tertiary);
+}
+
+/* A node group. `--n` carries its rationed accent (set inline per node). */
+.node {
+  cursor: pointer;
+  outline: none;
+}
+.nodeHit {
+  fill: transparent;
+}
+.nodeRing {
+  fill: var(--surface-inset);
+  stroke: color-mix(in srgb, var(--n) 38%, var(--border-default));
+  stroke-width: 1.25;
+  transition:
+    stroke 200ms ease,
+    stroke-width 200ms ease,
+    r 200ms ease;
+}
+.nodeDot {
+  fill: var(--n);
+  transition: r 200ms ease;
+}
+.nodeLabel {
+  fill: var(--text-secondary);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* text-anchor / dominant-baseline are set per-node as presentation attributes
+     (radial-aware) — do NOT set them here or CSS would override the attribute. */
+  transition: fill 200ms ease;
+  user-select: none;
+}
+
+/* Active / focused / hovered state. */
+.active .nodeRing {
+  stroke: var(--n);
+  stroke-width: 2;
+}
+.active .nodeDot {
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--n) 70%, transparent));
+}
+.active .nodeLabel {
+  fill: var(--text-primary);
+}
+.node:focus-visible .nodeRing {
+  stroke: var(--n);
+  stroke-width: 2;
+}
+
+/* Highlighted node ("you are here") gets a soft halo even when inactive. */
+.halo {
+  fill: color-mix(in srgb, var(--n) 14%, transparent);
+}
+
+/* The travelling "signal" that orbits the loop along the ring path. */
+.signal {
+  fill: var(--n, var(--violet));
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--violet) 70%, transparent));
+  offset-rotate: 0deg;
+  animation: fw-orbit 14s linear infinite;
+}
+@keyframes fw-orbit {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinGroup,
+  .signal {
+    animation: none;
+  }
+}

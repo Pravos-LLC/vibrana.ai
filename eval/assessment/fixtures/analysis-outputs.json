@@ -1,0 +1,310 @@
+{
+  "_comment": "Analyses from deepseek/deepseek-v4.1-flash on 2026-10-15 that passed the code checks and the judge (qwen/qwen3.6-27b). CI re-checks them against the golden profiles.",
+  "outputs": [
+    {
+      "profile": "insurer-strong",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Northgate Mutual self-reports an overall 72, with leadership and governance high and talent low. Your answers show a named senior leader owns AI results, three or more workflows redesigned around AI in the past year, and a written policy staff were taken through. Against that, under 40% of staff can use an approved AI tool, one enthusiast builds informally, and most data sources lack a named owner. The motor claims triage assistant and the data platform engineer ad suggest some of this is already in motion.",
+        "strongest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show a named senior leader with AI results in their goals, three or more workflows redesigned around AI rather than an assistant bolted on, and a baseline mapped and timed every time before a workflow changes. One or two uses are in daily work, and some are measured against how the work went before.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l_owner",
+                "l_redesign",
+                "l_baseline",
+                "l_in_use",
+                "l_measure"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show under 40% of staff can use a company-approved AI tool, and one enthusiast, informally, could build or look after an AI workflow today. BCG reports that close to three-quarters of employees say AI has shifted the skills expected of them, but only 36% feel adequately upskilled.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta_access",
+                "ta_builders"
+              ]
+            }
+          },
+          {
+            "area": "Data Readiness",
+            "text": "Your answers show only a few of your main data sources have a named owner who answers for accuracy and can use it. Access runs through a documented request answered within a few days, and a person checks data on a regular schedule. Bain notes executives cite data security, hallucinations and unproven ROI as barriers, and argues the real barriers are organizational.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "d_owner"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Name an owner for each data source feeding Support triage and answers, starting with the one the triage assistant reads. Your own figures put that workflow at twelve people, fifteen hours a week each, about 8,600 hours a year, with 730 to 1,300 hours freed a year at published time-saving rates. Those hours are an estimate, not a measured result, and any money figure is time value, not savings.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "d_owner"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "agency-early",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Your answers show a pilot running and a quarter to half of staff using AI weekly on their own, while no AI use is in daily work, no one owns AI results, and no workflow has been redesigned around it. For a 25-person agency whose case studies are food and beverage brand campaigns, the gap is that informal use is not yet tied to client work. Scores are self-reported.",
+        "strongest": [
+          {
+            "area": "Culture & Change Readiness",
+            "text": "This is your relative high point at 63, not an absolute strength. Your answers show a quarter to half of staff use AI weekly, some discuss it informally, and when an AI change affected a job, that person got a plan covering what changed, training and who to ask, once or twice.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "c_weekly",
+                "c_open",
+                "c_people_plan"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show no written AI use policy staff know, no defined human review when AI output reaches a customer or feeds a decision, and no approval step for new AI uses. Slack's survey of 10,281 desk workers found those at organizations with defined guidelines were nearly six times more likely to have tried AI tools.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g_policy",
+                "g_review",
+                "g_approval"
+              ]
+            }
+          },
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show no staff can use a company-approved AI tool, under a quarter had five hours of training or guided practice, and no one could build or look after an AI workflow. This sits against your culture score: people use AI weekly, but on personal or free accounts, not approved ones.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta_access",
+                "ta_training",
+                "ta_builders"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Write a one-page AI use policy naming who approves new uses, and have the three people on Sales and admin email, CRM updates draft their own step list for it. Your own figures and published ranges estimate 69 to 98 hours freed a year there, time value not cash saved. No outside help needed.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "g_policy",
+              "g_approval",
+              "l_owner"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "inflated-fast",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Quanta Labs is a fifteen-person startup building scheduling software for dental clinics. Every answer came back at the top of the scale in a minute and a half, so the scores may reflect intent more than practice. Taken at face value, your answers describe a named leader accountable for AI results, three or more uses in daily work measured against how the work went before, and a written policy staff were taken through. The public site is a product page and a contact form, so the assessment itself is the only record of any of this.",
+        "strongest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "For a fifteen-person company, your answers claim a named senior leader with AI results in their goals, three or more uses in daily work, and every one measured against how the work went before. You also say you time the work before changing it.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l_owner",
+                "l_in_use",
+                "l_measure",
+                "l_baseline"
+              ]
+            }
+          },
+          {
+            "area": "Governance & Responsible AI",
+            "text": "You report a written AI use policy that staff were taken through, a defined human review step wherever output reaches a customer or feeds a decision, and a named approver with a set process for new uses. At fifteen people, that is more process than most teams that size carry.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g_policy",
+                "g_review",
+                "g_approval"
+              ]
+            }
+          }
+        ],
+        "weakest": [],
+        "startingPoint": {
+          "text": "Take the scheduling workflow you would put in front of a dental clinic first. Write down its steps, how long a booking takes today, and the error or no-show count, then record the same numbers after AI is in the loop. Keep that one page as the reference for every other use you claim.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "l_measure",
+              "l_baseline",
+              "d_quality"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "clinic-governance-gap",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Meadowbrook Health Partners runs eleven Ohio clinics with online booking and automated reminders. Your answers show operations ahead of vision: leadership and data scores sit in the middle, governance at ten. One or two AI uses are in daily work, most of the information AI would need is digital, and a quarter to half of staff use AI weekly. The gaps are policy, review and data ownership, not ambition.",
+        "strongest": [
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show a named senior leader accountable for AI results, one or two uses in daily work, some measured against how the work went before, and at least one workflow mapped and timed before changing it. That is a base to build on.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l_owner",
+                "l_in_use",
+                "l_measure",
+                "l_baseline"
+              ]
+            }
+          },
+          {
+            "area": "Data Readiness",
+            "text": "Your answers show most of the information AI would need for the work you most want help with is digital and searchable, and a person checks the main systems for errors on a regular schedule. Both are preconditions for useful AI work.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "d_digital",
+                "d_quality"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show no written AI use policy staff know, no defined human review when AI output reaches a patient or feeds a decision, no list of AI tools and uses, and new uses approved only by the team's own manager. Slack's survey of desk workers found those at organizations with defined guidelines were nearly six times more likely to have tried AI tools.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g_policy",
+                "g_review",
+                "g_inventory",
+                "g_approval"
+              ]
+            }
+          },
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show under forty percent of staff can use a company-approved AI tool for work, and one enthusiast informally could build or look after an AI workflow today. Boston Consulting Group reports that close to three-quarters of employees say AI has shifted the skills expected of them, but only thirty-six percent feel adequately upskilled.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta_access",
+                "ta_builders"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Write a one-page AI use policy covering who approves a new use, what human review is required before AI output reaches a patient, and how staff report a tool they already use. Then apply it to Document processing and extraction, where your own figures and published ranges estimate zero to seven hundred thirty hours freed a year, time value not cash.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "g_policy",
+              "g_review",
+              "g_approval"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "profile": "numbers-in-site",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "analysis": {
+        "version": 1,
+        "summary": "Tellus Engineering Group is a 1,200-person water and flood design firm with a pilot reviewing engineering drawings. Your answers show vision ahead of operations: a named senior leader accountable for AI, a written policy, and one or two redesigned workflows. Daily use is none beyond the pilot, measurement is usage only, and data readiness is your lowest area, with half the needed information digital and no named data owners.",
+        "strongest": [
+          {
+            "area": "Governance & Responsible AI",
+            "text": "Your answers show a written AI use policy shared with staff, a list of AI tools and uses kept without risk levels, and a named person approving new uses case by case.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "g_policy",
+                "g_inventory",
+                "g_approval"
+              ]
+            }
+          },
+          {
+            "area": "Leadership & Strategy",
+            "text": "Your answers show a named senior leader accountable for AI results, one or two workflows redesigned around AI in the past year, and at least one workflow mapped and timed before changing it.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "l_owner",
+                "l_redesign",
+                "l_baseline"
+              ]
+            }
+          }
+        ],
+        "weakest": [
+          {
+            "area": "Data Readiness",
+            "text": "Your answers show about half the information AI needs is digital and searchable, cross-team data comes by asking around, errors are found only when someone spots them, and no main data source has a named owner.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "d_digital",
+                "d_access",
+                "d_quality",
+                "d_owner"
+              ]
+            }
+          },
+          {
+            "area": "Talent & Capability",
+            "text": "Your answers show under 40% of staff can use a company-approved AI tool, under a quarter had five hours of AI training in the past year, and one enthusiast informally could build or look after an AI workflow.",
+            "basis": {
+              "kind": "answers",
+              "questions": [
+                "ta_access",
+                "ta_training",
+                "ta_builders"
+              ]
+            }
+          }
+        ],
+        "startingPoint": {
+          "text": "Pick one software development task, map its steps and time it today, then run the pilot on that task and record time against that baseline. Your own figures put software development at 40 people and 20 hours a week each, with published ranges of 0% to 21% less time, or 0 to 8,100 hours freed a year, an estimate, not cash saved.",
+          "basis": {
+            "kind": "answers",
+            "questions": [
+              "l_baseline",
+              "l_measure",
+              "d_owner"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
