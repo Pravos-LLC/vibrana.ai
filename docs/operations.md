@@ -2,7 +2,7 @@
 
 ## Current topology
 
-As of the October 31, 2026 cutover, the public `Pravos-LLC/vibrana.ai` repository is the active implementation source. Protected `master` is connected to the Vercel `vibrana-ai` project and serves `https://www.vibrana.ai`. This is the production application, not an unconnected source export. Private historical repositories are immutable archives, not active development roots. Do not develop there or copy their history, corpus, configuration or private content into this repository.
+As of the October 31, 2026 cutover, the public `Pravos-LLC/vibrana.ai` repository is the active implementation source. Protected `master` is connected to the Vercel `vibrana-ai` project and serves `https://www.vibrana.ai`. This is the production application, not an unconnected source export. Private historical repositories retain ref-frozen history with Actions disabled; they are not active development roots. This is a release preservation policy, not a claim that all repository metadata is technically immutable. Do not develop there or copy their history, corpus, configuration or private content into this repository.
 
 A merge to `master` triggers a production deployment. Standing release practice is to merge after required executable CI is green and an independent exact-head review has resolved blocking findings, then verify the resulting deployment and public routes. Preserve repository protections and security checks. Use the normal Git integration; do not deploy with the Vercel CLI. A task can assign merge and verification to a release coordinator; contributors must respect that ownership.
 

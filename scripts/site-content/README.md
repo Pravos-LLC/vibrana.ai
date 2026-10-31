@@ -25,7 +25,7 @@ preparer restores overwritten sample assets and removes fetched assets before a
 subsequent preview build, preventing stale production payloads from serving there.
 
 Only reviewed public display values may be placed in `content`. Selected assessment questions and approved display values intentionally reach the browser; they are not all server-only. The preparation step emits
-those values for the application; it never emits the input envelope, delivery URLs or pins.
+those values for the application. The public release manifest intentionally exposes nonsecret provenance: the data revision, digest and provider/deployment binding. Generated display output also carries its nonsecret binding. The full private input envelope, credentials and asset-fetch URLs are not emitted.
 Credentials, invitation identities, private strategy and unpublished content do not belong
 in this envelope. Downloaded asset/document bytes are build outputs, never Git inputs.
 
