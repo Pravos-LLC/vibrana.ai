@@ -31,7 +31,7 @@ function Row({
   return (
     <div>
       <Eyebrow>{label}</Eyebrow>
-      <div className="logo-marquee mt-5" style={{ ['--marquee-duration' as string]: `${seconds}s` }}>
+      <div className="logo-marquee mt-5" tabIndex={0} aria-label={label} style={{ ['--marquee-duration' as string]: `${seconds}s` }}>
         <ul className="logo-marquee-track">
           {Array.from({ length: COPIES }).flatMap((_, copy) =>
             logos.map(({ name, src, height, anonymized }) => (

@@ -11,14 +11,15 @@ export const SPRINT_INTRO = {
   exampleTitle: 'Small enough to start. Useful enough to matter.',
   exampleNote: 'These are illustrative possibilities. The right scope depends on your team, data and needs.',
   examples: [
-    { period: 'One week', items: ['Quality-assurance call monitoring for a regulated insurer', 'Partner segmentation for a B2B business', 'A sales assistant and knowledge base', 'A customer-service knowledge base'] },
-    { period: 'Two weeks', items: ['A first release of an AI-powered CRM', 'A first release of an AI learning platform'] },
+    { period: 'One Sprint · two weeks', items: ['Quality-assurance call monitoring for a regulated insurer', 'Partner segmentation for a B2B business', 'A sales assistant and knowledge base', 'A customer-service knowledge base'] },
+    { period: 'Two Sprints · four weeks', items: ['An AI-powered CRM', 'An AI learning platform', 'An internal operations platform', 'An AI research and reporting workspace'] },
   ],
-  testimonial: { quote: "I'm very, very impressed at how quick that went. Like even so quick that I really feel that I need some breathing room.", attribution: 'Participant in a four-week team learning engagement' },
+  testimonial: { quote: "I'm very, very impressed at how quick that went. Like even so quick that I really feel that I need some breathing room.", attribution: 'Participant in a 2-week build sprint' },
   teamTitle: 'People behind the work',
   teamIntro: 'The expertise we can bring together around your sprint.',
   team: [
     { name: 'John Ellison', role: 'CEO and Founder', photo: '/assets/team/john-ellison.webp' },
+    { name: 'Chetan Nandakumar', role: 'AI product', photo: '/assets/team/chetan-nandakumar.webp' },
     { name: 'Abe Isleem', role: 'AI engineering', photo: '/assets/team/abe-isleem.webp' },
     { name: 'Stephan Ledain', role: 'Adoption and governance', photo: '/assets/team/stephan-ledain.webp' },
     { name: 'Fatma Ghedira', role: 'People and change', photo: '/assets/team/fatma-ghedira.webp' },

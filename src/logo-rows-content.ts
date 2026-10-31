@@ -29,19 +29,19 @@ export interface ProofLogo {
 export const CLIENT_LOGOS: readonly ProofLogo[] = siteContent("logo-rows-content.CLIENT_LOGOS", [
   // Both official marks are full-height (ring / jar) with a large x-height, so they
   // render shorter than the 28px default to match the codename marks' visual weight.
-  { name: 'Optimise Media', src: 'public-demo:logo', height: 20 },
-  { name: 'Pikl', src: 'public-demo:logo', height: 21 },
+  { name: 'Optimise Media', src: '/logos/logo-optimise-media.svg', height: 20 },
+  { name: 'Pikl', src: '/logos/logo-pikl.svg', height: 21 },
   // One chip for every client under NDA, so the real logos lead and the row never reads as empty slots.
   { name: 'Clients under NDA', src: '', anonymized: `+ ${Object.keys(ANONYMIZED_DESCRIPTORS).length} more under NDA`, height: 17 },
 ])
 
 export const DELIVERED_LOGOS: readonly ProofLogo[] = siteContent("logo-rows-content.DELIVERED_LOGOS", [
-  { name: 'Google', src: 'public-demo:logo', height: 27 },
-  { name: 'Snapchat', src: 'public-demo:logo', height: 21 },
-  { name: 'WEF', src: 'public-demo:logo', height: 28 },
-  { name: 'Microsoft', src: 'public-demo:logo', height: 26 },
-  { name: 'OpenGov', src: 'public-demo:logo', height: 28 },
-  { name: 'AstraZeneca', src: 'public-demo:logo', height: 15 },
+  { name: 'Google', src: '/logos/logo-google-wordmark.svg', height: 27 },
+  { name: 'Snapchat', src: '/logos/logo-snapchat-wordmark.svg', height: 21 },
+  { name: 'WEF', src: '/logos/logo-wef-wordmark.svg', height: 28 },
+  { name: 'Microsoft', src: '/logos/logo-microsoft.svg', height: 26 },
+  { name: 'OpenGov', src: '/logos/logo-opengov.svg', height: 28 },
+  { name: 'AstraZeneca', src: '/logos/logo-astrazeneca.svg', height: 15 },
 ])
 
 /** The one proof row: our clients first, then where our team has delivered. */

@@ -1,11 +1,15 @@
 import { Button } from '@/src/components/prism'
+import { Headphones, Network, MessagesSquare, BookOpen, UsersRound, GraduationCap, Workflow, ChartNoAxesCombined } from 'lucide-react'
 import { LogoRow } from '@/src/components/proof/LogoRow'
 import { SPRINT_INTRO as C } from '@/src/sprint-intro-content'
 import styles from './intro.module.css'
 
+const exampleIcons = [[Headphones, Network, MessagesSquare, BookOpen], [UsersRound, GraduationCap, Workflow, ChartNoAxesCombined]]
+
 export function SprintIntro({ onStart }: { onStart: () => void }) {
   return <div className={styles.intro}>
     <section className={styles.hero}>
+      <video className={styles.heroVideo} autoPlay muted loop playsInline aria-hidden="true" poster="/assets/imagery/homepage/prism-glass-grid.webp"><source src="/assets/sprint-fit/prism-loop.mp4" type="video/mp4" /></video>
       <div className={styles.heroInner}>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>{C.eyebrow}</p>
@@ -27,7 +31,7 @@ export function SprintIntro({ onStart }: { onStart: () => void }) {
         <p className={styles.eyebrow}>{C.exampleEyebrow}</p>
         <h2>{C.exampleTitle}</h2>
         <p>{C.exampleNote}</p>
-        <div className={styles.exampleGrid}>{C.examples.map(group => <div key={group.period}><h3>{group.period}</h3><ul>{group.items.map(item => <li key={item}>{item}</li>)}</ul></div>)}</div>
+        <div className={styles.exampleGrid}>{C.examples.map((group, groupIndex) => <div key={group.period}><h3>{group.period}</h3><ul>{group.items.map((item, itemIndex) => { const Icon = exampleIcons[groupIndex][itemIndex]; return <li key={item}><Icon aria-hidden="true" size={20} /><span>{item}</span></li> })}</ul></div>)}</div>
       </section>
       <blockquote className={styles.testimonial}><p>“{C.testimonial.quote}”</p><footer>{C.testimonial.attribution}</footer></blockquote>
       <section className={styles.team}>
