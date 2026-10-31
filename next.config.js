@@ -21,7 +21,12 @@ const nextConfig = {
   // is the `Projects/` ancestor in both cases. See
   // https://github.com/vercel/next.js/issues/88335.
   webpack(config) {
-    if (productionContent) config.resolve.alias['@/src/site-content/generated.json$'] = productionData
+    if (productionContent) {
+      config.resolve.alias['@/src/site-content/generated.json$'] = productionData
+      // Next resolves tsconfig paths before webpack aliases run.
+      // Also match the resolved sample path so prepared data is consumed.
+      config.resolve.alias[path.join(__dirname, 'src/site-content/generated.json') + '$'] = productionData
+    }
     return config
   },
   turbopack: {
