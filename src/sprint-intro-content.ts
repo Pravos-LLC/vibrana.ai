@@ -17,7 +17,7 @@ export const SPRINT_INTRO = {
   ],
   caseLabel: 'A sprint in practice',
   readCase: 'Read the case study',
-  testimonial: { quote: "I'm very, very impressed at how quick that went. Like even so quick that I really feel that I need some breathing room.", attribution: 'Participant in a 2-week build sprint' },
+  testimonial: { quote: "I'm very, very impressed at how quick that went. Like even so quick that I really feel that I need some breathing room.", attribution: 'Participant in a four-week team build sprint' },
   teamTitle: 'People behind the work',
   teamIntro: 'The expertise we can bring together around your sprint.',
   experienceLabel: 'Experience & education',
