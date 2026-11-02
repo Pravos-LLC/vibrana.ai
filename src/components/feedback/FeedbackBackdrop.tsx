@@ -9,10 +9,10 @@ const HOLD_MS = 9000
 /**
  * Fixed backdrop for the feedback form: a timed carousel of blurred city photos, a per-slide prism
  * tint, a faint dot field, and a dot glow that follows a fine pointer. Presentational only; the
- * `startIndex` comes from the server so SSR and hydration agree. `wide` lines the credit up with the
- * wider thank-you column.
+ * `startIndex` comes from the server so SSR and hydration agree. It is shown on the cover only: while
+ * `visible` is false it fades out, and the carousel and the pointer glow stop running.
  */
-export function FeedbackBackdrop({ startIndex, wide = false }: { startIndex: number; wide?: boolean }) {
+export function FeedbackBackdrop({ startIndex, visible }: { startIndex: number; visible: boolean }) {
   const count = FEEDBACK_BACKDROPS.length
   const start = Number.isInteger(startIndex) ? ((startIndex % count) + count) % count : 0
   const [active, setActive] = useState(start)
@@ -26,6 +26,7 @@ export function FeedbackBackdrop({ startIndex, wide = false }: { startIndex: num
   }, [])
 
   useEffect(() => {
+    if (!visible) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let timer: number | undefined
     const arm = () => {
@@ -42,12 +43,12 @@ export function FeedbackBackdrop({ startIndex, wide = false }: { startIndex: num
       window.clearInterval(timer)
       document.removeEventListener('visibilitychange', onVisibility)
     }
-  }, [count])
+  }, [count, visible])
 
   // Glowing dots under a mouse. Skipped for touch and for reduced motion.
   useEffect(() => {
     const root = rootRef.current
-    if (!root) return
+    if (!root || !visible) return
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let frame = 0
@@ -71,9 +72,10 @@ export function FeedbackBackdrop({ startIndex, wide = false }: { startIndex: num
     return () => {
       window.removeEventListener('pointermove', onMove)
       document.documentElement.removeEventListener('pointerleave', onLeave)
+      root.dataset.glow = '0'
       if (frame) window.cancelAnimationFrame(frame)
     }
-  }, [])
+  }, [visible])
 
   const slide = FEEDBACK_BACKDROPS[active]
 
@@ -84,6 +86,7 @@ export function FeedbackBackdrop({ startIndex, wide = false }: { startIndex: num
         className="fb-backdrop"
         aria-hidden
         data-glow="0"
+        data-visible={visible}
         style={{ '--fb-h': slide.hue } as React.CSSProperties}
       >
         {FEEDBACK_BACKDROPS.map((item, index) =>
@@ -109,7 +112,7 @@ export function FeedbackBackdrop({ startIndex, wide = false }: { startIndex: num
         <div className="fb-dots" />
         <div className="fb-dots fb-dots-glow" />
       </div>
-      <p className={wide ? 'fb-credit fb-credit-wide' : 'fb-credit'}>
+      <p className="fb-credit" data-visible={visible}>
         Photo:{' '}
         <a href={photographerUrl(slide)} target="_blank" rel="noopener noreferrer">{slide.photographer}</a>
         {' / '}
