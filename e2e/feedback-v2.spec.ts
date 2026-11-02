@@ -120,7 +120,7 @@ test('thank-you screen shows John, the booking call, four report cards and the t
     })
     expect(loaded).toBe(true)
   }
-  const activity = page.getByRole('img', { name: /pull requests shipped in the last year/ })
+  const activity = page.getByRole('img', { name: /pull requests shipped in the last 3 months/ })
   await activity.scrollIntoViewIfNeeded()
   await expect(activity).toBeVisible()
   await expect(page.locator('.fb-activity-scroll rect')).toHaveCount(teamActivity.counts.length)

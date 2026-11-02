@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Snapshot of the team's merged pull requests over the last 52 weeks, for the activity graph on the
+// Snapshot of the team's merged pull requests over the last 13 weeks (about three months), for the activity graph on the
 // feedback thank-you screen (src/components/feedback/TeamActivity.tsx).
 //
 //   node scripts/team-pr-activity.mjs
@@ -12,11 +12,12 @@ import { writeFileSync } from 'node:fs'
 const TEAM = ['johnellison', 'chetan-guevara', 'fatmacocoon', 'abeisleem', 'sledain1']
 const OUT = 'src/data/team-pr-activity.json'
 const DAY = 86_400_000
+const WEEKS = 13
 
 const iso = (d) => d.toISOString().slice(0, 10)
 const today = new Date(`${iso(new Date())}T00:00:00Z`)
-// 53 week columns ending this week, starting on a Sunday, like GitHub's graph.
-const start = new Date(today.getTime() - (52 * 7 + today.getUTCDay()) * DAY)
+// WEEKS week columns ending this week, each starting on a Sunday, like GitHub's graph.
+const start = new Date(today.getTime() - ((WEEKS - 1) * 7 + today.getUTCDay()) * DAY)
 const days = Math.round((today - start) / DAY) + 1
 const counts = new Array(days).fill(0)
 

@@ -250,7 +250,7 @@ export const FEEDBACK_UI = {
     activity: {
       eyebrow: 'What we have been building',
       /** The count animates up; `heading` wraps it. */
-      heading: (count: string) => `${count} pull requests shipped in the last year`,
+      heading: (count: string) => `${count} pull requests shipped in the last 3 months`,
       note: 'Merged pull requests on GitHub across the team, day by day.',
       less: 'Less',
       more: 'More',

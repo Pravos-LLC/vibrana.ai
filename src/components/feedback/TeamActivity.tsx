@@ -6,16 +6,16 @@ import activity from '@/src/data/team-pr-activity.json'
 
 const UI = FEEDBACK_UI.done.activity
 const DAY = 86_400_000
-const CELL = 11
-const GAP = 3
+const CELL = 22
+const GAP = 5
 const STEP = CELL + GAP
-const LEFT = 30
-const TOP = 18
+const LEFT = 34
+const TOP = 22
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const WEEKDAYS: [number, string][] = [[1, 'Mon'], [3, 'Wed'], [5, 'Fri']]
 /** Count-up length, and the cell sweep's per-column delay. Both skipped under reduced motion. */
 const COUNT_MS = 1600
-const COLUMN_DELAY_MS = 14
+const COLUMN_DELAY_MS = 45
 
 type Cell = { col: number; row: number; count: number; level: number; label: string }
 
@@ -30,7 +30,7 @@ function levels(counts: number[]): (n: number) => number {
 const formatDate = (d: Date) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
 
 /**
- * The team's merged pull requests over the last 52 weeks as a GitHub-style contribution graph.
+ * The team's merged pull requests over the last 13 weeks as a GitHub-style contribution graph.
  * Data is a daily snapshot (scripts/team-pr-activity.mjs). On first view the cells sweep in column by
  * column and the total counts up.
  */
@@ -107,12 +107,12 @@ export function TeamActivity() {
         <div className="fb-activity-scroll">
           <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} role="img" aria-label={UI.heading(total)}>
             {months.map((m) => (
-              <text key={m.col} x={LEFT + m.col * STEP} y={10} className="fb-activity-label">
+              <text key={m.col} x={LEFT + m.col * STEP} y={13} className="fb-activity-label">
                 {m.label}
               </text>
             ))}
             {WEEKDAYS.map(([row, label]) => (
-              <text key={label} x={0} y={TOP + row * STEP + CELL - 2} className="fb-activity-label">
+              <text key={label} x={0} y={TOP + row * STEP + CELL / 2 + 4} className="fb-activity-label">
                 {label}
               </text>
             ))}
@@ -123,9 +123,9 @@ export function TeamActivity() {
                 y={TOP + c.row * STEP}
                 width={CELL}
                 height={CELL}
-                rx={2.5}
+                rx={4}
                 data-level={c.level}
-                style={{ animationDelay: `${c.col * COLUMN_DELAY_MS + c.row * 18}ms` }}
+                style={{ animationDelay: `${c.col * COLUMN_DELAY_MS + c.row * 30}ms` }}
               >
                 <title>{c.label}</title>
               </rect>
@@ -137,8 +137,8 @@ export function TeamActivity() {
           <span className="fb-activity-legend" aria-hidden>
             {UI.less}
             {[0, 1, 2, 3, 4].map((l) => (
-              <svg key={l} width={CELL} height={CELL}>
-                <rect width={CELL} height={CELL} rx={2.5} data-level={l} />
+              <svg key={l} width={11} height={11}>
+                <rect width={11} height={11} rx={2.5} data-level={l} />
               </svg>
             ))}
             {UI.more}

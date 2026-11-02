@@ -332,9 +332,8 @@
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
-.fb-activity-scroll { overflow-x: auto; direction: rtl; scrollbar-width: thin; }
-.fb-activity-scroll svg { direction: ltr; display: block; width: 100%; min-width: 640px; height: auto; }
-.fb-activity-label { font-size: 10px; fill: var(--text-tertiary); }
+.fb-activity-scroll svg { display: block; width: 100%; max-width: 460px; height: auto; }
+.fb-activity-label { font-size: 12px; fill: var(--text-tertiary); }
 .fb-activity rect[data-level='0'] { fill: rgba(255, 255, 255, 0.05); }
 .fb-activity rect[data-level='1'] { fill: rgba(139, 92, 246, 0.32); }
 .fb-activity rect[data-level='2'] { fill: rgba(139, 92, 246, 0.55); }
