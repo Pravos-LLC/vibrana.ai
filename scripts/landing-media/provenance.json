@@ -1,0 +1,426 @@
+{
+  "version": 2,
+  "generated": "2026-11-02",
+  "approvedBroll": [
+    "B-kling.mp4",
+    "B-kling-9x16.mp4",
+    "B2-kling.mp4",
+    "B2-kling-9x16.mp4"
+  ],
+  "assets": [
+    {
+      "id": "eu-ai-act/eu-ai-act-explainer-full.mp4",
+      "path": "/assets/landing/eu-ai-act/eu-ai-act-explainer-full.5c72eb80.mp4",
+      "sha256": "5c72eb8013b644948a50e32022f13feafb332b4c26ea97269488e001fe55a7eb",
+      "source": "john-workspace/2-work/vibrana-gtm/content-season-2026-10/media/eu-ai-act/eu-ai-act-explainer-final-9x16.mp4 (sha256 7409974354f7...)",
+      "approval": "Approved reel s1-41 (EU AI Act clock), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02"
+    },
+    {
+      "id": "eu-ai-act/eu-ai-act-explainer-loop.mp4",
+      "path": "/assets/landing/eu-ai-act/eu-ai-act-explainer-loop.e69edab8.mp4",
+      "sha256": "e69edab89396eec83e2e9956e4f5198a54a11adef3b0101ceb81916916a9fc8a",
+      "source": "john-workspace/2-work/vibrana-gtm/content-season-2026-10/media/eu-ai-act/eu-ai-act-explainer-final-9x16.mp4 (sha256 7409974354f7...)",
+      "approval": "Approved reel s1-41 (EU AI Act clock), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02",
+      "note": "Loop is 7.9 to 19.7 s of the cut: the risk pyramid draws, then the fines for banned practices"
+    },
+    {
+      "id": "eu-ai-act/eu-ai-act-explainer-full.webm",
+      "path": "/assets/landing/eu-ai-act/eu-ai-act-explainer-full.1d20685d.webm",
+      "sha256": "1d20685d34cd439e3cc514a2a78e77cc5a40bc4dd1b88664120c17480acc7b8c",
+      "source": "john-workspace/2-work/vibrana-gtm/content-season-2026-10/media/eu-ai-act/eu-ai-act-explainer-final-9x16.mp4 (sha256 7409974354f7...)",
+      "approval": "Approved reel s1-41 (EU AI Act clock), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02"
+    },
+    {
+      "id": "eu-ai-act/eu-ai-act-explainer-loop.webm",
+      "path": "/assets/landing/eu-ai-act/eu-ai-act-explainer-loop.ab7e9f9e.webm",
+      "sha256": "ab7e9f9ebc19bc125283440458c1947714812b9711105da6963c2f5506d61cfd",
+      "source": "john-workspace/2-work/vibrana-gtm/content-season-2026-10/media/eu-ai-act/eu-ai-act-explainer-final-9x16.mp4 (sha256 7409974354f7...)",
+      "approval": "Approved reel s1-41 (EU AI Act clock), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02",
+      "note": "Loop is 7.9 to 19.7 s of the cut: the risk pyramid draws, then the fines for banned practices"
+    },
+    {
+      "id": "eu-ai-act/eu-ai-act-explainer-poster.webp",
+      "path": "/assets/landing/eu-ai-act/eu-ai-act-explainer-poster.1f7a70c9.webp",
+      "sha256": "1f7a70c936a90eeb6ee9e1cdf7394842a4924c4e53a39078b343fbe893e6e6f5",
+      "source": "john-workspace/2-work/vibrana-gtm/content-season-2026-10/media/eu-ai-act/eu-ai-act-explainer-final-9x16.mp4 (sha256 7409974354f7...)",
+      "approval": "Approved reel s1-41 (EU AI Act clock), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02"
+    },
+    {
+      "id": "eu-ai-act/eu-ai-act-explainer-loop-poster.webp",
+      "path": "/assets/landing/eu-ai-act/eu-ai-act-explainer-loop-poster.447aabd9.webp",
+      "sha256": "447aabd984807c29db2fdd92af8a05b809008ccdde845cf60117f13ab81c2996",
+      "source": "john-workspace/2-work/vibrana-gtm/content-season-2026-10/media/eu-ai-act/eu-ai-act-explainer-final-9x16.mp4 (sha256 7409974354f7...)",
+      "approval": "Approved reel s1-41 (EU AI Act clock), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02"
+    },
+    {
+      "id": "simulator/simulator-sizzle-full.mp4",
+      "path": "/assets/landing/simulator/simulator-sizzle-full.275ac413.mp4",
+      "sha256": "275ac4137636bfcc48113df2229e99022484c793825ef6851cc996c95ccd1869",
+      "source": "john-workspace/2-work/vibrana-gtm/simulator-sizzle-2026-10/studio/simulator-sizzle-final-v1.mp4 (sha256 a72ff1d36083...)",
+      "approval": "Approved reel s1-42 (Simulator sizzle), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02"
+    },
+    {
+      "id": "simulator/simulator-sizzle-loop.mp4",
+      "path": "/assets/landing/simulator/simulator-sizzle-loop.7475319e.mp4",
+      "sha256": "7475319ed923f1b45e064f2a07fd6cfcdd65b2a6711461c806041e7b1ce5ab80",
+      "source": "john-workspace/2-work/vibrana-gtm/simulator-sizzle-2026-10/studio/simulator-sizzle-final-v1.mp4 (sha256 a72ff1d36083...)",
+      "approval": "Approved reel s1-42 (Simulator sizzle), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02",
+      "note": "Loop is 5.3 to 14.0 s of the cut: the simulator builds a model, then costs, timeline, capacity and team views"
+    },
+    {
+      "id": "simulator/simulator-sizzle-full.webm",
+      "path": "/assets/landing/simulator/simulator-sizzle-full.3060848e.webm",
+      "sha256": "3060848ec9303441a075e85b3c4dc6b0f210fd68e55201e8aef615e39d259229",
+      "source": "john-workspace/2-work/vibrana-gtm/simulator-sizzle-2026-10/studio/simulator-sizzle-final-v1.mp4 (sha256 a72ff1d36083...)",
+      "approval": "Approved reel s1-42 (Simulator sizzle), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02"
+    },
+    {
+      "id": "simulator/simulator-sizzle-loop.webm",
+      "path": "/assets/landing/simulator/simulator-sizzle-loop.862abe54.webm",
+      "sha256": "862abe54849b3fdda845d8f51bd5deeecb8bf77d9f02657bb09cef81a619f426",
+      "source": "john-workspace/2-work/vibrana-gtm/simulator-sizzle-2026-10/studio/simulator-sizzle-final-v1.mp4 (sha256 a72ff1d36083...)",
+      "approval": "Approved reel s1-42 (Simulator sizzle), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02",
+      "note": "Loop is 5.3 to 14.0 s of the cut: the simulator builds a model, then costs, timeline, capacity and team views"
+    },
+    {
+      "id": "simulator/simulator-sizzle-poster.webp",
+      "path": "/assets/landing/simulator/simulator-sizzle-poster.a495f32a.webp",
+      "sha256": "a495f32adfe48d38a2c3892ccb25a9dd3ab55eed556aade7ba3c268802e19e17",
+      "source": "john-workspace/2-work/vibrana-gtm/simulator-sizzle-2026-10/studio/simulator-sizzle-final-v1.mp4 (sha256 a72ff1d36083...)",
+      "approval": "Approved reel s1-42 (Simulator sizzle), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02"
+    },
+    {
+      "id": "simulator/simulator-sizzle-loop-poster.webp",
+      "path": "/assets/landing/simulator/simulator-sizzle-loop-poster.88dd1725.webp",
+      "sha256": "88dd172586cfbf4b8d5482265ab7157c8fda85675bf058f48002ab32c883e06f",
+      "source": "john-workspace/2-work/vibrana-gtm/simulator-sizzle-2026-10/studio/simulator-sizzle-final-v1.mp4 (sha256 a72ff1d36083...)",
+      "approval": "Approved reel s1-42 (Simulator sizzle), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02"
+    },
+    {
+      "id": "build-sprint/factory-reel-full.mp4",
+      "path": "/assets/landing/build-sprint/factory-reel-full.258b3a96.mp4",
+      "sha256": "258b3a961b82a80d331b1a8fe5e3b7ae161ce09cd9670cc79f278d5a7d32969a",
+      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
+      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off"
+    },
+    {
+      "id": "build-sprint/factory-reel-loop.mp4",
+      "path": "/assets/landing/build-sprint/factory-reel-loop.ad9d4c7e.mp4",
+      "sha256": "ad9d4c7eed2c7b0390b6208f634cca790d50fce25d8af8e28f96b6b8acc849c9",
+      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
+      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off",
+      "note": "Loop is 34.6 to 41.8 s of the cut: kanban cards move while the agent log runs"
+    },
+    {
+      "id": "build-sprint/factory-reel-full.webm",
+      "path": "/assets/landing/build-sprint/factory-reel-full.5ad48ce7.webm",
+      "sha256": "5ad48ce7e2f663234addab935b7552cbb8062121959d0cf41872e7ba56eb707e",
+      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
+      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off"
+    },
+    {
+      "id": "build-sprint/factory-reel-loop.webm",
+      "path": "/assets/landing/build-sprint/factory-reel-loop.5bb7f432.webm",
+      "sha256": "5bb7f432b62be4a2fb32d34af0e4c31b2a3eebd19210738604781be11efb2ac5",
+      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
+      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off",
+      "note": "Loop is 34.6 to 41.8 s of the cut: kanban cards move while the agent log runs"
+    },
+    {
+      "id": "build-sprint/factory-reel-poster.webp",
+      "path": "/assets/landing/build-sprint/factory-reel-poster.0c057cb5.webp",
+      "sha256": "0c057cb5ff60a07e382e09af9febef8580e5c2f5f915cf047112b5101fee0936",
+      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
+      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off"
+    },
+    {
+      "id": "build-sprint/factory-reel-loop-poster.webp",
+      "path": "/assets/landing/build-sprint/factory-reel-loop-poster.7362d873.webp",
+      "sha256": "7362d873ebf06f796c4ad76d87d9ccb8e242edd359b52ed02f71bae87023be53",
+      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
+      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b-16x9.mp4",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.263736f3.mp4",
+      "sha256": "263736f3ef246c840e32d20998297882a91889da431ab71601979436f75cd6a1",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B-kling.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b-16x9.webm",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.4b79da3e.webm",
+      "sha256": "4b79da3ee69f10256b27cbcfe5802fc7ca24274d33706d34faadb43e527ad327",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B-kling.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9-poster.3996050d.webp",
+      "sha256": "3996050d198a87eb3dbcf2265873236214f0234ad2c30c094d478a9ec889d426",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B-kling.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b-9x16.mp4",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-9x16.934517c3.mp4",
+      "sha256": "934517c337fc1276056805063568e35044379a7b3b4a205d99834d7e0d4a89c7",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B-kling-9x16.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b-9x16.webm",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-9x16.aa79c2b8.webm",
+      "sha256": "aa79c2b8c38ebd698d9a87b6562ca95d78b2e4412f273d947701def74f60fb29",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B-kling-9x16.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b-9x16-poster.webp",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-9x16-poster.5ad913fd.webp",
+      "sha256": "5ad913fd34340355321678e7a430654a316b594a3ba3feab70f4660c24c6629a",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B-kling-9x16.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b2-16x9.mp4",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b2-16x9.ac1d7e42.mp4",
+      "sha256": "ac1d7e42e22c9a97c222678cd156681a75c2d6e0c1c279780ce515aa8a9199f4",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B2-kling.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b2-16x9.webm",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b2-16x9.fb780645.webm",
+      "sha256": "fb78064592c43a31d0bfa76b8b03481ba710696ffba4fb57a407dc96f3d86ebd",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B2-kling.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b2-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b2-16x9-poster.1276560f.webp",
+      "sha256": "1276560f275b33a4982021993405ef0a62497d2b75814d12961eaf6b100a4536",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B2-kling.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b2-9x16.mp4",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b2-9x16.c52f8346.mp4",
+      "sha256": "c52f8346929f85f47a1fa7022ed88483b32bc98c6c5ee30d816df191e8d8525f",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B2-kling-9x16.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b2-9x16.webm",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b2-9x16.27b94594.webm",
+      "sha256": "27b945948fe4d08132ff0d21e6a6a2f9f18605e5e16eefed35ef066ee28d1c1f",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B2-kling-9x16.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/broll/john-broll-b2-9x16-poster.webp",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b2-9x16-poster.5a34152e.webp",
+      "sha256": "5a34152e676e0670b3c2464f017992a59a858a3a17b56639eda92f54cf3d855a",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
+      "sourceFile": "B2-kling-9x16.mp4",
+      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+    },
+    {
+      "id": "readiness/readiness-assessment-16x9.mp4",
+      "path": "/assets/landing/readiness/readiness-assessment-16x9.43f1ec17.mp4",
+      "sha256": "43f1ec17b94c77ce1bdbf33f3e989ef39f86347a0c27f421d423f48bc0681b3a",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "readiness/readiness-assessment-16x9.webm",
+      "path": "/assets/landing/readiness/readiness-assessment-16x9.b2cc07e1.webm",
+      "sha256": "b2cc07e1595e709818308fc79961405925afdb9173a7b8555ed91ecddb83e7b3",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "readiness/readiness-assessment-16x9-poster.webp",
+      "path": "/assets/landing/readiness/readiness-assessment-16x9-poster.383607e6.webp",
+      "sha256": "383607e6f5b486ac38650d24de0ce8b68ffa4fcffe1899781cb441238b9105e8",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "readiness/readiness-assessment-9x16.mp4",
+      "path": "/assets/landing/readiness/readiness-assessment-9x16.ad185a63.mp4",
+      "sha256": "ad185a63b83da49b62f54d86617dec3fc8f8027a36c67306f8eb806c5f516fc1",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "readiness/readiness-assessment-9x16.webm",
+      "path": "/assets/landing/readiness/readiness-assessment-9x16.f9fb921d.webm",
+      "sha256": "f9fb921dd41e67a64760c196eb47a325edbd324d1b260201362c6625c335770b",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "readiness/readiness-assessment-9x16-poster.webp",
+      "path": "/assets/landing/readiness/readiness-assessment-9x16-poster.8606a920.webp",
+      "sha256": "8606a92018f2936992cb2a999facf966268612720ccff44a26a29e812d80a1d9",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "transformation/transformation-pathway-16x9.mp4",
+      "path": "/assets/landing/transformation/transformation-pathway-16x9.e4673c1d.mp4",
+      "sha256": "e4673c1d5a2d0997510312aac64fb1f623134ccf4b748edb96aa3215b71f3009",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "transformation/transformation-pathway-16x9.webm",
+      "path": "/assets/landing/transformation/transformation-pathway-16x9.3d4c2224.webm",
+      "sha256": "3d4c22248d3a20942626d631aebf2572eac5d0a0082d8c0fe4e881c1bdbd8e03",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "transformation/transformation-pathway-16x9-poster.webp",
+      "path": "/assets/landing/transformation/transformation-pathway-16x9-poster.d1abe865.webp",
+      "sha256": "d1abe8657fe391091e4c63b115af3f2611671f24936236312039652b62d449ab",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "transformation/transformation-pathway-9x16.mp4",
+      "path": "/assets/landing/transformation/transformation-pathway-9x16.f0bb1291.mp4",
+      "sha256": "f0bb1291c608c621062d2c8a7e4f4fdd38ea0eb2b13fc7df9de4d4bf72bcb148",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "transformation/transformation-pathway-9x16.webm",
+      "path": "/assets/landing/transformation/transformation-pathway-9x16.16205f17.webm",
+      "sha256": "16205f1722c7be1886dce73f8b9203dbb32f5c25de9600da6b8af6e6714ad94e",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "transformation/transformation-pathway-9x16-poster.webp",
+      "path": "/assets/landing/transformation/transformation-pathway-9x16-poster.5a57ea50.webp",
+      "sha256": "5a57ea50de7c12cf6c6a1db34011d6cc413329f435ec9676e1a005cb74b4d622",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "eu-ai-act/eu-assessment-16x9.mp4",
+      "path": "/assets/landing/eu-ai-act/eu-assessment-16x9.e78bfe0b.mp4",
+      "sha256": "e78bfe0b6a675f0d45b2405c03dfe28a802374a7e8f8b8b19daeed00ee0e2d28",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "eu-ai-act/eu-assessment-16x9.webm",
+      "path": "/assets/landing/eu-ai-act/eu-assessment-16x9.da05e82b.webm",
+      "sha256": "da05e82b23da1d287337d83148a36ce16962e79afd33e0bfe4e9752899e902a9",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "eu-ai-act/eu-assessment-16x9-poster.webp",
+      "path": "/assets/landing/eu-ai-act/eu-assessment-16x9-poster.da420e13.webp",
+      "sha256": "da420e131e03ea89c642a9bd3866324c471180b80a9fbe056d4006a1b7fcc251",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "eu-ai-act/eu-assessment-9x16.mp4",
+      "path": "/assets/landing/eu-ai-act/eu-assessment-9x16.be82f2ee.mp4",
+      "sha256": "be82f2ee5413d769e5fd684859702563adb4445654317a126cfe88b060a09ffd",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "eu-ai-act/eu-assessment-9x16.webm",
+      "path": "/assets/landing/eu-ai-act/eu-assessment-9x16.524064a6.webm",
+      "sha256": "524064a6cfbfb0303e0c922adb70fb00b805edab20f77e3f3bbfb900beeca019",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "eu-ai-act/eu-assessment-9x16-poster.webp",
+      "path": "/assets/landing/eu-ai-act/eu-assessment-9x16-poster.37f21648.webp",
+      "sha256": "37f216486cc2b53ce401453fc747bc86d16491865ff4869a3bda3cfb837d7ced",
+      "source": "Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "readiness/readiness-question.webp",
+      "path": "/assets/landing/readiness/readiness-question.4fd0aca6.webp",
+      "sha256": "4fd0aca64e07993d0d768794edcf5d6f2dabdb95a11ab17c72d9061cab7f80d7",
+      "source": "Screenshot of the real assessment question screen, local app, synthetic answers, 1280x800 at 1.25x",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "readiness/readiness-profile.webp",
+      "path": "/assets/landing/readiness/readiness-profile.222c5573.webp",
+      "sha256": "222c55734dcfc07be6e39875f31f55d3355ab6de2c46cd0a1a4f764f4187b8da",
+      "source": "Screenshot of the real readiness report, local app, synthetic answers, 1280x800 at 1.25x",
+      "approval": "Vibrana first-party product UI with synthetic data; recorded 2026-11-02"
+    },
+    {
+      "id": "home/aios-workspace-light.webp",
+      "path": "/assets/landing/home/aios-workspace-light.6d5b5447.webp",
+      "sha256": "6d5b544758d29cc8e2dec42c38c2c8efeb1d1f6daa88d30aca50a434eefa59be",
+      "source": "Copied from the archived private website repo (vibrana.ai-private-archive/public/assets/aios/), byte-identical. Demo data only: acme-workspace, placeholder names Alex, Sam, Jordan; checked visually 2026-11-02, no client or personal data",
+      "approval": "Accepted for the public repo by John 2026-11-02",
+      "sourceFile": "workspace-gui-light.webp"
+    },
+    {
+      "id": "home/aios-workspace-dark.webp",
+      "path": "/assets/landing/home/aios-workspace-dark.aabfec7a.webp",
+      "sha256": "aabfec7ab7be4b2ba3098133e9976c4106a6f9e73cd832f11a15f77bb7a59630",
+      "source": "Copied from the archived private website repo (vibrana.ai-private-archive/public/assets/aios/), byte-identical. Demo data only: acme-workspace, placeholder names Alex, Sam, Jordan; checked visually 2026-11-02, no client or personal data",
+      "approval": "Accepted for the public repo by John 2026-11-02",
+      "sourceFile": "workspace-gui-dark.webp"
+    },
+    {
+      "id": "home/aios-team-brain-light.webp",
+      "path": "/assets/landing/home/aios-team-brain-light.63e38fc9.webp",
+      "sha256": "63e38fc99edeb4e9b59bee4833b9d4567d05a67f3bfbf19093af1170817f9039",
+      "source": "Copied from the archived private website repo (vibrana.ai-private-archive/public/assets/aios/), byte-identical. Demo data only: acme-workspace, placeholder names Alex, Sam, Jordan; checked visually 2026-11-02, no client or personal data",
+      "approval": "Accepted for the public repo by John 2026-11-02",
+      "sourceFile": "team-brain-home-light.webp"
+    },
+    {
+      "id": "home/aios-team-brain-dark.webp",
+      "path": "/assets/landing/home/aios-team-brain-dark.8da7b57b.webp",
+      "sha256": "8da7b57b670cdcc2f8754fb5cfc7ead51019ff0cc3bc15a088eaa2fbc6efcda7",
+      "source": "Copied from the archived private website repo (vibrana.ai-private-archive/public/assets/aios/), byte-identical. Demo data only: acme-workspace, placeholder names Alex, Sam, Jordan; checked visually 2026-11-02, no client or personal data",
+      "approval": "Accepted for the public repo by John 2026-11-02",
+      "sourceFile": "team-brain-home-dark.webp"
+    },
+    {
+      "id": "build-sprint/sprint-track-product-build.webp",
+      "path": "/assets/landing/build-sprint/sprint-track-product-build.ed10a3c7.webp",
+      "sha256": "ed10a3c7ad64a6a6f6eb320221fc9a11d89670d772e72db4f9bfdd658a3c6abc",
+      "source": "Generated with fal-ai/bytedance/seedream/v4/text-to-image, picked from a 3-model trial on the same prompt (fal-ai/nano-banana-pro, fal-ai/flux-2-pro, fal-ai/bytedance/seedream/v4/text-to-image), 2026-11-02. Prompt: a three-person international product team in a Lisbon workshop studio at blue hour testing an app prototype on a phone and laptop, paper wireframes on the wall, distinct enumerated clothing, faces turned to the work. Orchid grade, people-v2 preset",
+      "approval": "Generated support imagery; approved for use by John 2026-11-02"
+    },
+    {
+      "id": "build-sprint/sprint-track-governance-approval.webp",
+      "path": "/assets/landing/build-sprint/sprint-track-governance-approval.7b06eeab.webp",
+      "sha256": "7b06eeab338ec16384545fb8192f9499da3a135f2fb9d9e70770e50252fd58fb",
+      "source": "Generated with fal-ai/nano-banana-pro, picked from a 3-model trial on the same prompt (fal-ai/nano-banana-pro, fal-ai/flux-2-pro, fal-ai/bytedance/seedream/v4/text-to-image), 2026-11-02. Prompt: three colleagues at a long wooden table in a Marrakech room at dusk, one signing the final page of a printed AI use policy while another points to a highlighted clause, distinct enumerated clothing. Orchid grade, people-v2 preset",
+      "approval": "Generated support imagery; approved for use by John 2026-11-02"
+    }
+  ]
+}
