@@ -10,14 +10,20 @@ export async function open({ width, height, dpr, mobile = false }) {
     document.addEventListener('DOMContentLoaded', () => { const s = document.createElement('style'); s.textContent = css; document.head.appendChild(s); });
   });
   const p = await ctx.newPage();
-  // Synthetic run: nothing is stored or sent. Lead capture and website analysis are stubbed, and the
-  // assessment POST carries the honeypot so the server scores it and returns the report without saving.
-  await p.route('**/api/assessment-leads', r => r.fulfill({ status: 200, json: { success: true } }));
-  await p.route('**/api/analyze-company', r => r.fulfill({ status: 200, json: { success: false, error: 'skipped' } }));
-  await p.route(/\/api\/(assessments|eu-ai-act-assessments)$/, async r => {
-    if (r.request().method() !== 'POST') return r.continue();
-    const body = JSON.parse(r.request().postData()); body._gotcha = 'synthetic-recording';
-    r.continue({ postData: JSON.stringify(body) });
+  // Synthetic run: nothing is stored, sent or counted. Every API write is stubbed (funnel events,
+  // lead capture, website analysis, inquiries, feedback, whitepaper, ...). The one exception is the
+  // assessment POST, which goes through with the honeypot set so the server scores it and returns the
+  // real report without saving or emailing. GET requests (form token) pass through.
+  await p.route('**/api/**', async r => {
+    const req = r.request();
+    if (req.method() === 'GET') return r.continue();
+    const url = new URL(req.url());
+    if (/^\/api\/(assessments|eu-ai-act-assessments)$/.test(url.pathname)) {
+      const body = JSON.parse(req.postData()); body._gotcha = 'synthetic-recording';
+      return r.continue({ postData: JSON.stringify(body) });
+    }
+    if (url.pathname === '/api/analyze-company') return r.fulfill({ status: 200, json: { success: false, error: 'skipped' } });
+    return r.fulfill({ status: 200, json: { success: true } });
   });
   return { b, ctx, p };
 }
