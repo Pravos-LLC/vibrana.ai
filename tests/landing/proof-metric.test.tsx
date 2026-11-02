@@ -24,6 +24,11 @@ describe('ProofMetric width contract', () => {
     expect(proofColumns(319, 3)).toBe(1)
   })
 
+  it('pins the literal grid template, so a changed template cannot pass by comparing with itself', () => {
+    expect(proofGridTemplate(4)).toBe('repeat(auto-fit, minmax(max(160px, calc(100% / 4)), 1fr))')
+    expect(proofGridTemplate(3)).toBe('repeat(auto-fit, minmax(max(160px, calc(100% / 3)), 1fr))')
+  })
+
   it('renders the contract into markup: min-width per cell and the capped auto-fit template', () => {
     const html = renderToStaticMarkup(
       <ProofMetricRow maxColumns={4} source="Source: synthetic fixture">
@@ -34,7 +39,7 @@ describe('ProofMetric width contract', () => {
     )
     expect(html.match(/data-proof-metric=""/g)).toHaveLength(3)
     expect(html.match(/min-width:160px/g)).toHaveLength(3)
-    expect(html).toContain(`grid-template-columns:${proofGridTemplate(4)}`)
+    expect(html).toContain('grid-template-columns:repeat(auto-fit, minmax(max(160px, calc(100% / 4)), 1fr))')
     expect(html).toContain('whitespace-nowrap')
     expect(html).toContain('tabular')
   })

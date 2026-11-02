@@ -25,8 +25,16 @@ export interface ReelStageProps {
   title: string
   /** Show the film strip. Defaults to true when there is more than one clip. */
   strip?: boolean
-  /** Small line under the card about captions, e.g. `Captions are burned in.` */
+  /** Visible caption under the card (and the film strip), e.g. a figure line from the copy deck. */
+  caption?: React.ReactNode
+  /** Small mono note under the caption about captions, e.g. `Captions are burned in.` */
   captionNote?: React.ReactNode
+  /** Visible text on the card's chip before playback. Default `Watch`. */
+  playLabel?: string
+  /** Visible text on the chip while playing. Default `Playing`. */
+  playingLabel?: string
+  /** Accessible names for the controls; every visible or announced string can come from copy. */
+  labels?: { play?: string; pause?: string; sound?: string; chooseClip?: string }
   /** Card width on desktop, 300 to 360px. */
   cardWidth?: 300 | 320 | 340 | 360
   className?: string
@@ -48,7 +56,19 @@ export interface ReelStageProps {
  * Mobile: the card takes 78vw up to its desktop width, the backdrop becomes a contained panel
  * behind it, and the film strip scrolls sideways under it.
  */
-export function ReelStage({ clips, title, strip, captionNote, cardWidth = 320, className }: ReelStageProps) {
+export function ReelStage({
+  clips,
+  title,
+  strip,
+  caption,
+  captionNote,
+  playLabel = 'Watch',
+  playingLabel = 'Playing',
+  labels,
+  cardWidth = 320,
+  className,
+}: ReelStageProps) {
+  const L = { play: 'Play', pause: 'Pause', sound: 'Sound', chooseClip: 'Choose a clip', ...labels }
   const [index, setIndex] = useState(0)
   const [playing, setPlaying] = useState(false)
   const [muted, setMuted] = useState(true)
@@ -181,15 +201,15 @@ export function ReelStage({ clips, title, strip, captionNote, cardWidth = 320, c
 
           {/* Control bar: its own band at the foot of the card, never over the captions' middle. */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-linear-to-t from-black/55 to-transparent p-3 pt-10">
-            <span className="label-mono pointer-events-auto rounded-full bg-black/40 px-2.5 py-1 text-white/90 backdrop-blur-sm">
-              {playing ? 'Playing' : 'Watch'}
+            <span aria-hidden className="label-mono rounded-full bg-black/40 px-2.5 py-1 text-white/90 backdrop-blur-sm">
+              {playing ? playingLabel : playLabel}
               {clip.duration ? ` ${clip.duration}` : ''}
             </span>
             <span className="pointer-events-auto flex gap-1.5">
-              <StageButton label={playing ? 'Pause' : 'Play'} onClick={togglePlay}>
+              <StageButton label={playing ? L.pause : L.play} onClick={togglePlay}>
                 {playing ? <Pause size={15} strokeWidth={2} /> : <Play size={15} strokeWidth={2} />}
               </StageButton>
-              <StageButton label={muted ? 'Turn sound on' : 'Turn sound off'} pressed={!muted} onClick={toggleSound}>
+              <StageButton label={L.sound} pressed={!muted} onClick={toggleSound}>
                 {muted ? <VolumeX size={15} strokeWidth={2} /> : <Volume2 size={15} strokeWidth={2} />}
               </StageButton>
             </span>
@@ -197,7 +217,7 @@ export function ReelStage({ clips, title, strip, captionNote, cardWidth = 320, c
         </div>
 
         {showStrip ? (
-          <div className="mt-5 flex max-w-full gap-2 overflow-x-auto px-1 pb-1" role="group" aria-label="Choose a clip">
+          <div className="mt-5 flex max-w-full gap-2 overflow-x-auto px-1 pb-1" role="group" aria-label={L.chooseClip}>
             {clips.map((c, i) => (
               <button
                 key={c.id}
@@ -223,7 +243,12 @@ export function ReelStage({ clips, title, strip, captionNote, cardWidth = 320, c
           </div>
         ) : null}
 
-        {captionNote ? <p className="label-mono mt-3 text-center text-ink-tertiary">{captionNote}</p> : null}
+        {caption ? (
+          <p className="type-sm mt-4 max-w-[36ch] text-center text-ink-secondary" style={{ lineHeight: 1.45 }}>
+            {caption}
+          </p>
+        ) : null}
+        {captionNote ? <p className="label-mono mt-2 text-center text-ink-tertiary">{captionNote}</p> : null}
       </div>
     </section>
   )

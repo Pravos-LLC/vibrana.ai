@@ -16,6 +16,8 @@
  * What counts as a slot: `<img src|srcset>`, `<source src|srcset>`, `<video src|poster>`. CSS
  * `background-image` is not read; components use it only to echo an asset already in the same slot
  * (ReelStage's blurred backdrop, film-strip thumbnails), which is one slot, not a second one.
+ * Not seen either: media rendered only on the client (`dynamic(..., { ssr: false })`, effects) and
+ * media behind a Suspense boundary that has not resolved during the static render.
  */
 
 export const PLACEHOLDER_SOURCES: readonly string[] = ['/assets/imagery/homepage/prism-grid-solar.webp']
@@ -41,8 +43,8 @@ export interface MediaSource {
 export interface ImageSlotViolation {
   rule: ImageSlotRule
   src: string
-  /** How many media elements use the source (duplicates only). */
-  count?: number
+  /** How many media elements use the source. Part of the allowlist key, so growth fails. */
+  count: number
 }
 
 const decode = (s: string) =>
@@ -100,15 +102,18 @@ export function findImageSlotViolations(html: string, opts: ImageSlotOptions = {
   }
   const out: ImageSlotViolation[] = []
   for (const [src, els] of elementsBySrc) {
-    if (src.startsWith(PUBLIC_DEMO_PREFIX)) out.push({ rule: 'public-demo', src })
-    if (PLACEHOLDER_SOURCES.includes(src)) out.push({ rule: 'placeholder', src })
+    if (src.startsWith(PUBLIC_DEMO_PREFIX)) out.push({ rule: 'public-demo', src, count: els.size })
+    if (PLACEHOLDER_SOURCES.includes(src)) out.push({ rule: 'placeholder', src, count: els.size })
     if (els.size > 1 && !(opts.allowDuplicates ?? SITE_CHROME_SOURCES).includes(src)) out.push({ rule: 'duplicate', src, count: els.size })
   }
   return out.sort((a, b) => (a.rule + a.src).localeCompare(b.rule + b.src))
 }
 
-/** Stable string key for a violation, used by allowlists: `duplicate /a.webp`. */
-export const violationKey = (v: Pick<ImageSlotViolation, 'rule' | 'src'>) => `${v.rule} ${v.src}`
+/**
+ * Stable string key for a violation, used by allowlists: `duplicate /a.webp x2`. The slot count is
+ * part of the key, so an allowlisted page that adds one more duplicate or placeholder slot fails.
+ */
+export const violationKey = (v: Pick<ImageSlotViolation, 'rule' | 'src' | 'count'>) => `${v.rule} ${v.src} x${v.count}`
 
 export interface ImageSlotReport {
   /** Violations not on the allowlist. A guarded page must have none. */
@@ -134,7 +139,7 @@ export function checkImageSlots(html: string, knownViolations: readonly string[]
 export function assertImageSlots(html: string, knownViolations: readonly string[] = [], opts: ImageSlotOptions = {}): void {
   const { unexpected, stale } = checkImageSlots(html, knownViolations, opts)
   const lines = [
-    ...unexpected.map((v) => `  ${violationKey(v)}${v.count ? ` (x${v.count})` : ''}`),
+    ...unexpected.map((v) => `  ${violationKey(v)}`),
     ...stale.map((k) => `  stale allowlist entry: ${k}`),
   ]
   if (lines.length) throw new Error(`Image slot guard failed:\n${lines.join('\n')}`)

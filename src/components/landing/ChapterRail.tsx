@@ -20,6 +20,10 @@ export interface ChapterRailProps {
   label?: string
   /** Sticky offset from the top, to clear the site nav. Default 96px. */
   top?: number
+  /** Visible-on-focus skip link that jumps past the chapter list. Default `Skip chapter navigation`. */
+  skipLabel?: string
+  /** Mobile bar progress text. Default `Chapter 2 of 5`. */
+  formatProgress?: (n: number, total: number, chapter: Chapter) => string
   className?: string
 }
 
@@ -34,7 +38,9 @@ export interface ChapterRailProps {
  * Below md the rail collapses to a sticky bar: the current chapter and a progress hairline.
  * Place it in a grid column beside the sections (`lg:grid-cols-[200px_1fr]`).
  */
-export function ChapterRail({ chapters, label = 'Chapters', top = 96, className }: ChapterRailProps) {
+const defaultProgress = (n: number, total: number) => `Chapter ${n} of ${total}`
+
+export function ChapterRail({ chapters, label = 'Chapters', top = 96, skipLabel = 'Skip chapter navigation', formatProgress = defaultProgress, className }: ChapterRailProps) {
   const [active, setActive] = useState(0)
   const reduce = useHydratedReducedMotion()
   const uid = useId()
@@ -60,10 +66,18 @@ export function ChapterRail({ chapters, label = 'Chapters', top = 96, className 
   const num = (c: Chapter, i: number) => c.number ?? String(i + 1)
   const current = chapters[active]
 
+  const skipId = `${uid}-after`.replace(/:/g, '')
+
   return (
     <>
       {/* Desktop rail */}
       <nav aria-label={label} className={cn('sticky hidden md:block', className)} style={{ top }}>
+        <a
+          href={`#${skipId}`}
+          className="label-mono sr-only rounded-md bg-surface-base px-2 py-1 text-ink focus:not-sr-only focus:absolute focus:-top-9 focus:left-0 focus:z-30 focus:border focus:border-line"
+        >
+          {skipLabel}
+        </a>
         <ol className="relative space-y-0.5 border-l border-line">
           {chapters.map((c, i) => {
             const on = i === active
@@ -98,13 +112,13 @@ export function ChapterRail({ chapters, label = 'Chapters', top = 96, className 
       {/* Mobile bar */}
       <nav aria-label={label} className="sticky z-20 border-b border-line-subtle bg-surface-nav px-1 backdrop-blur md:hidden" style={{ top: Math.max(0, top - 32) }}>
         <a href={`#${current?.id ?? ''}`} className="flex items-baseline gap-3 py-3 text-sm">
-          <span className="label-mono tabular text-ink-tertiary">
-            {String(active + 1).padStart(2, '0')} / {String(chapters.length).padStart(2, '0')}
-          </span>
+          <span className="label-mono tabular shrink-0 text-ink-tertiary">{current ? formatProgress(active + 1, chapters.length, current) : null}</span>
           <span className="truncate font-medium text-ink">{current?.title}</span>
         </a>
-        <span aria-hidden className="absolute bottom-[-1px] left-0 h-[2px] w-full origin-left" style={{ background: PRISM_STROKE, transform: `scaleX(${(active + 1) / chapters.length})`, transition: `transform ${DUR.draw}s cubic-bezier(0.23, 1, 0.32, 1)` }} />
+        <span aria-hidden className="absolute bottom-[-1px] left-0 h-[2px] w-full origin-left" style={{ background: PRISM_STROKE, transform: `scaleX(${(active + 1) / chapters.length})`, transition: reduce ? 'none' : `transform ${DUR.draw}s cubic-bezier(0.23, 1, 0.32, 1)` }} />
       </nav>
+      {/* Skip-link target: focus lands here, after the chapter list. */}
+      <span id={skipId} tabIndex={-1} className="sr-only" />
     </>
   )
 }

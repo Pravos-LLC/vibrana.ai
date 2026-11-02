@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useId, useState } from 'react'
+import React, { useId, useLayoutEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/src/components/prism/utils/cn'
 import { useHydratedReducedMotion } from '@/src/components/prism/motion/useHydratedReducedMotion'
@@ -22,6 +22,17 @@ export interface DistinctProductFrameProps {
   caption?: React.ReactNode
   /** No inner padding: for a full app screen that brings its own layout. */
   bleed?: boolean
+  /**
+   * The product's own theme, pinned whatever the page theme: products are designed in one theme
+   * and are not token-aware throughout. Default `light`. `inherit` follows the page. The
+   * terminal chrome is always dark.
+   */
+  theme?: 'light' | 'dark' | 'inherit'
+  /**
+   * Render the children on a fixed canvas (e.g. the 960x600 product mocks) and scale it to the
+   * frame's width, so a screen built for a scaled render is never squeezed or cropped. Implies bleed.
+   */
+  fit?: { width: number; height: number }
   className?: string
 }
 
@@ -35,14 +46,18 @@ const PAD = { comfortable: 'p-6 sm:p-8 text-[15px]', compact: 'p-4 sm:p-5 text-[
  * Children are the real product components (or a captured screen); the frame only adds chrome.
  * `terminal` is always dark, in either theme: it is the page's one inverted panel.
  */
-export function DistinctProductFrame({ chrome, accent = 'violet', density = 'comfortable', title, children, caption, bleed = false, className }: DistinctProductFrameProps) {
+export function DistinctProductFrame({ chrome, accent = 'violet', density = 'comfortable', title, children: content, caption, bleed = false, theme = 'light', fit, className }: DistinctProductFrameProps) {
   const a = ACCENTS[accent]
-  const pad = bleed ? (density === 'compact' ? 'text-[13px]' : 'text-[15px]') : PAD[density]
+  const pad = bleed || fit ? (density === 'compact' ? 'text-[13px]' : 'text-[15px]') : PAD[density]
+  const children = fit ? <FitCanvas width={fit.width} height={fit.height}>{content}</FitCanvas> : content
+  // A fitted canvas scales down instead; only an unfitted desktop silhouette keeps 560px on a phone.
+  const holdWidth = !fit && (chrome === 'app' || chrome === 'browser')
+  const pinned = chrome === 'terminal' ? 'dark' : theme === 'inherit' ? undefined : theme
   const vars = { '--pf-accent': a.solid, '--pf-accent-text': a.text, '--pf-tint': a.tint, '--pf-ring': a.ring } as React.CSSProperties
   return (
-    <figure className={cn('m-0', chrome !== 'phone' && 'max-sm:overflow-x-auto max-sm:pb-2', className)} style={vars} data-chrome={chrome} data-accent={accent}>
-      {/* Desktop silhouettes keep 560px on a phone and scroll sideways, rather than squeezing the product. */}
-      <div className={chrome !== 'phone' ? 'max-sm:min-w-[560px]' : undefined}>
+    <figure className={cn('m-0', holdWidth && 'max-sm:overflow-x-auto max-sm:pb-2', className)} style={vars} data-chrome={chrome} data-accent={accent}>
+      {/* The theme pins on the frame, not the figure, so the caption follows the page. */}
+      <div className={holdWidth ? 'max-sm:min-w-[560px]' : undefined} data-theme={pinned}>
       {chrome === 'browser' && (
         <div className="overflow-hidden rounded-xl border border-line bg-surface-base shadow-[0_0_0_4px_var(--pf-tint),0_28px_60px_-32px_rgba(24,18,60,0.4)]">
           <div className="flex items-center gap-3 border-b border-line-subtle bg-surface-raised px-3 py-2">
@@ -91,7 +106,7 @@ export function DistinctProductFrame({ chrome, accent = 'violet', density = 'com
       )}
 
       {chrome === 'terminal' && (
-        <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0d0d12] text-white/85 shadow-[0_0_0_1px_var(--pf-ring),0_28px_60px_-28px_rgba(10,8,30,0.7)]" data-theme="dark">
+        <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0d0d12] text-white/85 shadow-[0_0_0_1px_var(--pf-ring),0_28px_60px_-28px_rgba(10,8,30,0.7)]">
           <div className="flex items-center gap-3 border-b border-white/10 px-4 py-2.5">
             <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--pf-accent)' }} />
             <span className="label-mono text-white/60">{title}</span>
@@ -103,6 +118,39 @@ export function DistinctProductFrame({ chrome, accent = 'violet', density = 'com
       </div>
       {caption ? <figcaption className="label-mono mt-3 text-ink-tertiary">{caption}</figcaption> : null}
     </figure>
+  )
+}
+
+/**
+ * Lays children out on a fixed canvas and scales it to the available width; height follows. On a
+ * narrow screen the scale stops at `MIN_FIT_SCALE` so the product stays legible, and the canvas
+ * scrolls sideways inside the frame instead of shrinking to a thumbnail.
+ */
+const MIN_FIT_SCALE = 0.6
+
+function FitCanvas({ width, height, children }: { width: number; height: number; children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [scale, setScale] = useState(0)
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el || typeof ResizeObserver === 'undefined') return
+    const ro = new ResizeObserver(() => setScale(Math.max(el.clientWidth / width, MIN_FIT_SCALE)))
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [width])
+  return (
+    // `lk-native` exempts the canvas from Prism's element type sizes, so the mock's own sizes apply.
+    <div
+      ref={ref}
+      className="lk-native relative w-full overflow-x-auto overflow-y-hidden"
+      style={scale ? { height: height * scale } : { aspectRatio: `${width} / ${height}` }}
+    >
+      <div className="relative" style={{ width: scale ? width * scale : '100%', height: '100%' }}>
+        <div className="absolute left-0 top-0 origin-top-left" style={{ width, height, transform: `scale(${scale})`, opacity: scale ? 1 : 0 }}>
+          {children}
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -127,8 +175,8 @@ export interface ProductToggleProps {
 /**
  * ProductToggle: two (or three) prototypes, one at a time, at full size. A labeled segmented
  * control (tabs), not a carousel: no arrows, no auto-advance. The panel never renders narrower
- * than 560px when the viewport allows it; on a phone it takes the full column. Arrow keys move
- * between tabs (roving tabindex). The switch is a 240 ms crossfade with a 2px blur.
+ * than 560px when the viewport allows it; on a phone it takes the full column. Arrow keys, Home and
+ * End move between tabs (roving tabindex). The switch is a 240 ms crossfade with a 2px blur.
  */
 export function ProductToggle({ items, label, defaultId, className }: ProductToggleProps) {
   const [active, setActive] = useState(defaultId ?? items[0]?.id)
@@ -137,10 +185,11 @@ export function ProductToggle({ items, label, defaultId, className }: ProductTog
   const current = items.find((i) => i.id === active) ?? items[0]
 
   const onKeyDown = (e: React.KeyboardEvent, i: number) => {
-    const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0
-    if (!step) return
+    const n = items.length
+    const to = e.key === 'ArrowRight' ? (i + 1) % n : e.key === 'ArrowLeft' ? (i - 1 + n) % n : e.key === 'Home' ? 0 : e.key === 'End' ? n - 1 : -1
+    if (to < 0) return
     e.preventDefault()
-    const next = items[(i + step + items.length) % items.length]
+    const next = items[to]
     setActive(next.id)
     document.getElementById(`${uid}-tab-${next.id}`)?.focus()
   }
@@ -183,6 +232,7 @@ export function ProductToggle({ items, label, defaultId, className }: ProductTog
       <div
         id={`${uid}-panel`}
         role="tabpanel"
+        tabIndex={0}
         aria-labelledby={`${uid}-tab-${current.id}`}
         className="mt-6 w-full"
         style={{ minWidth: 'min(560px, 100%)' }}

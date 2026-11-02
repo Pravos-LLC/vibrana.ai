@@ -10,15 +10,15 @@ Plan and rules: hub `gtm/programs/assessment-landing-pages/plan.md` and `inspira
 
 | Component | What it is for | Key props |
 |---|---|---|
-| `ReelStage` | A 9:16 reel in a desktop hero, framed over a blurred copy of itself | `clips[]` (`id`, `label`, `mp4`, `webm?`, `poster`, `duration?`), `title`, `strip?`, `captionNote?`, `cardWidth` 300 to 360 |
-| `DeliverablePreview` | Real report or app components at preview scale, in three beats with callouts | children (one per beat), `beats[]` (`id`, `label`, `callouts?[]` with `x`/`y` percent and `side`, `hold?` ms), `variant` `paper` or `app`, `title`, `designWidth?`, `autoplay?`, `label` |
+| `ReelStage` | A 9:16 reel in a desktop hero, framed over a blurred copy of itself | `clips[]` (`id`, `label`, `mp4`, `webm?`, `poster`, `duration?`), `title`, `strip?`, `caption?` (visible, under the card), `captionNote?`, `playLabel` (default `Watch`), `playingLabel` (default `Playing`), `labels?` (`play`, `pause`, `sound`, `chooseClip`), `cardWidth` 300 to 360 |
+| `DeliverablePreview` | Real report or app components at preview scale, in three beats with callouts; stacked at reading size under 560px | children (one per beat), `beats[]` (`id`, `label`, `callouts?[]` with `target` (a `data-callout` id in the content), optional `x`/`y` percent within it, `side`; `hold?` ms), `variant` `paper` or `app`, `title`, `designWidth?`, `aspect?`, `autoplay?`, `label` |
 | `ProofMetric`, `ProofMetricRow` | Stats that never squish | metric: `value`, `unit?`, `prefix?`, `label`, `source?`; row: `maxColumns` 2 to 4, `source?`, `label?` |
-| `DistinctProductFrame` | One product, one frame language | `chrome` `browser`/`app`/`phone`/`terminal`, `accent` `violet`/`teal`, `density` `comfortable`/`compact`, `title?`, `caption?`, `bleed?` |
+| `DistinctProductFrame` | One product, one frame language | `chrome` `browser`/`app`/`phone`/`terminal`, `accent` `violet`/`teal`, `density` `comfortable`/`compact`, `theme` `light` (default, pinned) / `dark` / `inherit`, `fit?` `{width, height}` canvas scaled to the frame, `title?`, `caption?`, `bleed?` |
 | `ProductToggle` | Two prototypes, one at a time, full size | `items[]` (`id`, `label`, `audience`, `content`), `label`, `defaultId?` |
 | `ProblemSequence` | Problem lines plus a close as one visual moment | `lines[]` (`text`, `visual?`), `close`, `label` |
-| `ChapterRail` | Sticky chapter list (Field Report) | `chapters[]` (`id`, `title`, `number?`), `label?`, `top?` |
-| `GateCard` | Acceptance gate with a checklist that ticks in view | `gate`, `title`, `criteria[]`, `signedBy?`, `when?` |
-| Image slot guard | Test helper: one asset per slot, no placeholders | `assertImageSlots(html, known)`, `findImageSlotViolations`, `checkImageSlots` |
+| `ChapterRail` | Sticky chapter list (Field Report) with a skip link | `chapters[]` (`id`, `title`, `number?`), `label?`, `top?`, `skipLabel` (default `Skip chapter navigation`), `formatProgress?` (mobile bar, default `Chapter 2 of 5`) |
+| `GateCard` | Acceptance gate with a checklist that ticks in view | `gate`, `title`, `criteria[]`, `transfers?[]` (what becomes the client's), `note?` (margin note), `signedBy?`, `when?`, `labels?` (`gate`, `transfers`, `signedBy`) |
+| Image slot guard | Test helper: one asset per slot, no placeholders | `assertImageSlots(html, known)`, `findImageSlotViolations`, `checkImageSlots`; allowlist keys carry the slot count (`duplicate /a.webp x2`) |
 
 ## The mono face
 
@@ -54,16 +54,30 @@ Not for body copy or headlines.
 - **ReelStage loading.** Pass a poster for every clip. Video is `preload="none"` and starts muted
   only when half the stage is in view, never with reduced motion or Save-Data. Keep the hero loop
   under 3 MB. Captions must be burned into the cut; say so in `captionNote`.
-- **DeliverablePreview callouts** bleed about 9.5rem past the frame edge at `lg` and up. Leave that
-  room beside the frame, or set `side` so labels point into open space. Below `lg` the notes list
-  under the frame. Each beat remounts its child, so the component's own entrance plays again.
+- **DeliverablePreview callouts** point at `data-callout` elements you put in the beat content, so
+  the dot tracks the thing it names. At `xl` (1280px) and up the labels sit in a 168px gutter the component
+  reserves inside its own box (it never overflows the page; the figure also clips as a backstop).
+  Below `xl` only the dots show, with the notes listed under the frame. Under 560px the beats
+  stack at reading size, unscaled: style beat content for that with the
+  `[[data-dp-mode=stacked]_&]:` variant (see the gallery demos). Each beat remounts its child,
+  so the component's own entrance plays again.
 - **ProblemSequence** pins only at 768px and up with motion allowed; it adds about 70vh of scroll
-  per line. Before hydration and under reduced motion it renders the static ledger, so nothing is
-  blank in a full-page capture. Keep lines short (under about 45 characters).
+  per line. That height is reserved in CSS from the server render, so hydration does not move the
+  page. Before hydration and under reduced motion it renders the static ledger, so nothing is
+  blank in a full-page capture. Dimmed lines stay at 4.5:1 or better. Keep lines short (under
+  about 45 characters).
+- **Browser checks.** `e2e/landing-kit.spec.ts` asserts no horizontal scroll on `/prism/landing-kit`
+  at 390, 1024, 1280 and 1440 (light and dark) and that every ProofMetric cell is at least 160px with
+  an unclipped figure. Add the same checks for your page.
 - **ChapterRail** must sit in a container that spans the chapters for `sticky` to hold. On mobile
   its sticky bar needs the same; the gallery uses `max-md:contents` on its `aside`.
-- **DistinctProductFrame** desktop silhouettes keep 560px on phones and scroll sideways. Do not put
-  two frames side by side below 560px each; use `ProductToggle`.
+- **DistinctProductFrame** pins the product's theme (default light) whatever the page theme, because
+  product mocks are not token-aware throughout. Product mocks drawn on the 960x600 canvas go in with
+  `fit={{ width: 960, height: 600 }}`, which scales the canvas to the frame instead of squeezing it.
+  Unfitted app and browser frames keep 560px on phones and scroll sideways. Do not put two frames
+  side by side below 560px each; use `ProductToggle` (arrow keys, Home and End).
+  A pinned light frame inside a dark page gets light tokens back (`[data-theme="dark"] [data-theme="light"]`
+  in `globals.css`); Tailwind `dark:` utilities still follow the nearest dark ancestor.
 - **Gradient once.** The kit's gradient appears in strikes, rail markers and progress lines.
   A page uses the gradient in one hero element; do not stack several kit gradients in one viewport.
 - **Dark mode.** Everything reads tokens, so `data-theme="dark"` on any ancestor flips it. The

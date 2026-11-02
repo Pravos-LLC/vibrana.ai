@@ -49,7 +49,13 @@ export function ReelStageDemo() {
         </h3>
         <p className="mt-5 max-w-[42ch] text-ink-secondary">The headline paints first. The reel loads its poster, then waits until it is half in view before fetching any video.</p>
       </div>
-      <ReelStage clips={DEMO_CLIPS} title="Demo reel" captionNote="Demo footage (16:9 stand-ins). Approved reels carry burned-in captions." />
+      <ReelStage
+        clips={DEMO_CLIPS}
+        title="Demo reel"
+        playLabel="Watch"
+        caption="FIG 1 / Stand-in clips until the approved reels are encoded."
+        captionNote="Demo footage. Approved reels carry burned-in captions."
+      />
     </div>
   )
 }
@@ -60,6 +66,9 @@ const profile = northwindProfile()
 const rows = reportRows(profile)
 const tally = statusTally(rows)
 
+/* In the stacked (phone) view the beats reflow at reading size instead of keeping the A4 grid:
+   the `[[data-dp-mode=stacked]_&]:` variant. Written out in full so Tailwind can see each class. */
+
 export function PaperPreviewDemo() {
   return (
     <DeliverablePreview
@@ -67,27 +76,35 @@ export function PaperPreviewDemo() {
       label="Sample EU AI Act readiness report"
       title="EU AI Act readiness report"
       beats={[
-        { id: 'cover', label: 'Cover', callouts: [{ label: 'Dated to the day', x: 10, y: 90, side: 'left' }] },
-        { id: 'score', label: 'Score', callouts: [{ label: 'One score, three bands', x: 8, y: 36, side: 'left' }, { label: 'Every obligation, by status', x: 88, y: 66, side: 'right' }] },
-        { id: 'findings', label: 'Findings', callouts: [{ label: 'Today, on the same axis', x: 60.5, y: 22, side: 'right' }] },
+        { id: 'cover', label: 'Cover', callouts: [{ label: 'Dated to the day', target: 'assessed', side: 'left' }] },
+        {
+          id: 'score',
+          label: 'Score',
+          callouts: [
+            { label: 'One score, three bands', target: 'gauge', side: 'left' },
+            { label: 'Every obligation, by status', target: 'tally', side: 'right', y: 30 },
+          ],
+        },
+        // The today line sits at the assessment date on the Gantt's 2025 to 2028 axis.
+        { id: 'findings', label: 'Findings', callouts: [{ label: 'Today, on the same axis', target: 'gantt', side: 'right', x: 62, y: 14 }] },
       ]}
     >
-      <article className="flex min-h-[900px] flex-col">
+      <article className={`flex min-h-[900px] flex-col [[data-dp-mode=stacked]_&]:min-h-0`}>
         <p className="label-mono text-ink-tertiary">Sample report</p>
-        <h4 className="mt-28 max-w-[14ch] font-display font-semibold text-ink" style={{ fontSize: 56, lineHeight: 1.02, letterSpacing: '-0.03em' }}>
+        <h4 className={`mt-28 max-w-[14ch] font-display font-semibold text-ink [[data-dp-mode=stacked]_&]:mt-8`} style={{ fontSize: 'clamp(2rem, 6cqi + 1rem, 3.5rem)', lineHeight: 1.04, letterSpacing: '-0.03em' }}>
           EU AI Act readiness
         </h4>
-        <p className="mt-6 text-ink-secondary" style={{ fontSize: 22 }}>{NORTHWIND_COMPANY.name}</p>
-        <div className="mt-auto grid grid-cols-3 gap-6 border-t border-line pt-6">
-          <Meta k="Assessed" v={profile.asOf} />
+        <p className="mt-6 text-ink-secondary" style={{ fontSize: 20 }}>{NORTHWIND_COMPANY.name}</p>
+        <div className={`mt-auto grid grid-cols-3 gap-6 border-t border-line pt-6 [[data-dp-mode=stacked]_&]:mt-10 [[data-dp-mode=stacked]_&]:gap-3`}>
+          <Meta k="Assessed" v={profile.asOf} callout="assessed" />
           <Meta k="Role" v="Deployer" />
           <Meta k="Tier" v="High-risk" />
         </div>
       </article>
       <article className="space-y-10">
         <p className="label-mono text-ink-tertiary">Readiness</p>
-        <div className="grid grid-cols-[300px_1fr] items-center gap-10">
-          <div className="rounded-2xl bg-[#003399] p-6">
+        <div className={`grid grid-cols-[300px_1fr] items-center gap-10 [[data-dp-mode=stacked]_&]:grid-cols-1 [[data-dp-mode=stacked]_&]:gap-6`}>
+          <div data-callout="gauge" className="rounded-2xl bg-[#003399] p-6">
             <ReadinessGauge score={profile.readinessScore} level={profile.readinessLevel} />
           </div>
           <div>
@@ -100,19 +117,23 @@ export function PaperPreviewDemo() {
             </p>
           </div>
         </div>
-        <StatusTally tally={tally} />
+        <div data-callout="tally">
+          <StatusTally tally={tally} />
+        </div>
       </article>
       <article>
         <p className="label-mono mb-6 text-ink-tertiary">Obligations on one time axis</p>
-        <ObligationGantt rows={rows} today={profile.asOf} />
+        <div data-callout="gantt">
+          <ObligationGantt rows={rows} today={profile.asOf} />
+        </div>
       </article>
     </DeliverablePreview>
   )
 }
 
-function Meta({ k, v }: { k: string; v: string }) {
+function Meta({ k, v, callout }: { k: string; v: string; callout?: string }) {
   return (
-    <div>
+    <div data-callout={callout}>
       <p className="label-mono text-ink-tertiary">{k}</p>
       <p className="tabular mt-1 text-ink" style={{ fontSize: 16 }}>{v}</p>
     </div>
@@ -128,31 +149,64 @@ const DIMENSIONS = [
   { dimension: 'Culture & Change Readiness', score: 62, weight: 1 },
 ]
 
+const MOVES = ['Name one owner for data quality', 'Pick two workflows to pilot this quarter', 'Write the review step before the first launch']
+
 export function AppPreviewDemo() {
+  const archetype = ARCHETYPES.VisionaryArchitect
   return (
     <DeliverablePreview
       variant="app"
+      aspect={0.52}
       label="Sample AI readiness assessment"
       title="AI readiness assessment"
       beats={[
-        { id: 'radar', label: 'Profile', callouts: [{ label: 'Six dimensions, live', x: 62, y: 30, side: 'right' }] },
-        { id: 'archetype', label: 'Archetype', callouts: [{ label: 'Vision against operations', x: 70, y: 50, side: 'right' }] },
-        { id: 'metrics', label: 'Summary' },
+        { id: 'radar', label: 'Profile', callouts: [{ label: 'Six dimensions, live', target: 'radar', side: 'left', x: 8, y: 20 }, { label: 'Every score in plain numbers', target: 'dims', side: 'right' }] },
+        { id: 'archetype', label: 'Archetype', callouts: [{ label: 'Vision against operations', target: 'quadrant', side: 'left', x: 0, y: 40 }] },
+        { id: 'metrics', label: 'Summary', callouts: [{ label: 'Where to start', target: 'moves', side: 'right', x: 100, y: 20 }] },
       ]}
     >
-      <div className="grid grid-cols-2 gap-8">
-        <LiveRadarChart dimensionScores={DIMENSIONS} predictedArchetype={ARCHETYPES.VisionaryArchitect} totalAnswered={18} />
-        <LiveRadarChart dimensionScores={DIMENSIONS.map((d) => ({ ...d, score: Math.min(100, d.score + 14) }))} predictedArchetype={ARCHETYPES.ApexIntegrator} totalAnswered={30} />
+      <div className={`grid grid-cols-[1.1fr_1fr] items-center gap-10 [[data-dp-mode=stacked]_&]:grid-cols-1 [[data-dp-mode=stacked]_&]:gap-6`}>
+        <div data-callout="radar">
+          <LiveRadarChart dimensionScores={DIMENSIONS} predictedArchetype={archetype} totalAnswered={30} />
+        </div>
+        <ol data-callout="dims" className="border-t border-line">
+          {DIMENSIONS.map((d) => (
+            <li key={d.dimension} className="flex items-baseline justify-between gap-4 border-b border-line-subtle py-3">
+              <span className="text-ink-secondary" style={{ fontSize: 15 }}>{d.dimension}</span>
+              <span className="tabular font-display font-semibold text-ink" style={{ fontSize: 22 }}>
+                {d.score}
+              </span>
+            </li>
+          ))}
+        </ol>
       </div>
-      <div className="mx-auto max-w-[520px]">
-        <ArchetypeQuadrant axisScores={{ vision: 60, ops: 45 }} predictedArchetype={ARCHETYPES.VisionaryArchitect} totalAnswered={30} />
+      <div className={`grid grid-cols-[minmax(0,460px)_1fr] items-center gap-10 [[data-dp-mode=stacked]_&]:grid-cols-1 [[data-dp-mode=stacked]_&]:gap-6`}>
+        <div data-callout="quadrant">
+          <ArchetypeQuadrant axisScores={{ vision: 60, ops: 45 }} predictedArchetype={archetype} totalAnswered={30} />
+        </div>
+        <div>
+          <p className="label-mono text-ink-tertiary">Predicted archetype</p>
+          <p className="mt-2 font-display font-semibold text-ink" style={{ fontSize: 30, lineHeight: 1.12 }}>{archetype.title}</p>
+          <p className="mt-3 text-ink-secondary" style={{ fontSize: 15, lineHeight: 1.55 }}>{archetype.hook}.</p>
+        </div>
       </div>
-      <div className="pt-10">
+      <div className="flex flex-col gap-8 pt-4">
         <ProofMetricRow maxColumns={3} source="Sample answers, not a client">
           <ProofMetric value="52" unit="/100" label="Overall readiness" />
           <ProofMetric value="6" label="Dimensions scored" />
           <ProofMetric value="3" label="Blockers to clear first" />
         </ProofMetricRow>
+        <div data-callout="moves">
+          <p className="label-mono text-ink-tertiary">First three moves</p>
+          <ol className="mt-3 space-y-2">
+            {MOVES.map((m, i) => (
+              <li key={m} className="flex gap-3 text-ink" style={{ fontSize: 17 }}>
+                <span className="label-mono tabular pt-1 text-ink-tertiary">{String(i + 1).padStart(2, '0')}</span>
+                {m}
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </DeliverablePreview>
   )
@@ -197,10 +251,8 @@ export function ProductFrameDemo() {
             label: 'Call QA desk',
             audience: 'For an insurer’s contact center. Desktop app, violet.',
             content: (
-              <DistinctProductFrame chrome="app" accent="violet" density="compact" title="Assist" bleed caption="FIG 1 / Live call QA, scored as the call runs">
-                <div className="h-[420px]">
-                  <InsurtechLiveCallQa />
-                </div>
+              <DistinctProductFrame chrome="app" accent="violet" density="compact" title="Assist" fit={{ width: 960, height: 600 }} caption="FIG 1 / Live call QA, scored as the call runs">
+                <InsurtechLiveCallQa />
               </DistinctProductFrame>
             ),
           },
@@ -304,8 +356,23 @@ export function GateCardDemo() {
   return (
     <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
       <GateCard gate={1} when="Week 2" title="Baseline agreed" criteria={['Readiness evidence reviewed with the sponsor', 'Three workflows chosen and owned', 'Success measures written down']} signedBy="Your sponsor" />
-      <GateCard gate={2} when="Week 6" title="Pilot runs in production" criteria={['Workflow live for one team', 'Owner trained and on call', 'Risk review signed']} signedBy="Your COO" />
-      <GateCard gate={3} when="Week 12" title="Handover" criteria={['Runbook in your wiki', 'Two internal owners per workflow', 'Metrics reported for four weeks', 'Next quarter planned']} signedBy="Your leadership team" />
+      <GateCard
+        gate={2}
+        when="Week 6"
+        title="Pilot runs in production"
+        note="Your COO can stop the pilot here."
+        criteria={['Workflow live for one team', 'Owner trained and on call', 'Risk review signed']}
+        transfers={['The workflow and its prompts', 'The review checklist']}
+        signedBy="Your COO"
+      />
+      <GateCard
+        gate={3}
+        when="Week 12"
+        title="Handover"
+        criteria={['Runbook in your wiki', 'Two internal owners per workflow', 'Metrics reported for four weeks', 'Next quarter planned']}
+        transfers={['Runbook, code and dashboards']}
+        signedBy="Your leadership team"
+      />
     </div>
   )
 }

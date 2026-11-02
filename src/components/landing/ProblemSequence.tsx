@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { type RefObject, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { cn } from '@/src/components/prism/utils/cn'
 import { useHydratedReducedMotion } from '@/src/components/prism/motion/useHydratedReducedMotion'
@@ -43,6 +43,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
 export function ProblemSequence({ lines, close, label, className }: ProblemSequenceProps) {
   const reduce = useHydratedReducedMotion()
   const [wide, setWide] = useState<boolean | null>(null)
+  const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 768px)')
@@ -53,17 +54,32 @@ export function ProblemSequence({ lines, close, label, className }: ProblemSeque
   }, [])
 
   const mode: Mode = reduce || wide === null ? 'static' : wide ? 'pinned' : 'flow'
+  const steps = lines.length + 1
 
-  if (mode === 'pinned') return <Pinned lines={lines} close={close} label={label} className={className} />
-  if (mode === 'flow') return <Flow lines={lines} close={close} label={label} className={className} />
-  return <Ledger lines={lines} close={close} label={label} className={className} />
+  // The pinned height is reserved in CSS from the first (server) paint whenever the layout will pin
+  // (768px and up, motion allowed), so hydration swaps the content, never the box: no jump.
+  return (
+    <section
+      ref={ref}
+      aria-label={label}
+      className={cn('relative md:motion-safe:h-[var(--ps-h)]', className)}
+      style={{ ['--ps-h' as string]: `${steps * 70 + 30}vh` }}
+    >
+      {mode === 'pinned' ? <Pinned lines={lines} close={close} target={ref} /> : mode === 'flow' ? <Flow lines={lines} close={close} /> : <Ledger lines={lines} close={close} />}
+    </section>
+  )
 }
+
+type Body = Pick<ProblemSequenceProps, 'lines' | 'close'>
+
+/** Past lines keep at least 4.5:1 against the ground in both themes; the strike carries the change. */
+const PAST_INK = 'color-mix(in srgb, var(--text-primary) 60%, transparent)'
 
 const lineType = 'font-display font-semibold tracking-[-0.02em] text-ink'
 
-function Ledger({ lines, close, label, className }: ProblemSequenceProps) {
+function Ledger({ lines, close }: Body) {
   return (
-    <section aria-label={label} className={cn('mx-auto max-w-5xl', className)}>
+    <div className="mx-auto max-w-5xl md:motion-safe:sticky md:motion-safe:top-24">
       <ol className="border-t border-line">
         {lines.map((l, i) => (
           <li key={i} className="grid grid-cols-[3rem_1fr] items-center gap-4 border-b border-line py-6 md:grid-cols-[4rem_1fr_minmax(0,168px)] md:gap-8 md:py-8">
@@ -81,7 +97,7 @@ function Ledger({ lines, close, label, className }: ProblemSequenceProps) {
         </div>
         {close.visual ? <div className="col-start-2 md:col-start-3">{close.visual}</div> : null}
       </div>
-    </section>
+    </div>
   )
 }
 
@@ -107,11 +123,10 @@ function Struck({ on, delay = 0, children }: { on: boolean; delay?: number; chil
   )
 }
 
-function Pinned({ lines, close, label, className }: ProblemSequenceProps) {
-  const ref = useRef<HTMLElement>(null)
+function Pinned({ lines, close, target }: Body & { target: RefObject<HTMLElement | null> }) {
   const steps = lines.length + 1
   const [step, setStep] = useState(0)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
+  const { scrollYProgress } = useScroll({ target, offset: ['start start', 'end end'] })
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
     const next = Math.min(steps - 1, Math.floor(p * steps * 0.999))
     if (next !== step) setStep(next)
@@ -120,7 +135,7 @@ function Pinned({ lines, close, label, className }: ProblemSequenceProps) {
   const visual = closing ? close.visual : lines[step]?.visual
 
   return (
-    <section ref={ref} aria-label={label} className={cn('relative', className)} style={{ height: `${steps * 70 + 30}vh` }}>
+    <>
       <div className="sticky top-0 flex min-h-[100dvh] items-center">
         <div className="mx-auto grid w-full max-w-6xl grid-cols-[1fr_minmax(0,280px)] items-center gap-12 px-6">
           <div>
@@ -144,7 +159,7 @@ function Pinned({ lines, close, label, className }: ProblemSequenceProps) {
                         fontSize: 'clamp(1.75rem, 1.2rem + 2vw, 3.25rem)',
                         lineHeight: 1.1,
                         // Dim the words, not the strike: the gradient stays at full strength.
-                        color: state === 'current' ? 'var(--text-primary)' : `color-mix(in srgb, var(--text-primary) ${state === 'resolved' ? 18 : 26}%, transparent)`,
+                        color: state === 'current' ? 'var(--text-primary)' : PAST_INK,
                         transition: `color ${DUR.draw * 1000}ms cubic-bezier(0.23, 1, 0.32, 1)`,
                       }}
                     >
@@ -189,13 +204,13 @@ function Pinned({ lines, close, label, className }: ProblemSequenceProps) {
           </div>
         </div>
       </div>
-    </section>
+    </>
   )
 }
 
-function Flow({ lines, close, label, className }: ProblemSequenceProps) {
+function Flow({ lines, close }: Body) {
   return (
-    <section aria-label={label} className={cn('px-1', className)}>
+    <div className="px-1">
       <ol className="space-y-10">
         {lines.map((l, i) => (
           <FlowLine key={i} n={i + 1} total={lines.length} line={l} />
@@ -206,7 +221,7 @@ function Flow({ lines, close, label, className }: ProblemSequenceProps) {
         <span aria-hidden className="mt-4 block h-[3px] w-28 rounded-full" style={{ background: PRISM_STROKE }} />
         {close.visual ? <div className="mt-6">{close.visual}</div> : null}
       </motion.div>
-    </section>
+    </div>
   )
 }
 
@@ -222,7 +237,7 @@ function FlowLine({ n, total, line }: { n: number; total: number; line: ProblemL
         style={{
           fontSize: '1.625rem',
           lineHeight: 1.15,
-          color: seen ? 'color-mix(in srgb, var(--text-primary) 40%, transparent)' : 'var(--text-primary)',
+          color: seen ? PAST_INK : 'var(--text-primary)',
           transition: `color ${DUR.draw * 1000}ms ease 600ms`,
         }}
       >

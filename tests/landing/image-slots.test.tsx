@@ -34,16 +34,23 @@ describe('image slot guard', () => {
     const html = '<img src="/a.webp"><div><img src="/a.webp"></div><img src="/assets/imagery/homepage/prism-grid-solar.webp"><img src="public-demo:logo">'
     expect(findImageSlotViolations(html)).toEqual([
       { rule: 'duplicate', src: '/a.webp', count: 2 },
-      { rule: 'placeholder', src: '/assets/imagery/homepage/prism-grid-solar.webp' },
-      { rule: 'public-demo', src: 'public-demo:logo' },
+      { rule: 'placeholder', src: '/assets/imagery/homepage/prism-grid-solar.webp', count: 1 },
+      { rule: 'public-demo', src: 'public-demo:logo', count: 1 },
     ])
-    expect(() => assertImageSlots(html)).toThrow(/duplicate \/a\.webp \(x2\)/)
+    expect(() => assertImageSlots(html)).toThrow(/duplicate \/a\.webp x2/)
+  })
+
+  it('fails when an allowlisted page adds one more slot of the same asset', () => {
+    const two = '<img src="/a.webp"><img src="/a.webp">'
+    const three = two + '<img src="/a.webp">'
+    expect(() => assertImageSlots(two, ['duplicate /a.webp x2'])).not.toThrow()
+    expect(() => assertImageSlots(three, ['duplicate /a.webp x2'])).toThrow(/duplicate \/a\.webp x3/)
   })
 
   it('exempts site chrome from the duplicate rule and reports stale allowlist entries', () => {
     const html = '<img src="/assets/vibrana-v-prism-96.webp"><img src="/assets/vibrana-v-prism-96.webp">'
     expect(findImageSlotViolations(html)).toEqual([])
-    expect(checkImageSlots(html, ['duplicate /gone.webp']).stale).toEqual(['duplicate /gone.webp'])
+    expect(checkImageSlots(html, ['duplicate /gone.webp x2']).stale).toEqual(['duplicate /gone.webp x2'])
   })
 })
 
@@ -53,18 +60,19 @@ describe('image slot guard', () => {
  * rebuild must delete its page's entries (a stale entry fails the test, so the list stays true).
  *
  * Logo duplicates on Build Sprint and the Simulator come from the looping logo marquee, which
- * renders its track twice; the rebuild should render the second copy without media or mark it as
+ * renders its track several times (six logo slots each); the rebuild should render the second copy without media or mark it as
  * one slot.
  */
+// Keys carry the slot count (`x6`): a page that adds one more slot of an allowlisted asset fails.
 const LOGO_MARQUEE = [
-  'duplicate /logos/logo-astrazeneca.svg',
-  'duplicate /logos/logo-google-wordmark.svg',
-  'duplicate /logos/logo-microsoft.svg',
-  'duplicate /logos/logo-opengov.svg',
-  'duplicate /logos/logo-optimise-media.svg',
-  'duplicate /logos/logo-pikl.svg',
-  'duplicate /logos/logo-snapchat-wordmark.svg',
-  'duplicate /logos/logo-wef-wordmark.svg',
+  'duplicate /logos/logo-astrazeneca.svg x6',
+  'duplicate /logos/logo-google-wordmark.svg x6',
+  'duplicate /logos/logo-microsoft.svg x6',
+  'duplicate /logos/logo-opengov.svg x6',
+  'duplicate /logos/logo-optimise-media.svg x6',
+  'duplicate /logos/logo-pikl.svg x6',
+  'duplicate /logos/logo-snapchat-wordmark.svg x6',
+  'duplicate /logos/logo-wef-wordmark.svg x6',
 ]
 
 const PAGES: { route: string; load: () => Promise<{ default: () => React.ReactElement }>; known: string[] }[] = [
@@ -73,11 +81,11 @@ const PAGES: { route: string; load: () => Promise<{ default: () => React.ReactEl
     load: () => import('@/app/ai-build-sprint/page'),
     known: [
       // B1: the sprint-hourglass tile resolves to the placeholder, next to a real prism-grid-solar tile.
-      'duplicate /assets/imagery/homepage/prism-grid-solar.webp',
-      'placeholder /assets/imagery/homepage/prism-grid-solar.webp',
-      'duplicate /assets/imagery/sprint/sprint-prototype-laptop.webp',
-      'duplicate /assets/imagery/sprint/sprint-whiteboard-team.webp',
-      'duplicate /assets/team/polaroid/john-ellison.webp',
+      'duplicate /assets/imagery/homepage/prism-grid-solar.webp x3',
+      'placeholder /assets/imagery/homepage/prism-grid-solar.webp x3',
+      'duplicate /assets/imagery/sprint/sprint-prototype-laptop.webp x2',
+      'duplicate /assets/imagery/sprint/sprint-whiteboard-team.webp x2',
+      'duplicate /assets/team/polaroid/john-ellison.webp x2',
       ...LOGO_MARQUEE,
     ],
   },
@@ -85,35 +93,35 @@ const PAGES: { route: string; load: () => Promise<{ default: () => React.ReactEl
   {
     route: '/ai-readiness',
     load: () => import('@/app/ai-readiness/page'),
-    known: ['duplicate /assets/imagery/homepage/prism-grid-solar.webp', 'placeholder /assets/imagery/homepage/prism-grid-solar.webp'],
+    known: ['duplicate /assets/imagery/homepage/prism-grid-solar.webp x3', 'placeholder /assets/imagery/homepage/prism-grid-solar.webp x3'],
   },
   {
     route: '/eu-ai-act-readiness',
     load: () => import('@/app/eu-ai-act-readiness/page'),
     known: [
-      'duplicate /assets/eu-ai-act/assessment-section-controls.webp',
-      'duplicate /assets/eu-ai-act/assessment-section-footprint.webp',
-      'duplicate /assets/eu-ai-act/assessment-section-inventory.webp',
-      'duplicate /assets/eu-ai-act/assessment-section-people.webp',
-      'duplicate /assets/eu-ai-act/assessment-section-prohibited.webp',
-      'duplicate /assets/eu-ai-act/assessment-section-transparency.webp',
-      'placeholder /assets/imagery/homepage/prism-grid-solar.webp',
+      'duplicate /assets/eu-ai-act/assessment-section-controls.webp x2',
+      'duplicate /assets/eu-ai-act/assessment-section-footprint.webp x2',
+      'duplicate /assets/eu-ai-act/assessment-section-inventory.webp x2',
+      'duplicate /assets/eu-ai-act/assessment-section-people.webp x2',
+      'duplicate /assets/eu-ai-act/assessment-section-prohibited.webp x2',
+      'duplicate /assets/eu-ai-act/assessment-section-transparency.webp x2',
+      'placeholder /assets/imagery/homepage/prism-grid-solar.webp x1',
     ],
   },
   {
     route: '/ai-transformation/simulator',
     load: () => import('@/app/ai-transformation/simulator/page'),
     known: [
-      'duplicate /assets/imagery/homepage/prism-grid-solar.webp',
-      'placeholder /assets/imagery/homepage/prism-grid-solar.webp',
-      'duplicate /assets/imagery/sprint/sprint-prototype-laptop.webp',
-      'duplicate /assets/team/abe-isleem.webp',
-      'duplicate /assets/team/fatma-ghedira.webp',
-      'duplicate /assets/team/john-ellison.webp',
-      'duplicate /assets/team/stephan-ledain.webp',
+      'duplicate /assets/imagery/homepage/prism-grid-solar.webp x2',
+      'placeholder /assets/imagery/homepage/prism-grid-solar.webp x2',
+      'duplicate /assets/imagery/sprint/sprint-prototype-laptop.webp x2',
+      'duplicate /assets/team/abe-isleem.webp x6',
+      'duplicate /assets/team/fatma-ghedira.webp x4',
+      'duplicate /assets/team/john-ellison.webp x8',
+      'duplicate /assets/team/stephan-ledain.webp x3',
       // X: sector example and AI provider marks shown as text stand-ins.
-      'duplicate public-demo:logo',
-      'public-demo public-demo:logo',
+      'duplicate public-demo:logo x10',
+      'public-demo public-demo:logo x10',
       ...LOGO_MARQUEE,
     ],
   },

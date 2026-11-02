@@ -31,8 +31,9 @@ export function ProofMetric({ value, unit, prefix, label, source, className }: P
       style={{ minWidth: PROOF_MIN_CELL, containerType: 'inline-size', boxShadow: '-1px 0 0 var(--border-default), 0 -1px 0 var(--border-default)' }}
     >
       <p
+        data-proof-figure=""
         className="tabular whitespace-nowrap font-display font-semibold text-ink"
-        style={{ fontSize: 'clamp(2rem, 0.5rem + 14cqi, 3.5rem)', lineHeight: 1, letterSpacing: '-0.025em' }}
+        style={{ fontSize: 'clamp(1.5rem, 0.5rem + 14cqi, 3.5rem)', lineHeight: 1, letterSpacing: '-0.025em' }}
       >
         {prefix ? <span className="mr-[0.14em] align-[0.42em] text-[0.42em] font-medium text-ink-tertiary">{prefix}</span> : null}
         {value}
