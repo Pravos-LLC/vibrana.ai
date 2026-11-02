@@ -46,6 +46,11 @@
   --font-body: var(--next-font-body), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--next-font-body), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--next-font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Label voice: the third face of the landing-page system (grotesk display, serif italic
+     accent, mono labels). Same JetBrains Mono file as --font-mono; the separate key names the
+     role, so pages say `font-label` for figure numbers, counters, captions and table headers.
+     See src/components/landing/README.md. */
+  --font-label: var(--next-font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-arabic: 'Noto Sans Arabic', system-ui, sans-serif;
 
   /* shadcn semantic layer: channels in :root below; `/NN` opacity modifiers
@@ -553,6 +558,23 @@ button:focus-visible {
 .prism-light .font-display { font-family: var(--font-display), -apple-system, sans-serif; }
 .prism-light .font-body    { font-family: var(--font-body), -apple-system, sans-serif; }
 .prism-light .font-serif-accent { font-family: var(--font-display-serif-italic), Georgia, 'Times New Roman', serif; font-weight: 600; font-style: italic; }
+/* Mono label voice (landing kit). Figure numbers (FIG 2.1), counters (01 / 03), captions,
+   table headers. Set as written: no forced uppercase, so the content decides. Tabular figures so
+   counters never jitter. Pair with .tabular on display-face numbers (Bricolage ships tnum).
+   The scoped selector outranks `.prism-light p` so a <p class="label-mono"> keeps its size. */
+.label-mono,
+.prism-light .label-mono {
+  font-family: var(--next-font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  font-weight: 450;
+  font-variant-numeric: tabular-nums;
+}
+.tabular { font-variant-numeric: tabular-nums; }
+/* Accent text for the landing kit: the gradient's two ends, readable on either ground. */
+:root { --lk-violet-text: #6d28d9; --lk-teal-text: #0f766e; }
+[data-theme="dark"] { --lk-violet-text: #a78bfa; --lk-teal-text: #5eead4; }
 .prism-light .type-xs   { font-size: var(--pl-text-xs); }
 .prism-light .type-sm   { font-size: var(--pl-text-sm); }
 .prism-light .type-base { font-size: var(--pl-text-base); }
