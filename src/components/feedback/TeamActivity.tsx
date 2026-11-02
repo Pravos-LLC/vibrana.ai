@@ -37,7 +37,11 @@ const formatDate = (d: Date) => d.toLocaleDateString('en-US', { month: 'long', d
 export function TeamActivity() {
   const ref = useRef<HTMLElement>(null)
   const [seen, setSeen] = useState(false)
-  const [shown, setShown] = useState(activity.total)
+  // Only ever rendered in the browser (the form shows a shell until its draft loads), so the start value can
+  // depend on the motion setting without a hydration mismatch, and the heading never flashes the total first.
+  const [shown, setShown] = useState(() =>
+    typeof window !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : activity.total,
+  )
 
   const { cells, months, cols } = useMemo(() => {
     const start = new Date(`${activity.start}T00:00:00Z`)
@@ -66,9 +70,9 @@ export function TeamActivity() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduce || typeof IntersectionObserver === 'undefined') {
       setSeen(true)
+      setShown(activity.total)
       return
     }
-    setShown(0)
     let frame = 0
     const observer = new IntersectionObserver(
       ([entry]) => {

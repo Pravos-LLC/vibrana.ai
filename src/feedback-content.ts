@@ -46,7 +46,7 @@ export type FeedbackConsentConfig = {
    * (lib/feedback/submission.ts), which the client_feedback_consent_gate CHECK constraint mirrors.
    */
   minScore: number
-  /** The anonymity promise on the welcome screen. The respondent sees it before answering, so it is part of the record. */
+  /** The anonymity promise, rendered on the welcome screen under the intro copy. The respondent sees it before answering, so it is part of the record. */
   privacyLine: string
   /** The testimonial question: asked on its own, never as a follow-up to what was already written. */
   heading: string
@@ -60,8 +60,13 @@ export type FeedbackConsentConfig = {
   testimonialMaxLength: number
   attributionLabel: string
   attributions: { id: FeedbackAttributionId; label: string }[]
-  /** Optional note shown on the contact step after a Yes, in place of the contact question's own hint. */
+  /**
+   * Legacy (consent v4 and earlier): when set, a Yes requires an email on the contact step and this note says why.
+   * Kept so forms configured that way behave exactly as their recorded wording promised.
+   */
   emailNote?: string
+  /** Optional note on the contact step after a Yes, in place of the contact question's own hint. Requires nothing. */
+  contactNote?: string
 }
 
 export type FeedbackFormConfig = {
@@ -162,7 +167,7 @@ export const SAMPLE_FEEDBACK_FORM: FeedbackFormConfig = {
       { id: 'company', label: 'Company name only' },
       { id: 'anonymous', label: 'Anonymous' },
     ],
-    emailNote: "Optional. Add your name if you'd like us to credit you by name.",
+    contactNote: "Optional. Add your name if you'd like us to credit you by name.",
   },
 }
 
@@ -187,8 +192,8 @@ export const FEEDBACK_UI = {
   intro: {
     eyebrow: (client: string, project: string) => `${client} ${project}`,
     heading: 'Feedback Request',
-    /** Paragraphs split on blank lines. Must contain every form's consent.privacyLine (checked when forms load). */
-    body: "We've recently had the chance to work together. At Vibrana, we are constantly learning and improving. Your feedback helps shape our offerings, process and decisions. If you could spare a few minutes to share yours, we would be very grateful.\n\nAnswers are anonymous unless you choose to provide your information.",
+    /** The form's own consent.privacyLine is shown as the next paragraph. */
+    body: "We've recently had the chance to work together. At Vibrana, we are constantly learning and improving. Your feedback helps shape our offerings, process and decisions. If you could spare a few minutes to share yours, we would be very grateful.",
     signOff: 'John and the team at Vibrana',
     team: [
       { name: 'John', photo: '/assets/team/john-ellison.webp' },

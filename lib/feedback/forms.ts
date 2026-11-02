@@ -1,7 +1,7 @@
 import 'server-only'
 
 import { z } from 'zod'
-import { FEEDBACK_FORMS, FEEDBACK_UI, GENERAL_FEEDBACK_FORM, type FeedbackFormConfig } from '@/src/feedback-content'
+import { FEEDBACK_FORMS, GENERAL_FEEDBACK_FORM, type FeedbackFormConfig } from '@/src/feedback-content'
 import { CONSENT_DB_MIN_SCORE } from './submission'
 
 const RESERVED = new Set(['__proto__', 'constructor', 'prototype', 'intro', 'consent', 'testimonial', 'done'])
@@ -44,6 +44,7 @@ const formSchema = z.object({
     attributions: z.array(z.object({ id: z.enum(['named', 'company', 'anonymous']), label: text(300) }).strict())
       .min(1).max(3).refine((v) => new Set(v.map((entry) => entry.id)).size === v.length),
     emailNote: text(2000).optional(),
+    contactNote: text(2000).optional(),
   }).strict(),
   thankYou: z.object({ connectUrl: httpsUrl }).strict().optional(),
 }).strict().superRefine((form, ctx) => {
@@ -84,7 +85,8 @@ export function getFeedbackForm(slug: unknown): FeedbackFormConfig | null {
   const parsed = envelopeSchema.safeParse(value)
   if (!parsed.success || Object.keys(parsed.data.forms).length > 25) throw new FeedbackFormsConfigurationError()
   for (const [name, form] of Object.entries(parsed.data.forms)) {
-    if (name !== form.slug || !FEEDBACK_UI.intro.body.includes(form.consent.privacyLine)) throw new FeedbackFormsConfigurationError()
+    // The welcome screen renders each form's own privacyLine, so no copy match is needed here.
+    if (name !== form.slug) throw new FeedbackFormsConfigurationError()
   }
   return Object.hasOwn(parsed.data.forms, key) ? parsed.data.forms[key] : null
 }

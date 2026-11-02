@@ -87,7 +87,7 @@ export type ConsentOutcome =
   | { status: 'stale' }
   /** A consent block arrived with a score below the threshold. The real form never sends one. */
   | { status: 'forbidden' }
-  /** Right wording version, but a shape the real form never sends (a Yes with no credit choice). */
+  /** Right wording version, but a shape the real form never sends (a Yes with no credit choice, or no email on a legacy form). */
   | { status: 'invalid' }
   | {
       status: 'recorded'
@@ -116,6 +116,7 @@ export function consentCopy(form: FeedbackFormConfig): string[] {
     c.attributionLabel,
     ...c.attributions.map((a) => a.label),
     ...(c.emailNote ? [c.emailNote] : []),
+    ...(c.contactNote ? [c.contactNote] : []),
   ]
 }
 
@@ -131,6 +132,7 @@ export function consentSnapshot(form: FeedbackFormConfig): string {
     `Credit question: ${c.attributionLabel}`,
     `Credit options: ${c.attributions.map((a) => a.label).join(' / ')}`,
     ...(c.emailNote ? [`Contact step note: ${c.emailNote}`] : []),
+    ...(c.contactNote ? [`Contact step note: ${c.contactNote}`] : []),
   ]
   return lines.join('\n')
 }
@@ -149,8 +151,10 @@ export function evaluateConsent(form: FeedbackFormConfig, score: number, submiss
   if (typeof block.testimonial !== 'boolean') return { status: 'invalid' }
   const snapshot = consentSnapshot(form)
   if (!block.testimonial) return { status: 'recorded', testimonial: false, version: form.consent.version, snapshot }
-  // A Yes needs a credit choice. The Yes is the permission; contact details stay optional.
-  if (!block.attribution) return { status: 'invalid' }
+  // A Yes needs a credit choice. The Yes is the permission; contact details stay optional, except on a
+  // legacy form whose recorded wording (emailNote) promised to confirm the testimonial by email.
+  const contact = submission.answers[contactQuestionId(form)] as { email?: string } | undefined
+  if (!block.attribution || (form.consent.emailNote && !contact?.email)) return { status: 'invalid' }
   return {
     status: 'recorded',
     testimonial: true,
@@ -159,6 +163,10 @@ export function evaluateConsent(form: FeedbackFormConfig, score: number, submiss
     version: form.consent.version,
     snapshot,
   }
+}
+
+function contactQuestionId(form: FeedbackFormConfig): string {
+  return form.questions.find((q) => q.kind === 'contact')?.id ?? 'contact'
 }
 
 /** Drops empty strings and empty groups so the stored jsonb holds only what was actually said. */

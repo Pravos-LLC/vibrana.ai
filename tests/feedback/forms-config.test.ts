@@ -80,7 +80,6 @@ describe('shared server-only feedback form envelope', () => {
       (form: typeof sample & { thankYou?: { connectUrl: string } }) => { form.slug = 'different-example' },
       (form: typeof sample & { thankYou?: { connectUrl: string } }) => { form.thankYou = { connectUrl: 'javascript:alert(1)' } },
       (form: typeof sample & { thankYou?: { connectUrl: string } }) => { form.consent.minScore = 7 },
-      (form: typeof sample & { thankYou?: { connectUrl: string } }) => { form.consent.privacyLine = 'A different unrendered promise' },
       (form: typeof sample & { thankYou?: { connectUrl: string } }) => { form.scoreQuestionId = 'missing' },
       (form: typeof sample & { thankYou?: { connectUrl: string } }) => { form.questions[1].id = form.questions[0].id },
       (form: typeof sample & { thankYou?: { connectUrl: string } }) => { form.questions.pop() },

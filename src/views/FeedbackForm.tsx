@@ -273,7 +273,9 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
     stepId === TESTIMONIAL
       ? draft.consent.attribution !== null
       : question?.kind === 'contact'
-        ? emailOk
+        ? wantsTestimonial && form.consent.emailNote
+          ? emailOk && typedEmail !== '' // legacy forms: a Yes needs an email (see FeedbackConsentConfig.emailNote)
+          : emailOk
         : stepId === INTRO || stepId === CONSENT || !question || question.kind !== 'score' || score !== undefined
 
   const send = useCallback(async () => {
@@ -533,11 +535,9 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
                 >
                   {UI.intro.heading}
                 </h1>
-                {UI.intro.body.split('\n\n').map((paragraph, i) => (
-                  <p key={i} className={`${i === 0 ? 'mt-5' : 'mt-4'} max-w-xl text-lg text-ink-secondary md:text-xl`}>
-                    {paragraph}
-                  </p>
-                ))}
+                <p className="mt-5 max-w-xl text-lg text-ink-secondary md:text-xl">{UI.intro.body}</p>
+                {/* The form's own recorded anonymity promise, so what is shown is always what is stored. */}
+                <p className="mt-4 max-w-xl text-lg text-ink-secondary md:text-xl">{form.consent.privacyLine}</p>
                 <p className="mt-8 text-lg text-ink md:text-xl">{UI.intro.signOff}</p>
                 <ul className="fb-team" aria-label={UI.intro.signOff}>
                   {UI.intro.team.map((person) => (
@@ -651,7 +651,7 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
                 <Prompt
                   id={`q-${question.id}`}
                   prompt={question.prompt}
-                  hint={wantsTestimonial ? (form.consent.emailNote ?? question.hint) : question.hint}
+                  hint={wantsTestimonial ? (form.consent.emailNote ?? form.consent.contactNote ?? question.hint) : question.hint}
                   headingRef={headingRef}
                 />
                 <div className="mt-8 space-y-5">

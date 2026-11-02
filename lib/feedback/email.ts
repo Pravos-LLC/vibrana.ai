@@ -67,8 +67,9 @@ function consentLines(input: NotificationInput): string[] {
   return [
     'Public testimonial: Yes',
     `Credit: ${credit}`,
-    consent.text ? `Testimonial (draft, not approved for publication): ${consent.text.replace(/\s+/g, ' ')}` : 'Testimonial text: none written, draft one for them to approve',
-    'Confirm the exact wording by email before anything is published.',
+    consent.text ? `Testimonial: ${consent.text.replace(/\s+/g, ' ')}` : 'Testimonial text: none written',
+    ...(consent.attribution === 'named' && !input.contactName ? ['Credit by name was chosen, but no name was given.'] : []),
+    ...(form.consent.emailNote ? ['This form promised to confirm the exact wording by email before anything is published.'] : []),
     `Consent wording version: ${consent.version}`,
   ]
 }

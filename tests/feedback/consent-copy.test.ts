@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { FEEDBACK_FORMS, FEEDBACK_UI } from '@/src/feedback-content'
+import { FEEDBACK_FORMS } from '@/src/feedback-content'
 import { CONSENT_DB_MIN_SCORE, consentCopy, consentSnapshot } from '@/lib/feedback/submission'
 
 // Consent is only meaningful if the stored wording is what the person saw. Every consent version is
@@ -36,10 +36,6 @@ describe('consent copy is versioned', () => {
         .filter(([key, value]) => typeof value === 'string' && !['version'].includes(key))
         .map(([, value]) => value as string)
       for (const text of strings) expect(copy).toContain(text)
-    })
-
-    it(`${form.slug}: the recorded privacy line is the promise shown on the welcome screen`, () => {
-      expect(FEEDBACK_UI.intro.body).toContain(form.consent.privacyLine)
     })
 
     it(`${form.slug}: minScore is not below the database gate`, () => {

@@ -41,7 +41,7 @@ for (const score of [7, 9]) {
       await page.getByRole('textbox').fill('Great to work with.')
       await page.getByRole('radio', { name: 'My name and company', exact: true }).check({ force: true })
       await page.getByRole('button', { name: 'Continue', exact: true }).click()
-      await expect(page.getByText(form.consent.emailNote!)).toBeVisible()
+      await expect(page.getByText(form.consent.contactNote!)).toBeVisible()
       await page.getByLabel('Email').fill('rob@')
       await expect(page.getByRole('button', { name: 'Send', exact: true })).toBeDisabled()
       await page.getByLabel('Email').fill('rob@example.com')
