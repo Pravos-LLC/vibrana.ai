@@ -5,7 +5,7 @@ import { SPRINT_FIT_CALL_URL } from '../src/ai-build-sprint-content'
 test.use({ reducedMotion: 'reduce' })
 
 for (const score of [7, 9]) {
-  test(`anonymous feedback ${score}: consent gate, stale retry and optional contact`, async ({ page }) => {
+  test(`anonymous feedback ${score}: testimonial gate, stale retry and contact`, async ({ page }) => {
     const errors: string[] = []
     page.on('response', (response) => {
       if (response.url().includes('/assets/') && response.status() >= 400) errors.push(`asset HTTP ${response.status()}`)
@@ -13,7 +13,7 @@ for (const score of [7, 9]) {
     page.on('pageerror', (error) => errors.push(error.message))
     await page.addInitScript(({ slug, score }) => {
       localStorage.setItem(`vibrana-feedback:${slug}`, JSON.stringify({
-        submissionId: crypto.randomUUID(), step: 'intro', answers: { overall: score }, consent: { quote: null }, done: false,
+        submissionId: crypto.randomUUID(), step: 'intro', answers: { overall: score }, consent: { testimonial: null, text: '', attribution: null }, done: false,
       }))
     }, { slug: form.slug, score })
     const bodies: Record<string, unknown>[] = []
@@ -35,6 +35,15 @@ for (const score of [7, 9]) {
     if (score >= form.consent.minScore) {
       await expect(page.getByRole('heading', { name: form.consent.heading })).toBeVisible()
       await page.getByRole('radio', { name: 'Yes', exact: true }).check({ force: true })
+      // A Yes opens the testimonial step: fresh text, a credit choice, and an email is required next.
+      await expect(page.getByRole('heading', { name: form.consent.testimonialPrompt })).toBeVisible()
+      await expect(page.getByText(form.consent.testimonialHint)).toBeVisible()
+      await page.getByRole('textbox').fill('Great to work with.')
+      await page.getByRole('radio', { name: 'My name and company', exact: true }).check({ force: true })
+      await page.getByRole('button', { name: 'Continue', exact: true }).click()
+      await expect(page.getByText(form.consent.emailNote)).toBeVisible()
+      await expect(page.getByRole('button', { name: 'Send', exact: true })).toBeDisabled()
+      await page.getByLabel('Email').fill('rob@example.com')
     } else {
       await expect(page.getByRole('heading', { name: form.consent.heading })).toHaveCount(0)
     }
@@ -50,7 +59,11 @@ for (const score of [7, 9]) {
     expect(bodies).toHaveLength(2)
     expect(bodies[0]).toEqual(bodies[1])
     expect(bodies[1]).not.toHaveProperty('r')
-    expect(bodies[1].consent).toEqual(score >= form.consent.minScore ? { version: form.consent.version, anonymous_quote: true } : null)
+    expect(bodies[1].consent).toEqual(
+      score >= form.consent.minScore
+        ? { version: form.consent.version, testimonial: true, attribution: 'named', text: 'Great to work with.' }
+        : null,
+    )
     await expect(page.getByRole('link', { name: 'Connect on LinkedIn' })).toHaveCount(0)
     expect(errors).toEqual([])
   })

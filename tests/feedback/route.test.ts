@@ -68,7 +68,7 @@ describe('POST /api/feedback', () => {
     vi.stubEnv('VERCEL_ENV', 'production')
     try {
       expect((await post(base(7))).status).toBe(404)
-      const stale = await post({ ...base(9), slug: configured.slug, consent: { version: 'stale-version', anonymous_quote: true } })
+      const stale = await post({ ...base(9), slug: configured.slug, consent: { version: 'stale-version', testimonial: true } })
       expect(stale.status).toBe(409)
       expect(inserts).toHaveLength(0)
       const response = await post({ ...base(7), slug: configured.slug, r: 'forged-recipient', respondent_name: 'Forged identity' })
@@ -85,11 +85,11 @@ describe('POST /api/feedback', () => {
     } finally { vi.unstubAllEnvs() }
   })
 
-  it('saves a high score with contact details and quote consent, the wording snapshot and hashed user agent, then emails', async () => {
+  it('saves a high score with contact details and a public testimonial, the wording snapshot and hashed user agent, then emails', async () => {
     const res = await post(
       base(9, {
         answers: { overall: 9, went_well: 'It saves us hours.', contact: { name: 'Rob', email: 'rob@example.com' } },
-        consent: { version: form.consent.version, anonymous_quote: true },
+        consent: { version: form.consent.version, testimonial: true, attribution: 'company', text: 'They <b>shipped</b> fast & well.' },
       }),
     )
     expect(res.status).toBe(200)
@@ -102,10 +102,10 @@ describe('POST /api/feedback', () => {
       id,
       slug: 'sample-feedback',
       overall_score: 9,
-      consent: { anonymous_quote: true },
+      consent: { testimonial: true, attribution: 'company', text: 'They <b>shipped</b> fast & well.' },
       consent_text_version: form.consent.version,
     })
-    expect(row.consent_text_snapshot).toContain('Are you happy for us to quote you anonymously?')
+    expect(row.consent_text_snapshot).toContain('Would you be open to a short public testimonial?')
     expect(row.consent_at).toEqual(expect.any(String))
     expect(row.answers).toMatchObject({ overall: 9, contact: { name: 'Rob', email: 'rob@example.com' } })
     // No per-recipient attribution exists at all.
@@ -117,25 +117,30 @@ describe('POST /api/feedback', () => {
     expect(emails).toHaveLength(1)
     expect(emails[0]).toMatchObject({ suppressErrorDetails: true })
     expect(emails[0].to).toBe('notify@example.test')
-    expect(emails[0].subject).toBe('Sample organization feedback from Rob: 9/10, quote anonymously: yes')
+    expect(emails[0].subject).toBe('Sample organization feedback from Rob: 9/10, testimonial: yes')
     expect(emails[0].html).toContain('It saves us hours.')
     expect(emails[0].html).toContain('rob@example.com')
-    expect(emails[0].text).toContain('Quote anonymously: Yes')
+    expect(emails[0].text).toContain('Public testimonial: Yes')
+    expect(emails[0].text).toContain('Credit: Company name only')
+    expect(emails[0].text).toContain('They <b>shipped</b> fast & well.')
+    // The testimonial is respondent-written text: it is escaped in the HTML part.
+    expect(emails[0].html).not.toContain('<b>shipped</b>')
+    expect(emails[0].html).toContain('&lt;b&gt;shipped&lt;/b&gt;')
   })
 
   it('saves an anonymous response with no contact details', async () => {
-    const res = await post(base(9, { consent: { version: form.consent.version, anonymous_quote: false } }))
+    const res = await post(base(9, { consent: { version: form.consent.version, testimonial: false } }))
     expect(res.status).toBe(200)
     const { row } = inserts[0]
-    expect(row.consent).toEqual({ anonymous_quote: false })
+    expect(row.consent).toEqual({ testimonial: false })
     expect(row.consent_at).toBeNull()
     expect(row.consent_text_snapshot).toEqual(expect.any(String))
-    expect(emails[0].subject).toBe('Sample organization feedback from an anonymous respondent: 9/10, quote anonymously: no')
-    expect(emails[0].text).toContain('Quote anonymously: No')
+    expect(emails[0].subject).toBe('Sample organization feedback from an anonymous respondent: 9/10, testimonial: no')
+    expect(emails[0].text).toContain('Public testimonial: No')
   })
 
   it('rejects a crafted request that carries consent with a score below 8, and saves nothing', async () => {
-    const res = await post(base(6, { consent: { version: form.consent.version, anonymous_quote: true } }))
+    const res = await post(base(6, { consent: { version: form.consent.version, testimonial: true, attribution: 'named' } }))
     expect(res.status).toBe(400)
     expect(inserts).toHaveLength(0)
     expect(emails).toHaveLength(0)
@@ -160,9 +165,18 @@ describe('POST /api/feedback', () => {
   })
 
   it('rejects consent given under outdated wording and saves nothing', async () => {
-    const res = await post(base(9, { consent: { version: 'old', anonymous_quote: true } }))
+    const res = await post(base(9, { consent: { version: 'old', testimonial: true } }))
     expect(res.status).toBe(409)
     expect(inserts).toHaveLength(0)
+  })
+
+  it('rejects a Yes with no email or no credit choice, and saves nothing', async () => {
+    const noEmail = await post(base(9, { consent: { version: form.consent.version, testimonial: true, attribution: 'named' } }))
+    expect(noEmail.status).toBe(400)
+    const noCredit = await post(base(9, { answers: { overall: 9, contact: { email: 'rob@example.com' } }, consent: { version: form.consent.version, testimonial: true } }))
+    expect(noCredit.status).toBe(400)
+    expect(inserts).toHaveLength(0)
+    expect(emails).toHaveLength(0)
   })
 
   it('returns 400 for invalid answers, 400 for bad JSON, 404 for an unknown form, 413 for an oversized body', async () => {

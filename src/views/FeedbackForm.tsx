@@ -10,10 +10,10 @@ import { SPRINT_FLOW } from '@/src/sprint-fit-content'
 import { Textarea } from '@/src/components/prism/form/Textarea'
 import { Input } from '@/src/components/prism/form/Input'
 import { FormGuardFields, useFormGuard } from '@/lib/form-guard/client'
-import { FEEDBACK_UI as UI, type FeedbackFormConfig, type FeedbackQuestion } from '@/src/feedback-content'
+import { FEEDBACK_UI as UI, type FeedbackAttributionId, type FeedbackFormConfig, type FeedbackQuestion } from '@/src/feedback-content'
 
 type Answers = Record<string, unknown>
-type ConsentState = { quote: boolean | null }
+type ConsentState = { testimonial: boolean | null; text: string; attribution: FeedbackAttributionId | null }
 type Draft = { submissionId: string; step: string; answers: Answers; consent: ConsentState; done: boolean }
 type Direction = 'forward' | 'back'
 
@@ -21,6 +21,7 @@ type Props = { form: FeedbackFormConfig; backdropStart?: number }
 
 const INTRO = 'intro'
 const CONSENT = 'consent'
+const TESTIMONIAL = 'testimonial'
 const DONE = 'done'
 
 /** Answer auto-advance delay: long enough to see the tap register, short enough to feel instant. */
@@ -82,8 +83,10 @@ function sanitizeAnswers(form: FeedbackFormConfig, raw: unknown): Answers {
   return out
 }
 
+const emptyConsent = (): ConsentState => ({ testimonial: null, text: '', attribution: null })
+
 function loadDraft(form: FeedbackFormConfig, key: string): Draft {
-  const base: Draft = { submissionId: newId(), step: INTRO, answers: {}, consent: { quote: null }, done: false }
+  const base: Draft = { submissionId: newId(), step: INTRO, answers: {}, consent: emptyConsent(), done: false }
   try {
     const stored = JSON.parse(window.localStorage.getItem(key) ?? 'null')
     if (!isRecord(stored)) return base
@@ -93,7 +96,11 @@ function loadDraft(form: FeedbackFormConfig, key: string): Draft {
       submissionId: typeof stored.submissionId === 'string' && stored.submissionId.length === 36 ? stored.submissionId : base.submissionId,
       step: typeof stored.step === 'string' ? stored.step : INTRO,
       answers: sanitizeAnswers(form, stored.answers),
-      consent: { quote: consentRaw.quote === true || consentRaw.quote === false ? consentRaw.quote : null },
+      consent: {
+        testimonial: consentRaw.testimonial === true || consentRaw.testimonial === false ? consentRaw.testimonial : null,
+        text: typeof consentRaw.text === 'string' ? consentRaw.text.slice(0, form.consent.testimonialMaxLength) : '',
+        attribution: form.consent.attributions.some((a) => a.id === consentRaw.attribution) ? (consentRaw.attribution as FeedbackAttributionId) : null,
+      },
       done: false,
     }
   } catch {
@@ -145,7 +152,7 @@ function Prompt({ id, prompt, hint, headingRef }: { id: string; prompt: string; 
 export function FeedbackForm({ form, backdropStart = 0 }: Props) {
   const storageKey = `vibrana-feedback:${form.slug}`
   const guard = useFormGuard()
-  const [draft, setDraft] = useState<Draft>(() => ({ submissionId: newId(), step: INTRO, answers: {}, consent: { quote: null }, done: false }))
+  const [draft, setDraft] = useState<Draft>(() => ({ submissionId: newId(), step: INTRO, answers: {}, consent: emptyConsent(), done: false }))
   const [ready, setReady] = useState(false)
   const [direction, setDirection] = useState<Direction>('forward')
   const [exiting, setExiting] = useState(false)
@@ -189,13 +196,15 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
   const score = typeof draft.answers[form.scoreQuestionId] === 'number' ? (draft.answers[form.scoreQuestionId] as number) : undefined
   const showConsent = score !== undefined && score >= form.consent.minScore
 
-  // The consent screen sits between the last regular question and the contact step.
+  // The testimonial question sits between the last regular question and the contact step; a Yes adds the
+  // testimonial step after it. The contact step asks for an email on a Yes, so the wording can be approved.
+  const wantsTestimonial = showConsent && draft.consent.testimonial === true
   const steps = useMemo(() => {
     const ids = form.questions.map((q) => q.id)
     if (!showConsent) return ids
     const contactId = ids[ids.length - 1]
-    return [...ids.slice(0, -1), CONSENT, contactId]
-  }, [form, showConsent])
+    return [...ids.slice(0, -1), CONSENT, ...(wantsTestimonial ? [TESTIMONIAL] : []), contactId]
+  }, [form, showConsent, wantsTestimonial])
 
   const stepId = draft.step === INTRO || draft.step === DONE ? draft.step : steps.includes(draft.step) ? draft.step : INTRO
   const stepIndex = steps.indexOf(stepId)
@@ -255,7 +264,14 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
     setDraft((d) => ({ ...d, answers: { ...d.answers, [id]: value } }))
   }, [])
 
-  const canContinue = stepId === INTRO || stepId === CONSENT || !question || question.kind !== 'score' || score !== undefined
+  const contactAnswer = (isRecord(draft.answers.contact) ? draft.answers.contact : {}) as { email?: string }
+  const emailOk = typeof contactAnswer.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactAnswer.email.trim())
+  const canContinue =
+    stepId === TESTIMONIAL
+      ? draft.consent.attribution !== null
+      : question?.kind === 'contact' && wantsTestimonial
+        ? emailOk
+        : stepId === INTRO || stepId === CONSENT || !question || question.kind !== 'score' || score !== undefined
 
   const send = useCallback(async () => {
     setStatus('sending')
@@ -266,8 +282,14 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
         submissionId: draft.submissionId,
         answers: draft.answers,
         consent:
-          showConsent && draft.consent.quote !== null
-            ? { version: form.consent.version, anonymous_quote: draft.consent.quote }
+          showConsent && draft.consent.testimonial !== null
+            ? {
+                version: form.consent.version,
+                testimonial: draft.consent.testimonial,
+                ...(draft.consent.testimonial && draft.consent.attribution
+                  ? { attribution: draft.consent.attribution, text: draft.consent.text.trim() }
+                  : {}),
+              }
             : null,
         ...guard.payload(),
       }
@@ -321,15 +343,16 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
     }, AUTO_ADVANCE_MS)
   }, [])
 
-  // A new Yes/No answer on the consent screen advances on its own; re-tapping the chosen
-  // answer after navigating Back is not a new answer and never re-advances.
+  // A new Yes/No answer on the testimonial question advances on its own; re-tapping the chosen
+  // answer after navigating Back is not a new answer and never re-advances. A No clears anything
+  // typed for the testimonial step.
   const setConsent = useCallback(
     (value: boolean) => {
-      if (draft.consent.quote === value) return
-      setDraft((d) => ({ ...d, consent: { quote: value } }))
+      if (draft.consent.testimonial === value) return
+      setDraft((d) => ({ ...d, consent: value ? { ...d.consent, testimonial: true } : { ...emptyConsent(), testimonial: false } }))
       scheduleAdvance(CONSENT)
     },
-    [draft.consent.quote, scheduleAdvance],
+    [draft.consent.testimonial, scheduleAdvance],
   )
 
   // Enter advances from anywhere that is not a button, link, select or textarea (a textarea keeps Enter
@@ -607,7 +630,12 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
 
             {question?.kind === 'contact' ? (
               <>
-                <Prompt id={`q-${question.id}`} prompt={question.prompt} hint={question.hint} headingRef={headingRef} />
+                <Prompt
+                  id={`q-${question.id}`}
+                  prompt={question.prompt}
+                  hint={wantsTestimonial ? form.consent.emailNote : question.hint}
+                  headingRef={headingRef}
+                />
                 <div className="mt-8 space-y-5">
                   {(() => {
                     const contact = (isRecord(draft.answers[question.id]) ? draft.answers[question.id] : {}) as {
@@ -723,8 +751,8 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
                   <label className="cursor-pointer">
                     <input
                       type="radio"
-                      name="consent-quote"
-                      checked={draft.consent.quote === true}
+                      name="consent-testimonial"
+                      checked={draft.consent.testimonial === true}
                       onChange={() => setConsent(true)}
                       className="peer sr-only"
                     />
@@ -733,13 +761,52 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
                   <label className="cursor-pointer">
                     <input
                       type="radio"
-                      name="consent-quote"
-                      checked={draft.consent.quote === false}
+                      name="consent-testimonial"
+                      checked={draft.consent.testimonial === false}
                       onChange={() => setConsent(false)}
                       className="peer sr-only"
                     />
                     <span className={`${choiceFace} h-14 text-xl font-medium`}>{form.consent.noLabel}</span>
                   </label>
+                </div>
+              </>
+            ) : null}
+
+            {stepId === TESTIMONIAL ? (
+              <>
+                <Prompt id="q-testimonial" prompt={form.consent.testimonialPrompt} hint={form.consent.testimonialHint} headingRef={headingRef} />
+                <Textarea
+                  data-fb-autofocus
+                  aria-labelledby="q-testimonial"
+                  rows={4}
+                  maxLength={form.consent.testimonialMaxLength}
+                  placeholder={form.consent.testimonialPlaceholder}
+                  value={draft.consent.text}
+                  onChange={(e) => setDraft((d) => ({ ...d, consent: { ...d.consent, text: e.target.value } }))}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                      e.preventDefault()
+                      next()
+                    }
+                  }}
+                  className="mt-8 w-full text-xl"
+                />
+                <p id="fb-attribution-label" className="mb-3 mt-8 text-base font-medium text-ink md:text-lg">
+                  {form.consent.attributionLabel}
+                </p>
+                <div role="radiogroup" aria-labelledby="fb-attribution-label" className="grid gap-2 sm:grid-cols-3">
+                  {form.consent.attributions.map((option) => (
+                    <label key={option.id} className="cursor-pointer">
+                      <input
+                        type="radio"
+                        name="testimonial-attribution"
+                        checked={draft.consent.attribution === option.id}
+                        onChange={() => setDraft((d) => ({ ...d, consent: { ...d.consent, attribution: option.id } }))}
+                        className="peer sr-only"
+                      />
+                      <span className={`${choiceFace} min-h-12 px-3 py-2 text-center text-base font-medium`}>{option.label}</span>
+                    </label>
+                  ))}
                 </div>
               </>
             ) : null}
@@ -780,7 +847,7 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
             </div>
             <div className="flex items-center gap-4">
               <span className="hidden text-sm text-ink-tertiary sm:inline" aria-hidden>
-                {question?.kind === 'text' || question?.kind === 'chips' ? UI.nav.hintCmdEnter : UI.nav.hintEnter}
+                {question?.kind === 'text' || question?.kind === 'chips' || stepId === TESTIMONIAL ? UI.nav.hintCmdEnter : UI.nav.hintEnter}
               </span>
               <Button type="submit" loading={status === 'sending'} disabled={!canContinue} showArrow={!isLast || stepId === INTRO}>
                 {status === 'sending' ? UI.nav.sending : primaryLabel}

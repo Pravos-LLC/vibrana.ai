@@ -69,10 +69,16 @@ describe('submission schema', () => {
 })
 
 describe('consent gating', () => {
-  const consentBlock = (anonymousQuote = true) => ({ consent: { version: form.consent.version, anonymous_quote: anonymousQuote } })
+  const version = form.consent.version
+  const withEmail = (score: number) => ({ overall: score, contact: { email: 'rob@example.com' } })
+  const yes = (score = 9, extra: Record<string, unknown> = {}) => ({
+    answers: withEmail(score),
+    consent: { version, testimonial: true, attribution: 'named', text: 'Great team to work with.', ...extra },
+  })
+  const no = () => ({ consent: { version, testimonial: false } })
 
   it.each([0, 3, 7])('a score of %i with a consent block is forbidden, never recorded', (score) => {
-    const submission = schema.parse(body(consentBlock(), score))
+    const submission = schema.parse(body(no(), score))
     expect(evaluateConsent(form, score, submission)).toEqual({ status: 'forbidden' })
   })
 
@@ -80,52 +86,74 @@ describe('consent gating', () => {
     expect(evaluateConsent(form, score, schema.parse(body({}, score)))).toEqual({ status: 'none' })
   })
 
-  it.each([8, 9, 10])('a score of %i records consent with the wording version and snapshot', (score) => {
-    const submission = schema.parse(body(consentBlock(true), score))
-    const outcome = evaluateConsent(form, score, submission)
+  it.each([8, 9, 10])('a score of %i records the testimonial answer with the wording version and snapshot', (score) => {
+    const outcome = evaluateConsent(form, score, schema.parse(body(yes(score), score)))
     expect(outcome.status).toBe('recorded')
     if (outcome.status !== 'recorded') return
-    expect(outcome.version).toBe(form.consent.version)
+    expect(outcome.version).toBe(version)
     expect(outcome.snapshot).toBe(consentSnapshot(form))
-    expect(outcome.anonymousQuote).toBe(true)
+    expect(outcome.testimonial).toBe(true)
+    expect(outcome.attribution).toBe('named')
+    expect(outcome.text).toBe('Great team to work with.')
     expect(outcome.snapshot).toContain(form.consent.heading)
     expect(outcome.snapshot).toContain(`${form.consent.yesLabel} / ${form.consent.noLabel}`)
+    expect(outcome.snapshot).toContain(form.consent.testimonialPrompt)
+    expect(outcome.snapshot).toContain(form.consent.emailNote)
   })
 
-  it('records a No answer as consent answered but not given', () => {
-    const outcome = evaluateConsent(form, 9, schema.parse(body(consentBlock(false), 9)))
-    expect(outcome.status === 'recorded' && outcome.anonymousQuote).toBe(false)
+  it('records a No answer as answered but not given, with no attribution or text', () => {
+    const outcome = evaluateConsent(form, 9, schema.parse(body(no(), 9)))
+    expect(outcome).toMatchObject({ status: 'recorded', testimonial: false })
+    expect(outcome).not.toHaveProperty('attribution')
+    expect(outcome).not.toHaveProperty('text')
+  })
+
+  it('a Yes may leave the testimonial text empty (the team drafts one) but needs a credit choice', () => {
+    const empty = evaluateConsent(form, 9, schema.parse(body(yes(9, { text: '' }))))
+    expect(empty).toMatchObject({ status: 'recorded', testimonial: true, attribution: 'named' })
+    expect(empty).not.toHaveProperty('text')
+    const noCredit = evaluateConsent(form, 9, schema.parse(body({ ...yes(9), consent: { version, testimonial: true } })))
+    expect(noCredit).toEqual({ status: 'invalid' })
+  })
+
+  it('a Yes without an email is invalid, because the wording must be confirmed with the person', () => {
+    const noEmail = { answers: { overall: 9 }, consent: { version, testimonial: true, attribution: 'anonymous' } }
+    expect(evaluateConsent(form, 9, schema.parse(body(noEmail)))).toEqual({ status: 'invalid' })
+    const blank = { answers: { overall: 9, contact: { email: '' } }, consent: { version, testimonial: true, attribution: 'anonymous' } }
+    expect(evaluateConsent(form, 9, schema.parse(body(blank)))).toEqual({ status: 'invalid' })
   })
 
   it('a high score without a consent block records nothing', () => {
     expect(evaluateConsent(form, 9, schema.parse(body()))).toEqual({ status: 'none' })
   })
 
-  it('rejects consent shown under a different wording version', () => {
-    const submission = schema.parse(body({ consent: { version: 'old', anonymous_quote: true } }, 9))
-    expect(evaluateConsent(form, 9, submission)).toEqual({ status: 'stale' })
+  it('treats a consent block under another wording version, including the retired v3 shape, as stale', () => {
+    expect(evaluateConsent(form, 9, schema.parse(body({ consent: { version: 'old', testimonial: true } }, 9)))).toEqual({ status: 'stale' })
+    expect(evaluateConsent(form, 9, schema.parse(body({ consent: { version: 'sample-feedback-consent-2026-10-31-v3', anonymous_quote: true } }, 9)))).toEqual({ status: 'stale' })
   })
 
-  it('requires the anonymous_quote flag to be an explicit boolean', () => {
-    expect(schema.safeParse(body({ consent: { version: form.consent.version } }, 9)).success).toBe(false)
-    expect(schema.safeParse(body({ consent: { version: form.consent.version, anonymous_quote: 'yes' } }, 9)).success).toBe(false)
+  it('requires explicit types and rejects unknown credit choices or oversized text', () => {
+    expect(schema.safeParse(body({ consent: { version, testimonial: 'yes' } }, 9)).success).toBe(false)
+    expect(schema.safeParse(body({ consent: { version, testimonial: true, attribution: 'everyone' } }, 9)).success).toBe(false)
+    expect(schema.safeParse(body({ consent: { version, testimonial: true, attribution: 'named', text: 'x'.repeat(form.consent.testimonialMaxLength + 1) } }, 9)).success).toBe(false)
+    expect(evaluateConsent(form, 9, schema.parse(body({ consent: { version } }, 9)))).toEqual({ status: 'invalid' })
   })
 })
 
 describe('email subject', () => {
-  const quoteYes = evaluateConsent(form, 9, schema.parse(body({ consent: { version: form.consent.version, anonymous_quote: true } })))
-  const quoteNo = evaluateConsent(form, 9, schema.parse(body({ consent: { version: form.consent.version, anonymous_quote: false } })))
-  it('names the respondent, score and quote consent', () => {
+  const quoteYes = evaluateConsent(form, 9, schema.parse(body({ answers: { overall: 9, contact: { email: 'rob@example.com' } }, consent: { version: form.consent.version, testimonial: true, attribution: 'named' } })))
+  const quoteNo = evaluateConsent(form, 9, schema.parse(body({ consent: { version: form.consent.version, testimonial: false } })))
+  it('names the respondent, score and testimonial answer', () => {
     expect(feedbackSubject({ form, contactName: 'Rob', score: 9, consent: quoteYes })).toBe(
-      'Sample organization feedback from Rob: 9/10, quote anonymously: yes',
+      'Sample organization feedback from Rob: 9/10, testimonial: yes',
     )
     expect(feedbackSubject({ form, contactName: 'Rob', score: 9, consent: quoteNo })).toBe(
-      'Sample organization feedback from Rob: 9/10, quote anonymously: no',
+      'Sample organization feedback from Rob: 9/10, testimonial: no',
     )
   })
-  it('handles a skipped consent screen, anonymous respondents and low scores', () => {
+  it('handles a skipped testimonial question, anonymous respondents and low scores', () => {
     expect(feedbackSubject({ form, contactName: null, score: 9, consent: { status: 'none' } })).toBe(
-      'Sample organization feedback from an anonymous respondent: 9/10, no consent given',
+      'Sample organization feedback from an anonymous respondent: 9/10, no testimonial answer',
     )
     expect(feedbackSubject({ form, contactName: null, score: 6, consent: { status: 'none' } })).toBe(
       'Sample organization feedback from an anonymous respondent: 6/10',
