@@ -18,3 +18,16 @@ it('renders only the requested current server form and stays dynamic/noindex', a
   vi.stubEnv('VERCEL_ENV', 'preview')
   await expect(FeedbackPage({ params: Promise.resolve({ slug: form.slug }) })).rejects.toThrow('NOT_FOUND')
 })
+
+it('serves the built-in general form at /feedback in every environment, with no private configuration', async () => {
+  const { default: GeneralFeedbackPage, dynamic: generalDynamic, metadata: generalMetadata } = await import('@/app/feedback/page')
+  for (const env of ['production', 'preview', 'development']) {
+    vi.stubEnv('VERCEL_ENV', env)
+    vi.stubEnv('FEEDBACK_FORMS_JSON', '{not valid json')
+    const page = GeneralFeedbackPage()
+    expect(page.props.form.slug).toBe('feedback')
+    expect(page.props.form.clientName).toBe('Vibrana')
+  }
+  expect(generalDynamic).toBe('force-dynamic')
+  expect(generalMetadata.robots).toEqual({ index: false, follow: false })
+})

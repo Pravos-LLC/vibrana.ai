@@ -1,7 +1,7 @@
 import 'server-only'
 
 import { z } from 'zod'
-import { FEEDBACK_FORMS, FEEDBACK_UI, type FeedbackFormConfig } from '@/src/feedback-content'
+import { FEEDBACK_FORMS, FEEDBACK_UI, GENERAL_FEEDBACK_FORM, type FeedbackFormConfig } from '@/src/feedback-content'
 import { CONSENT_DB_MIN_SCORE } from './submission'
 
 const RESERVED = new Set(['__proto__', 'constructor', 'prototype', 'intro', 'consent', 'done'])
@@ -64,6 +64,7 @@ export function getFeedbackForm(slug: unknown): FeedbackFormConfig | null {
   if (typeof window !== 'undefined') throw new Error('Feedback forms are server-only')
   if (!slugSchema.safeParse(slug).success) return null
   const key = slug as string
+  if (key === GENERAL_FEEDBACK_FORM.slug) return GENERAL_FEEDBACK_FORM
   // Private form configuration is never consumed by a hosted preview/development deployment.
   if ((process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production')
     || (process.env.VERCEL && process.env.VERCEL_ENV !== 'production')) return null

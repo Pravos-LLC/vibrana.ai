@@ -383,8 +383,10 @@ export function FeedbackForm({ form }: Props) {
       </div>
       <div className="mx-auto flex w-full max-w-3xl items-center px-6 py-4">
         {/* Client x Vibrana row. No client logo file ships in this repo, so the client name is shown as text. */}
-        <span className="font-display text-base font-semibold tracking-wide text-ink-secondary">{form.clientName}</span>
-        <span className="ml-5 flex items-center gap-3 font-display text-base font-semibold tracking-wide text-ink">
+        {form.clientName !== UI.brand && (
+          <span className="font-display text-base font-semibold tracking-wide text-ink-secondary">{form.clientName}</span>
+        )}
+        <span className={`${form.clientName !== UI.brand ? 'ml-5 ' : ''}flex items-center gap-3 font-display text-base font-semibold tracking-wide text-ink`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/assets/vibrana-v-prism-96.webp" alt="" className="h-7 w-auto" />
           {UI.brand}
@@ -486,9 +488,11 @@ export function FeedbackForm({ form }: Props) {
           >
             {stepId === INTRO ? (
               <>
-                <p className="mb-4 text-sm uppercase tracking-[0.15em] text-ink-tertiary">
-                  {UI.intro.eyebrow(form.clientName, form.projectName)}
-                </p>
+                {form.clientName !== UI.brand && (
+                  <p className="mb-4 text-sm uppercase tracking-[0.15em] text-ink-tertiary">
+                    {UI.intro.eyebrow(form.clientName, form.projectName)}
+                  </p>
+                )}
                 <h1
                   ref={headingRef}
                   tabIndex={-1}

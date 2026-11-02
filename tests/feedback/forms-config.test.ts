@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { SAMPLE_FEEDBACK_FORM as sample } from '@/src/feedback-content'
+import { GENERAL_FEEDBACK_FORM, SAMPLE_FEEDBACK_FORM as sample } from '@/src/feedback-content'
 import { getFeedbackForm } from '@/lib/feedback/forms'
 
 function envelope() {
@@ -14,6 +14,21 @@ beforeEach(() => {
   vi.stubEnv('FEEDBACK_FORMS_JSON', '')
 })
 afterEach(() => vi.unstubAllEnvs())
+
+describe('general feedback form', () => {
+  it('is built in, always available, and ignores hosted configuration', () => {
+    expect(getFeedbackForm('feedback')).toBe(GENERAL_FEEDBACK_FORM)
+    vi.stubEnv('VERCEL_ENV', 'preview')
+    expect(getFeedbackForm('feedback')).toBe(GENERAL_FEEDBACK_FORM)
+    vi.stubEnv('FEEDBACK_FORMS_JSON', '{not valid json')
+    expect(getFeedbackForm('feedback')).toBe(GENERAL_FEEDBACK_FORM)
+  })
+
+  it('shares the questions and consent wording of the sample form', () => {
+    expect(GENERAL_FEEDBACK_FORM.questions).toEqual(sample.questions)
+    expect(GENERAL_FEEDBACK_FORM.consent).toEqual(sample.consent)
+  })
+})
 
 describe('shared server-only feedback form envelope', () => {
   it('uses synthetic samples only in explicit local development/test', () => {
