@@ -189,3 +189,25 @@ export function consentHeadline(outcome: ConsentOutcome): string {
   if (outcome.status !== 'recorded') return 'no testimonial answer'
   return `testimonial: ${outcome.testimonial ? 'yes' : 'no'}`
 }
+
+/** Most links a response may carry across all of its free text. Real feedback rarely has any. */
+export const MAX_LINKS = 2
+
+const LINK_PATTERN = /(?:https?:\/\/|www\.)\S+|\b[a-z0-9-]+\.(?:com|net|org|io|co|ru|xyz|top|biz|info|shop|click|online|site|link)\/\S*/gi
+
+function collectStrings(value: unknown, out: string[] = []): string[] {
+  if (typeof value === 'string') out.push(value)
+  else if (Array.isArray(value)) value.forEach((item) => collectStrings(item, out))
+  else if (value && typeof value === 'object') Object.values(value).forEach((item) => collectStrings(item, out))
+  return out
+}
+
+/**
+ * Link spam is the commonest abuse of an open text form. Counts links in every free-text answer,
+ * the contact fields and the testimonial text. The route answers with a visible 400 so a real
+ * person who pasted several links can remove them and send again, instead of losing the response.
+ */
+export function countLinks(submission: Pick<FeedbackSubmission, 'answers' | 'consent'>): number {
+  const text = collectStrings([submission.answers, submission.consent?.text]).join('\n')
+  return text.match(LINK_PATTERN)?.length ?? 0
+}

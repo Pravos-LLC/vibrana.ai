@@ -6,11 +6,12 @@ import { NextRequest } from 'next/server'
 const inserts: Record<string, unknown>[] = []
 let rpcAllowed = true
 let rpcFailKey: string | null = null
+let sent = 0
 
 vi.mock('@/lib/supabase', () => ({
   supabase: { from: () => ({ insert: async (row: Record<string, unknown>) => (inserts.push(row), { error: null }) }) },
 }))
-vi.mock('@/lib/resend', () => ({ FROM_EMAIL: 'x@example.test', sendEmail: async () => ({ data: { id: 'e' }, error: null }) }))
+vi.mock('@/lib/resend', () => ({ FROM_EMAIL: 'x@example.test', sendEmail: async () => ((sent += 1), { data: { id: 'e' }, error: null }) }))
 // The guard's rate-limit client calls supabase.rpc('form_rate_limit_hit', { p_bucket }).
 vi.mock('@supabase/supabase-js', () => ({
   createClient: () => ({
@@ -27,12 +28,12 @@ const { issueFormToken } = await import('@/lib/form-guard/server')
 const id = '3f2b9c1e-8a4d-4c57-9f01-2b6e7a1d5c90'
 const answers = { overall: 9, went_well: 'Saved us a day a week.' }
 
-function post(extra: Record<string, unknown>) {
+function post(extra: Record<string, unknown>, headers: Record<string, string> = {}) {
   return POST(
     new NextRequest('http://localhost/api/feedback', {
       method: 'POST',
       body: JSON.stringify({ slug: 'sample-feedback', submissionId: id, answers, ...extra }),
-      headers: { 'x-real-ip': '203.0.113.9' },
+      headers: { 'x-real-ip': '203.0.113.9', ...headers },
     }),
   )
 }
@@ -45,6 +46,7 @@ describe('feedback route with the form guard live', () => {
     vi.stubEnv('FEEDBACK_NOTIFY_EMAIL', '')
     vi.useFakeTimers({ toFake: ['Date'] })
     inserts.length = 0
+    sent = 0
     rpcAllowed = true
     rpcFailKey = null
     vi.spyOn(console, 'warn').mockImplementation(() => {})
@@ -112,6 +114,82 @@ describe('feedback route with the form guard live', () => {
     expect(res.status).toBe(503)
     expect((await res.json()).saved).not.toBe(true)
     expect(inserts).toHaveLength(0)
+  })
+
+  it('needs five seconds between the form being shown and sent: three is too fast, six saves', async () => {
+    const token = issueFormToken()!
+    vi.setSystemTime(Date.now() + 3_000)
+    expect((await post({ _ft: token })).status).toBe(503)
+    vi.setSystemTime(Date.now() + 3_000)
+    expect((await post({ _ft: token })).status).toBe(200)
+    expect(inserts).toHaveLength(1)
+  })
+
+  it('rejects a response carrying more than two links with a visible 400, and saves nothing', async () => {
+    const token = issueFormToken()!
+    vi.setSystemTime(Date.now() + 10_000)
+    const spam = { overall: 9, went_well: 'great http://a.example/x https://b.example/y www.c.example', do_better: 'buy shop.example.com/now' }
+    const res = await post({ _ft: token, answers: spam })
+    expect(res.status).toBe(400)
+    expect((await res.json()).error).toMatch(/links/i)
+    expect(inserts).toHaveLength(0)
+    // Links in the testimonial text and the contact name count too.
+    const hidden = await post({
+      _ft: token,
+      answers: { overall: 9, contact: { name: 'http://a.example http://b.example http://c.example', email: 'a@example.com' } },
+    })
+    expect(hidden.status).toBe(400)
+    expect(inserts).toHaveLength(0)
+  })
+
+  it('allows up to two links, so a real person pasting a link or two is not blocked', async () => {
+    const token = issueFormToken()!
+    vi.setSystemTime(Date.now() + 10_000)
+    const res = await post({ _ft: token, answers: { overall: 9, went_well: 'see https://example.com/case and www.example.org' } })
+    expect(res.status).toBe(200)
+    expect(inserts).toHaveLength(1)
+  })
+
+  it('turns away a cross-site POST (Origin on another host) before anything else runs', async () => {
+    const token = issueFormToken()!
+    vi.setSystemTime(Date.now() + 10_000)
+    const evil = await post({ _ft: token }, { origin: 'https://evil.example', host: 'www.vibrana.ai' })
+    expect(evil.status).toBe(403)
+    expect(inserts).toHaveLength(0)
+    const home = await post({ _ft: token }, { origin: 'https://www.vibrana.ai', host: 'www.vibrana.ai' })
+    expect(home.status).toBe(200)
+  })
+
+  it('stops writing rows once the shared daily budget is spent, with a retryable 429 and no fake success', async () => {
+    rpcFailKey = ':global:save:'
+    const token = issueFormToken()!
+    vi.setSystemTime(Date.now() + 10_000)
+    const res = await post({ _ft: token })
+    const body = await res.json()
+    expect(res.status).toBe(429)
+    expect(body.retryable).toBe(true)
+    expect(body.saved).not.toBe(true)
+    expect(inserts).toHaveLength(0)
+  })
+
+  it('keeps saving but stops emailing once the shared hourly notification budget is spent', async () => {
+    vi.stubEnv('FEEDBACK_NOTIFY_EMAIL', 'notify@example.test')
+    rpcFailKey = ':global:notify:'
+    const token = issueFormToken()!
+    vi.setSystemTime(Date.now() + 10_000)
+    const res = await post({ _ft: token })
+    expect(res.status).toBe(200)
+    expect((await res.json()).saved).toBe(true)
+    expect(inserts).toHaveLength(1)
+    expect(sent).toBe(0)
+  })
+
+  it('emails the notification while the hourly budget has room', async () => {
+    vi.stubEnv('FEEDBACK_NOTIFY_EMAIL', 'notify@example.test')
+    const token = issueFormToken()!
+    vi.setSystemTime(Date.now() + 10_000)
+    expect((await post({ _ft: token })).status).toBe(200)
+    expect(sent).toBe(1)
   })
 
   it('a filled honeypot is still a silent success for the bot, with nothing saved and no saved flag', async () => {
