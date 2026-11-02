@@ -46,6 +46,11 @@
   --font-body: var(--next-font-body), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--next-font-body), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--next-font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Label voice: the third face of the landing-page system (grotesk display, serif italic
+     accent, mono labels). Same JetBrains Mono file as --font-mono; the separate key names the
+     role, so pages say `font-label` for figure numbers, counters, captions and table headers.
+     See src/components/landing/README.md. */
+  --font-label: var(--next-font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-arabic: 'Noto Sans Arabic', system-ui, sans-serif;
 
   /* shadcn semantic layer: channels in :root below; `/NN` opacity modifiers
@@ -517,25 +522,28 @@ button:focus-visible {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.prism-light h1,
-.prism-light h2,
-.prism-light h3,
-.prism-light h4,
-.prism-light h5,
-.prism-light h6 {
+/* `:not(:where(.lk-native …))` adds no specificity. It exempts a `.lk-native` island (a product
+   mock on its own canvas, see src/components/landing/DistinctProductFrame.tsx) so the mock's own
+   Tailwind type sizes apply there. Everywhere else these rules are unchanged. */
+.prism-light h1:not(:where(.lk-native h1)),
+.prism-light h2:not(:where(.lk-native h2)),
+.prism-light h3:not(:where(.lk-native h3)),
+.prism-light h4:not(:where(.lk-native h4)),
+.prism-light h5:not(:where(.lk-native h5)),
+.prism-light h6:not(:where(.lk-native h6)) {
   font-family: var(--font-display), -apple-system, sans-serif;
   font-weight: 600;
   line-height: var(--pl-leading-tight);
   letter-spacing: var(--pl-tracking-tight);
 }
 
-.prism-light h1 { font-size: var(--pl-text-4xl); }
-.prism-light h2 { font-size: var(--pl-text-2xl); }
-.prism-light h3 { font-size: var(--pl-text-xl); line-height: var(--pl-leading-snug); }
-.prism-light h4 { font-size: var(--pl-text-lg); font-weight: 500; line-height: var(--pl-leading-snug); }
-.prism-light h5 { font-size: var(--pl-text-base); }
-.prism-light h6 { font-size: var(--pl-text-sm); }
-.prism-light p  { font-size: var(--pl-text-base); line-height: var(--pl-leading-relaxed); }
+.prism-light h1:not(:where(.lk-native h1)) { font-size: var(--pl-text-4xl); }
+.prism-light h2:not(:where(.lk-native h2)) { font-size: var(--pl-text-2xl); }
+.prism-light h3:not(:where(.lk-native h3)) { font-size: var(--pl-text-xl); line-height: var(--pl-leading-snug); }
+.prism-light h4:not(:where(.lk-native h4)) { font-size: var(--pl-text-lg); font-weight: 500; line-height: var(--pl-leading-snug); }
+.prism-light h5:not(:where(.lk-native h5)) { font-size: var(--pl-text-base); }
+.prism-light h6:not(:where(.lk-native h6)) { font-size: var(--pl-text-sm); }
+.prism-light p:not(:where(.lk-native p)) { font-size: var(--pl-text-base); line-height: var(--pl-leading-relaxed); }
 
 /* Default text colors at element specificity (0,0,1 via :where) so any element
    color utility — text-[color:var(--…)] or .text-*-token (0,1,0) — wins. Fixes the
@@ -553,6 +561,23 @@ button:focus-visible {
 .prism-light .font-display { font-family: var(--font-display), -apple-system, sans-serif; }
 .prism-light .font-body    { font-family: var(--font-body), -apple-system, sans-serif; }
 .prism-light .font-serif-accent { font-family: var(--font-display-serif-italic), Georgia, 'Times New Roman', serif; font-weight: 600; font-style: italic; }
+/* Mono label voice (landing kit). Figure numbers (FIG 2.1), counters (01 / 03), captions,
+   table headers. Set as written: no forced uppercase, so the content decides. Tabular figures so
+   counters never jitter. Pair with .tabular on display-face numbers (Bricolage ships tnum).
+   The scoped selector outranks `.prism-light p` so a <p class="label-mono"> keeps its size. */
+.label-mono,
+.prism-light .label-mono {
+  font-family: var(--next-font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  font-weight: 450;
+  font-variant-numeric: tabular-nums;
+}
+.tabular { font-variant-numeric: tabular-nums; }
+/* Accent text for the landing kit: the gradient's two ends, readable on either ground. */
+:root { --lk-violet-text: #6d28d9; --lk-teal-text: #0f766e; }
+[data-theme="dark"] { --lk-violet-text: #a78bfa; --lk-teal-text: #5eead4; }
 .prism-light .type-xs   { font-size: var(--pl-text-xs); }
 .prism-light .type-sm   { font-size: var(--pl-text-sm); }
 .prism-light .type-base { font-size: var(--pl-text-base); }
@@ -1155,6 +1180,47 @@ button:focus-visible {
   --accent-foreground:     250 250 252;
   --border:                39 39 42;
   --input:                 39 39 42;
+}
+
+/* Light island inside a dark page: an element that pins data-theme="light" (a product frame
+   showing a light-only product) gets the light token values back. Only needed under a dark
+   ancestor; on a light page the :root values already apply. Tokens only: Tailwind `dark:`
+   utilities still follow the nearest dark ancestor. */
+[data-theme="dark"] [data-theme="light"] {
+  color-scheme: light;
+  --eu-ink: #003399;
+  --gradient-prism-text: linear-gradient(135deg, #6d28d9 0%, #2563eb 50%, #0d9488 100%);
+  --surface-base:       #ffffff;
+  --surface-raised:     #fafafa;
+  --surface-overlay:    #f4f4f5;
+  --surface-card:       rgba(0, 0, 0, 0.02);
+  --surface-card-hover: rgba(0, 0, 0, 0.04);
+  --surface-frost:      rgba(255, 255, 255, 0.66);
+  --surface-nav:        rgba(255, 255, 255, 0.94);
+  --surface-inset:      rgba(255, 255, 255, 0.95);
+  --border-subtle:  rgba(0, 0, 0, 0.08);
+  --border-default: rgba(0, 0, 0, 0.12);
+  --border-strong:  rgba(0, 0, 0, 0.22);
+  --text-primary:   rgba(15, 15, 17, 0.95);
+  --text-secondary: rgba(15, 15, 17, 0.66);
+  --text-tertiary:  rgba(15, 15, 17, 0.48);
+  --lk-violet-text: #6d28d9;
+  --lk-teal-text: #0f766e;
+  --background:            255 255 255;
+  --foreground:            15 15 17;
+  --card:                  255 255 255;
+  --card-foreground:       15 15 17;
+  --popover:               255 255 255;
+  --popover-foreground:    15 15 17;
+  --secondary:             250 250 250;
+  --secondary-foreground:  15 15 17;
+  --muted:                 244 244 245;
+  --muted-foreground:      97 97 99;
+  --accent:                244 244 245;
+  --accent-foreground:     15 15 17;
+  --border:                224 224 224;
+  --input:                 224 224 224;
+  color: var(--text-primary);
 }
 
 /* ---------------------------------------------------------------------------
