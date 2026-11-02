@@ -185,13 +185,30 @@ export const FEEDBACK_UI = {
   },
   done: {
     heading: 'Thank you.',
-    body: 'We read every answer.',
-    connectLabel: 'Connect on LinkedIn',
-    moreLinks: [
-      { label: 'AI Readiness Assessment', href: '/ai-readiness' },
-      { label: 'EU AI Act Readiness', href: '/eu-ai-act-readiness' },
-      { label: 'AI Transformation Simulator', href: '/ai-transformation/simulator' },
+    body: 'Your feedback helps us improve and deliver better services to our clients.',
+    eyebrow: 'Keep exploring',
+    cards: [
+      {
+        href: '/ai-readiness',
+        image: '/assets/feedback/card-ai-readiness.webp',
+        title: 'AI Readiness Assessment',
+        description: 'See where your organization stands across six areas.',
+      },
+      {
+        href: '/eu-ai-act-readiness',
+        image: '/assets/feedback/card-eu-ai-act.webp',
+        title: 'EU AI Act Readiness',
+        description: 'Find the obligations that apply to you, and when.',
+      },
+      {
+        href: '/ai-transformation/simulator',
+        image: '/assets/feedback/card-simulator.webp',
+        title: 'AI Transformation Simulator',
+        description: 'Model cost, time and capacity, team by team.',
+      },
     ],
+    callLine: 'Want to keep the conversation going?',
+    connectLabel: 'Connect on LinkedIn',
   },
   email: {
     heading: 'New client feedback',

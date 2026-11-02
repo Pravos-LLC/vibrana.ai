@@ -1,5 +1,5 @@
-/* Client feedback form (/feedback/[slug]). Forced-dark route: fixed neutral background, dark
-   Prism token scope, and the step motion. Layout otherwise comes from Prism tokens. */
+/* Client feedback form (/feedback). Forced-dark route: city photo backdrop, dark Prism token
+   scope, the step motion and the thank-you layout. Layout otherwise comes from Prism tokens. */
 
 /* ---------------------------------------------------------------------------
    Forced dark scope. The route always renders on the dark neutral background, so the Prism
@@ -24,26 +24,114 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Background: a neutral dark surface, fixed to the viewport with the v2 gradient
-   overlay. No external or uncleared photographic media is requested.
+   Backdrop: a timed carousel of pre-blurred city photos (Unsplash, credited bottom of the page and
+   in docs/client-feedback-form.md), each with its own prism tint, a faint dot field, and dots that
+   light up under a fine pointer. Fixed behind everything; the dark scrim keeps text readable.
+   Timing is shared with the step motion through the custom properties below.
    --------------------------------------------------------------------------- */
-.fb-bg {
+@property --fb-h {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 275;
+}
+
+.fb-scope {
+  --fb-enter: 360ms;
+  --fb-exit: 180ms;
+  --fb-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --fb-fade: 1800ms;
+}
+
+.fb-backdrop {
   position: fixed;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
   background: var(--surface-base);
+  pointer-events: none;
+  transition: --fb-h var(--fb-fade) ease;
 }
-.fb-bg::after {
+.fb-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--fb-fade) ease;
+}
+.fb-slide[data-active='true'] { opacity: 1; }
+.fb-slide-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  /* Reset only after the slide has faded out, so it never visibly snaps back. */
+  transition: transform 0s linear var(--fb-fade);
+}
+.fb-slide[data-active='true'] .fb-slide-img {
+  transform: scale(1.04);
+  transition: transform 14s linear;
+}
+/* Two glows plus a soft sweep. Hue walks the light spectrum slide by slide, and the main glow's
+   centre moves left to right with the slide index. */
+.fb-slide-tint {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 70% at var(--bx) 16%, hsl(var(--h) 85% 58% / 0.38), transparent 70%),
+    radial-gradient(55% 60% at calc(100% - var(--bx)) 92%, hsl(calc(var(--h) + 40) 80% 55% / 0.28), transparent 70%),
+    linear-gradient(100deg, hsl(var(--h) 80% 50% / 0.16), transparent 55%);
+}
+.fb-backdrop::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(10, 10, 11, 0.82) 0%,
-    rgba(10, 10, 11, 0.66) 45%,
-    rgba(10, 10, 11, 0.88) 100%
+    rgba(10, 10, 11, 0.7) 0%,
+    rgba(10, 10, 11, 0.6) 45%,
+    rgba(10, 10, 11, 0.82) 100%
   );
 }
+.fb-dots {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.2) 0.8px, transparent 1.2px);
+  background-size: 16px 16px;
+  -webkit-mask-image: radial-gradient(circle at 72% 38%, #000, transparent 72%);
+  mask-image: radial-gradient(circle at 72% 38%, #000, transparent 72%);
+}
+/* Dots near a mouse pick up the current slide's hue. Hidden until a fine pointer moves. */
+.fb-dots-glow {
+  z-index: 2;
+  background-image: radial-gradient(hsl(var(--fb-h) 95% 78% / 0.85) 0.9px, transparent 1.3px);
+  -webkit-mask-image: radial-gradient(circle 170px at var(--mx, -400px) var(--my, -400px), #000, transparent);
+  mask-image: radial-gradient(circle 170px at var(--mx, -400px) var(--my, -400px), #000, transparent);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.fb-backdrop[data-glow='1'] .fb-dots-glow { opacity: 1; }
+
+/* Photo credit (Unsplash guideline). Sits in the header row, right-aligned with the content column. */
+.fb-credit {
+  position: fixed;
+  z-index: 30;
+  top: 22px;
+  right: max(1.5rem, calc((100vw - 48rem) / 2 + 1.5rem));
+  font-size: 11px;
+  line-height: 1.2;
+  color: rgba(250, 250, 252, 0.62);
+}
+.fb-credit-wide { right: max(1.5rem, calc((100vw - 64rem) / 2 + 1.5rem)); }
+/* On narrow screens the header row can be full (a long client name), so the credit drops to the
+   bottom edge of the header bar instead of sharing the logo line. */
+@media (max-width: 560px) {
+  .fb-credit,
+  .fb-credit-wide { top: 49px; right: 1.5rem; font-size: 10px; }
+}
+.fb-credit a { color: inherit; text-decoration: none; }
+.fb-credit a:hover { color: rgba(250, 250, 252, 0.85); text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------------------------------------------------------------------------
    Step motion: a short exit animation plays on the current step before the keyed
@@ -66,13 +154,13 @@
   to   { opacity: 0; transform: translateY(14px); }
 }
 
-.fb-step[data-dir='forward'] { animation: fb-step-in-forward 360ms cubic-bezier(0.22, 1, 0.36, 1) both; }
-.fb-step[data-dir='back']    { animation: fb-step-in-back 360ms cubic-bezier(0.22, 1, 0.36, 1) both; }
-.fb-step.fb-exiting[data-dir='forward'] { animation: fb-step-out-forward 180ms cubic-bezier(0.4, 0, 1, 1) both; }
-.fb-step.fb-exiting[data-dir='back']    { animation: fb-step-out-back 180ms cubic-bezier(0.4, 0, 1, 1) both; }
+.fb-step[data-dir='forward'] { animation: fb-step-in-forward var(--fb-enter) var(--fb-ease) both; }
+.fb-step[data-dir='back']    { animation: fb-step-in-back var(--fb-enter) var(--fb-ease) both; }
+.fb-step.fb-exiting[data-dir='forward'] { animation: fb-step-out-forward var(--fb-exit) cubic-bezier(0.4, 0, 1, 1) both; }
+.fb-step.fb-exiting[data-dir='back']    { animation: fb-step-out-back var(--fb-exit) cubic-bezier(0.4, 0, 1, 1) both; }
 
 .fb-progress-fill {
-  transition: width 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: width var(--fb-enter) var(--fb-ease);
 }
 
 .fb-choice {
@@ -84,6 +172,9 @@
   .fb-step[data-dir] { animation: none; }
   .fb-progress-fill, .fb-choice { transition: none; }
   .fb-choice:active { transform: none; }
+  .fb-slide, .fb-slide-img, .fb-backdrop, .fb-dots-glow, .fb-card { transition: none; }
+  .fb-slide[data-active='true'] .fb-slide-img { transform: none; }
+  .fb-dots-glow { display: none; }
 }
 
 /* The glass primary button ships a dark-violet label for light surfaces. On this forced-dark
@@ -114,3 +205,89 @@
 /* Headings take programmatic focus on each step; they are not controls, so no ring. */
 .fb-step h1:focus,
 .fb-step h1:focus-visible { outline: none; }
+
+/* ---------------------------------------------------------------------------
+   Thank-you screen. Modelled on the AI Build Sprint brief result: copy and a sticky booking
+   card (fit.module.css .resultLayout / .booking), recolored by the dark tokens above.
+   --------------------------------------------------------------------------- */
+.fb-done-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 40px;
+  align-items: start;
+}
+.fb-booking {
+  position: sticky;
+  top: 110px;
+  display: grid;
+  gap: 14px;
+  padding: 24px;
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  background: var(--surface-frost);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.fb-booking img {
+  width: 82px;
+  height: 94px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.fb-booking h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+.fb-booking-role { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
+.fb-booking-line { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+.fb-booking a.btn-primary { width: 100%; }
+.fb-booking-link {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  text-underline-offset: 4px;
+}
+.fb-booking-link:hover { color: var(--text-primary); text-decoration: underline; }
+
+.fb-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.fb-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  background: var(--surface-frost);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+.fb-card:hover { transform: translateY(-2px); border-color: var(--border-strong); background: var(--surface-card-hover); }
+.fb-card-img { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: cover; background: var(--surface-raised); }
+.fb-card-body { display: grid; gap: 4px; padding: 12px 14px 14px; }
+.fb-card-title { display: flex; align-items: center; justify-content: space-between; gap: 6px; font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.fb-card-arrow { flex: none; color: var(--text-tertiary); }
+.fb-card:hover .fb-card-arrow { color: var(--text-primary); }
+.fb-card-desc { font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); }
+
+@media (max-width: 860px) {
+  .fb-done-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .fb-booking {
+    position: static;
+    order: -1;
+    grid-template-columns: 72px 1fr;
+    align-items: center;
+    column-gap: 16px;
+    padding: 18px;
+  }
+  .fb-booking img { width: 72px; height: 82px; }
+  .fb-booking h2 { font-size: 22px; }
+  .fb-booking-line, .fb-booking a.btn-primary, .fb-booking-link { grid-column: 1 / -1; }
+  .fb-cards { grid-template-columns: minmax(0, 1fr); }
+}

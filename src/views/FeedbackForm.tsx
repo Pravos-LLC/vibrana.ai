@@ -1,9 +1,12 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/src/components/prism'
+import { FeedbackBackdrop } from '@/src/components/feedback/FeedbackBackdrop'
+import { ResourceCard } from '@/src/components/feedback/ResourceCard'
+import { SPRINT_FIT_CALL_URL } from '@/src/ai-build-sprint-content'
+import { SPRINT_FLOW } from '@/src/sprint-fit-content'
 import { Textarea } from '@/src/components/prism/form/Textarea'
 import { Input } from '@/src/components/prism/form/Input'
 import { FormGuardFields, useFormGuard } from '@/lib/form-guard/client'
@@ -14,7 +17,7 @@ type ConsentState = { quote: boolean | null }
 type Draft = { submissionId: string; step: string; answers: Answers; consent: ConsentState; done: boolean }
 type Direction = 'forward' | 'back'
 
-type Props = { form: FeedbackFormConfig }
+type Props = { form: FeedbackFormConfig; backdropStart?: number }
 
 const INTRO = 'intro'
 const CONSENT = 'consent'
@@ -139,7 +142,7 @@ function Prompt({ id, prompt, hint, headingRef }: { id: string; prompt: string; 
 // The form
 // ---------------------------------------------------------------------------
 
-export function FeedbackForm({ form }: Props) {
+export function FeedbackForm({ form, backdropStart = 0 }: Props) {
   const storageKey = `vibrana-feedback:${form.slug}`
   const guard = useFormGuard()
   const [draft, setDraft] = useState<Draft>(() => ({ submissionId: newId(), step: INTRO, answers: {}, consent: { quote: null }, done: false }))
@@ -381,7 +384,7 @@ export function FeedbackForm({ form }: Props) {
       >
         <div className="fb-progress-fill h-full bg-[image:var(--gradient-prism)]" style={{ width: `${progress}%` }} />
       </div>
-      <div className="mx-auto flex w-full max-w-3xl items-center px-6 py-4">
+      <div className={`mx-auto flex w-full items-center px-6 py-4 ${stepId === DONE ? 'max-w-5xl' : 'max-w-3xl'}`}>
         {/* Client x Vibrana row. No client logo file ships in this repo, so the client name is shown as text. */}
         {form.clientName !== UI.brand && (
           <span className="font-display text-base font-semibold tracking-wide text-ink-secondary">{form.clientName}</span>
@@ -395,7 +398,7 @@ export function FeedbackForm({ form }: Props) {
     </header>
   )
 
-  const background = <div className="fb-bg" aria-hidden />
+  const background = <FeedbackBackdrop startIndex={backdropStart} wide={stepId === DONE} />
 
   if (!ready) {
     // Same shell as the real form so nothing jumps when the saved draft loads.
@@ -414,38 +417,41 @@ export function FeedbackForm({ form }: Props) {
         {background}
         {header}
         <div className="relative z-10 flex flex-1 items-center">
-          <section data-dir={direction} className="fb-step mx-auto w-full max-w-3xl px-6 py-12" aria-live="polite">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/assets/vibrana-v-prism-96.webp"
-              alt={UI.brand}
-              width={96}
-              height={96}
-              className="h-24 w-24 rounded-full object-cover ring-1 ring-line-strong"
-            />
-            <h1
-              ref={headingRef}
-              tabIndex={-1}
-              className="mt-8 font-display text-4xl font-semibold leading-tight text-ink outline-none md:text-6xl"
-            >
-              {UI.done.heading}
-            </h1>
-            <p className="mt-4 max-w-xl text-lg text-ink-secondary md:text-xl">{UI.done.body}</p>
-            {form.thankYou?.connectUrl && <div className="mt-8">
-              <Button href={form.thankYou.connectUrl} target="_blank" rel="noopener noreferrer">
-                {UI.done.connectLabel}
-              </Button>
-            </div>}
-            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-              {UI.done.moreLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-ink-tertiary underline-offset-4 transition-colors hover:text-ink hover:underline"
+          <section data-dir={direction} className="fb-step mx-auto w-full max-w-5xl px-6 py-10" aria-live="polite">
+            <div className="fb-done-layout">
+              <div className="fb-done-main">
+                <h1
+                  ref={headingRef}
+                  tabIndex={-1}
+                  className="font-display text-4xl font-semibold leading-tight text-ink outline-none md:text-6xl"
                 >
-                  {link.label}
-                </Link>
-              ))}
+                  {UI.done.heading}
+                </h1>
+                <p className="mt-4 max-w-xl text-lg text-ink md:text-xl">{UI.done.body}</p>
+                <p className="mb-3 mt-10 text-sm uppercase tracking-[0.15em] text-ink-tertiary">{UI.done.eyebrow}</p>
+                <div className="fb-cards">
+                  {UI.done.cards.map((card) => (
+                    <ResourceCard key={card.href} {...card} />
+                  ))}
+                </div>
+              </div>
+              <aside className="fb-booking">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/assets/team/john-ellison.webp" width={100} height={100} alt={SPRINT_FLOW.johnAlt} />
+                <div className="fb-booking-text">
+                  <h2>{SPRINT_FLOW.john}</h2>
+                  <p className="fb-booking-role">{SPRINT_FLOW.johnRole}</p>
+                </div>
+                <p className="fb-booking-line">{UI.done.callLine}</p>
+                <Button href={SPRINT_FIT_CALL_URL} target="_blank" rel="noopener noreferrer" showArrow>
+                  {SPRINT_FLOW.call}
+                </Button>
+                {form.thankYou?.connectUrl && (
+                  <a className="fb-booking-link" href={form.thankYou.connectUrl} target="_blank" rel="noopener noreferrer">
+                    {UI.done.connectLabel}
+                  </a>
+                )}
+              </aside>
             </div>
           </section>
         </div>
