@@ -181,11 +181,13 @@ export const FORM_GUARDS = {
     ],
   },
   // Client feedback (/feedback/[slug]). Writes one row and emails John only; nothing goes to the
-  // respondent. A draft can be restored and sent within seconds of page load, so the minimum is short;
-  // the route turns every non-honeypot drop into a retryable error rather than a fake success.
+  // respondent. Six screens take a person well over 30 seconds, but a draft can be restored and sent
+  // soon after page load, so the minimum stays modest; the route turns every non-honeypot drop into a
+  // retryable error rather than a fake success. Route-level global budgets (saves per day, notification
+  // emails per hour) cap what a distributed flood can cost: see app/api/feedback/route.ts.
   clientFeedback: {
     endpoint: 'client-feedback',
-    minFillMs: 2000,
+    minFillMs: 5000,
     limits: [
       { key: 'ip', max: 20, windowSec: HOUR },
       { key: 'ip', max: 60, windowSec: DAY },
@@ -427,6 +429,19 @@ async function applyRateLimits(
     };
   }
   return drop(config, `rate-limit-${blocked.rule.key}`);
+}
+
+/**
+ * A shared budget for an endpoint, not tied to any visitor: true while the named window has room.
+ * It caps what a flood spread across many IPs can cost (rows written, emails sent), which the
+ * per-IP limits cannot. Counts every call, so call it once per thing you are budgeting. Fails open
+ * like the other limits: a missing RPC never takes a form down.
+ */
+export async function withinGlobalBudget(endpoint: string, name: string, max: number, windowSec: number): Promise<boolean> {
+  const secret = getSecret();
+  if (!secret) return true;
+  const bucket = `${endpoint}:global:${name}:${windowSec}:${hashBucket(`${endpoint}:${name}`, secret)}`;
+  return hitRateLimit(bucket, { key: 'ip', max, windowSec });
 }
 
 /**

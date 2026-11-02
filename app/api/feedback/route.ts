@@ -2,12 +2,14 @@ import { createHmac } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { FROM_EMAIL, sendEmail } from '@/lib/resend'
-import { FORM_GUARDS, guardFieldsFromBody, guardSubmission } from '@/lib/form-guard/server'
+import { FORM_GUARDS, guardFieldsFromBody, guardSubmission, withinGlobalBudget } from '@/lib/form-guard/server'
 import { FeedbackFormsConfigurationError, getFeedbackForm } from '@/lib/feedback/forms'
 import {
   MAX_BODY_CHARS,
   buildSubmissionSchema,
+  MAX_LINKS,
   compactAnswers,
+  countLinks,
   evaluateConsent,
 } from '@/lib/feedback/submission'
 import { feedbackEmailHtml, feedbackEmailText, feedbackSubject } from '@/lib/feedback/email'
@@ -16,6 +18,12 @@ export const dynamic = 'force-dynamic'
 
 const SAVE_FAILED = 'We could not save your answers. Please try again.'
 const NOT_VERIFIED = 'We could not confirm this submission yet. Please try again in a moment.'
+const TOO_BUSY = 'We are receiving a lot of responses right now. Please try again in a little while.'
+const NO_LINKS = 'Please remove the links from your answers and send again.'
+
+/** Shared budgets for a flood spread over many IPs. Far above anything a real respondent group reaches. */
+const SAVES_PER_DAY = 200
+const EMAILS_PER_HOUR = 20
 
 function hashUserAgent(ua: string | null): string | null {
   if (!ua) return null
@@ -29,6 +37,19 @@ function hashUserAgent(ua: string | null): string | null {
  * form can offer a retry. The client supplies the row id, so a retry cannot double-save.
  */
 export async function POST(request: NextRequest) {
+  // The form posts from its own page. A browser always sends Origin on a cross-site POST, so a different
+  // host is another site's script, not this form. (Scripts can forge the header; BotID and the guard below
+  // are the real defence. This only turns away the lazy cross-site case.)
+  // `Origin: null` (a sandboxed frame, some privacy modes) carries no host to compare, so it is treated as
+  // absent and left to the other layers.
+  const origin = request.headers.get('origin')
+  const host = request.headers.get('host')
+  if (origin && origin !== 'null' && host) {
+    let originHost = ''
+    try { originHost = new URL(origin).host } catch { /* treated as a mismatch */ }
+    if (originHost.toLowerCase() !== host.toLowerCase()) return NextResponse.json({ error: 'Invalid request.' }, { status: 403 })
+  }
+
   const declared = Number(request.headers.get('content-length') ?? 0)
   if (declared > MAX_BODY_CHARS * 4) {
     return NextResponse.json({ error: 'That response is too long.' }, { status: 413 })
@@ -74,6 +95,9 @@ export async function POST(request: NextRequest) {
   }
   if (guard.action === 'reject') return NextResponse.json({ error: guard.message }, { status: guard.status })
 
+  if (countLinks(submission) > MAX_LINKS) {
+    return NextResponse.json({ error: NO_LINKS }, { status: 400 })
+  }
   const score = submission.answers[form.scoreQuestionId] as number
   const consent = evaluateConsent(form, score, submission)
   if (consent.status === 'forbidden') {
@@ -87,6 +111,12 @@ export async function POST(request: NextRequest) {
       { error: 'This form was updated while you were filling it in. Please refresh the page and try again.' },
       { status: 409 },
     )
+  }
+
+  // Last check before anything is written (only requests that would be saved spend it): a shared daily budget, so a flood across many IPs cannot grow the table. It counts attempts, so a retry of an already-saved id spends one too, which is a rounding error against 200.
+  if (!(await withinGlobalBudget(FORM_GUARDS.clientFeedback.endpoint, 'save', SAVES_PER_DAY, 24 * 60 * 60))) {
+    console.warn('[feedback] daily save budget reached')
+    return NextResponse.json({ error: TOO_BUSY, retryable: true }, { status: 429 })
   }
 
   const answers = compactAnswers(submission.answers) as Record<string, unknown>
@@ -121,7 +151,27 @@ export async function POST(request: NextRequest) {
   }
 
   const notifyTo = process.env.FEEDBACK_NOTIFY_EMAIL || process.env.ADMIN_EMAIL
-  if (!notifyTo) {
+  // The row is already saved. Past the hourly budget the notification is skipped, so a flood cannot turn
+  // into a mailbox flood (or a Resend bill); the saved rows are still there to read.
+  if (notifyTo && !(await withinGlobalBudget(FORM_GUARDS.clientFeedback.endpoint, 'notify', EMAILS_PER_HOUR, 60 * 60))) {
+    console.warn('[feedback] hourly notification budget reached; saved without an email')
+    // One alert an hour, so a flood does not go unnoticed just because the notifications stopped.
+    if (await withinGlobalBudget(FORM_GUARDS.clientFeedback.endpoint, 'notify-alert', 1, 60 * 60)) {
+      try {
+        await sendEmail({
+          suppressErrorDetails: true,
+          from: FROM_EMAIL,
+          to: notifyTo,
+          subject: 'Feedback form: notification limit reached',
+          html: '<p>The feedback form has saved more than the hourly notification budget. Responses are still being saved but not emailed. Check the client_feedback table, and the form guard logs for a flood.</p>',
+          text: 'The feedback form has saved more than the hourly notification budget. Responses are still being saved but not emailed. Check the client_feedback table, and the form guard logs for a flood.',
+          tags: [{ name: 'type', value: 'client-feedback-alert' }],
+        })
+      } catch {
+        console.error('[feedback] limit alert email failed')
+      }
+    }
+  } else if (!notifyTo) {
     console.warn('[feedback] FEEDBACK_NOTIFY_EMAIL is not set; saved without a notification email.')
   } else {
     try {

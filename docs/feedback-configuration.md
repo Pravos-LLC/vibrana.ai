@@ -35,3 +35,18 @@ magick original.jpg -resize 1600x -gaussian-blur 0x5 -modulate 88,100,100 -quali
 Keep each file under 60 KB, add the slide to `src/feedback-backdrops.ts` with its hue and glow position, and check text contrast over the brightest slide.
 
 The thank-you screen (on the flat dark surface) mirrors the AI Build Sprint brief result: a booking card with John's photo and a call link (`SPRINT_FIT_CALL_URL`), plus three link cards. The card thumbnails in `public/assets/feedback/card-*.webp` are each page's own imagery, cropped to 600 x 315 (the share images are one template with the same collage on every page, so they made three identical cards): the team at a sticky-note wall for the AI Readiness Assessment, the pocket watch from the EU AI Act page's own set, and the prototype laptop for the Simulator. Keep each under 40 KB.
+
+## Spam and abuse protection
+
+`/api/feedback` is a public endpoint behind one shared link, so it layers several guards (shared policy in `lib/form-guard/server.ts`, see `docs/form-protection.md`):
+
+1. **Same-origin only.** A POST whose `Origin` host differs from the request host (compared case-insensitively) is refused with 403. `Origin: null` is treated as absent.
+2. **Honeypot.** A filled hidden field is a silent success for the bot, with nothing saved.
+3. **Signed render token with a five-second minimum fill time.** Missing, forged or too-fast tokens are a retryable error and never a fake success, so a real person keeps their draft.
+4. **Vercel BotID** on `POST /api/feedback` (`instrumentation-client.ts`).
+5. **Per-IP and per-token limits:** 20 an hour and 60 a day per IP, 6 a day per token.
+6. **Link limit.** More than two links across all free text, the contact fields and the testimonial is refused with a visible 400 so a real person can remove them and resend.
+7. **Shared budgets** that cap a flood spread over many IPs: at most 200 saves a day (a retryable 429 after that) and at most 20 notification emails an hour (past that the row is still saved and the email is skipped, with a log line and one alert email an hour so a flood is noticed).
+8. **Size and shape.** 32 KB body cap, strict schemas, per-field length limits, a client-supplied submission id so a retry cannot double-save, and the respondent's text is escaped in the notification email.
+
+The rate-limit layers need the `form_rate_limit_hit` function (`supabase/migrations/20260929120000_form_rate_limits.sql`). If it is missing they fail open and log `[form-guard] Rate-limit RPC failed`; check production logs for that line after any database change. A Cloudflare Turnstile challenge is supported by the guard (set `turnstile: true` on the endpoint and the Turnstile keys) but is off for this form; BotID is the bot check.
