@@ -1,5 +1,4 @@
 'use client';
-import { siteContent } from '@/src/site-content'
 import { PublicDemoImg } from '@/src/components/PublicDemoImage'
 
 import { CLIENT_LOGOS } from '@/src/logo-rows-content';
@@ -247,7 +246,7 @@ export function ScrollMotionDemo() {
         gets plain fades.
       </CompHeading>
       <div className="grid gap-8 md:grid-cols-[1fr_1fr]">
-        <ParallaxMedia src={siteContent("media.YXBwL3ByaXNtL1Jlc2VhcmNoUHJldmlldy50c3g6NA", "/assets/imagery/homepage/prism-grid-solar.webp")} alt="" aspect="3 / 2" />
+        <ParallaxMedia src={"/assets/imagery/homepage/prism-grid-solar.webp"} alt="" aspect="3 / 2" />
         <div className="flex gap-6">
           <ScrollLine className="h-auto" />
           <RevealGroup className="space-y-6">
@@ -537,11 +536,11 @@ export function FilmRollDemo() {
       </CompHeading>
       <FilmRoll
         frames={[
-          { src: siteContent("media.YXBwL3ByaXNtL1Jlc2VhcmNoUHJldmlldy50c3g6NQ", 'public-demo:portrait'), alt: 'John Ellison, founder' },
-          { src: siteContent("media.YXBwL3ByaXNtL1Jlc2VhcmNoUHJldmlldy50c3g6Ng", 'public-demo:portrait'), alt: 'Fatma Ghedira' },
-          { src: siteContent("media.YXBwL3ByaXNtL1Jlc2VhcmNoUHJldmlldy50c3g6Nw", 'public-demo:portrait'), alt: 'Chetan Nanda Kumar' },
-          { src: siteContent("media.YXBwL3ByaXNtL1Jlc2VhcmNoUHJldmlldy50c3g6OA", 'public-demo:portrait'), alt: 'Abe Isleem' },
-          { src: siteContent("media.YXBwL3ByaXNtL1Jlc2VhcmNoUHJldmlldy50c3g6OQ", 'public-demo:portrait'), alt: 'Stephan Ledain' },
+          { src: '/assets/team/polaroid/john-ellison.webp', alt: 'John Ellison, founder' },
+          { src: '/assets/team/polaroid/fatma-ghedira.webp', alt: 'Fatma Ghedira' },
+          { src: '/assets/team/polaroid/chetan-nandakumar.webp', alt: 'Chetan Nanda Kumar' },
+          { src: '/assets/team/polaroid/abe-isleem.webp', alt: 'Abe Isleem' },
+          { src: '/assets/team/polaroid/stephan-ledain.webp', alt: 'Stephan Ledain' },
         ]}
       />
     </div>

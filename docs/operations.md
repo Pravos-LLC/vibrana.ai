@@ -12,11 +12,9 @@ The separate public sample preview stays on `publication-production-held`. It de
 
 ## Runtime configuration and public display
 
-Production alone receives the private website display envelope and feedback form configuration. Follow [display-data validation](../scripts/site-content/README.md) and [feedback configuration](feedback-configuration.md). Never place private payloads, client form identities, credentials or invitation data in Git, PRs, logs, build reports or public CI.
+Production builds exactly what is committed; there is no private display envelope (removed 2026-11-02). Production alone receives the feedback form configuration; see [feedback configuration](feedback-configuration.md). Never place private payloads, client form identities, credentials or invitation data in Git, PRs, logs, build reports or public CI.
 
-The configuration boundary does not mean all rendered content is secret or server-only. Reviewed display data, approved media and selected assessment questions are intentionally public when rendered. Input envelopes, credentials, unpublished material and unselected private records remain private. A form's configured display fields are intentionally visible at its anonymous shared route; `noindex` is not authentication.
-
-The display-data source revision and digest identify the approved data independently of ordinary application commits. Protected releases bind the actual application commit during preparation and server validation. Do not require a new environment pin for every application head or substitute a historical deployment SHA for the current release. Reconcile changed display keys with the production envelope before release; retain fail-closed validation.
+Credentials, unpublished material and unselected private records stay out of Git. A form's configured display fields are intentionally visible at its anonymous shared route; `noindex` is not authentication.
 
 ## Database and rollback
 

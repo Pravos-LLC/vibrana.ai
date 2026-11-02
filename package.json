@@ -13,8 +13,7 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "guardrail": "bash scripts/prism-guardrail.sh",
-    "db:seed:local": "supabase start && supabase db reset",
-    "prebuild": "node scripts/site-content/prepare.mjs"
+    "db:seed:local": "supabase start && supabase db reset"
   },
   "dependencies": {
     "@formspree/react": "^3.0.0",

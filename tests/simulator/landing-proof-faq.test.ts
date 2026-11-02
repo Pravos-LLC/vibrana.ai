@@ -1,5 +1,4 @@
-import { expectOmittedMedia } from '@/tests/public-demo-media-assertions'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { SECTOR_EXAMPLES } from '@/src/lib/simulator/sector-examples'
@@ -54,7 +53,7 @@ describe('proof wall', () => {
 
 describe('team and FAQ', () => {
   it('team photos exist on disk', () => {
-    for (const m of TEAM_CONTENT.members) expectOmittedMedia(m.photo, m.alt, 'portrait')
+    for (const m of TEAM_CONTENT.members) expect(existsSync(join(process.cwd(), 'public', m.photo)), m.alt).toBe(true)
   })
   it('answers every Gatekeeper objection once', () => {
     expect(FAQ_CONTENT.items.map((i) => i.id)).toEqual(['made-up', 'spend', 'people', 'fees', 'data', 'accuracy'])

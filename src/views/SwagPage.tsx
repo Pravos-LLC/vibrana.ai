@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { productionSite } from '@/src/site-content'
 import Image from '@/src/components/PublicDemoImage'
 import { EnterprisePageShell } from '@/src/components/enterprise/EnterprisePageShell'
 import { Button, Eyebrow, GradientText, Reveal, Section } from '@/src/components/prism'
@@ -11,6 +10,7 @@ import {
   STICKER_THEMES,
   SWAG_STICKER_DOWNLOAD,
   SWAG_SHIRT_SECTION,
+  SHOW_SWAG_SHIRTS,
   SWAG_SHIRTS,
   SWAG_CLOSING,
 } from '@/src/swag-content'
@@ -96,7 +96,7 @@ export default function SwagPage() {
         </div>
       </Section>
 
-      {productionSite && SWAG_SHIRTS.length > 0 && <>
+      {SHOW_SWAG_SHIRTS && SWAG_SHIRTS.length > 0 && <>
       <Section container="wide" rhythm="large" surface="raised">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow gradient={SWAG_SHIRT_SECTION.gradient}>{SWAG_SHIRT_SECTION.eyebrow}</Eyebrow>

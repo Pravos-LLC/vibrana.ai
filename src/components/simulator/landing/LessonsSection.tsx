@@ -1,5 +1,4 @@
 'use client'
-import { siteContent } from '@/src/site-content'
 
 import type { ReactNode } from 'react'
 import Image from '@/src/components/PublicDemoImage'
@@ -225,7 +224,7 @@ function WhyBlock({ onRun }: { onRun: () => void }) {
         </div>
         <div className="mt-8 flex items-center gap-3">
           <Image
-            src={siteContent("media.c3JjL2NvbXBvbmVudHMvc2ltdWxhdG9yL2xhbmRpbmcvTGVzc29uc1NlY3Rpb24udHN4OjA", "public-demo:portrait")}
+            src={"/assets/team/john-ellison.webp"}
             alt=""
             width={48}
             height={48}

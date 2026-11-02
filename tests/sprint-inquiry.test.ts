@@ -1,5 +1,6 @@
-import { expectOmittedMedia } from '@/tests/public-demo-media-assertions'
 import { describe, expect, it } from 'vitest'
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
 import { SPRINT_TRACK_IDS, isSprintTrackId, sprintInquirySchema } from '@/src/lib/sprint-inquiry'
 import {
   SPRINT_CTA,
@@ -94,7 +95,7 @@ describe('sprint tracks', () => {
     ])
     for (const track of SPRINT_TRACKS) {
       expect(JSON.stringify(track)).not.toContain('$')
-      for (const lead of track.leads) expectOmittedMedia(lead.photo, lead.name, 'portrait')
+      for (const lead of track.leads) expect(existsSync(join(process.cwd(), 'public', lead.photo)), lead.name).toBe(true)
     }
   })
 

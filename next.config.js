@@ -1,8 +1,4 @@
 const path = require('path')
-const { existsSync } = require('fs')
-const productionContent = process.env.VERCEL_ENV === 'production'
-const productionData = path.join(__dirname, 'src/site-content/generated.production.json')
-if (productionContent && !existsSync(productionData)) throw new Error('Production website content was not prepared')
 const { withBotId } = require('botid/next/config')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -20,17 +16,7 @@ const nextConfig = {
   // or nested one level deeper under `vibrana.ai-worktrees/`, so the shared root
   // is the `Projects/` ancestor in both cases. See
   // https://github.com/vercel/next.js/issues/88335.
-  webpack(config) {
-    if (productionContent) {
-      config.resolve.alias['@/src/site-content/generated.json$'] = productionData
-      // Next resolves tsconfig paths before webpack aliases run.
-      // Also match the resolved sample path so prepared data is consumed.
-      config.resolve.alias[path.join(__dirname, 'src/site-content/generated.json') + '$'] = productionData
-    }
-    return config
-  },
   turbopack: {
-    ...(productionContent ? { resolveAlias: { '@/src/site-content/generated.json': './src/site-content/generated.production.json' } } : {}),
     root: __dirname.includes(`${path.sep}vibrana.ai-worktrees${path.sep}`)
       ? path.join(__dirname, '..', '..')
       : path.join(__dirname, '..'),

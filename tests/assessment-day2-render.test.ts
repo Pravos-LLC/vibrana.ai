@@ -2,10 +2,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 afterEach(() => { vi.doUnmock('@/src/assessment-nurture-day2-content'); vi.resetModules() })
 describe('Day 2 nurture rendering', () => {
-  it('uses the demo download in the default configuration', async () => {
+  it('renders the whitepaper follow-up with the download link', async () => {
     const { renderDay2Email } = await import('@/lib/assessment/day2-render')
     const html = renderDay2Email('Sample', 'Readiness', 50, 'https://example.test/demo.txt', '<footer>Trusted footer</footer>')
-    expect(html).toContain('Public demo download')
+    expect(html).toContain('Get the Whitepaper')
     expect(html).toContain('https://example.test/demo.txt')
     expect(html).toContain('<footer>Trusted footer</footer>')
   })
