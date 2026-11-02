@@ -12,7 +12,7 @@ The production anonymous route intentionally exposes its selected form's display
 
 ## Backdrop and thank-you screen
 
-The form sits on a timed carousel of seven city photos (`src/feedback-backdrops.ts`, `src/components/feedback/FeedbackBackdrop.tsx`). The server picks the starting city per request, each slide has its own prism tint (hue falls from violet to amber across the set while the glow moves left to right), and dots near a fine pointer pick up the slide's hue. Under `prefers-reduced-motion` the start photo stays still and the pointer glow is off.
+The cover page sits on a timed carousel of seven city photos (`src/feedback-backdrops.ts`, `src/components/feedback/FeedbackBackdrop.tsx`). The server picks the starting city per request, each slide has its own prism tint (hue falls from violet to amber across the set while the glow moves left to right), and dots near a fine pointer pick up the slide's hue. The backdrop is for the cover only: it fades out when the form starts, the carousel and glow stop, and every later screen (questions, consent, contact, thank-you) is the flat dark surface, so nothing moves while someone answers. Under `prefers-reduced-motion` the start photo stays still and the pointer glow is off.
 
 Photos are from [Unsplash](https://unsplash.com/?utm_source=vibrana&utm_medium=referral) and used under the Unsplash License. They are bundled as small webps in `public/assets/feedback/`, credited on screen (photographer and Unsplash, linked with referral parameters) and in this table:
 
@@ -34,4 +34,4 @@ magick original.jpg -resize 1600x -gaussian-blur 0x5 -modulate 88,100,100 -quali
 
 Keep each file under 60 KB, add the slide to `src/feedback-backdrops.ts` with its hue and glow position, and check text contrast over the brightest slide.
 
-The thank-you screen mirrors the AI Build Sprint brief result: a booking card with John's photo and a call link (`SPRINT_FIT_CALL_URL`), plus three link cards. The card thumbnails in `public/assets/feedback/card-*.webp` are the pages' share images scaled to 640 px wide (the share PNGs are about 590 KB each).
+The thank-you screen (on the flat dark surface) mirrors the AI Build Sprint brief result: a booking card with John's photo and a call link (`SPRINT_FIT_CALL_URL`), plus three link cards. The card thumbnails in `public/assets/feedback/card-*.webp` are the pages' share images scaled to 640 px wide (the share PNGs are about 590 KB each).

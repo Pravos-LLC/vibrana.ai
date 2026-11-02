@@ -398,7 +398,7 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
     </header>
   )
 
-  const background = <FeedbackBackdrop startIndex={backdropStart} wide={stepId === DONE} />
+  const background = <FeedbackBackdrop startIndex={backdropStart} visible={ready && stepId === INTRO} />
 
   if (!ready) {
     // Same shell as the real form so nothing jumps when the saved draft loads.

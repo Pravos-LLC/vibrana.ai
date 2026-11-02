@@ -49,8 +49,12 @@
   overflow: hidden;
   background: var(--surface-base);
   pointer-events: none;
-  transition: --fb-h var(--fb-fade) ease;
+  /* The photos are for the cover only. Once the form starts the backdrop fades out and the page is
+     the flat dark surface, so nothing moves while someone is answering. */
+  opacity: 0;
+  transition: opacity 700ms ease, --fb-h var(--fb-fade) ease;
 }
+.fb-backdrop[data-visible='true'] { opacity: 1; }
 .fb-slide {
   position: absolute;
   inset: 0;
@@ -122,13 +126,15 @@
   font-size: 11px;
   line-height: 1.2;
   color: rgba(250, 250, 252, 0.62);
+  opacity: 0;
+  transition: opacity 700ms ease;
 }
-.fb-credit-wide { right: max(1.5rem, calc((100vw - 64rem) / 2 + 1.5rem)); }
+.fb-credit[data-visible='true'] { opacity: 1; }
+.fb-credit[data-visible='false'] { pointer-events: none; }
 /* On narrow screens the header row can be full (a long client name), so the credit drops to the
    bottom edge of the header bar instead of sharing the logo line. */
 @media (max-width: 560px) {
-  .fb-credit,
-  .fb-credit-wide { top: 49px; right: 1.5rem; font-size: 10px; }
+  .fb-credit { top: 49px; right: 1.5rem; font-size: 10px; }
 }
 .fb-credit a { color: inherit; text-decoration: none; }
 .fb-credit a:hover { color: rgba(250, 250, 252, 0.85); text-decoration: underline; text-underline-offset: 2px; }
@@ -172,7 +178,7 @@
   .fb-step[data-dir] { animation: none; }
   .fb-progress-fill, .fb-choice { transition: none; }
   .fb-choice:active { transform: none; }
-  .fb-slide, .fb-slide-img, .fb-backdrop, .fb-dots-glow, .fb-card { transition: none; }
+  .fb-slide, .fb-slide-img, .fb-backdrop, .fb-credit, .fb-dots-glow, .fb-card { transition: none; }
   .fb-slide[data-active='true'] .fb-slide-img { transform: none; }
   .fb-dots-glow { display: none; }
 }

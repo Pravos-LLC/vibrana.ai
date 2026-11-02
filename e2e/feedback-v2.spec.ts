@@ -121,4 +121,11 @@ test('backdrop holds one photo under reduced motion and advances without it', as
   const start = await activeSrc()
   await page.clock.runFor(10_000)
   expect(await activeSrc()).not.toBe(start)
+
+  // The photos belong to the cover: after Start the backdrop is hidden and stops advancing.
+  await page.getByRole('button', { name: 'Start', exact: true }).click()
+  await expect(page.locator('.fb-backdrop')).toHaveAttribute('data-visible', 'false')
+  const parked = await activeSrc()
+  await page.clock.runFor(30_000)
+  expect(await activeSrc()).toBe(parked)
 })
