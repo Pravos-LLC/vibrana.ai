@@ -22,8 +22,8 @@ export function Footer() {
   return (
     <footer className="relative z-10 border-t border-line-subtle px-6 py-16">
       <div className="mx-auto max-w-5xl">
-        <div className="mb-12 grid gap-8 md:grid-cols-5">
-          <div className="md:col-span-2">
+        <div className="mb-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1.3fr_1fr]">
+          <div className="sm:col-span-2 lg:col-span-1">
             <div className="font-display mb-4 flex items-center gap-3 text-xl font-semibold tracking-widest text-ink">
               <PublicDemoImg src="/assets/vibrana-v-prism-96.webp" alt="Vibrana logo" width={32} height={32} className="h-8 w-auto" />
               VIBRANA

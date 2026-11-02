@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/ai-transformation',
     '/ai-readiness',
     '/eu-ai-act-readiness',
+    '/ai-transformation/simulator',
     '/executive-ai-transformation',
     '/learn',
     '/about',

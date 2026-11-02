@@ -1,7 +1,7 @@
 'use client';
 import { PublicDemoImg } from '@/src/components/PublicDemoImage'
 
-import React, { useState } from 'react';
+import React, { useId, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
@@ -43,7 +43,11 @@ export function Nav({
   activeHref,
 }: NavProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLearnOpen, setIsLearnOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // A tap or click that follows a hover-open keeps the panel open instead of toggling it shut.
+  const openedByHover = useRef(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelId = useId();
 
   return (
     <>
@@ -56,58 +60,77 @@ export function Nav({
           </Link>
 
           {/* Centered links (desktop) */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 xl:block">
             <div className="nav-links">
               {items.map((item) =>
                 item.hasDropdown ? (
                   <div
                     key={item.label}
                     className="relative"
-                    onMouseEnter={() => setIsLearnOpen(true)}
-                    onMouseLeave={() => setIsLearnOpen(false)}
-                    onFocus={() => setIsLearnOpen(true)}
+                    onMouseEnter={() => {
+                      openedByHover.current = !isDropdownOpen
+                      setIsDropdownOpen(true)
+                    }}
+                    onMouseLeave={() => {
+                      openedByHover.current = false
+                      setIsDropdownOpen(false)
+                    }}
                     onBlur={(e) => {
-                      if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setIsLearnOpen(false)
+                      if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setIsDropdownOpen(false)
                     }}
                     onKeyDown={(e) => {
-                      if (e.key === 'Escape') setIsLearnOpen(false)
+                      if (e.key === 'Escape' && isDropdownOpen) {
+                        setIsDropdownOpen(false)
+                        triggerRef.current?.focus()
+                      }
                     }}
                   >
                     <button
+                      ref={triggerRef}
                       className="nav-dropdown-trigger flex items-center gap-1"
                       type="button"
-                      aria-haspopup="true"
-                      aria-expanded={isLearnOpen}
-                      onClick={() => setIsLearnOpen((open) => !open)}
+                      aria-expanded={isDropdownOpen}
+                      aria-controls={panelId}
+                      onClick={() => {
+                        if (openedByHover.current) {
+                          openedByHover.current = false
+                          return
+                        }
+                        setIsDropdownOpen((open) => !open)
+                      }}
                     >
                       {item.label}
                       <ChevronDown size={12} />
                     </button>
                     <AnimatePresence>
-                      {isLearnOpen && dropdownItems.length > 0 && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -10 }}
-                          className="nav-dropdown-panel absolute left-0 top-full z-50 mt-3 w-[300px] overflow-hidden rounded-xl py-2"
-                          style={{
-                            background: 'var(--surface-inset)',
-                            border: '1px solid var(--border-subtle)',
-                            backdropFilter: 'blur(20px)',
-                            boxShadow: '0 12px 40px rgba(0,0,0,0.08)',
-                          }}
-                        >
-                          {dropdownItems.map((d) => (
-                            <Link
-                              key={d.label}
-                              href={d.href}
-                              className="block px-4 py-3 transition-colors hover:bg-[rgba(124,58,237,0.06)]"
-                            >
-                              <div className="type-sm font-display font-semibold text-primary-token">{d.label}</div>
-                              {d.sublabel && <div className="type-xs mt-0.5 text-tertiary-token">{d.sublabel}</div>}
-                            </Link>
-                          ))}
-                        </motion.div>
+                      {isDropdownOpen && dropdownItems.length > 0 && (
+                        // pt-3 bridges trigger and panel, so the pointer never crosses a dead gap.
+                        <div id={panelId} className="absolute left-0 top-full z-50 pt-3">
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="nav-dropdown-panel w-[300px] overflow-hidden rounded-xl py-2"
+                            style={{
+                              background: 'var(--surface-inset)',
+                              border: '1px solid var(--border-subtle)',
+                              backdropFilter: 'blur(20px)',
+                              boxShadow: '0 12px 40px rgba(0,0,0,0.08)',
+                            }}
+                          >
+                            {dropdownItems.map((d) => (
+                              <Link
+                                key={d.label}
+                                href={d.href}
+                                onClick={() => setIsDropdownOpen(false)}
+                                className="transition-colors hover:bg-[rgba(124,58,237,0.06)]"
+                              >
+                                <div className="type-sm font-display font-semibold text-primary-token">{d.label}</div>
+                                {d.sublabel && <div className="type-xs mt-0.5 text-tertiary-token">{d.sublabel}</div>}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        </div>
                       )}
                     </AnimatePresence>
                   </div>
@@ -139,7 +162,7 @@ export function Nav({
             <button
               type="button"
               onClick={() => setIsOpen((v) => !v)}
-              className="flex h-11 w-11 items-center justify-center text-ink-secondary lg:hidden"
+              className="flex h-11 w-11 items-center justify-center text-ink-secondary xl:hidden"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -155,7 +178,7 @@ export function Nav({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 lg:hidden"
+            className="fixed inset-0 z-40 overflow-y-auto xl:hidden"
             style={{ background: 'var(--surface-nav)', backdropFilter: 'blur(24px) saturate(1.4)' }}
           >
             {/* Visible close button for discoverability */}
@@ -167,7 +190,7 @@ export function Nav({
             >
               <X size={24} />
             </button>
-            <div className="flex h-full flex-col items-center justify-center gap-6">
+            <div className="flex min-h-full flex-col items-center justify-center gap-6 py-20">
               <ThemeToggle />
               {items.map((item, i) => (
                 <motion.div
