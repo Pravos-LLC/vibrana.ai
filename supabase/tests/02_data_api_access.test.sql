@@ -141,7 +141,7 @@ returns text[] language sql immutable set search_path = '' as $$
     'gtm_story_stages', 'gtm_story_stage_decisions',
     'gtm_inspiration', 'gtm_signal_stories', 'gtm_signal_items', 'gtm_signal_feedback', 'gtm_signal_runs',
     'gtm_comments', 'gtm_comment_runs', 'gtm_red_flag_alerts', 'gtm_red_flag_resolutions', 'gtm_engage_lessons',
-    'gtm_manual_metrics', 'gtm_content_reports', 'gtm_report_actions', 'gtm_sync_state',
+    'gtm_manual_metrics', 'gtm_content_reports', 'gtm_report_actions', 'gtm_sync_state', 'gtm_analytics_reports',
     'gtm_content_candidates', 'gtm_ideas',
     'gtm_storyboards', 'gtm_storyboard_versions', 'gtm_storyboard_rules', 'gtm_storyboard_comments',
     'gtm_storyboard_scene_decisions', 'gtm_storyboard_spend', 'gtm_broll_shots',
@@ -195,6 +195,8 @@ insert into public.gtm_content_reports (id, kind, period_start, period_end)
 insert into public.gtm_report_actions (report_id, type, proposal)
   values ('00000000-0000-0000-0000-0000000000e1', 'move', 'Seed change');
 insert into public.gtm_sync_state (key, value) values ('seed', '{}');
+insert into public.gtm_analytics_reports (kind, slug, period_start, period_end, title, headline, doc)
+  values ('weekly', 'weekly-' || to_char(date_trunc('week', current_date)::date, 'YYYY-MM-DD'), date_trunc('week', current_date)::date, date_trunc('week', current_date)::date + 6, 'Seed report', 'Seed headline', '{}');
 insert into public.gtm_content_candidates (week_start, slug, format, lens, pillar, channels, title, body, sources, agent_draft)
   values (date_trunc('week', current_date)::date, 'seed', 'text', 'regenerative', 'perspective', '{linkedin}', 'Seed', 'Seed', '[{}]', '{}');
 insert into public.gtm_ideas (slug, title) values ('seed', 'Seed idea');
