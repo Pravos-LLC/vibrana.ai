@@ -34,4 +34,4 @@ magick original.jpg -resize 1600x -gaussian-blur 0x5 -modulate 88,100,100 -quali
 
 Keep each file under 60 KB, add the slide to `src/feedback-backdrops.ts` with its hue and glow position, and check text contrast over the brightest slide.
 
-The thank-you screen (on the flat dark surface) mirrors the AI Build Sprint brief result: a booking card with John's photo and a call link (`SPRINT_FIT_CALL_URL`), plus three link cards. The card thumbnails in `public/assets/feedback/card-*.webp` are the pages' share images scaled to 640 px wide (the share PNGs are about 590 KB each).
+The thank-you screen (on the flat dark surface) mirrors the AI Build Sprint brief result: a booking card with John's photo and a call link (`SPRINT_FIT_CALL_URL`), plus three link cards. The card thumbnails in `public/assets/feedback/card-*.webp` are each page's own imagery, cropped to 600 x 315 (the share images are one template with the same collage on every page, so they made three identical cards): the team at a sticky-note wall for the AI Readiness Assessment, the pocket watch from the EU AI Act page's own set, and the prototype laptop for the Simulator. Keep each under 40 KB.
