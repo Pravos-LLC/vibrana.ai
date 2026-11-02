@@ -196,7 +196,7 @@ insert into public.gtm_report_actions (report_id, type, proposal)
   values ('00000000-0000-0000-0000-0000000000e1', 'move', 'Seed change');
 insert into public.gtm_sync_state (key, value) values ('seed', '{}');
 insert into public.gtm_analytics_reports (kind, slug, period_start, period_end, title, headline, doc)
-  values ('weekly', 'weekly-seed', current_date, current_date, 'Seed report', 'Seed headline', '{}');
+  values ('weekly', 'weekly-' || to_char(date_trunc('week', current_date)::date, 'YYYY-MM-DD'), date_trunc('week', current_date)::date, date_trunc('week', current_date)::date + 6, 'Seed report', 'Seed headline', '{}');
 insert into public.gtm_content_candidates (week_start, slug, format, lens, pillar, channels, title, body, sources, agent_draft)
   values (date_trunc('week', current_date)::date, 'seed', 'text', 'regenerative', 'perspective', '{linkedin}', 'Seed', 'Seed', '[{}]', '{}');
 insert into public.gtm_ideas (slug, title) values ('seed', 'Seed idea');
