@@ -10,9 +10,9 @@ Checks: `npm run typecheck`, `npm run lint`, `npm run guardrail`, and `npm run t
 
 Draft case studies are hidden by default. Explicit local review requires `NODE_ENV=development` and `VIBRANA_CASE_STUDY_DRAFTS=1`. Hosted deployments cannot enable draft review.
 
-## Samples and production data
+## Content and media
 
-The public defaults use cleared illustrations, synthetic SAMPLE interface diagrams and text attribution in place of excluded portraits and company marks. Decorative video is static. The sample download is a text guide; the sticker ZIP contains 32 approved WebP previews, not original print files. These defaults support local development, public CI and the separate sample preview. Production combines the public implementation with reviewed display data and approved media delivered through production-only configuration. Approved display values and selected assessment questions intentionally reach the browser; credentials and private input envelopes do not. See [display data](scripts/site-content/README.md).
+This repository is the whole website: every page's copy, image, video and download lives here, and production builds exactly what is committed. There is no private content layer. Slots that still use a stand-in (the shared prism image, initials for a portrait, a company name in place of its mark) render that stand-in everywhere until the real asset is added. The sticker ZIP contains 32 approved WebP previews, not original print files.
 
 Feedback forms are anonymous unless a respondent voluntarily provides contact details. The dynamic page and submission API share the validated server-only `FEEDBACK_FORMS_JSON` configuration. Real forms are configured only in Production; hosted previews cannot consume that envelope. The synthetic `sample-feedback` fixture is available locally and in isolated tests. No invitation tokens or recipient mapping are used. See [feedback configuration](docs/feedback-configuration.md).
 

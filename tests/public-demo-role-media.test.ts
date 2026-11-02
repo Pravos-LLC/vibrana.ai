@@ -7,7 +7,7 @@ import { STICKER_THEMES } from '@/src/swag-content'
 describe('public demo constructed media', () => {
   it('the learning hero reserves the synthetic SVG intrinsic aspect ratio', () => {
     const page = readFileSync(join(process.cwd(), 'src/views/CurriculumPage.tsx'), 'utf8')
-    const declared = page.match(/src=\{siteContent\("media\.[^"]+", "\/assets\/public-demo\/platform-hero\.svg"\)\}\s+alt=""\s+width=\{CURRICULUM_HERO_GEOMETRY.width\}\s+height=\{CURRICULUM_HERO_GEOMETRY.height\}/)
+    const declared = page.match(/src=\{"\/assets\/public-demo\/platform-hero\.svg"\}\s+alt=""\s+width=\{CURRICULUM_HERO_GEOMETRY.width\}\s+height=\{CURRICULUM_HERO_GEOMETRY.height\}/)
     const svg = readFileSync(join(process.cwd(), 'public/assets/public-demo/platform-hero.svg'), 'utf8')
     const intrinsic = svg.match(/\bwidth="(\d+)" height="(\d+)"/)
     expect(declared).not.toBeNull()

@@ -1,11 +1,11 @@
-// Canonical, source-verified claims about public/downloads/public-demo-guide.txt.
+// Canonical, source-verified claims about public/downloads/AI-Transformation-Whitepaper.pdf.
 // Every surface that describes the whitepaper (the Day 10 nurture email in
 // src/assessment-nurture-day10-content.ts, the in-app whitepaper upsell card in
 // src/components/assessment/ResultsDashboard.tsx) builds its copy from these constants
 // so the two can't drift back out of sync with each other or with the document.
 //
 // Verify before changing either constant:
-//   pdftotext public/downloads/public-demo-guide.txt - | grep -A40 'References & Data Sources'
+//   pdftotext public/downloads/AI-Transformation-Whitepaper.pdf - | grep -A40 'References & Data Sources'
 
 // Equals `references.length` in src/whitepaper-pdf-content.ts: the References & Data
 // Sources page lists 8 entries (PwC CEO Survey 2026; McKinsey State of AI 2026; McKinsey

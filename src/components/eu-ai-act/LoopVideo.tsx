@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from '@/src/components/PublicDemoImage'
-import { productionSite, siteContent } from '@/src/site-content'
 import { useReducedMotion } from 'framer-motion'
 import { EU_VIDEO_BASE } from '@/src/eu-ai-act-readiness-content'
 import { cn } from '@/src/components/prism/utils/cn'
@@ -33,7 +32,6 @@ export function LoopVideo({
   className?: string
   mediaClassName?: string
 }) {
-  const useProductionVideo = productionSite && siteContent('features.motionMedia', false)
   const ref = useRef<HTMLVideoElement>(null)
   const reduce = useReducedMotion()
   const [load, setLoad] = useState(false)
@@ -41,7 +39,7 @@ export function LoopVideo({
 
   useEffect(() => {
     const el = ref.current
-    if (!el || reduce || !useProductionVideo) return
+    if (!el || reduce) return
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -53,9 +51,8 @@ export function LoopVideo({
     )
     io.observe(el)
     return () => io.disconnect()
-  }, [reduce, useProductionVideo])
+  }, [reduce])
 
-  if (!useProductionVideo) return <div className={cn('relative overflow-hidden', className)} aria-hidden><Image src="/assets/imagery/homepage/prism-grid-solar.webp" alt="" fill priority={priority} sizes={sizes} className={cn('object-cover', mediaClassName)} /></div>
 
   const src = `${EU_VIDEO_BASE}/${name}`
   return (

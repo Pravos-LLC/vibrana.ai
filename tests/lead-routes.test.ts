@@ -386,17 +386,17 @@ describe('POST /api/assessments', () => {
     await post(assessments.POST, '/api/assessments', submission)
     await runDeferred()
 
-    const day10 = sent.find((m) => m.subject === 'Public demo download')
+    const day10 = sent.find((m) => m.subject === 'The AI transformation research behind your report')
     expect(day10).toBeDefined()
-    // public/downloads/public-demo-guide.txt lists 8 references in its
+    // public/downloads/AI-Transformation-Whitepaper.pdf lists 8 references in its
     // References & Data Sources section, not "100+ studies". Its lead finding is PwC's
     // "more than half of CEOs" figure, not the contested MIT "95%" -- see
     // src/whitepaper-claims-content.ts.
     expect(day10!.html).not.toContain('100+');
     expect(day10!.html).not.toContain('never reach production');
-    expect(day10!.html).toContain('Sample download workflow');
-    expect(day10!.html).toContain('http://127.0.0.1:3002/downloads/public-demo-guide.txt');
-    expect(day10!.html).toContain('This text file exercises the sample download workflow.');
+    expect(day10!.html).toContain('Our guide to why AI initiatives stall, with every source listed');
+    expect(day10!.html).toContain('http://127.0.0.1:3002/downloads/AI-Transformation-Whitepaper.pdf');
+    expect(day10!.html).toContain('Why more than half of CEOs have seen neither higher revenue nor lower costs from AI (PwC, 2026)');
   })
 
   it('the Day 2 and Day 5 emails carry no invented statistics or case study', async () => {
@@ -430,7 +430,7 @@ describe('POST /api/assessments', () => {
 
     const nurture = sent.filter((m) => Boolean(m.scheduledAt))
     expect(nurture).toHaveLength(3)
-    expect(nurture.some((m) => m.subject === 'Public demo download')).toBe(false)
+    expect(nurture.some((m) => m.subject === 'The AI transformation research behind your report')).toBe(false)
   })
 
   it('normalizes a mixed-case/padded email before the whitepaper_leads lookup, so Day 10 still skips', async () => {
@@ -453,7 +453,7 @@ describe('POST /api/assessments', () => {
 
     const nurture = sent.filter((m) => Boolean(m.scheduledAt))
     expect(nurture).toHaveLength(3)
-    expect(nurture.some((m) => m.subject === 'Public demo download')).toBe(false)
+    expect(nurture.some((m) => m.subject === 'The AI transformation research behind your report')).toBe(false)
     expect(sent.every((m) => m.to === 'cto@acme.test')).toBe(true)
   })
 

@@ -1,4 +1,3 @@
-import { siteContent } from '@/src/site-content'
 // Simulator landing page, Proof section. Copy is data.
 //
 // The examples themselves (result, quote, source, reporter) live in
@@ -12,7 +11,7 @@ import { siteContent } from '@/src/site-content'
 
 import type { SectorId } from '@/src/lib/simulator/types'
 
-export const PROOF_CONTENT = siteContent("simulator-landing-proof-content.PROOF_CONTENT", {
+export const PROOF_CONTENT = {
   id: 'proof',
   eyebrow: 'In the wild',
   title: 'What others reported',
@@ -26,7 +25,7 @@ export const PROOF_CONTENT = siteContent("simulator-landing-proof-content.PROOF_
     title: 'Where we have delivered',
     note: 'Separate from the examples above. These are not the companies in the wall.',
   },
-} as const)
+} as const
 
 export interface ProofWallLogo {
   sector: SectorId
@@ -38,7 +37,7 @@ export interface ProofWallLogo {
 }
 
 /** Wall order, five to a row on desktop. */
-export const PROOF_WALL: readonly ProofWallLogo[] = siteContent("simulator-landing-proof-content.PROOF_WALL", [
+export const PROOF_WALL: readonly ProofWallLogo[] = [
   { sector: 'marketing-media', src: 'public-demo:logo', mono: true },
   { sector: 'insurance', src: 'public-demo:logo', mono: true },
   { sector: 'real-estate', src: 'public-demo:logo', mono: true },
@@ -49,6 +48,6 @@ export const PROOF_WALL: readonly ProofWallLogo[] = siteContent("simulator-landi
   { sector: 'software', src: 'public-demo:logo', mono: true },
   { sector: 'ecommerce-retail', src: 'public-demo:logo', mono: true, height: 40 },
   { sector: 'manufacturing-logistics', src: 'public-demo:logo', mono: false },
-])
+]
 
-export const PROOF_WALL_COLUMNS = siteContent("simulator-landing-proof-content.PROOF_WALL_COLUMNS", 5)
+export const PROOF_WALL_COLUMNS = 5

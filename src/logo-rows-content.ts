@@ -1,4 +1,3 @@
-import { siteContent } from '@/src/site-content'
 // Proof rows: the logos under the home and AI Build Sprint heroes. Copy is data.
 //
 // "Our clients" are Vibrana clients. Optimise Media and Pikl appear under their real
@@ -30,31 +29,31 @@ export interface ProofLogo {
 // an older production value ("+ 4 more under NDA") cannot bring the number back.
 export const NDA_SLOT_LABEL = '+ more under NDA'
 
-export const CLIENT_LOGOS: readonly ProofLogo[] = siteContent("logo-rows-content.CLIENT_LOGOS", [
+export const CLIENT_LOGOS: readonly ProofLogo[] = [
   // Both official marks are full-height (ring / jar) with a large x-height, so they
   // render shorter than the 28px default to match the codename marks' visual weight.
   { name: 'Optimise Media', src: '/logos/logo-optimise-media.svg', height: 20 },
   { name: 'Pikl', src: '/logos/logo-pikl.svg', height: 21 },
   // One chip for every client under NDA, so the real logos lead and the row never reads as empty slots.
   { name: 'Clients under NDA', src: '', anonymized: NDA_SLOT_LABEL, height: 17 },
-])
+]
 
-export const DELIVERED_LOGOS: readonly ProofLogo[] = siteContent("logo-rows-content.DELIVERED_LOGOS", [
+export const DELIVERED_LOGOS: readonly ProofLogo[] = [
   { name: 'Google', src: '/logos/logo-google-wordmark.svg', height: 27 },
   { name: 'Snapchat', src: '/logos/logo-snapchat-wordmark.svg', height: 21 },
   { name: 'WEF', src: '/logos/logo-wef-wordmark.svg', height: 28 },
   { name: 'Microsoft', src: '/logos/logo-microsoft.svg', height: 26 },
   { name: 'OpenGov', src: '/logos/logo-opengov.svg', height: 28 },
   { name: 'AstraZeneca', src: '/logos/logo-astrazeneca.svg', height: 15 },
-])
+]
 
 /** The one proof row: our clients first, then where our team has delivered. */
-export const PROOF_LOGOS: readonly ProofLogo[] = siteContent("logo-rows-content.PROOF_LOGOS", [...CLIENT_LOGOS, ...DELIVERED_LOGOS])
+export const PROOF_LOGOS: readonly ProofLogo[] = [...CLIENT_LOGOS, ...DELIVERED_LOGOS]
 
-export const LOGO_ROW_LABELS = siteContent("logo-rows-content.LOGO_ROW_LABELS", {
+export const LOGO_ROW_LABELS = {
   combined: 'Clients & where our team has delivered',
   clients: 'Our clients',
   /** Shown under the clients row. */
   clientsNote: ANONYMIZED_PROOF.logoRowNote,
   delivered: 'Where our team has delivered',
-} as const)
+} as const

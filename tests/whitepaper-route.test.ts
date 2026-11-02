@@ -98,9 +98,9 @@ describe('POST /api/whitepaper', () => {
     expect(table).toEqual([{ email: 'ada@example.com', source: 'assessment-results', whitepaper_sent: true }])
     expect(emails).toHaveLength(1)
     expect(emails[0].to).toBe('ada@example.com')
-    expect(emails[0].html).toContain('http://127.0.0.1:3002/downloads/public-demo-guide.txt')
-    expect(emails[0].html).toContain('Public demo download')
-    expect(emails[0].html).toContain('Use independent local services and synthetic data for this public demo.')
+    expect(emails[0].html).toContain('http://127.0.0.1:3002/downloads/AI-Transformation-Whitepaper.pdf')
+    expect(emails[0].html).toContain('AI Transformation: Optimism vs. Reality')
+    expect(emails[0].html).toContain('Download the whitepaper (PDF)')
   })
 
   it('treats a repeat request as a no-op with an identical response: one row, one email', async () => {
