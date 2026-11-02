@@ -193,7 +193,7 @@ export function consentHeadline(outcome: ConsentOutcome): string {
 /** Most links a response may carry across all of its free text. Real feedback rarely has any. */
 export const MAX_LINKS = 2
 
-const LINK_PATTERN = /(?:https?:\/\/|www\.)\S+|\b[a-z0-9-]+\.(?:com|net|org|io|co|ru|xyz|top|biz|info|shop|click|online|site|link)\/\S*/gi
+const LINK_PATTERN = /(?:https?:\/\/|www\.)\S+|\b[a-z0-9-]{1,63}\.(?:com|net|org|io|co|ru|xyz|top|biz|info|shop|click|online|site|link)\/\S*/gi
 
 function collectStrings(value: unknown, out: string[] = []): string[] {
   if (typeof value === 'string') out.push(value)

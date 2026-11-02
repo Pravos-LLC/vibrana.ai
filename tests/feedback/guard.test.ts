@@ -7,11 +7,12 @@ const inserts: Record<string, unknown>[] = []
 let rpcAllowed = true
 let rpcFailKey: string | null = null
 let sent = 0
+const subjects: string[] = []
 
 vi.mock('@/lib/supabase', () => ({
   supabase: { from: () => ({ insert: async (row: Record<string, unknown>) => (inserts.push(row), { error: null }) }) },
 }))
-vi.mock('@/lib/resend', () => ({ FROM_EMAIL: 'x@example.test', sendEmail: async () => ((sent += 1), { data: { id: 'e' }, error: null }) }))
+vi.mock('@/lib/resend', () => ({ FROM_EMAIL: 'x@example.test', sendEmail: async (m: { subject: string }) => ((sent += 1), subjects.push(m.subject), { data: { id: 'e' }, error: null }) }))
 // The guard's rate-limit client calls supabase.rpc('form_rate_limit_hit', { p_bucket }).
 vi.mock('@supabase/supabase-js', () => ({
   createClient: () => ({
@@ -47,6 +48,7 @@ describe('feedback route with the form guard live', () => {
     vi.useFakeTimers({ toFake: ['Date'] })
     inserts.length = 0
     sent = 0
+    subjects.length = 0
     rpcAllowed = true
     rpcFailKey = null
     vi.spyOn(console, 'warn').mockImplementation(() => {})
@@ -156,8 +158,22 @@ describe('feedback route with the form guard live', () => {
     const evil = await post({ _ft: token }, { origin: 'https://evil.example', host: 'www.vibrana.ai' })
     expect(evil.status).toBe(403)
     expect(inserts).toHaveLength(0)
-    const home = await post({ _ft: token }, { origin: 'https://www.vibrana.ai', host: 'www.vibrana.ai' })
+    const home = await post({ _ft: token }, { origin: 'https://www.vibrana.ai', host: 'WWW.Vibrana.ai' })
     expect(home.status).toBe(200)
+  })
+
+  it('treats Origin: null (sandboxed frames) as absent instead of locking the person out', async () => {
+    const token = issueFormToken()!
+    vi.setSystemTime(Date.now() + 10_000)
+    expect((await post({ _ft: token }, { origin: 'null', host: 'www.vibrana.ai' })).status).toBe(200)
+  })
+
+  it('scans a 30 KB adversarial body for links in a few milliseconds (a bounded pattern, not a quadratic one)', async () => {
+    const { countLinks } = await import('@/lib/feedback/submission')
+    const hostile = 'a-'.repeat(15_000)
+    const started = performance.now()
+    expect(countLinks({ answers: { overall: 9, went_well: hostile }, consent: null } as never)).toBe(0)
+    expect(performance.now() - started).toBeLessThan(100)
   })
 
   it('stops writing rows once the shared daily budget is spent, with a retryable 429 and no fake success', async () => {
@@ -181,7 +197,9 @@ describe('feedback route with the form guard live', () => {
     expect(res.status).toBe(200)
     expect((await res.json()).saved).toBe(true)
     expect(inserts).toHaveLength(1)
-    expect(sent).toBe(0)
+    // No per-response email, but exactly one alert so the owner knows the notifications stopped.
+    expect(sent).toBe(1)
+    expect(subjects).toEqual(['Feedback form: notification limit reached'])
   })
 
   it('emails the notification while the hourly budget has room', async () => {
