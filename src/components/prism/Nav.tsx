@@ -65,8 +65,21 @@ export function Nav({
                     className="relative"
                     onMouseEnter={() => setIsLearnOpen(true)}
                     onMouseLeave={() => setIsLearnOpen(false)}
+                    onFocus={() => setIsLearnOpen(true)}
+                    onBlur={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setIsLearnOpen(false)
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Escape') setIsLearnOpen(false)
+                    }}
                   >
-                    <button className="nav-dropdown-trigger flex items-center gap-1" type="button">
+                    <button
+                      className="nav-dropdown-trigger flex items-center gap-1"
+                      type="button"
+                      aria-haspopup="true"
+                      aria-expanded={isLearnOpen}
+                      onClick={() => setIsLearnOpen((open) => !open)}
+                    >
                       {item.label}
                       <ChevronDown size={12} />
                     </button>
@@ -76,7 +89,7 @@ export function Nav({
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
-                          className="absolute left-0 top-full z-50 mt-3 min-w-[270px] overflow-hidden rounded-xl py-2"
+                          className="nav-dropdown-panel absolute left-0 top-full z-50 mt-3 w-[300px] overflow-hidden rounded-xl py-2"
                           style={{
                             background: 'var(--surface-inset)',
                             border: '1px solid var(--border-subtle)',
@@ -91,7 +104,7 @@ export function Nav({
                               className="block px-4 py-3 transition-colors hover:bg-[rgba(124,58,237,0.06)]"
                             >
                               <div className="type-sm font-display font-semibold text-primary-token">{d.label}</div>
-                              {d.sublabel && <div className="type-xs text-tertiary-token mt-0.5">{d.sublabel}</div>}
+                              {d.sublabel && <div className="type-xs mt-0.5 text-tertiary-token">{d.sublabel}</div>}
                             </Link>
                           ))}
                         </motion.div>
@@ -170,6 +183,20 @@ export function Nav({
                   >
                     {item.label}
                   </Link>
+                  {item.hasDropdown && dropdownItems.length > 0 && (
+                    <div className="mt-3 flex flex-col items-center gap-2">
+                      {dropdownItems.map((d) => (
+                        <Link
+                          key={d.label}
+                          href={d.href}
+                          onClick={() => setIsOpen(false)}
+                          className="type-sm text-secondary-token"
+                        >
+                          {d.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               ))}
               {cta && (

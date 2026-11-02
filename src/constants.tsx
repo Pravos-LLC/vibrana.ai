@@ -77,9 +77,17 @@ export const FAQ_ITEMS: FAQItem[] = [
 export const NAV_ITEMS = [
   { label: 'AI Build Sprint', href: '/ai-build-sprint' },
   { label: 'Transformation', href: '/ai-transformation' },
+  { label: 'Assessments', href: '/ai-readiness', hasDropdown: true },
   { label: 'Learn', href: '/learn' },
   { label: 'Case Studies', href: '/case-studies' },
   { label: 'About', href: '/about' },
+];
+
+// The three free assessments. Each one had no link from the nav or footer until 2026-11-02.
+export const NAV_ASSESSMENTS = [
+  { label: 'AI Readiness Assessment', sublabel: '24 questions, a six-area profile', href: '/ai-readiness' },
+  { label: 'EU AI Act Readiness', sublabel: 'Which obligations apply, and from when', href: '/eu-ai-act-readiness' },
+  { label: 'AI Transformation Simulator', sublabel: 'Cost, time and capacity, team by team', href: '/ai-transformation/simulator' },
 ];
 
 // The six-month commercial focus: a bounded build. The way in is a short fit call (VIB-369).

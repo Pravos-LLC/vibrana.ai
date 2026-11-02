@@ -2,7 +2,7 @@ import { PublicDemoImg } from '@/src/components/PublicDemoImage'
 import { RedactedLogo } from '@/src/components/proof/AnonymizedMark'
 import { Eyebrow } from '@/src/components/prism'
 import { cn } from '@/src/components/prism/utils/cn'
-import { LOGO_ROW_LABELS, PROOF_LOGOS, type ProofLogo } from '@/src/logo-rows-content'
+import { LOGO_ROW_LABELS, NDA_SLOT_LABEL, PROOF_LOGOS, type ProofLogo } from '@/src/logo-rows-content'
 
 /**
  * LogoRow — the two honest proof rows: "Our clients" and, quieter, "Where our team
@@ -37,7 +37,7 @@ function Row({
             logos.map(({ name, src, height, anonymized }) => (
               <li key={`${copy}-${name}`} className="logo-marquee-item" aria-hidden={copy > 0 || undefined}>
                 {anonymized ? (
-                  <RedactedLogo descriptor={anonymized} />
+                  <RedactedLogo descriptor={NDA_SLOT_LABEL} />
                 ) : (
                   // eslint-disable-next-line @next/next/no-img-element -- small SVG wordmarks; next/image adds nothing here
                   <PublicDemoImg

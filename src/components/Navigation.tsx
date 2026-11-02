@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Nav } from '@/src/components/prism';
-import { NAV_ITEMS, NAV_CTA } from '../constants';
+import { NAV_ITEMS, NAV_ASSESSMENTS, NAV_CTA } from '../constants';
 
 /**
  * Navigation — thin adapter over the Prism `Nav`. Kept for pages that mount the
@@ -10,5 +10,5 @@ import { NAV_ITEMS, NAV_CTA } from '../constants';
  * ancestor (PageShell, or a wrapped page root) for its DS styles to apply.
  */
 export function Navigation() {
-  return <Nav items={NAV_ITEMS} cta={NAV_CTA} />;
+  return <Nav items={NAV_ITEMS} dropdownItems={NAV_ASSESSMENTS} cta={NAV_CTA} />;
 }

@@ -7,7 +7,7 @@ import React from 'react';
 import { Heart } from 'lucide-react';
 import { Twitter, Instagram, Linkedin, Github } from '@/src/components/icons/BrandIcons';
 import Link from 'next/link';
-import { NAV_CTA, NAV_ITEMS } from '../constants';
+import { NAV_ASSESSMENTS, NAV_CTA, NAV_ITEMS } from '../constants';
 import { Eyebrow } from '@/src/components/prism';
 import { FOOTER_CONTENT } from '@/src/footer-content';
 
@@ -22,7 +22,7 @@ export function Footer() {
   return (
     <footer className="relative z-10 border-t border-line-subtle px-6 py-16">
       <div className="mx-auto max-w-5xl">
-        <div className="mb-12 grid gap-8 md:grid-cols-4">
+        <div className="mb-12 grid gap-8 md:grid-cols-5">
           <div className="md:col-span-2">
             <div className="font-display mb-4 flex items-center gap-3 text-xl font-semibold tracking-widest text-ink">
               <PublicDemoImg src="/assets/vibrana-v-prism-96.webp" alt="Vibrana logo" width={32} height={32} className="h-8 w-auto" />
@@ -36,7 +36,18 @@ export function Footer() {
           <div>
             <Eyebrow className="mb-4">Navigate</Eyebrow>
             <div className="space-y-2">
-              {NAV_ITEMS.map((item) => (
+              {NAV_ITEMS.filter((item) => !item.hasDropdown).map((item) => (
+                <Link key={item.label} href={item.href} className={linkClass}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <Eyebrow className="mb-4">Free assessments</Eyebrow>
+            <div className="space-y-2">
+              {NAV_ASSESSMENTS.map((item) => (
                 <Link key={item.label} href={item.href} className={linkClass}>
                   {item.label}
                 </Link>

@@ -976,6 +976,16 @@ button:focus-visible {
   border-radius: 1px;
   transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
+/* Dropdown panel entries read as a menu, not as nav-bar labels */
+.prism-light .nav-links .nav-dropdown-panel a {
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  font-variant: normal;
+}
+.prism-light .nav-links .nav-dropdown-panel a::after { display: none; }
 /* Dropdown trigger button matches nav links */
 .prism-light .nav-links .nav-dropdown-trigger {
   font-size: 0.7rem;
