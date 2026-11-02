@@ -12,6 +12,9 @@ it('renders only the requested current server form and stays dynamic/noindex', a
   vi.stubEnv('FEEDBACK_FORMS_JSON', JSON.stringify({ schema: 1, forms: { [form.slug]: form } }))
   const page = await FeedbackPage({ params: Promise.resolve({ slug: form.slug }) })
   expect(page.props.form).toEqual(form)
+  expect(Number.isInteger(page.props.backdropStart)).toBe(true)
+  expect(page.props.backdropStart).toBeGreaterThanOrEqual(0)
+  expect(page.props.backdropStart).toBeLessThan(7)
   expect(dynamic).toBe('force-dynamic')
   expect(metadata.robots).toEqual({ index: false, follow: false })
   await expect(FeedbackPage({ params: Promise.resolve({ slug: sample.slug }) })).rejects.toThrow('NOT_FOUND')
@@ -27,6 +30,7 @@ it('serves the built-in general form at /feedback in every environment, with no 
     const page = GeneralFeedbackPage()
     expect(page.props.form.slug).toBe('feedback')
     expect(page.props.form.clientName).toBe('Vibrana')
+    expect(Number.isInteger(page.props.backdropStart)).toBe(true)
   }
   expect(generalDynamic).toBe('force-dynamic')
   expect(generalMetadata.robots).toEqual({ index: false, follow: false })

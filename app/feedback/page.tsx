@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { FeedbackForm } from '@/src/views/FeedbackForm'
+import { FEEDBACK_BACKDROPS } from '@/src/feedback-backdrops'
 import { FEEDBACK_UI, GENERAL_FEEDBACK_FORM } from '@/src/feedback-content'
 import { getFeedbackForm } from '@/lib/feedback/forms'
 import '@/src/styles/feedback.css'
@@ -19,5 +20,7 @@ export default function GeneralFeedbackPage() {
   const form = getFeedbackForm(GENERAL_FEEDBACK_FORM.slug)
   if (!form) notFound()
 
-  return <FeedbackForm form={form} />
+  // One city per request: the server picks the start so SSR and hydration agree.
+  const backdropStart = Math.floor(Math.random() * FEEDBACK_BACKDROPS.length)
+  return <FeedbackForm form={form} backdropStart={backdropStart} />
 }

@@ -29,6 +29,12 @@ export const EU_META = siteContent("eu-ai-act-readiness-content.EU_META", {
   ogTitle: 'EU AI Act Readiness Assessment | Vibrana',
 } as const)
 
+export const EU_OG = siteContent("eu-ai-act-readiness-content.EU_OG", {
+  eyebrow: 'EU AI Act Readiness Assessment',
+  headline: { lead: 'Which parts of the EU AI Act apply to you, ', accent: 'and from when?', trail: '' },
+  alt: 'Vibrana EU AI Act Readiness Assessment: which parts of the EU AI Act apply to you, and from when?',
+} as const)
+
 export const EU_HERO = siteContent("eu-ai-act-readiness-content.EU_HERO", {
   eyebrow: 'EU AI Act Readiness Assessment',
   headline: 'Which parts of the EU AI Act apply to you, and from when?',
