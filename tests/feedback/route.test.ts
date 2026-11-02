@@ -139,6 +139,16 @@ describe('POST /api/feedback', () => {
     expect(emails[0].text).toContain('Public testimonial: No')
   })
 
+  it('escapes respondent-controlled names in the notification and keeps the subject on one line', async () => {
+    const name = '<img src=x onerror=alert(1)>\r\nBcc: attacker@example.com'
+    const res = await post(base(9, { answers: { overall: 9, contact: { name, email: 'rob@example.com' } }, consent: { version: form.consent.version, testimonial: false } }))
+    expect(res.status).toBe(200)
+    expect(emails).toHaveLength(1)
+    expect(emails[0].html).not.toContain('<img src=x')
+    expect(emails[0].html).toContain('&lt;img src=x')
+    expect(emails[0].subject).not.toMatch(/[\r\n]/)
+  })
+
   it('rejects a crafted request that carries consent with a score below 8, and saves nothing', async () => {
     const res = await post(base(6, { consent: { version: form.consent.version, testimonial: true, attribution: 'named' } }))
     expect(res.status).toBe(400)
