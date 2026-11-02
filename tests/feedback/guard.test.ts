@@ -128,7 +128,7 @@ describe('feedback route with the form guard live', () => {
     const token = issueFormToken()!
     vi.setSystemTime(Date.now() + 10_000)
     const { SAMPLE_FEEDBACK_FORM: form } = await import('@/src/feedback-content')
-    const res = await post({ _ft: token, answers: { overall: 6 }, consent: { version: form.consent.version, anonymous_quote: true } })
+    const res = await post({ _ft: token, answers: { overall: 6 }, consent: { version: form.consent.version, testimonial: true, attribution: 'named' } })
     expect(res.status).toBe(400)
     expect(inserts).toHaveLength(0)
   })

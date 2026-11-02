@@ -32,6 +32,8 @@ export type FeedbackQuestion =
       emailMaxLength: number
     })
 
+export type FeedbackAttributionId = 'named' | 'company' | 'anonymous'
+
 export type FeedbackConsentConfig = {
   /**
    * Bump when ANY wording below changes. Stored with every row that shows the screen.
@@ -46,9 +48,19 @@ export type FeedbackConsentConfig = {
   minScore: number
   /** The anonymity promise on the welcome screen. The respondent sees it before answering, so it is part of the record. */
   privacyLine: string
+  /** The testimonial question: asked on its own, never as a follow-up to what was already written. */
   heading: string
   yesLabel: string
   noLabel: string
+  /** The testimonial step, shown only after a Yes. Written fresh for publication, separate from private feedback. */
+  testimonialPrompt: string
+  testimonialHint: string
+  testimonialPlaceholder: string
+  testimonialMaxLength: number
+  attributionLabel: string
+  attributions: { id: FeedbackAttributionId; label: string }[]
+  /** Shown on the contact step after a Yes, where an email is required so the wording can be approved. */
+  emailNote: string
 }
 
 export type FeedbackFormConfig = {
@@ -134,12 +146,23 @@ export const SAMPLE_FEEDBACK_FORM: FeedbackFormConfig = {
     },
   ],
   consent: {
-    version: 'sample-feedback-consent-2026-10-31-v3',
+    version: 'sample-feedback-consent-2026-11-02-v4',
     minScore: 8,
     privacyLine: 'Answers are anonymous unless you choose to provide your information.',
-    heading: 'Are you happy for us to quote you anonymously?',
+    heading: 'Would you be open to a short public testimonial?',
     yesLabel: 'Yes',
     noLabel: 'No',
+    testimonialPrompt: 'In a sentence or two, what would you tell someone considering working with us?',
+    testimonialHint: "We'll check the final wording with you before anything is published.",
+    testimonialPlaceholder: 'Type your testimonial here',
+    testimonialMaxLength: 1000,
+    attributionLabel: 'How should we credit you?',
+    attributions: [
+      { id: 'named', label: 'My name and company' },
+      { id: 'company', label: 'Company name only' },
+      { id: 'anonymous', label: 'Anonymous' },
+    ],
+    emailNote: 'We need your email so we can send you the wording to approve.',
   },
 }
 

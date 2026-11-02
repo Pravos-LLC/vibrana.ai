@@ -1,7 +1,7 @@
 // Validation and consent gating for client feedback, built from the form config so a new client
 // form needs no new schema code. Pure functions: the route handler and the tests both use them.
 import { z } from 'zod'
-import type { FeedbackFormConfig, FeedbackQuestion } from '@/src/feedback-content'
+import type { FeedbackAttributionId, FeedbackFormConfig, FeedbackQuestion } from '@/src/feedback-content'
 
 /** Hard cap on the request body, in characters. A full response is well under 10 KB. */
 export const MAX_BODY_CHARS = 32_000
@@ -57,11 +57,16 @@ export function buildSubmissionSchema(form: FeedbackFormConfig) {
     // Client-generated, so a retry after a lost response cannot save the same answers twice.
     submissionId: z.string().uuid(),
     answers: z.object(answerShape).strict(),
-    // Present only when the respondent answered the yes/no consent screen.
+    // Present only when the respondent answered the testimonial question. `anonymous_quote` is the
+    // retired v3 shape: it still parses so an older open tab gets the "form was updated" message
+    // (its version no longer matches) instead of a bare validation error.
     consent: z
       .object({
         version: z.string().max(100),
-        anonymous_quote: z.boolean(),
+        testimonial: z.boolean().optional(),
+        attribution: z.enum(['named', 'company', 'anonymous']).optional(),
+        text: cleanText(form.consent.testimonialMaxLength).optional(),
+        anonymous_quote: z.boolean().optional(),
       })
       .strict()
       .nullish(),
@@ -82,28 +87,50 @@ export type ConsentOutcome =
   | { status: 'stale' }
   /** A consent block arrived with a score below the threshold. The real form never sends one. */
   | { status: 'forbidden' }
+  /** Right wording version, but a shape the real form never sends (a Yes with no credit choice or no email). */
+  | { status: 'invalid' }
   | {
       status: 'recorded'
-      anonymousQuote: boolean
+      testimonial: boolean
+      attribution?: FeedbackAttributionId
+      text?: string
       version: string
       snapshot: string
     }
 
 /**
  * Every consent-related string the respondent sees, in screen order: the welcome-screen privacy
- * line, the consent screen heading, and its Yes / No answer options. Stored with every consent record.
+ * line, the testimonial question and its Yes / No options, the testimonial step, and the email note.
+ * Stored with every consent record.
  */
 export function consentCopy(form: FeedbackFormConfig): string[] {
   const c = form.consent
-  return [c.privacyLine, c.heading, c.yesLabel, c.noLabel]
+  return [
+    c.privacyLine,
+    c.heading,
+    c.yesLabel,
+    c.noLabel,
+    c.testimonialPrompt,
+    c.testimonialHint,
+    c.testimonialPlaceholder,
+    c.attributionLabel,
+    ...c.attributions.map((a) => a.label),
+    c.emailNote,
+  ]
 }
 
 export function consentSnapshot(form: FeedbackFormConfig): string {
   const c = form.consent
   const lines = [
     `Welcome screen: ${c.privacyLine}`,
-    `Consent screen heading: ${c.heading}`,
+    `Testimonial question: ${c.heading}`,
     `Answer options: ${c.yesLabel} / ${c.noLabel}`,
+    `Testimonial prompt: ${c.testimonialPrompt}`,
+    `Testimonial note: ${c.testimonialHint}`,
+    `Testimonial placeholder: ${c.testimonialPlaceholder}`,
+    `Credit question: ${c.attributionLabel}`,
+    `Credit options: ${c.attributions.map((a) => a.label).join(' / ')}`,
+    `Contact step note: ${c.emailNote}`,
   ]
   return lines.join('\n')
 }
@@ -119,12 +146,24 @@ export function evaluateConsent(form: FeedbackFormConfig, score: number, submiss
   if (score < form.consent.minScore) return block ? { status: 'forbidden' } : { status: 'none' }
   if (!block) return { status: 'none' }
   if (block.version !== form.consent.version) return { status: 'stale' }
+  if (typeof block.testimonial !== 'boolean') return { status: 'invalid' }
+  const snapshot = consentSnapshot(form)
+  if (!block.testimonial) return { status: 'recorded', testimonial: false, version: form.consent.version, snapshot }
+  // A Yes needs a credit choice, and an email: the wording is always confirmed with the person before it is used.
+  const contact = submission.answers[contactQuestionId(form)] as { email?: string } | undefined
+  if (!block.attribution || !contact?.email) return { status: 'invalid' }
   return {
     status: 'recorded',
-    anonymousQuote: block.anonymous_quote,
+    testimonial: true,
+    attribution: block.attribution,
+    ...(block.text ? { text: block.text } : {}),
     version: form.consent.version,
-    snapshot: consentSnapshot(form),
+    snapshot,
   }
+}
+
+function contactQuestionId(form: FeedbackFormConfig): string {
+  return form.questions.find((q) => q.kind === 'contact')?.id ?? 'contact'
 }
 
 /** Drops empty strings and empty groups so the stored jsonb holds only what was actually said. */
@@ -147,6 +186,6 @@ export function compactAnswers(value: unknown): unknown {
 
 /** Short summary for the email subject. */
 export function consentHeadline(outcome: ConsentOutcome): string {
-  if (outcome.status !== 'recorded') return 'no consent given'
-  return `quote anonymously: ${outcome.anonymousQuote ? 'yes' : 'no'}`
+  if (outcome.status !== 'recorded') return 'no testimonial answer'
+  return `testimonial: ${outcome.testimonial ? 'yes' : 'no'}`
 }

@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { FEEDBACK_FORMS, FEEDBACK_UI, GENERAL_FEEDBACK_FORM, type FeedbackFormConfig } from '@/src/feedback-content'
 import { CONSENT_DB_MIN_SCORE } from './submission'
 
-const RESERVED = new Set(['__proto__', 'constructor', 'prototype', 'intro', 'consent', 'done'])
+const RESERVED = new Set(['__proto__', 'constructor', 'prototype', 'intro', 'consent', 'testimonial', 'done'])
 const slugSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,79}$/).refine((v) => !RESERVED.has(v))
 const idSchema = z.string().regex(/^[a-z][a-z0-9_]{0,63}$/).refine((v) => !RESERVED.has(v))
 const text = (max: number) => z.string().min(1).max(max)
@@ -36,6 +36,14 @@ const formSchema = z.object({
     heading: text(2000),
     yesLabel: text(300),
     noLabel: text(300),
+    testimonialPrompt: text(2000),
+    testimonialHint: text(2000),
+    testimonialPlaceholder: text(500),
+    testimonialMaxLength: z.number().int().min(1).max(2000),
+    attributionLabel: text(300),
+    attributions: z.array(z.object({ id: z.enum(['named', 'company', 'anonymous']), label: text(300) }).strict())
+      .min(1).max(3).refine((v) => new Set(v.map((entry) => entry.id)).size === v.length),
+    emailNote: text(2000),
   }).strict(),
   thankYou: z.object({ connectUrl: httpsUrl }).strict().optional(),
 }).strict().superRefine((form, ctx) => {

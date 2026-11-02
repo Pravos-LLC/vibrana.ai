@@ -79,6 +79,9 @@ export async function POST(request: NextRequest) {
   if (consent.status === 'forbidden') {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
   }
+  if (consent.status === 'invalid') {
+    return NextResponse.json({ error: 'Please choose how to credit you and add your email so we can confirm the wording.' }, { status: 400 })
+  }
   if (consent.status === 'stale') {
     return NextResponse.json(
       { error: 'This form was updated while you were filling it in. Please refresh the page and try again.' },
@@ -95,10 +98,17 @@ export async function POST(request: NextRequest) {
     slug: form.slug,
     answers,
     overall_score: score,
-    consent: consent.status === 'recorded' ? { anonymous_quote: consent.anonymousQuote } : null,
+    consent:
+      consent.status === 'recorded'
+        ? {
+            testimonial: consent.testimonial,
+            ...(consent.attribution ? { attribution: consent.attribution } : {}),
+            ...(consent.text ? { text: consent.text } : {}),
+          }
+        : null,
     consent_text_version: consent.status === 'recorded' ? consent.version : null,
     consent_text_snapshot: consent.status === 'recorded' ? consent.snapshot : null,
-    consent_at: consent.status === 'recorded' && consent.anonymousQuote ? new Date().toISOString() : null,
+    consent_at: consent.status === 'recorded' && consent.testimonial ? new Date().toISOString() : null,
     user_agent_hash: hashUserAgent(request.headers.get('user-agent')),
   }
 

@@ -60,9 +60,17 @@ export function notificationRows(input: NotificationInput): Row[] {
 function consentLines(input: NotificationInput): string[] {
   const { consent, form } = input
   if (consent.status !== 'recorded') {
-    return [input.score >= form.consent.minScore ? 'Consent screen not completed.' : 'Consent screen not shown (score below threshold).']
+    return [input.score >= form.consent.minScore ? 'Testimonial question not answered.' : 'Testimonial question not shown (score below threshold).']
   }
-  return [`Quote anonymously: ${consent.anonymousQuote ? 'Yes' : 'No'}`, `Consent wording version: ${consent.version}`]
+  if (!consent.testimonial) return ['Public testimonial: No', `Consent wording version: ${consent.version}`]
+  const credit = form.consent.attributions.find((a) => a.id === consent.attribution)?.label ?? 'Not chosen'
+  return [
+    'Public testimonial: Yes',
+    `Credit: ${credit}`,
+    consent.text ? `Testimonial (draft, not approved for publication): ${consent.text.replace(/\s+/g, ' ')}` : 'Testimonial text: none written, draft one for them to approve',
+    'Confirm the exact wording by email before anything is published.',
+    `Consent wording version: ${consent.version}`,
+  ]
 }
 
 export function feedbackEmailText(input: NotificationInput): string {
