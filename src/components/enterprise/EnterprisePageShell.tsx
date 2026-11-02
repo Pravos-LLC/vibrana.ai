@@ -3,7 +3,7 @@
 import React from 'react'
 import { PageShell } from '@/src/components/prism'
 import { Footer } from '@/src/sections/Footer'
-import { NAV_ITEMS, NAV_CTA } from '@/src/constants'
+import { NAV_ITEMS, NAV_ASSESSMENTS, NAV_CTA } from '@/src/constants'
 
 /**
  * EnterprisePageShell — now a thin wrapper over the Prism `PageShell`. Provides
@@ -15,6 +15,7 @@ export function EnterprisePageShell({ children }: { children: React.ReactNode })
     <PageShell
       nav={{
         items: NAV_ITEMS,
+        dropdownItems: NAV_ASSESSMENTS,
         cta: NAV_CTA,
       }}
       footer={<Footer />}

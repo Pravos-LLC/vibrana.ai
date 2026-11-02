@@ -3,20 +3,20 @@ import { siteContent } from '@/src/site-content'
 //
 // "Our clients" are Vibrana clients. Optimise Media and Pikl appear under their real
 // names and official logos (delivered, paying clients; naming approved by John
-// 2026-09-26). The other four are anonymized under NDA: they appear as a redacted slot
-// with a descriptor, never as an invented brand (a reader who searches a pen name
+// 2026-09-26). The rest are anonymized under NDA: they share one redacted slot,
+// never an invented brand (a reader who searches a pen name
 // finds nothing and concludes we made it up).
 // "Where our team has delivered" are places our people worked before or alongside
 // Vibrana. Those are NOT Vibrana clients, and the label must say so. AstraZeneca sits
 // here: John delivered that work personally, and no case study will be published.
 
-import { ANONYMIZED_DESCRIPTORS, ANONYMIZED_PROOF } from '@/src/anonymized-proof-content'
+import { ANONYMIZED_PROOF } from '@/src/anonymized-proof-content'
 
 export interface ProofLogo {
   name: string
   /** Path under /public. Empty for an anonymized client, which has no mark. */
   src: string
-  /** Set for a client under NDA: shown as a redacted slot with this descriptor. */
+  /** Set for the NDA slot. The slot always renders NDA_SLOT_LABEL, whatever this value holds. */
   anonymized?: string
   /**
    * Rendered height in px, when the mark needs optical correction to sit at the
@@ -26,13 +26,17 @@ export interface ProofLogo {
   height: number
 }
 
+// The NDA chip names no count (John, 2026-11-02). It lives outside the display data so
+// an older production value ("+ 4 more under NDA") cannot bring the number back.
+export const NDA_SLOT_LABEL = '+ more under NDA'
+
 export const CLIENT_LOGOS: readonly ProofLogo[] = siteContent("logo-rows-content.CLIENT_LOGOS", [
   // Both official marks are full-height (ring / jar) with a large x-height, so they
   // render shorter than the 28px default to match the codename marks' visual weight.
   { name: 'Optimise Media', src: '/logos/logo-optimise-media.svg', height: 20 },
   { name: 'Pikl', src: '/logos/logo-pikl.svg', height: 21 },
   // One chip for every client under NDA, so the real logos lead and the row never reads as empty slots.
-  { name: 'Clients under NDA', src: '', anonymized: `+ ${Object.keys(ANONYMIZED_DESCRIPTORS).length} more under NDA`, height: 17 },
+  { name: 'Clients under NDA', src: '', anonymized: NDA_SLOT_LABEL, height: 17 },
 ])
 
 export const DELIVERED_LOGOS: readonly ProofLogo[] = siteContent("logo-rows-content.DELIVERED_LOGOS", [

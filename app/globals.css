@@ -951,7 +951,8 @@ button:focus-visible {
   color: var(--text-primary);
   text-decoration: none;
 }
-.prism-light .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+.prism-light .nav-links { display: flex; align-items: center; gap: 2rem; white-space: nowrap; }
+@media (min-width: 1440px) { .prism-light .nav-links { gap: 2.5rem; } }
 .prism-light .nav-links a {
   position: relative;
   font-size: 0.7rem;
@@ -976,6 +977,16 @@ button:focus-visible {
   border-radius: 1px;
   transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
+/* Dropdown panel entries read as a menu, not as nav-bar labels */
+.prism-light .nav-links .nav-dropdown-panel a {
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  font-variant: normal;
+}
+.prism-light .nav-links .nav-dropdown-panel a::after { display: none; }
 /* Dropdown trigger button matches nav links */
 .prism-light .nav-links .nav-dropdown-trigger {
   font-size: 0.7rem;
