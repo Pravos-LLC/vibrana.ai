@@ -143,6 +143,14 @@ export const SAMPLE_FEEDBACK_FORM: FeedbackFormConfig = {
   },
 }
 
+/** The general form served at /feedback. No client identity, so it is built in and available in every environment. */
+export const GENERAL_FEEDBACK_FORM: FeedbackFormConfig = {
+  ...SAMPLE_FEEDBACK_FORM,
+  slug: 'feedback',
+  clientName: 'Vibrana',
+  projectName: 'General feedback',
+}
+
 export const FEEDBACK_FORMS: Record<string, FeedbackFormConfig> = {
   [SAMPLE_FEEDBACK_FORM.slug]: SAMPLE_FEEDBACK_FORM,
 }
