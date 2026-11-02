@@ -48,8 +48,8 @@ describe('feedback backdrop slides', () => {
 })
 
 describe('thank-you cards', () => {
-  it('points at small local thumbnails, not the heavy share images', () => {
-    expect(FEEDBACK_UI.done.cards).toHaveLength(3)
+  it('points at small local report screens, not the heavy share images', () => {
+    expect(FEEDBACK_UI.done.cards).toHaveLength(4)
     for (const card of FEEDBACK_UI.done.cards) {
       expect(card.href).toMatch(/^\//)
       expect(existsSync(publicFile(card.image))).toBe(true)

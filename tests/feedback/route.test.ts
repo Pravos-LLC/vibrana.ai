@@ -180,9 +180,12 @@ describe('POST /api/feedback', () => {
     expect(inserts).toHaveLength(0)
   })
 
-  it('rejects a Yes with no email or no credit choice, and saves nothing', async () => {
+  it('saves a Yes with no email, and rejects a Yes with no credit choice', async () => {
     const noEmail = await post(base(9, { consent: { version: form.consent.version, testimonial: true, attribution: 'named' } }))
-    expect(noEmail.status).toBe(400)
+    expect(noEmail.status).toBe(200)
+    expect(inserts).toHaveLength(1)
+    inserts.length = 0
+    emails.length = 0
     const noCredit = await post(base(9, { answers: { overall: 9, contact: { email: 'rob@example.com' } }, consent: { version: form.consent.version, testimonial: true } }))
     expect(noCredit.status).toBe(400)
     expect(inserts).toHaveLength(0)

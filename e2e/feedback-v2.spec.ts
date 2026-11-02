@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { SAMPLE_FEEDBACK_FORM as form } from '../src/feedback-content'
 import { SPRINT_FIT_CALL_URL } from '../src/ai-build-sprint-content'
+import teamActivity from '../src/data/team-pr-activity.json'
 
 test.use({ reducedMotion: 'reduce' })
 
@@ -35,13 +36,13 @@ for (const score of [7, 9]) {
     if (score >= form.consent.minScore) {
       await expect(page.getByRole('heading', { name: form.consent.heading })).toBeVisible()
       await page.getByRole('radio', { name: 'Yes', exact: true }).check({ force: true })
-      // A Yes opens the testimonial step: fresh text, a credit choice, and an email is required next.
+      // A Yes opens the testimonial step: fresh text and a credit choice. The Yes is the permission, so no email is required.
       await expect(page.getByRole('heading', { name: form.consent.testimonialPrompt })).toBeVisible()
-      await expect(page.getByText(form.consent.testimonialHint)).toBeVisible()
       await page.getByRole('textbox').fill('Great to work with.')
       await page.getByRole('radio', { name: 'My name and company', exact: true }).check({ force: true })
       await page.getByRole('button', { name: 'Continue', exact: true }).click()
-      await expect(page.getByText(form.consent.emailNote)).toBeVisible()
+      await expect(page.getByText(form.consent.emailNote!)).toBeVisible()
+      await page.getByLabel('Email').fill('rob@')
       await expect(page.getByRole('button', { name: 'Send', exact: true })).toBeDisabled()
       await page.getByLabel('Email').fill('rob@example.com')
     } else {
@@ -94,7 +95,7 @@ test('mobile keyboard navigation and Back do not auto-advance an unchanged score
   expect(contrast.background).toBe('linear-gradient(135deg, #7c3aed80, #3b82f661 50%, #2dd4bf66)')
 })
 
-test('thank-you screen shows John, the booking call and three card thumbnails', async ({ page }) => {
+test('thank-you screen shows John, the booking call, four report cards and the team activity graph', async ({ page }) => {
   await page.addInitScript(({ slug }) => {
     localStorage.setItem(`vibrana-feedback:${slug}`, JSON.stringify({
       submissionId: crypto.randomUUID(), step: 'done', answers: { overall: 9 }, consent: { quote: null }, done: true,
@@ -109,8 +110,8 @@ test('thank-you screen shows John, the booking call and three card thumbnails', 
   await expect(call).toHaveAttribute('href', SPRINT_FIT_CALL_URL)
   await expect(call).toHaveAttribute('target', '_blank')
   const cards = page.locator('.fb-card')
-  await expect(cards).toHaveCount(3)
-  for (let i = 0; i < 3; i += 1) {
+  await expect(cards).toHaveCount(4)
+  for (let i = 0; i < 4; i += 1) {
     const card = cards.nth(i)
     await card.scrollIntoViewIfNeeded()
     const loaded = await card.locator('img').evaluate(async (img: HTMLImageElement) => {
@@ -119,6 +120,10 @@ test('thank-you screen shows John, the booking call and three card thumbnails', 
     })
     expect(loaded).toBe(true)
   }
+  const activity = page.getByRole('img', { name: /pull requests shipped in the last year/ })
+  await activity.scrollIntoViewIfNeeded()
+  await expect(activity).toBeVisible()
+  await expect(page.locator('.fb-activity-scroll rect')).toHaveCount(teamActivity.counts.length)
 })
 
 test('backdrop holds one photo under reduced motion and advances without it', async ({ page }) => {

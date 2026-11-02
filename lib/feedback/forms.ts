@@ -37,13 +37,13 @@ const formSchema = z.object({
     yesLabel: text(300),
     noLabel: text(300),
     testimonialPrompt: text(2000),
-    testimonialHint: text(2000),
+    testimonialHint: text(2000).optional(),
     testimonialPlaceholder: text(500),
     testimonialMaxLength: z.number().int().min(1).max(2000),
     attributionLabel: text(300),
     attributions: z.array(z.object({ id: z.enum(['named', 'company', 'anonymous']), label: text(300) }).strict())
       .min(1).max(3).refine((v) => new Set(v.map((entry) => entry.id)).size === v.length),
-    emailNote: text(2000),
+    emailNote: text(2000).optional(),
   }).strict(),
   thankYou: z.object({ connectUrl: httpsUrl }).strict().optional(),
 }).strict().superRefine((form, ctx) => {

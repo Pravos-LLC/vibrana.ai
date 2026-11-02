@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/src/components/prism'
 import { FeedbackBackdrop } from '@/src/components/feedback/FeedbackBackdrop'
 import { ResourceCard } from '@/src/components/feedback/ResourceCard'
+import { TeamActivity } from '@/src/components/feedback/TeamActivity'
 import { SPRINT_FIT_CALL_URL } from '@/src/ai-build-sprint-content'
 import { SPRINT_FLOW } from '@/src/sprint-fit-content'
 import { Textarea } from '@/src/components/prism/form/Textarea'
@@ -197,7 +198,7 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
   const showConsent = score !== undefined && score >= form.consent.minScore
 
   // The testimonial question sits between the last regular question and the contact step; a Yes adds the
-  // testimonial step after it. The contact step asks for an email on a Yes, so the wording can be approved.
+  // testimonial step after it. The Yes is the permission; the contact step stays optional either way.
   const wantsTestimonial = showConsent && draft.consent.testimonial === true
   const steps = useMemo(() => {
     const ids = form.questions.map((q) => q.id)
@@ -265,11 +266,13 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
   }, [])
 
   const contactAnswer = (isRecord(draft.answers.contact) ? draft.answers.contact : {}) as { email?: string }
-  const emailOk = typeof contactAnswer.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactAnswer.email.trim())
+  // Contact details are optional, but an email that is there has to look like one (the server checks too).
+  const typedEmail = typeof contactAnswer.email === 'string' ? contactAnswer.email.trim() : ''
+  const emailOk = typedEmail === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(typedEmail)
   const canContinue =
     stepId === TESTIMONIAL
       ? draft.consent.attribution !== null
-      : question?.kind === 'contact' && wantsTestimonial
+      : question?.kind === 'contact'
         ? emailOk
         : stepId === INTRO || stepId === CONSENT || !question || question.kind !== 'score' || score !== undefined
 
@@ -457,6 +460,7 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
                     <ResourceCard key={card.href} {...card} />
                   ))}
                 </div>
+                <TeamActivity />
               </div>
               <aside className="fb-booking">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -529,7 +533,21 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
                 >
                   {UI.intro.heading}
                 </h1>
-                <p className="mt-5 max-w-xl text-lg text-ink-secondary md:text-xl">{UI.intro.body}</p>
+                {UI.intro.body.split('\n\n').map((paragraph, i) => (
+                  <p key={i} className={`${i === 0 ? 'mt-5' : 'mt-4'} max-w-xl text-lg text-ink-secondary md:text-xl`}>
+                    {paragraph}
+                  </p>
+                ))}
+                <p className="mt-8 text-lg text-ink md:text-xl">{UI.intro.signOff}</p>
+                <ul className="fb-team" aria-label={UI.intro.signOff}>
+                  {UI.intro.team.map((person) => (
+                    <li key={person.name}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={person.photo} alt="" width={64} height={64} decoding="async" />
+                      <span>{person.name}</span>
+                    </li>
+                  ))}
+                </ul>
               </>
             ) : null}
 
@@ -633,7 +651,7 @@ export function FeedbackForm({ form, backdropStart = 0 }: Props) {
                 <Prompt
                   id={`q-${question.id}`}
                   prompt={question.prompt}
-                  hint={wantsTestimonial ? form.consent.emailNote : question.hint}
+                  hint={wantsTestimonial ? (form.consent.emailNote ?? question.hint) : question.hint}
                   headingRef={headingRef}
                 />
                 <div className="mt-8 space-y-5">

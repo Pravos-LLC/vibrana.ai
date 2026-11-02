@@ -12,6 +12,7 @@ const PINNED: Record<string, string> = {
   'sample-feedback-consent-2026-10-29-v2': '06a0f08d45d59e94f962d24e813e7c377264e9568e460f45237410550e221648',
   'sample-feedback-consent-2026-10-31-v3': 'cd9cef14f353b20e59d2eb0498500b9314f4b69c13d47172aaf0c53bcbaa2498',
   'sample-feedback-consent-2026-11-02-v4': '31a066bb52942529a1598f7926fc612abeac24277c66eeefda82899b6e937ea6',
+  'sample-feedback-consent-2026-11-02-v5': '1f05a3737942fbc4f09b5e2ac49bb00c3a947cd0e2aa6981163a3bce917d35e4',
 }
 
 const hash = (text: string) => createHash('sha256').update(text).digest('hex')
