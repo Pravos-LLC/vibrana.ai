@@ -56,7 +56,7 @@ Not for body copy or headlines.
   under 3 MB. Captions must be burned into the cut; say so in `captionNote`.
 - **DeliverablePreview callouts** point at `data-callout` elements you put in the beat content, so
   the dot tracks the thing it names. At `xl` (1280px) and up the labels sit in a 168px gutter the component
-  reserves inside its own box, only on the sides that callouts use (all on the right: one gutter) (it never overflows the page; the figure also clips as a backstop).
+  reserves inside its own box: on both sides by default, or with `gutters="used"` only on the sides callouts use (it never overflows the page; the figure also clips as a backstop).
   Below `xl` only the dots show, with the notes listed under the frame. Under 560px the beats
   stack at reading size, unscaled: style beat content for that with the
   `[[data-dp-mode=stacked]_&]:` variant (see the gallery demos). Each beat remounts its child,

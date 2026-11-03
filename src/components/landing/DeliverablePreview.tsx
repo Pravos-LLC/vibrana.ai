@@ -52,6 +52,11 @@ export interface DeliverablePreviewProps {
    * `designWidth` in mind: the content scales by frame width / designWidth.
    */
   frameWidth?: number
+  /**
+   * Where the xl label gutter goes. 'both' (default) reserves it on each side whenever any beat
+   * has callouts; 'used' reserves it only on the sides callouts actually use.
+   */
+  gutters?: 'both' | 'used'
   /** Auto-advance through the beats while in view. Off under reduced motion. Default true. */
   autoplay?: boolean
   /** Accessible name for the preview. */
@@ -61,7 +66,7 @@ export interface DeliverablePreviewProps {
 
 /** Below this component width the preview stacks its beats at reading size instead of scaling. */
 const STACK_BELOW = 560
-/** Room reserved at xl and up for callout labels, on each side that has them. Inside the component's own box. */
+/** Room reserved at xl and up for callout labels (see `gutters`). Inside the component's own box. */
 const GUTTER = 168
 
 type Pos = { x: number; y: number } | null
@@ -89,6 +94,7 @@ export function DeliverablePreview({
   designWidth,
   aspect,
   frameWidth,
+  gutters = 'both',
   autoplay = true,
   label,
   className,
@@ -98,10 +104,12 @@ export function DeliverablePreview({
   const width = designWidth ?? (paper ? 720 : 1040)
   const ratio = aspect ?? (paper ? 1.414 : 0.6)
   const frameMax = frameWidth ?? (paper ? 520 : 760)
-  // A label gutter is reserved (xl and up) only on the sides callouts actually use.
+  // A label gutter is reserved at xl and up: on both sides by default, or with gutters="used"
+  // only on the sides callouts actually use.
+  const anyCallouts = beats.some((b) => b.callouts?.length)
   const usesSide = (side: 'left' | 'right') => beats.some((b) => b.callouts?.some((c) => (c.side ?? 'right') === side))
-  const gutterLeft = usesSide('left') ? GUTTER : 0
-  const gutterRight = usesSide('right') ? GUTTER : 0
+  const gutterLeft = anyCallouts && (gutters === 'both' || usesSide('left')) ? GUTTER : 0
+  const gutterRight = anyCallouts && (gutters === 'both' || usesSide('right')) ? GUTTER : 0
   const hasCallouts = gutterLeft + gutterRight > 0
   const uid = useId()
 

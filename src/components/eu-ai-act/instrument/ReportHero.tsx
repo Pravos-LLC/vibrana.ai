@@ -37,6 +37,7 @@ export function ReportHero({ report }: { report: SampleReport }) {
         title={RP.kicker}
         designWidth={680}
         frameWidth={664}
+        gutters="used"
         aspect={1.06}
         // Every callout sits on the right, so the kit reserves one label gutter, not two, and the
         // sheet renders near full size (664 / 680). Each dot lands where its line runs clear.
