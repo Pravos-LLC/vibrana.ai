@@ -3,6 +3,7 @@ import { SIM_PACES, SIM_SECTOR_LABELS, SIM_STEPS } from '@/src/simulator-content
 import { SIM_HERO, SIM_MINI } from '@/src/simulator-landing-hero-content'
 import { SIM_WALKTHROUGH } from '@/src/simulator-landing-walkthrough-content'
 import { STICKY_CTA_CONTENT } from '@/src/simulator-landing-cta-content'
+import { FORM_TOKEN_ENDPOINT } from '@/lib/form-guard/constants'
 import { collectErrors } from './support'
 
 // The simulator landing: a play-first sandbox that never asks for an email, the scroll run that
@@ -42,10 +43,13 @@ for (const theme of ['light', 'dark'] as const) {
 test('the mini simulator answers sector, size and pace without an email', async ({ page }) => {
   const errors = collectErrors(page)
   await page.goto(URL, { waitUntil: 'networkidle' })
-  // From here on, playing must not call any API (the page's own form guard has loaded by now).
+  // From here on, playing must not call any API. The lead form's anti-bot token fetch
+  // (FORM_TOKEN_ENDPOINT) is excluded: it belongs to the form further down, retries on its own
+  // schedule, and gates nothing in the sandbox.
   const requests: string[] = []
   page.on('request', (r) => {
-    if (r.url().includes('/api/')) requests.push(r.url())
+    const url = r.url()
+    if (url.includes('/api/') && !url.includes(FORM_TOKEN_ENDPOINT)) requests.push(url)
   })
   await expect(page.getByRole('heading', { level: 1 })).toContainText(SIM_HERO.title.accent)
 
@@ -130,9 +134,13 @@ test('the sticky bar leaves when the visitor jumps back to the top (390px, Home)
 test('the pinned run panel keeps "Try it yourself" on screen and uncovered at 1280x720', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 })
   await page.goto(URL)
+  // The run renders stacked (one panel per step) until hydration switches it to the single pinned
+  // panel; wait for that so the button lookup below is unambiguous on a slow runner.
+  const pinned = page.locator('#walkthrough .sticky')
+  await expect(pinned).toBeVisible()
   for (const step of [SIM_WALKTHROUGH.steps[1], SIM_WALKTHROUGH.steps[2], SIM_WALKTHROUGH.steps[5]]) {
-    await page.getByText(step.caption).evaluate((el) => el.scrollIntoView({ block: 'center' }))
-    const button = page.getByRole('button', { name: SIM_WALKTHROUGH.takeOver })
+    await page.getByText(step.caption).first().evaluate((el) => el.scrollIntoView({ block: 'center' }))
+    const button = pinned.getByRole('button', { name: SIM_WALKTHROUGH.takeOver })
     await expect(button).toBeInViewport({ ratio: 1 })
     await page.waitForTimeout(500) // let the sticky bar finish sliding in
     const hit = await button.evaluate((el) => {
