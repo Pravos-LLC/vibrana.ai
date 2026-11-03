@@ -48,14 +48,14 @@ export function ComplianceTimeline({ milestones, todayLabel }: { milestones: rea
           <>
             <motion.div
               className="absolute top-[27px] h-[3px] origin-left rounded-full"
-              style={{ left: 0, width: `${todayPos}%`, background: 'linear-gradient(90deg, var(--red-strong), var(--eu-ink))' }}
+              style={{ left: 0, width: `${todayPos}%`, background: 'var(--eu-ink)' }}
               initial={{ scaleX: reduce ? 1 : 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 1.6, ease: [0.23, 1, 0.32, 1] }}
             />
             <div className="absolute top-0 flex -translate-x-1/2 flex-col items-center" style={{ left: `${todayPos}%` }}>
-              <span className="rounded-full bg-ink px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-surface-base">{todayLabel}</span>
+              <span className="label-mono rounded-[3px] bg-ink px-1.5 py-0.5 text-surface-base">{todayLabel}</span>
               <span className="h-3 w-px bg-ink" />
             </div>
           </>
@@ -84,13 +84,13 @@ export function ComplianceTimeline({ milestones, todayLabel }: { milestones: rea
         ))}
       </div>
 
-      <ol className="grid gap-px overflow-hidden rounded-2xl border border-line-subtle bg-line-subtle sm:grid-cols-2 lg:mt-6 lg:grid-cols-3">
+      <ol className="grid gap-px overflow-hidden border border-line-subtle bg-line-subtle sm:grid-cols-2 lg:mt-6 lg:grid-cols-3">
         {milestones.map((m) => (
           <li key={m.date} className={cn('relative flex flex-col bg-surface-base p-5 pt-6', state(m) === 'next' && TONE[m.tone].soft)}>
             <span aria-hidden className={cn('absolute inset-x-0 top-0 h-[3px]', TONE[m.tone].fill, state(m) === 'future' && 'opacity-35')} />
             <div
               className={cn(
-                'font-mono text-xs font-semibold uppercase tracking-wider',
+                'label-mono font-semibold',
                 state(m) === 'past' ? 'text-ink-tertiary' : state(m) === 'next' ? TONE[m.tone].text : 'text-ink-secondary',
               )}
             >
@@ -102,40 +102,6 @@ export function ComplianceTimeline({ milestones, todayLabel }: { milestones: rea
           </li>
         ))}
       </ol>
-    </div>
-  )
-}
-
-/** The hero panel: the next date in the Act and how many days away it is. */
-export function NextDatePanel({ milestones, label, daysLabel, footnote, className, compact = false }: { milestones: readonly EUMilestone[]; label: string; daysLabel: string; footnote: string; className?: string; compact?: boolean }) {
-  const today = useToday()
-  const upcoming = today ? milestones.filter((m) => m.date > today) : milestones.slice(-3)
-  const next = upcoming[0]
-  const days = today && next ? Math.ceil((Date.parse(next.date) - Date.parse(today)) / DAY) : null
-  return (
-    <div className={cn('rounded-2xl border border-line-subtle bg-surface-frost p-6 backdrop-blur-md md:p-8', className)}>
-      <div className="text-xs font-medium uppercase tracking-wider text-ink-tertiary">{label}</div>
-      {next && (
-        <>
-          <div className="mt-4 flex items-baseline gap-3">
-            <span className="font-display text-6xl font-semibold tabular-nums tracking-tight text-ink md:text-7xl">{days ?? ' '}</span>
-            {days !== null && <span className="text-base text-ink-secondary">{daysLabel}</span>}
-          </div>
-          <div className={cn('mt-2 font-mono text-sm font-semibold uppercase tracking-wider', TONE[next.tone].text)}>{next.dateLabel}</div>
-          <div className="mt-1 font-display text-xl font-semibold text-ink">{next.title}</div>
-          {!compact && <p className="mt-2 text-sm leading-6 text-ink-secondary">{next.body}</p>}
-          <ul className={cn('space-y-2 border-t border-line-subtle pt-5', compact ? 'hidden' : 'mt-6')}>
-            {upcoming.slice(1, 3).map((m) => (
-              <li key={m.date} className="flex items-baseline justify-between gap-4 text-sm">
-                <span className="text-ink">{m.title}</span>
-                <span className="whitespace-nowrap font-mono text-xs text-ink-tertiary">{m.dateLabel}</span>
-              </li>
-            ))}
-          </ul>
-          <LegalCite findings={next.findings} className={compact ? 'mt-3' : 'mt-5'} />
-        </>
-      )}
-      <div className="mt-2 text-xs leading-5 text-ink-tertiary">{footnote}</div>
     </div>
   )
 }

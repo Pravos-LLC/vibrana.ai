@@ -35,18 +35,69 @@ export const EU_OG = {
 } as const
 
 export const EU_HERO = {
+  kicker: 'EU AI Act / Regulation (EU) 2024/1689, as amended by Regulation (EU) 2026/1744',
   eyebrow: 'EU AI Act Readiness Assessment',
   headline: 'Which parts of the EU AI Act apply to you, and from when?',
+  /** The headline's closing words, set in the serif italic accent. Must end `headline`. */
+  headlineAccent: 'when?',
   subtitle:
-    'Free. 25 questions map your AI use against the Act as amended by the Digital Omnibus. You get the obligations that apply to your company, the date each one starts and where your answers show a gap, with each legal obligation cited to the article it comes from.',
+    'Free. 25 questions map your AI use against the Act as amended by the Digital Omnibus. You get the obligations your answers point to, the date each starts and where your answers show a gap, with each legal obligation cited to its article.',
   panel: {
     label: 'Next date in the Act',
+    /** The milestone the countdown counts to, read from EU_TIMELINE.milestones, never typed. */
+    nextTitle: (m: { dateLabel: string; title: string }) => `${m.dateLabel}: ${m.title}`,
     daysLabel: 'days',
+    dayLabel: 'day',
     footnote: 'Dates as amended by the Digital Omnibus on AI, Regulation (EU) 2026/1744.',
   },
-  // Decorative loop (aria-hidden). Pexels video 30156205, Pexels license: free commercial use, no
-  // attribution required. Credited anyway in the PR and in public/assets/eu-ai-act/video/CREDITS.md.
-  media: { video: 'eu-hero-flag' },
+  // The approved explainer reel (s1-41). Captions are burned in; the running time is read from
+  // the encoded file (src/landing-media), never typed.
+  reel: {
+    /** Autoplays muted (light encode); the full cut swaps in on the visitor's action. */
+    loopStem: 'eu-ai-act/eu-ai-act-explainer-loop',
+    fullStem: 'eu-ai-act/eu-ai-act-explainer-full',
+    label: 'EU AI Act explainer',
+    title: 'An explainer film on the EU AI Act with on-screen text',
+    caption: 'FIG 1 / The EU AI Act, explained for companies that use AI',
+    captionNote: 'On-screen text.',
+    playLabel: 'Watch',
+    playingLabel: 'Playing',
+    labels: { play: 'Play the film', pause: 'Pause the film', sound: 'Turn sound on' },
+  },
+} as const
+
+// ── The sample report, previewed in the hero and in "Your report and your data" ─────────────
+// Callouts restate published results labels and principles only (copy deck §2).
+
+export const EU_REPORT_PREVIEW = {
+  kicker: 'Sample report / EU AI Act readiness',
+  sampleNote: 'Sample company. Your report is built from your answers.',
+  callouts: {
+    gauge: 'Readiness score out of 100, from fixed rules applied to your answers. No AI model writes it.',
+    exposure: 'Your scope, your role, your risk tier and the Annex III areas where you use AI',
+    obligations: 'Each obligation, its status from your answers, and the article it comes from',
+    timeline: 'Each bar starts on the date the obligation applies. Its color shows your status.',
+    sections: 'A score for each of the five control areas the assessment checks',
+    size: 'A first read of your size band, and the fine caps that go with it',
+    plan: 'Your first 90 days: our suggested order, not a legal deadline',
+  },
+  /** Pager labels for the three beats of the hero preview. */
+  beats: { score: 'Score', exposure: 'Exposure', obligations: 'Obligations' },
+  ariaSummary:
+    'A sample EU AI Act readiness report: a readiness score out of 100, the company’s scope, role, risk tier and high-risk areas, each obligation with its status, date and article, a score for each of five control areas, its size band, and a suggested order for the first 90 days.',
+  gaugeReducedNote: 'The needle is shown at its final value.',
+} as const
+
+// ── Section tabs: mono labels that sit on the grid line above each section ──────────────────
+
+export const EU_TABS = {
+  coverage: '01 / Who the Act covers',
+  tiers: '02 / The risk tiers',
+  timeline: '03 / The dates',
+  penalties: '04 / What it can cost',
+  clock: '05 / Draft rules',
+  method: '06 / What the assessment checks',
+  details: '07 / Your report and your data',
 } as const
 
 // ── Page media: real footage (Pexels, credited in public/assets/eu-ai-act/video/CREDITS.md)
@@ -241,8 +292,6 @@ export const EU_PENALTIES = {
     { amount: 'EUR 7.5 million', share: '1%', label: 'Giving authorities incorrect, incomplete or misleading information', findings: ['eu-ai-act-art-99-5-misleading-information-fines'] },
   ],
   shareLabel: 'of worldwide turnover',
-  // Pexels video 38818423: EU flags outside a Commission building (decorative).
-  video: 'eu-commission-flags',
   orLabel: 'or',
   size: {
     title: 'Company size changes the cap',
@@ -372,12 +421,6 @@ export const EU_METHOD = {
 
 export const EU_DETAILS = {
   heading: 'What you get, and what happens to your answers',
-  screenshot: {
-    src: '/assets/eu-ai-act/assessment-results-full.webp',
-    alt: 'A completed EU AI Act Readiness report for a sample company: the readiness score in a ring of EU stars, scope, role, risk tier and size, where its obligations stand, the next date that applies, and its exposure by tier and Annex III area',
-    width: 1280,
-    height: 1600,
-  },
   blocks: [
     {
       title: 'What you get',
@@ -406,11 +449,6 @@ export const EU_CLOSING = {
   eyebrow: 'Start with your own obligations',
   title: 'Know which dates are yours, and the article behind each one.',
   body: '25 questions. Your obligations, their dates and your gaps on screen when you finish, each cited to the article. If it’s useful, book a 30-minute call to walk through it with us.',
-  scene: { id: 'scene-desk-wood-b', alt: '' },
-  screenshot: {
-    src: '/assets/eu-ai-act/assessment-results.webp',
-    alt: 'EU AI Act Readiness report: the readiness score, scope, role, risk tier and size, where the obligations stand and the days until the next date that applies',
-  },
 } as const
 
 export const EU_SOURCE_LABELS = {

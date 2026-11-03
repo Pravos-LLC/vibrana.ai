@@ -21,7 +21,7 @@ const EASE = [0.23, 1, 0.32, 1] as const
  * Each band is a clip-path trapezoid in its tone's color; the bands build up from the base when
  * the pyramid scrolls into view, and each band's row of text sits level with it on desktop.
  * Under reduced motion everything renders in place. Identity is never color alone: every band
- * carries its label.
+ * carries its label. Each tier keeps its fine cap next to the Article 99 citation that supports it.
  */
 export function RiskPyramid({ tiers }: { tiers: readonly Tier[] }) {
   const reduce = useReducedMotion()
@@ -62,24 +62,21 @@ export function RiskPyramid({ tiers }: { tiers: readonly Tier[] }) {
             <motion.li
               key={t.label}
               className="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-              transition={reduce ? { duration: 0.2 } : { duration: 0.7, delay: (n - 1 - i) * 0.12, ease: EASE }}
+              initial="rest"
+              whileInView="stacked"
+              viewport={{ once: true, amount: 0.35 }}
             >
-              <div className="relative hidden min-h-24 self-stretch lg:block" aria-hidden>
+              {/* The slab drops onto the one below it: the pyramid builds from the base up, 150 ms apart. */}
+              <motion.div
+                className="relative hidden min-h-24 self-stretch lg:block"
+                aria-hidden
+                variants={{ rest: { opacity: 0, y: reduce ? 0 : -28 }, stacked: { opacity: 1, y: 0 } }}
+                transition={reduce ? { duration: 0.2 } : { duration: 0.55, delay: (n - 1 - i) * 0.15, ease: EASE }}
+              >
                 <div
                   className={cn('absolute inset-0', tone.fill)}
                   style={{
                     clipPath: `polygon(${top}% 0, ${100 - top}% 0, ${100 - bottom}% calc(100% - 4px), ${bottom}% calc(100% - 4px))`,
-                  }}
-                />
-                {/* sheen: light from the top, so the bands read as one lit object */}
-                <div
-                  className="absolute inset-0 mix-blend-soft-light"
-                  style={{
-                    clipPath: `polygon(${top}% 0, ${100 - top}% 0, ${100 - bottom}% calc(100% - 4px), ${bottom}% calc(100% - 4px))`,
-                    background: 'linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0) 70%)',
                   }}
                 />
                 <span
@@ -88,13 +85,20 @@ export function RiskPyramid({ tiers }: { tiers: readonly Tier[] }) {
                 >
                   {t.label}
                 </span>
-              </div>
-              <div className="border-l-2 py-3 pl-5 lg:py-5" style={{ borderColor: tone.hex }}>
+                {/* leader line from the slab's edge to its row */}
+                <span className="absolute right-[-3rem] top-1/2 hidden h-px bg-line lg:block" style={{ left: `${100 - (top + bottom) / 2}%` }} />
+              </motion.div>
+              <motion.div
+                className="border-l-2 py-3 pl-5 lg:py-5"
+                style={{ borderColor: tone.hex }}
+                variants={{ rest: { opacity: 0 }, stacked: { opacity: 1 } }}
+                transition={{ duration: reduce ? 0.2 : 0.5, delay: reduce ? 0 : (n - 1 - i) * 0.15 + 0.25, ease: EASE }}
+              >
                 <h3 className={cn('font-display text-lg font-semibold tracking-tight', tone.text)}>{t.label}</h3>
                 <p className="mt-1 text-sm leading-6 text-ink-secondary">{t.body}</p>
-                {t.fine && <p className="mt-1 text-sm font-medium text-ink">{t.fine}</p>}
+                {t.fine && <p className="label-mono tabular mt-1.5 text-ink">{t.fine}</p>}
                 <LegalCite findings={t.findings} className="mt-1.5" />
-              </div>
+              </motion.div>
             </motion.li>
           )
         })}

@@ -47,6 +47,16 @@ export interface DeliverablePreviewProps {
   designWidth?: number
   /** Frame height over width. Defaults: paper 1.414 (A4), app 0.6. Size it to the content. */
   aspect?: number
+  /**
+   * Widest the sheet or window grows, in px. Defaults: paper 520, app 760. Raise it with
+   * `designWidth` in mind: the content scales by frame width / designWidth.
+   */
+  frameWidth?: number
+  /**
+   * Where the xl label gutter goes. 'both' (default) reserves it on each side whenever any beat
+   * has callouts; 'used' reserves it only on the sides callouts actually use.
+   */
+  gutters?: 'both' | 'used'
   /** Auto-advance through the beats while in view. Off under reduced motion. Default true. */
   autoplay?: boolean
   /** Accessible name for the preview. */
@@ -56,7 +66,7 @@ export interface DeliverablePreviewProps {
 
 /** Below this component width the preview stacks its beats at reading size instead of scaling. */
 const STACK_BELOW = 560
-/** Room reserved on each side at xl and up for callout labels. Inside the component's own box. */
+/** Room reserved at xl and up for callout labels (see `gutters`). Inside the component's own box. */
 const GUTTER = 168
 
 type Pos = { x: number; y: number } | null
@@ -83,6 +93,8 @@ export function DeliverablePreview({
   title,
   designWidth,
   aspect,
+  frameWidth,
+  gutters = 'both',
   autoplay = true,
   label,
   className,
@@ -91,8 +103,14 @@ export function DeliverablePreview({
   const paper = variant === 'paper'
   const width = designWidth ?? (paper ? 720 : 1040)
   const ratio = aspect ?? (paper ? 1.414 : 0.6)
-  const frameMax = paper ? 520 : 760
-  const hasCallouts = beats.some((b) => b.callouts?.length)
+  const frameMax = frameWidth ?? (paper ? 520 : 760)
+  // A label gutter is reserved at xl and up: on both sides by default, or with gutters="used"
+  // only on the sides callouts actually use.
+  const anyCallouts = beats.some((b) => b.callouts?.length)
+  const usesSide = (side: 'left' | 'right') => beats.some((b) => b.callouts?.some((c) => (c.side ?? 'right') === side))
+  const gutterLeft = anyCallouts && (gutters === 'both' || usesSide('left')) ? GUTTER : 0
+  const gutterRight = anyCallouts && (gutters === 'both' || usesSide('right')) ? GUTTER : 0
+  const hasCallouts = gutterLeft + gutterRight > 0
   const uid = useId()
 
   const [beat, setBeat] = useState(0)
@@ -226,8 +244,12 @@ export function DeliverablePreview({
       ) : (
         <>
           <div
-            className={cn('relative mx-auto', hasCallouts && 'xl:px-[var(--dp-gutter)]')}
-            style={{ maxWidth: hasCallouts ? `calc(${frameMax}px + 2 * var(--dp-gutter, 0px))` : frameMax, ['--dp-gutter' as string]: `${GUTTER}px` }}
+            className={cn('relative mx-auto', hasCallouts && 'xl:pl-[var(--dp-gutter-l)] xl:pr-[var(--dp-gutter-r)]')}
+            style={{
+              maxWidth: hasCallouts ? `calc(${frameMax}px + var(--dp-gutter-l, 0px) + var(--dp-gutter-r, 0px))` : frameMax,
+              ['--dp-gutter-l' as string]: `${gutterLeft}px`,
+              ['--dp-gutter-r' as string]: `${gutterRight}px`,
+            }}
           >
             <div ref={frameRef} className="relative mx-auto" style={{ maxWidth: frameMax }}>
               <motion.div

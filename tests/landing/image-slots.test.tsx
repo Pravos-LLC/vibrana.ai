@@ -94,19 +94,7 @@ const PAGES: { route: string; load: () => Promise<{ default: () => React.ReactEl
   { route: '/ai-build-sprint', load: () => import('@/app/ai-build-sprint/page'), known: [] },
   { route: '/ai-transformation', load: () => import('@/app/ai-transformation/page'), known: [] },
   { route: '/ai-readiness', load: () => import('@/app/ai-readiness/page'), known: [] },
-  {
-    route: '/eu-ai-act-readiness',
-    load: () => import('@/app/eu-ai-act-readiness/page'),
-    known: [
-      'duplicate /assets/eu-ai-act/assessment-section-controls.webp x2',
-      'duplicate /assets/eu-ai-act/assessment-section-footprint.webp x2',
-      'duplicate /assets/eu-ai-act/assessment-section-inventory.webp x2',
-      'duplicate /assets/eu-ai-act/assessment-section-people.webp x2',
-      'duplicate /assets/eu-ai-act/assessment-section-prohibited.webp x2',
-      'duplicate /assets/eu-ai-act/assessment-section-transparency.webp x2',
-      'placeholder /assets/imagery/homepage/prism-grid-solar.webp x1',
-    ],
-  },
+  { route: '/eu-ai-act-readiness', load: () => import('@/app/eu-ai-act-readiness/page'), known: [] },
   {
     route: '/ai-transformation/simulator',
     load: () => import('@/app/ai-transformation/simulator/page'),

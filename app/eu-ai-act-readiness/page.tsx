@@ -14,6 +14,12 @@ export const metadata: Metadata = {
   },
 }
 
+// The countdown, the next milestone and the sample report's day counts derive from today's date,
+// so the prerendered HTML is regenerated hourly rather than frozen at build time. The browser then
+// recounts from its own date after mount.
+export const revalidate = 3600
+
 export default function Page() {
-  return <EUAIActReadinessPage />
+  // The date this HTML was generated (at most an hour old).
+  return <EUAIActReadinessPage today={new Date().toISOString().slice(0, 10)} />
 }

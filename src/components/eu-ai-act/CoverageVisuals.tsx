@@ -35,7 +35,7 @@ function RoleCard({ role, accent, className }: { role: Role; accent?: boolean; c
   return (
     <div
       className={cn(
-        'flex flex-col rounded-2xl border bg-surface-base p-6',
+        'flex flex-col rounded-[6px] border bg-surface-base p-6',
         accent ? 'border-eu-ink/30 shadow-[0_18px_50px_-24px_rgba(0,51,153,0.35)]' : 'border-line-subtle',
         className,
       )}
@@ -68,7 +68,7 @@ export function RoleFlow({ roles, flow }: { roles: readonly Role[]; flow: Flow }
         </div>
         <RoleCard role={deployer} accent />
       </div>
-      <div className="mt-4 flex gap-4 rounded-2xl border border-brand-amber/45 bg-brand-amber/[0.06] p-6 md:gap-5">
+      <div className="mt-4 flex gap-4 rounded-[6px] border border-brand-amber/45 bg-brand-amber/[0.06] p-6 md:gap-5">
         <CornerDownLeft aria-hidden className="mt-1 h-6 w-6 flex-none text-brand-amber-strong" />
         <div className="flex flex-col">
           <div className="text-xs font-semibold text-brand-amber-strong">{flow.repurpose}</div>
@@ -144,13 +144,13 @@ export function ReachPanel({ reach }: { reach: Reach }) {
   const reduce = useReducedMotion() ?? false
   const arrows = reach.routes.flatMap((r) => ROUTE_ANGLES[r.kind].map((deg) => ({ kind: r.kind, a: (deg * Math.PI) / 180 })))
   return (
-    <div className="relative isolate overflow-hidden rounded-[28px] text-white">
+    <div className="relative isolate overflow-hidden rounded-[6px] text-white">
       <LoopVideo name={reach.video} className="absolute inset-0 -z-20" sizes="(max-width: 1024px) 100vw, 72rem" />
-      {/* EU-blue duotone over the footage: the city reads, the type stays legible (AA on the darkest stop). */}
+      {/* A flat EU-blue wash over the footage: the city reads through, the type stays legible (AA). */}
       <div
         aria-hidden
         className="absolute inset-0 -z-10"
-        style={{ background: 'linear-gradient(100deg, rgba(0,32,110,0.94) 0%, rgba(0,40,130,0.86) 46%, rgba(0,51,153,0.55) 100%)' }}
+        style={{ background: 'rgba(0,34,118,0.86)' }}
       />
       <div className="grid items-center gap-8 p-7 md:p-12 lg:grid-cols-[1fr_minmax(0,0.9fr)] lg:gap-14">
         <div>
