@@ -42,7 +42,7 @@ export function ClockChart({ chart }: { chart: Chart }) {
   const hatch = 'repeating-linear-gradient(135deg, var(--eu-ink) 0 6px, transparent 6px 10px)'
 
   return (
-    <figure className="rounded-2xl border border-line-subtle bg-surface-base p-6 md:p-8">
+    <figure className="rounded-[6px] border border-line-subtle bg-surface-base p-6 md:p-8">
       <figcaption className="font-display text-lg font-semibold tracking-tight text-ink">{chart.title}</figcaption>
       <div className="relative mt-8 space-y-9">
         <div aria-hidden className="pointer-events-none absolute -top-2 bottom-6 border-l border-dashed border-ink/40" style={{ left: pct(10) }} />

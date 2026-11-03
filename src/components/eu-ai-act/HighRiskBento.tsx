@@ -31,7 +31,7 @@ export function HighRiskBento({ items }: { items: readonly Item[] }) {
       {order.map((i, k) => {
         const still = i.media.kind === 'image' ? getImagery(i.media.src) : undefined
         return (
-          <RevealItem key={i.label} className={cn('group flex flex-col overflow-hidden rounded-2xl border border-line-subtle bg-surface-base', SPAN[k])}>
+          <RevealItem key={i.label} className={cn('group flex flex-col overflow-hidden rounded-[6px] border border-line-subtle bg-surface-base', SPAN[k])}>
             <div className={cn('relative overflow-hidden', k === 0 || k === 3 ? 'aspect-[16/9]' : 'aspect-[16/9] lg:aspect-auto lg:h-full lg:min-h-0 lg:flex-1')}>
               {i.media.kind === 'video' ? (
                 <LoopVideo name={i.media.src} className="absolute inset-0" sizes="(max-width: 1024px) 92vw, 40vw" mediaClassName="transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]" />

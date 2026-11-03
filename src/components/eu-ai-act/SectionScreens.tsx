@@ -1,9 +1,9 @@
 'use client'
 
+import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import Image from '@/src/components/PublicDemoImage'
 import { LayoutGroup, MotionConfig, motion, useReducedMotion } from 'framer-motion'
-import { BrowserFrame } from '@/src/components/prism'
 import { cn } from '@/src/components/prism/utils/cn'
 import { EASE_OUT } from '@/src/components/prism/motion/tokens'
 
@@ -19,6 +19,8 @@ interface SectionScreensProps {
   items: readonly SectionScreen[]
   width: number
   height: number
+  /** Shown above the list below `lg`, where there is no sticky panel. */
+  mobile?: React.ReactNode
 }
 
 /**
@@ -33,9 +35,10 @@ interface SectionScreensProps {
  * reverses it. Opacity, transform and a light blur only, and interruptible, since framer
  * retargets mid-flight. Reduced motion: an instant swap, and the active rail jumps.
  *
- * Below `lg` there is no panel: each section carries its own screenshot inline.
+ * Below `lg` there is no panel: the `mobile` slot (a screen loop of the assessment in use)
+ * sits above the list instead, so each screenshot is fetched in one slot only.
  */
-export function SectionScreens({ items, width, height }: SectionScreensProps) {
+export function SectionScreens({ items, width, height, mobile }: SectionScreensProps) {
   const [active, setActive] = useState(0)
   const reduce = useReducedMotion()
   const itemRefs = useRef<(HTMLLIElement | null)[]>([])
@@ -74,17 +77,12 @@ export function SectionScreens({ items, width, height }: SectionScreensProps) {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="mt-12 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
+      <div className="mt-12 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
         {/* Sticky panel, wide screens only */}
         <div className="hidden lg:block">
           <div className="sticky" style={{ top: 'max(7rem, calc(50vh - 14rem))' }}>
             <div className="relative">
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -inset-6 -z-10"
-                style={{ background: 'radial-gradient(60% 55% at 50% 42%, rgba(0,51,153,0.10), transparent 72%)', filter: 'blur(8px)' }}
-              />
-              <figure className="overflow-hidden rounded-xl border border-line-subtle bg-surface-raised shadow-lg ring-1 ring-black/5">
+              <figure className="overflow-hidden rounded-[6px] border border-line bg-surface-raised shadow-[0_30px_60px_-36px_rgba(24,18,60,0.35)]">
                 <div className="flex items-center gap-1.5 border-b border-line-subtle bg-surface-frost px-3 py-2">
                   <span className="h-2 w-2 rounded-full bg-[#ff5f57]" aria-hidden />
                   <span className="h-2 w-2 rounded-full bg-[#febc2e]" aria-hidden />
@@ -140,7 +138,9 @@ export function SectionScreens({ items, width, height }: SectionScreensProps) {
           </div>
         </div>
 
-        {/* The six sections. Wide screens: tall stops that drive the panel. Small: text, then its screen. */}
+        {mobile ? <div className="lg:hidden">{mobile}</div> : null}
+
+        {/* The six sections. Wide screens: tall stops that drive the panel. */}
         <LayoutGroup>
           <ol className="relative grid gap-y-12 lg:gap-y-0 lg:border-l lg:border-line-subtle lg:py-[12vh]">
             {items.map((item, i) => {
@@ -173,19 +173,10 @@ export function SectionScreens({ items, width, height }: SectionScreensProps) {
                       >
                         {item.title}
                       </h3>
-                      <span className="whitespace-nowrap text-xs tabular-nums text-ink-tertiary">{item.meta}</span>
+                      <span className="label-mono whitespace-nowrap tabular text-ink-tertiary">{item.meta}</span>
                     </div>
                     <div className="mt-2 max-w-md text-sm leading-6 text-ink-secondary">{item.body}</div>
                   </div>
-                  <BrowserFrame
-                    src={item.screenshot.src}
-                    alt={item.screenshot.alt}
-                    width={width}
-                    height={height}
-                    aspect={`${width} / ${height}`}
-                    sizes="92vw"
-                    className="mt-5 lg:hidden"
-                  />
                 </li>
               )
             })}

@@ -15,5 +15,6 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <EUAIActReadinessPage />
+  // The render date names the next milestone on first paint; the browser recounts from its own date.
+  return <EUAIActReadinessPage today={new Date().toISOString().slice(0, 10)} />
 }
