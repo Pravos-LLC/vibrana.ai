@@ -35,20 +35,24 @@ export function ReportHero({ report }: { report: SampleReport }) {
         variant="paper"
         label={RP.ariaSummary}
         title={RP.kicker}
+        designWidth={680}
+        frameWidth={664}
         aspect={1.06}
+        // Every callout sits on the right, so the kit reserves one label gutter, not two, and the
+        // sheet renders near full size (664 / 680). Each dot lands where its line runs clear.
         beats={[
-          { id: 'score', label: RP.beats.score, hold: 5200, callouts: [{ label: RP.callouts.gauge, target: 'gauge', side: 'left' }] },
+          { id: 'score', label: RP.beats.score, hold: 5200, callouts: [{ label: RP.callouts.gauge, target: 'gauge', side: 'right', y: 18 }] },
           { id: 'exposure', label: RP.beats.exposure, callouts: [{ label: RP.callouts.exposure, target: 'exposure', side: 'right', y: 22 }] },
-          { id: 'obligations', label: RP.beats.obligations, callouts: [{ label: RP.callouts.obligations, target: 'obligations', side: 'right', y: 8 }] },
+          { id: 'obligations', label: RP.beats.obligations, callouts: [{ label: RP.callouts.obligations, target: 'obligations-head', side: 'right', y: 18 }] },
         ]}
       >
         {/* 1. Cover: the score */}
-        <article className="flex min-h-[665px] flex-col [[data-dp-mode=stacked]_&]:min-h-0">
+        <article className="flex min-h-[620px] flex-col [[data-dp-mode=stacked]_&]:min-h-0">
           <div className="flex items-baseline justify-between gap-4 border-b border-line pb-4">
-            <span className={`${MONO} text-ink-tertiary`}>
+            <span className={`${MONO} text-ink-secondary`}>
               {R.labels.readiness}
             </span>
-            <span className={`${MONO} tabular text-ink-tertiary`}>
+            <span className={`${MONO} tabular text-ink-secondary`}>
               {R.labels.assessed(formatDate(profile.asOf))}
             </span>
           </div>
@@ -72,7 +76,7 @@ export function ReportHero({ report }: { report: SampleReport }) {
           <div className="mt-auto grid grid-cols-5 border-t border-line pt-5 [[data-dp-mode=stacked]_&]:mt-8 [[data-dp-mode=stacked]_&]:grid-cols-2 [[data-dp-mode=stacked]_&]:gap-y-4">
             {profile.sectionScores.map((s, i) => (
               <div key={s.key} className={cn('pr-3', i > 0 && 'border-l border-line-subtle pl-3 [[data-dp-mode=stacked]_&]:border-l-0 [[data-dp-mode=stacked]_&]:pl-0')}>
-                <div className={`${MONO} text-ink-tertiary`} style={{ minHeight: 40 }}>
+                <div className={`${MONO} text-ink-secondary`} style={{ minHeight: 40 }}>
                   {s.title}
                 </div>
                 <div className="tabular mt-2 font-display font-semibold text-ink" style={{ fontSize: 26, lineHeight: 1 }}>
@@ -89,7 +93,7 @@ export function ReportHero({ report }: { report: SampleReport }) {
         {/* 2. Exposure */}
         <article className="flex flex-col gap-6">
           <div className="border-b border-line pb-4">
-            <span className={`${MONO} text-ink-tertiary`}>
+            <span className={`${MONO} text-ink-secondary`}>
               {R.labels.exposure}
             </span>
             <div className="mt-2 text-ink-secondary" style={{ fontSize: 15, lineHeight: 1.55 }}>
@@ -103,15 +107,15 @@ export function ReportHero({ report }: { report: SampleReport }) {
 
         {/* 3. The dated obligations, as a ledger */}
         <article className="flex flex-col">
-          <div className="border-b border-line pb-4">
-            <span className={`${MONO} text-ink-tertiary`}>
+          <div data-callout="obligations-head" className="border-b border-line pb-4">
+            <span className={`${MONO} text-ink-secondary`}>
               {R.labels.obligations}
             </span>
             <div className="mt-2 text-ink-secondary" style={{ fontSize: 15, lineHeight: 1.55 }}>
               {R.labels.obligationsIntro}
             </div>
           </div>
-          <ol data-callout="obligations">
+          <ol>
             {dated.map((r) => {
               const cite = legalCite(r.def.findings[0])
               return (
@@ -123,7 +127,7 @@ export function ReportHero({ report }: { report: SampleReport }) {
                     </span>
                   </div>
                   <StatusPill status={r.result.status} className="justify-self-end" />
-                  <div className={`${MONO} col-span-2 flex flex-wrap gap-x-4 pl-5 text-ink-tertiary`}>
+                  <div className={`${MONO} col-span-2 flex flex-wrap gap-x-4 pl-5 text-ink-secondary`}>
                     <span>{r.result.appliesFrom ? `${R.labels.applies} ${formatDate(r.result.appliesFrom)}` : R.labels.undated}</span>
                     <span>{cite.label}</span>
                   </div>
@@ -133,7 +137,7 @@ export function ReportHero({ report }: { report: SampleReport }) {
           </ol>
         </article>
       </DeliverablePreview>
-      <p className={`${MONO} text-center text-ink-tertiary`}>{RP.sampleNote}</p>
+      <p className={`${MONO} text-center text-ink-secondary`}>{RP.sampleNote}</p>
     </div>
   )
 }
@@ -141,7 +145,7 @@ export function ReportHero({ report }: { report: SampleReport }) {
 function Meta({ k, v }: { k: string; v: string }) {
   return (
     <div>
-      <div className={`${MONO} text-ink-tertiary`}>
+      <div className={`${MONO} text-ink-secondary`}>
         {k}
       </div>
       <div className="mt-1 text-ink" style={{ fontSize: 18, lineHeight: 1.35 }}>

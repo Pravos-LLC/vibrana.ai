@@ -47,7 +47,7 @@ for (const width of [390, 1440] as const) {
     if (next) {
       await expect(countdown.locator('[data-countdown-milestone]')).toHaveText(EU_HERO.panel.nextTitle(next))
       const days = Math.ceil((Date.parse(next.date) - Date.parse(today)) / 86_400_000)
-      await expect(countdown.locator('[data-countdown-days]')).toHaveText(`${days} ${EU_HERO.panel.daysLabel}`)
+      await expect(countdown.locator('[data-countdown-days]')).toHaveText(`${days} ${days === 1 ? EU_HERO.panel.dayLabel : EU_HERO.panel.daysLabel}`)
     }
 
     // The sample report: the kit's preview, with the readiness gauge from the real component.
@@ -60,9 +60,11 @@ for (const width of [390, 1440] as const) {
     const reel = page.getByRole('region', { name: EU_HERO.reel.title })
     await reel.scrollIntoViewIfNeeded()
     await expect(reel).toBeVisible()
+    // One <video>: it autoplays the light loop encode; the full cut loads only on the visitor's action.
     const video = reel.locator('video')
-    await expect(video).toHaveAttribute('poster', /\/assets\/landing\/eu-ai-act\//)
-    expect(await video.locator('source').count()).toBeGreaterThan(0)
+    await expect(video).toHaveCount(1)
+    await expect(video).toHaveAttribute('poster', /\/assets\/landing\/eu-ai-act\/eu-ai-act-explainer-loop-poster/)
+    await expect(video.locator('source[type="video/mp4"]')).toHaveAttribute('src', /eu-ai-act-explainer-loop\./)
     await expect(reel.getByText(EU_HERO.reel.caption)).toBeVisible()
   })
 }

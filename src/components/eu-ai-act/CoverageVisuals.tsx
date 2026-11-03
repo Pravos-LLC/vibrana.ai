@@ -146,11 +146,11 @@ export function ReachPanel({ reach }: { reach: Reach }) {
   return (
     <div className="relative isolate overflow-hidden rounded-[6px] text-white">
       <LoopVideo name={reach.video} className="absolute inset-0 -z-20" sizes="(max-width: 1024px) 100vw, 72rem" />
-      {/* EU-blue duotone over the footage: the city reads, the type stays legible (AA on the darkest stop). */}
+      {/* A flat EU-blue wash over the footage: the city reads through, the type stays legible (AA). */}
       <div
         aria-hidden
         className="absolute inset-0 -z-10"
-        style={{ background: 'linear-gradient(100deg, rgba(0,32,110,0.94) 0%, rgba(0,40,130,0.86) 46%, rgba(0,51,153,0.55) 100%)' }}
+        style={{ background: 'rgba(0,34,118,0.86)' }}
       />
       <div className="grid items-center gap-8 p-7 md:p-12 lg:grid-cols-[1fr_minmax(0,0.9fr)] lg:gap-14">
         <div>

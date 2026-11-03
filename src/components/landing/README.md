@@ -10,8 +10,8 @@ Plan and rules: hub `gtm/programs/assessment-landing-pages/plan.md` and `inspira
 
 | Component | What it is for | Key props |
 |---|---|---|
-| `ReelStage` | A 9:16 reel in a desktop hero, framed over a blurred copy of itself | `clips[]` (`id`, `label`, `mp4`, `webm?`, `poster`, `duration?`), `title`, `strip?`, `caption?` (visible, under the card), `captionNote?`, `playLabel` (default `Watch`), `playingLabel` (default `Playing`), `labels?` (`play`, `pause`, `sound`, `chooseClip`), `cardWidth` 300 to 360 |
-| `DeliverablePreview` | Real report or app components at preview scale, in three beats with callouts; stacked at reading size under 560px | children (one per beat), `beats[]` (`id`, `label`, `callouts?[]` with `target` (a `data-callout` id in the content), optional `x`/`y` percent within it, `side`; `hold?` ms), `variant` `paper` or `app`, `title`, `designWidth?`, `aspect?`, `autoplay?`, `label` |
+| `ReelStage` | A 9:16 reel in a desktop hero, framed over a blurred copy of itself | `clips[]` (`id`, `label`, `mp4`, `webm?`, `poster`, `duration?`, `full?` (`mp4`, `webm?`): the full cut, swapped in on the visitor's action while `mp4`/`webm` autoplay the light loop), `title`, `strip?`, `caption?` (visible, under the card), `captionNote?`, `playLabel` (default `Watch`), `playingLabel` (default `Playing`), `labels?` (`play`, `pause`, `sound`, `chooseClip`), `cardWidth` 300 to 360 |
+| `DeliverablePreview` | Real report or app components at preview scale, in three beats with callouts; stacked at reading size under 560px | children (one per beat), `beats[]` (`id`, `label`, `callouts?[]` with `target` (a `data-callout` id in the content), optional `x`/`y` percent within it, `side`; `hold?` ms), `variant` `paper` or `app`, `title`, `designWidth?`, `aspect?`, `frameWidth?` (widest sheet, default paper 520 / app 760), `autoplay?`, `label` |
 | `ProofMetric`, `ProofMetricRow` | Stats that never squish | metric: `value`, `unit?`, `prefix?`, `label`, `source?`; row: `maxColumns` 2 to 4, `source?`, `label?` |
 | `DistinctProductFrame` | One product, one frame language | `chrome` `browser`/`app`/`phone`/`terminal`, `accent` `violet`/`teal`, `density` `comfortable`/`compact`, `theme` `light` (default, pinned) / `dark` / `inherit`, `fit?` `{width, height}` canvas scaled to the frame, `title?`, `caption?`, `bleed?` |
 | `ProductToggle` | Two prototypes, one at a time, full size | `items[]` (`id`, `label`, `audience`, `content`), `label`, `defaultId?` |
@@ -56,7 +56,7 @@ Not for body copy or headlines.
   under 3 MB. Captions must be burned into the cut; say so in `captionNote`.
 - **DeliverablePreview callouts** point at `data-callout` elements you put in the beat content, so
   the dot tracks the thing it names. At `xl` (1280px) and up the labels sit in a 168px gutter the component
-  reserves inside its own box (it never overflows the page; the figure also clips as a backstop).
+  reserves inside its own box, only on the sides that callouts use (all on the right: one gutter) (it never overflows the page; the figure also clips as a backstop).
   Below `xl` only the dots show, with the notes listed under the frame. Under 560px the beats
   stack at reading size, unscaled: style beat content for that with the
   `[[data-dp-mode=stacked]_&]:` variant (see the gallery demos). Each beat remounts its child,

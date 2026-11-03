@@ -15,8 +15,14 @@ export interface ReelClip {
   webm?: string
   /** A strong still from the cut. Shown first, and for reduced motion and slow connections. */
   poster: string
-  /** Running time as shown: `0:42`. */
+  /** Running time as shown: `0:42`. With `full`, the full cut's running time. */
   duration?: string
+  /**
+   * The full cut with sound. When set, `mp4`/`webm` are the light muted loop that autoplays, and
+   * the same <video> switches to the full cut only on a visitor's action (sound, a click on the
+   * picture, or Play after a pause): sources swap, then load() and play() inside the click.
+   */
+  full?: { mp4: string; webm?: string }
 }
 
 export interface ReelStageProps {
@@ -75,6 +81,8 @@ export function ReelStage({
   const [inView, setInView] = useState(false)
   /** The visitor paused by hand: autoplay stays off until they press play. */
   const [heldByUser, setHeldByUser] = useState(false)
+  /** The full cut has replaced the loop in the <video> (set only by a visitor's action). */
+  const fullRef = useRef(false)
   const reduce = useHydratedReducedMotion()
   const stageRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -119,14 +127,34 @@ export function ReelStage({
   }, [playing, index])
 
   const select = useCallback((i: number) => {
+    fullRef.current = false
     setIndex(i)
     setPlaying(false)
   }, [])
+
+  /**
+   * Swap the loop for the full cut, inside the visitor's click: the src attribute takes
+   * precedence over the <source> children, then load() and play() run in the same gesture.
+   * Returns true when it swapped (and started playback).
+   */
+  const goFull = (): boolean => {
+    const v = videoRef.current
+    if (!v || !clip.full || fullRef.current) return false
+    fullRef.current = true
+    const av1 = clip.full.webm && v.canPlayType('video/webm; codecs=av01') !== ''
+    v.loop = false
+    v.src = av1 ? clip.full.webm! : clip.full.mp4
+    v.load()
+    setHeldByUser(false)
+    v.play().catch(() => setPlaying(false))
+    return true
+  }
 
   const togglePlay = () => {
     const v = videoRef.current
     if (!v) return
     if (v.paused) {
+      if (goFull()) return
       setHeldByUser(false)
       v.play().catch(() => setPlaying(false))
     } else {
@@ -141,6 +169,7 @@ export function ReelStage({
     const next = !muted
     v.muted = next
     setMuted(next)
+    if (!next && goFull()) return
     if (!next && v.paused) {
       setHeldByUser(false)
       v.play().catch(() => setPlaying(false))

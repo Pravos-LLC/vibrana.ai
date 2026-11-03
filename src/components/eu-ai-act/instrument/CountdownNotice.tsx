@@ -63,6 +63,7 @@ export function CountdownNotice({
   initialToday,
   label,
   daysLabel,
+  dayLabel,
   footnote,
   nextTitle,
   className,
@@ -71,6 +72,8 @@ export function CountdownNotice({
   initialToday: string
   label: string
   daysLabel: string
+  /** Singular, for a count of exactly one. */
+  dayLabel: string
   footnote: string
   nextTitle: (m: { dateLabel: string; title: string }) => string
   className?: string
@@ -85,6 +88,7 @@ export function CountdownNotice({
 
   const next = nextMilestone(milestones, today)
   const days = next ? Math.ceil((Date.parse(next.date) - Date.parse(today)) / DAY) : null
+  const unit = days === 1 ? dayLabel : daysLabel
   const digits = days !== null ? String(days).split('').map(Number) : []
 
   return (
@@ -106,20 +110,20 @@ export function CountdownNotice({
               ))}
             </span>
             <span className="pb-1.5 text-ink-secondary" style={{ fontSize: 15 }}>
-              {daysLabel}
+              {unit}
             </span>
             <span className="sr-only" data-countdown-days>
-              {days} {daysLabel}
+              {days} {unit}
             </span>
           </div>
           <div className="mt-4 border-t border-line-subtle pt-3 font-display font-semibold text-ink" style={{ fontSize: 17, lineHeight: 1.35 }} data-countdown-milestone>
             {nextTitle(next)}
           </div>
           <LegalCite findings={next.findings} className="mt-2" />
-          <div className="mt-2 text-xs leading-5 text-ink-tertiary">{footnote}</div>
+          <div className="mt-2 text-xs leading-5 text-ink-secondary">{footnote}</div>
         </div>
       ) : (
-        <div className="px-5 py-4 text-xs leading-5 text-ink-tertiary">{footnote}</div>
+        <div className="px-5 py-4 text-xs leading-5 text-ink-secondary">{footnote}</div>
       )}
     </div>
   )

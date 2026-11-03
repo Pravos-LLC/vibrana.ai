@@ -66,8 +66,8 @@ export default function EUAIActReadinessPage({ today: renderDay }: { today: stri
   const today = useLiveToday(renderDay)
   const report = useSampleReport(today)
   const watch = getImagery(CLOCK.image.id)
-  const reel = landingVideo(HERO.reel.stem)
-  const loopPoster = landingVideo('eu-ai-act/eu-ai-act-explainer-loop').poster
+  const loop = landingVideo(HERO.reel.loopStem)
+  const full = landingVideo(HERO.reel.fullStem)
 
   return (
     <EnterprisePageShell>
@@ -77,7 +77,7 @@ export default function EUAIActReadinessPage({ today: renderDay }: { today: stri
           {/* ── Hero: the question, the countdown, and the report as the object ── */}
           <section aria-labelledby="eu-hero-title" className="relative overflow-hidden border-t border-line-subtle bg-surface-base">
             <ColumnGuides />
-            <div className="relative px-6 pb-16 pt-10 md:px-10 md:pb-20 md:pt-14 xl:px-14">
+            <div className="relative px-6 pb-16 pt-10 md:px-10 md:pb-20 md:pt-14 2xl:px-14">
               <p className="label-mono text-ink-secondary">{HERO.kicker}</p>
               <div className="mt-8 border-t border-line pt-6">
                 <p className="type-sm font-medium text-eu-ink" style={{ fontSize: 15 }}>
@@ -88,12 +88,12 @@ export default function EUAIActReadinessPage({ today: renderDay }: { today: stri
                 </div>
               </div>
 
-              <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_520px] xl:grid-cols-[minmax(0,1fr)_856px] xl:gap-8">
+              <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_520px] xl:grid-cols-[minmax(0,1fr)_832px] xl:gap-8">
                 <div className="flex min-w-0 flex-col gap-8">
                   <p className={LEAD_CLASS} style={LEAD_STYLE}>
                     {HERO.subtitle}
                   </p>
-                  <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                  <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
                     <Button href={CTA.primary.href} showArrow>
                       {CTA.primary.short}
                     </Button>
@@ -112,6 +112,7 @@ export default function EUAIActReadinessPage({ today: renderDay }: { today: stri
                     initialToday={renderDay}
                     label={HERO.panel.label}
                     daysLabel={HERO.panel.daysLabel}
+                    dayLabel={HERO.panel.dayLabel}
                     footnote={HERO.panel.footnote}
                     nextTitle={HERO.panel.nextTitle}
                     className="max-w-md"
@@ -129,10 +130,11 @@ export default function EUAIActReadinessPage({ today: renderDay }: { today: stri
                 {
                   id: 'eu-explainer',
                   label: HERO.reel.label,
-                  mp4: reel.mp4.path,
-                  webm: reel.webm.path,
-                  poster: loopPoster.path,
-                  duration: reel.mp4.duration ? runningTime(reel.mp4.duration) : undefined,
+                  mp4: loop.mp4.path,
+                  webm: loop.webm.path,
+                  poster: loop.poster.path,
+                  full: { mp4: full.mp4.path, webm: full.webm.path },
+                  duration: full.mp4.duration ? runningTime(full.mp4.duration) : undefined,
                 },
               ]}
               title={HERO.reel.title}
@@ -269,7 +271,7 @@ export default function EUAIActReadinessPage({ today: renderDay }: { today: stri
               {...METHOD.screenshotSize}
               mobile={
                 <div className="mx-auto w-[min(78vw,320px)] overflow-hidden rounded-[6px] border border-line">
-                  <LandingLoop stem="eu-ai-act/eu-assessment-9x16" />
+                  <LandingLoop stem="eu-ai-act/eu-assessment-9x16" media="(max-width: 1023.98px)" />
                 </div>
               }
               items={METHOD.sections.map((m) => ({
@@ -355,7 +357,7 @@ export default function EUAIActReadinessPage({ today: renderDay }: { today: stri
                 <LandingLoop stem="eu-ai-act/eu-assessment-16x9" />
               </div>
             </div>
-            <div className="border-t border-line-subtle px-6 py-6 text-center text-xs leading-5 text-ink-tertiary md:px-10">{LABELS.ledgerNote}</div>
+            <div className="border-t border-line-subtle px-6 py-6 text-center text-xs leading-5 text-ink-secondary md:px-10">{LABELS.ledgerNote}</div>
           </section>
         </InstrumentColumn>
       </div>

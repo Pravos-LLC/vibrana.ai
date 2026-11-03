@@ -64,7 +64,7 @@ export function InstrumentSection({
 export function ColumnGuides({ columns = 12 }: { columns?: number }) {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
-      <div className="mx-auto grid h-full px-10 xl:px-14" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
+      <div className="mx-auto grid h-full px-10 2xl:px-14" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
         {Array.from({ length: columns }, (_, i) => (
           <span key={i} className={cn('h-full', i > 0 && 'border-l border-dashed border-line-subtle/70')} />
         ))}

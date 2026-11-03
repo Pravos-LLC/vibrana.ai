@@ -47,12 +47,15 @@ export const EU_HERO = {
     /** The milestone the countdown counts to, read from EU_TIMELINE.milestones, never typed. */
     nextTitle: (m: { dateLabel: string; title: string }) => `${m.dateLabel}: ${m.title}`,
     daysLabel: 'days',
+    dayLabel: 'day',
     footnote: 'Dates as amended by the Digital Omnibus on AI, Regulation (EU) 2026/1744.',
   },
   // The approved explainer reel (s1-41). Captions are burned in; the running time is read from
   // the encoded file (src/landing-media), never typed.
   reel: {
-    stem: 'eu-ai-act/eu-ai-act-explainer-full',
+    /** Autoplays muted (light encode); the full cut swaps in on the visitor's action. */
+    loopStem: 'eu-ai-act/eu-ai-act-explainer-loop',
+    fullStem: 'eu-ai-act/eu-ai-act-explainer-full',
     label: 'EU AI Act explainer',
     title: 'An explainer film on the EU AI Act with on-screen text',
     caption: 'FIG 1 / The EU AI Act, explained for companies that use AI',
