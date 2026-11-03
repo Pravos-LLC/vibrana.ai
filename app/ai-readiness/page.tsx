@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import AIReadinessPage from '@/src/views/AIReadinessPage'
 import { READINESS_META } from '@/src/ai-readiness-content'
+import { buildSampleReport } from '@/src/components/readiness/report-fixture'
 
 export const metadata: Metadata = {
   title: READINESS_META.title,
@@ -15,5 +16,6 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <AIReadinessPage />
+  // The sample report is built here, on the server, so scoring and evidence never ship to the browser.
+  return <AIReadinessPage sample={buildSampleReport()} />
 }

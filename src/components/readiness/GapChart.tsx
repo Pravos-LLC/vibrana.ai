@@ -5,8 +5,9 @@ import { Cite } from './Cite'
 
 // Emphasis encoding: leaders are the one violet series; the comparison group is a hollow
 // neutral ring. Fill vs hollow plus the legend carry identity, so it never rests on color.
-const LEADER = '#7c3aed'
-const REST = 'rgba(15,15,17,0.48)'
+const LEADER = 'var(--color-brand-violet)'
+// The comparison ring reads the tertiary text token, so it stays visible in dark mode.
+const REST = 'var(--text-tertiary)'
 const TICKS = [0, 25, 50, 75, 100]
 
 interface Row { label: string; leaders: number; rest: number; finding: string }
@@ -20,6 +21,8 @@ export interface GapChartProps {
   chartToggle: string
   columns: { practice: string; leaders: string; rest: string; source: string }
   groups: readonly Group[]
+  /** Mono figure number, e.g. `FIG 3.1`. */
+  figure?: string
 }
 
 /**
@@ -28,14 +31,15 @@ export interface GapChartProps {
  * by survey, each with its own definition of a leader and its sample. Hover or focus a row
  * for its exact values; a table view carries the same numbers.
  */
-export function GapChart({ title, subtitle, legend, tableToggle, chartToggle, columns, groups }: GapChartProps) {
+export function GapChart({ title, subtitle, legend, tableToggle, chartToggle, columns, groups, figure }: GapChartProps) {
   const [asTable, setAsTable] = useState(false)
   const [active, setActive] = useState<string | null>(null)
 
   return (
-    <figure className="rounded-2xl border border-line-subtle bg-surface-frost p-6 backdrop-blur-md md:p-8">
+    <figure className="m-0 border-t border-line pt-5">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <figcaption className="max-w-xl">
+          {figure ? <div className="label-mono mb-2 text-ink-tertiary">{figure}</div> : null}
           <h3 className="font-display text-xl font-semibold tracking-tight text-ink">{title}</h3>
           <div className="mt-2 text-sm leading-6 text-ink-secondary">{subtitle}</div>
         </figcaption>

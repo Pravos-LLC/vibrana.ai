@@ -76,13 +76,24 @@ const LOGO_MARQUEE = [
 ]
 
 const PAGES: { route: string; load: () => Promise<{ default: () => React.ReactElement }>; known: string[] }[] = [
+  {
+    route: '/',
+    load: () => import('@/app/page'),
+    // The AIOS screenshots and the closing report are real now (prism-grid-solar went from x8 to
+    // x6; the closing tablet no longer shows a public-demo SVG). What is left is outside that change:
+    // imagery-manifest ids that still resolve to the placeholder, and repeats across sections.
+    known: [
+      'duplicate /assets/imagery/homepage/phase-embed.webp x2',
+      'duplicate /assets/imagery/homepage/prism-grid-solar.webp x6',
+      'placeholder /assets/imagery/homepage/prism-grid-solar.webp x6',
+      'duplicate /assets/imagery/sprint/sprint-track-people.webp x2',
+      'duplicate /assets/imagery/sprint/sprint-track-workflow.webp x2',
+      ...LOGO_MARQUEE,
+    ],
+  },
   { route: '/ai-build-sprint', load: () => import('@/app/ai-build-sprint/page'), known: [] },
   { route: '/ai-transformation', load: () => import('@/app/ai-transformation/page'), known: [] },
-  {
-    route: '/ai-readiness',
-    load: () => import('@/app/ai-readiness/page'),
-    known: ['duplicate /assets/imagery/homepage/prism-grid-solar.webp x3', 'placeholder /assets/imagery/homepage/prism-grid-solar.webp x3'],
-  },
+  { route: '/ai-readiness', load: () => import('@/app/ai-readiness/page'), known: [] },
   {
     route: '/eu-ai-act-readiness',
     load: () => import('@/app/eu-ai-act-readiness/page'),
@@ -122,6 +133,7 @@ describe('offer pages: one asset per slot, no placeholders', () => {
       const html = renderPage(<Page />)
       expect(collectMediaSources(html).length, 'the page rendered no media; is the probe mocked?').toBeGreaterThan(0)
       assertImageSlots(html, known)
-    })
+      // The first import of a page compiles its whole module graph; the home page is the largest.
+    }, 60_000)
   }
 })

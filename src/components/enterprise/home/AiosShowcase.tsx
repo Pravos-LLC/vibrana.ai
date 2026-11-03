@@ -12,7 +12,7 @@ export interface AiosShowcaseProps {
   title: string
   subtitle: string
   /** The two product points, each shown with its real screenshot. */
-  points: { title: string; description: string; screenshot: { src: string; alt: string; width: number; height: number } }[]
+  points: { title: string; description: string; screenshot: { src: string; srcDark?: string; alt: string; width: number; height: number } }[]
   /** The open-source point, rendered as a strip. */
   openSource: { title: string; description: string }
   cta: { text: string; href: string }
@@ -50,13 +50,26 @@ export function AiosShowcase({ eyebrow, title, subtitle, points, openSource, cta
         {points.map((point, i) => (
           <motion.div key={point.title} style={{ y: i === 0 ? up : down }}>
             <RevealItem>
+              {/* Light and dark captures; CSS shows the one for the theme, and the hidden one never
+                  loads (lazy images are not fetched while display: none). */}
               <BrowserFrame
                 src={point.screenshot.src}
                 alt={point.screenshot.alt}
                 width={point.screenshot.width}
                 height={point.screenshot.height}
                 aspect="16 / 10"
+                className={point.screenshot.srcDark ? 'dark:hidden' : undefined}
               />
+              {point.screenshot.srcDark ? (
+                <BrowserFrame
+                  src={point.screenshot.srcDark}
+                  alt={point.screenshot.alt}
+                  width={point.screenshot.width}
+                  height={point.screenshot.height}
+                  aspect="16 / 10"
+                  className="hidden dark:block"
+                />
+              ) : null}
               <div className="mt-6 flex items-start gap-4">
                 <span className="text-gradient-prism font-display text-3xl leading-none">{String(i + 1).padStart(2, '0')}</span>
                 <div>

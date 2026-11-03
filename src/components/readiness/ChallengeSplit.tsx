@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 
-// Ordinal violet ramp (dark to light), validated with the dataviz palette checker
-// (monotone lightness, light end 2.65:1 on the surface). Literal hex, like the assessment charts.
-const RAMP = ['#4c1d95', '#7c3aed', '#a78bfa']
+// Ordinal violet ramp, largest part strongest. Light: dark to light on white (light end 2.65:1).
+// Dark: the same order runs light to dark, so the largest part keeps the most contrast on the
+// dark surface. Classes, not inline hex, so the theme can swap them.
+const RAMP = ['bg-[#4c1d95] dark:bg-[#c4b5fd]', 'bg-[#7c3aed] dark:bg-[#8b5cf6]', 'bg-[#a78bfa] dark:bg-[#6d28d9]']
 
 /**
  * ChallengeSplit — one 100% bar split into ordered parts (BCG's 70 / 20 / 10). Values sit
@@ -19,8 +20,8 @@ export function ChallengeSplit({ segments, ariaLabel }: { segments: readonly { v
         {segments.map((s, i) => (
           <div
             key={s.label}
-            className="h-full transition-opacity duration-200 first:rounded-l-[4px] last:rounded-r-[4px]"
-            style={{ width: `${s.value}%`, background: RAMP[i], opacity: active === null || active === i ? 1 : 0.35 }}
+            className={`h-full transition-opacity duration-200 first:rounded-l-[4px] last:rounded-r-[4px] ${RAMP[i]}`}
+            style={{ width: `${s.value}%`, opacity: active === null || active === i ? 1 : 0.35 }}
             onMouseEnter={() => setActive(i)}
             onMouseLeave={() => setActive(null)}
           />
@@ -37,8 +38,8 @@ export function ChallengeSplit({ segments, ariaLabel }: { segments: readonly { v
             onBlur={() => setActive(null)}
             className="flex items-baseline gap-3 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-brand-violet/40"
           >
-            <span aria-hidden className="mt-1 inline-block h-2.5 w-2.5 flex-none translate-y-[-1px] rounded-full" style={{ background: RAMP[i] }} />
-            <span className="font-display text-3xl font-semibold tracking-tight text-ink">{s.value}%</span>
+            <span aria-hidden className={`mt-1 inline-block h-2.5 w-2.5 flex-none translate-y-[-1px] rounded-full ${RAMP[i]}`} />
+            <span className="tabular font-display text-3xl font-semibold tracking-tight text-ink">{s.value}%</span>
             <span className="text-sm leading-5 text-ink-secondary">{s.label}</span>
           </li>
         ))}

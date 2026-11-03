@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { Cite } from './Cite'
 
-const BAR = '#7c3aed'
+// The violet token: one series, one accent, and it lifts in dark mode.
+const BAR = 'var(--color-brand-violet)'
 
 export interface PreparednessChartProps {
   title: string
@@ -15,6 +16,8 @@ export interface PreparednessChartProps {
   chartToggle: string
   columns: { area: string; value: string }
   bars: readonly { label: string; value: number }[]
+  /** Mono figure number, e.g. `FIG 6.1`. */
+  figure?: string
 }
 
 /**
@@ -23,14 +26,15 @@ export interface PreparednessChartProps {
  * legend: the title names it. Hover or focus dims the other bars; a table view carries the
  * same numbers.
  */
-export function PreparednessChart({ title, subtitle, note, finding, sample, tableToggle, chartToggle, columns, bars }: PreparednessChartProps) {
+export function PreparednessChart({ title, subtitle, note, finding, sample, tableToggle, chartToggle, columns, bars, figure }: PreparednessChartProps) {
   const [asTable, setAsTable] = useState(false)
   const [active, setActive] = useState<string | null>(null)
 
   return (
-    <figure className="rounded-2xl border border-line-subtle bg-surface-base p-6 md:p-8">
+    <figure className="m-0 border-t border-line pt-5">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <figcaption className="max-w-xl">
+          {figure ? <div className="label-mono mb-2 text-ink-tertiary">{figure}</div> : null}
           <h3 className="font-display text-xl font-semibold tracking-tight text-ink">{title}</h3>
           <div className="mt-2 text-sm leading-6 text-ink-secondary">{subtitle}</div>
         </figcaption>

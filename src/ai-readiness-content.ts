@@ -34,12 +34,71 @@ export const READINESS_OG = {
 } as const
 
 export const READINESS_HERO = {
-  eyebrow: 'AI Readiness Assessment',
-  headline: 'Before the next AI budget, see what’s in the way.',
-  subtitle: 'Free. 24 questions about what your organization does today give you a six-area profile, not a peer rank, with research behind your two lowest areas.',
-  image: {
-    id: 'obj-magnifier-notes-orion',
-    alt: 'A brass magnifying glass over handwritten notes on a worn desk, lit by one warm lamp',
+  eyebrow: 'AI Readiness Assessment / free / 24 questions',
+  /** One serif italic word carries the emphasis: `lead` + `accent` + `trail` read as one line. */
+  headline: { lead: 'Find your company’s two lowest-scoring AI areas before the next ', accent: 'budget', trail: ' is set.' },
+  subtitle:
+    'Answer 24 questions about what your organization does today. Your six-area profile is on screen when you finish, with published research and a case from our own work behind your two lowest areas.',
+  sampleNote: 'Sample report. Yours is built from your answers.',
+} as const
+
+// ── Report preview: the sample report beside the hero headline ─────────────
+// Copy only. Score values are fixtures in src/components/readiness/report-fixture.ts, not claims.
+
+export const READINESS_REPORT = {
+  /** Accessible name of the preview. */
+  ariaSummary:
+    'A sample AI readiness report in three parts: a dated cover, a score for each of six areas with a plain-average overall score, and the research and a case from our work for the two lowest areas.',
+  runningHead: 'AI readiness report',
+  pager: { cover: 'Cover', score: 'Score', findings: 'Findings' },
+  cover: {
+    kicker: 'AI readiness report / sample',
+    title: 'Sample Company',
+    meta: (date: string) => `24 questions / 6 areas / assessed ${date}`,
+    /** Shown as the beat's callout; the pager already numbers the beat (deck: "01 / ..."). */
+    beatCaption: 'Your company, your answers, dated.',
+  },
+  score: {
+    overallLabel: 'Overall score',
+    overallNote: 'A plain average of the six areas. Each counts the same.',
+    beatCaption: 'Six areas side by side. A profile, not a rank against other companies.',
+    callout: 'Read the areas before the overall score',
+  },
+  findings: {
+    heading: 'Your two lowest areas',
+    findingLabel: 'Published research / who was studied',
+    caseLabel: 'A case from our own work',
+    workflowsLabel: 'Hours AI could free, in the workflows you name',
+    beatCaption: 'Research and a case behind your two lowest areas, and the hours in the workflows you name.',
+  },
+} as const
+
+// ── Chapters (ChapterRail) ───────────────────────────────────────────────────
+
+export const READINESS_CHAPTERS = {
+  title: 'Contents',
+  progress: (n: number) => `Chapter ${n}`,
+  chapters: [
+    { id: 'report', title: 'Your report' },
+    { id: 'why', title: 'Why we ask' },
+    { id: 'leaders', title: 'What leaders do' },
+    { id: 'cases', title: 'The famous cases' },
+    { id: 'own-work', title: 'Our own work' },
+    { id: 'method', title: 'The method' },
+    { id: 'your-data', title: 'Your data' },
+    { id: 'start', title: 'Start' },
+  ],
+  /** The visible pause and play button on the assessment loop (WCAG 2.2.2). */
+  loopControls: { pause: 'Pause the loop', play: 'Play the loop' },
+  /** Figure captions (mono). The loop and still are the real product, recorded with sample answers. */
+  figures: {
+    question: 'FIG 1.1 / One question',
+    loop: 'FIG 1.2 / Recorded with sample answers',
+    /** Under the closing tablet: a second recorded sample, not the hero's Sample Company. */
+    closing: 'FIG 8.1 / A different sample company',
+    split: 'FIG 2.1',
+    gap: 'FIG 3.1',
+    benchmark: 'FIG 6.1',
   },
 } as const
 
@@ -56,16 +115,10 @@ export interface ReadinessStat {
 }
 
 export const READINESS_PROBLEM = {
-  heading: 'Most companies can’t yet show what AI returns.',
-  intro:
-    'Three large surveys, three different measures. In each one, most companies can’t yet show a return. Read them side by side, not as one trend.',
+  eyebrow: 'Why we ask what we ask',
+  heading: 'Two surveys, two measures. In each, most companies can’t yet show a return.',
+  intro: 'McKinsey asked about profit. BCG asked about value. Read them side by side, not as one trend.',
   stats: [
-    {
-      value: '56%',
-      label: 'of CEOs say AI brought neither higher revenue nor lower costs in the past year.',
-      finding: 'pwc-ceo-survey-2026-56-percent-no-ai-benefit',
-      sample: '4,454 CEOs in 95 countries',
-    },
     {
       value: '37%',
       label: 'of respondents attribute any EBIT impact to AI, about the same share as the year before.',
@@ -91,6 +144,8 @@ export const READINESS_PROBLEM = {
       { value: 10, label: 'AI algorithms' },
     ],
     takeaway: 'Most of the hard part is people and process, not the model.',
+    /** Our grouping of our six areas, not BCG's: BCG did not map its split onto them. */
+    bridge: 'We group four of our six areas as people and process: leadership, talent, governance and culture.',
   },
 } as const
 
@@ -357,13 +412,7 @@ export const READINESS_METHOD = {
 
 export const READINESS_DETAILS = {
   heading: 'What you get, and what happens to your answers',
-  screenshot: {
-    src: '/assets/imagery/homepage/prism-grid-solar.webp',
-    alt: 'A question from the AI Readiness Assessment: four answer options, with the six-area profile and a two-axis map filling in as you answer',
-    width: 1280,
-    height: 800,
-  },
-
+  // The product shots come from the landing media manifest (readiness/*), not from here.
   blocks: [
     {
       title: 'What you do',
@@ -440,9 +489,10 @@ export const READINESS_QUOTES = {
 
 export const READINESS_CLOSING = {
   eyebrow: 'Start with your own profile',
-  title: 'Know your two weakest areas before the next AI budget is set.',
+  title: 'See your six areas side by side, then decide where the money goes.',
   body: '24 questions. Your profile on screen when you finish, with the research behind your two lowest areas and the hours AI could free in the workflows you name. If it’s useful, book a 30-minute call to walk through it with us.',
-  scene: { id: 'scene-desk-wood-b', alt: '' },
+  // A real Orchid desk scene under the report tablet (scene-desk-wood-b resolves to the public placeholder).
+  scene: { id: 'obj-desk-paddies', alt: '' },
 } as const
 
 export const READINESS_SOURCE_LABELS = {
