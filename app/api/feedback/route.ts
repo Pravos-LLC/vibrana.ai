@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
   }
   if (consent.status === 'invalid') {
-    return NextResponse.json({ error: 'Please choose how to credit you and add your email so we can confirm the wording.' }, { status: 400 })
+    return NextResponse.json({ error: form.consent.emailNote ? 'Please choose how to credit you and add your email so we can confirm the wording.' : 'Please choose how to credit you.' }, { status: 400 })
   }
   if (consent.status === 'stale') {
     return NextResponse.json(

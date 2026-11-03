@@ -1,7 +1,7 @@
 import 'server-only'
 
 import { z } from 'zod'
-import { FEEDBACK_FORMS, FEEDBACK_UI, GENERAL_FEEDBACK_FORM, type FeedbackFormConfig } from '@/src/feedback-content'
+import { FEEDBACK_FORMS, GENERAL_FEEDBACK_FORM, type FeedbackFormConfig } from '@/src/feedback-content'
 import { CONSENT_DB_MIN_SCORE } from './submission'
 
 const RESERVED = new Set(['__proto__', 'constructor', 'prototype', 'intro', 'consent', 'testimonial', 'done'])
@@ -37,13 +37,14 @@ const formSchema = z.object({
     yesLabel: text(300),
     noLabel: text(300),
     testimonialPrompt: text(2000),
-    testimonialHint: text(2000),
+    testimonialHint: text(2000).optional(),
     testimonialPlaceholder: text(500),
     testimonialMaxLength: z.number().int().min(1).max(2000),
     attributionLabel: text(300),
     attributions: z.array(z.object({ id: z.enum(['named', 'company', 'anonymous']), label: text(300) }).strict())
       .min(1).max(3).refine((v) => new Set(v.map((entry) => entry.id)).size === v.length),
-    emailNote: text(2000),
+    emailNote: text(2000).optional(),
+    contactNote: text(2000).optional(),
   }).strict(),
   thankYou: z.object({ connectUrl: httpsUrl }).strict().optional(),
 }).strict().superRefine((form, ctx) => {
@@ -55,6 +56,8 @@ const formSchema = z.object({
     || contacts[0]?.id !== 'contact' || form.questions.at(-1)?.id !== 'contact') {
     ctx.addIssue({ code: 'custom', message: 'Invalid question structure' })
   }
+  // Only one contact-step note is ever shown, so a form sets one; the consent record must match the screen.
+  if (form.consent.emailNote && form.consent.contactNote) ctx.addIssue({ code: 'custom', message: 'Set emailNote or contactNote, not both' })
 })
 const envelopeSchema = z.object({ schema: z.literal(1), forms: z.record(slugSchema, formSchema) }).strict()
 
@@ -84,7 +87,8 @@ export function getFeedbackForm(slug: unknown): FeedbackFormConfig | null {
   const parsed = envelopeSchema.safeParse(value)
   if (!parsed.success || Object.keys(parsed.data.forms).length > 25) throw new FeedbackFormsConfigurationError()
   for (const [name, form] of Object.entries(parsed.data.forms)) {
-    if (name !== form.slug || !FEEDBACK_UI.intro.body.includes(form.consent.privacyLine)) throw new FeedbackFormsConfigurationError()
+    // The welcome screen renders each form's own privacyLine, so no copy match is needed here.
+    if (name !== form.slug) throw new FeedbackFormsConfigurationError()
   }
   return Object.hasOwn(parsed.data.forms, key) ? parsed.data.forms[key] : null
 }

@@ -180,13 +180,34 @@ describe('POST /api/feedback', () => {
     expect(inserts).toHaveLength(0)
   })
 
-  it('rejects a Yes with no email or no credit choice, and saves nothing', async () => {
+  it('saves a Yes with no email, and rejects a Yes with no credit choice', async () => {
     const noEmail = await post(base(9, { consent: { version: form.consent.version, testimonial: true, attribution: 'named' } }))
-    expect(noEmail.status).toBe(400)
+    expect(noEmail.status).toBe(200)
+    expect(inserts).toHaveLength(1)
+    inserts.length = 0
+    emails.length = 0
     const noCredit = await post(base(9, { answers: { overall: 9, contact: { email: 'rob@example.com' } }, consent: { version: form.consent.version, testimonial: true } }))
     expect(noCredit.status).toBe(400)
     expect(inserts).toHaveLength(0)
     expect(emails).toHaveLength(0)
+  })
+
+  it('a configured legacy form with emailNote still needs an email on a Yes, and says so', async () => {
+    const legacy = { ...structuredClone(form), slug: 'legacy-example', consent: { ...structuredClone(form.consent), contactNote: undefined, emailNote: 'We need your email so we can send you the wording to approve.' } }
+    vi.stubEnv('FEEDBACK_FORMS_JSON', JSON.stringify({ schema: 1, forms: { [legacy.slug]: legacy } }))
+    vi.stubEnv('VERCEL_ENV', 'production')
+    try {
+      const yes = { version: form.consent.version, testimonial: true, attribution: 'named' }
+      const noEmail = await post({ ...base(9, { consent: yes }), slug: legacy.slug })
+      expect(noEmail.status).toBe(400)
+      expect((await noEmail.json()).error).toContain('add your email')
+      expect(inserts).toHaveLength(0)
+      const withEmail = await post({ ...base(9, { answers: { overall: 9, contact: { email: 'rob@example.com' } }, consent: yes }), slug: legacy.slug })
+      expect(withEmail.status).toBe(200)
+      expect(emails[0].text).toContain('This form promised to confirm the exact wording by email')
+    } finally {
+      vi.unstubAllEnvs()
+    }
   })
 
   it('returns 400 for invalid answers, 400 for bad JSON, 404 for an unknown form, 413 for an oversized body', async () => {

@@ -46,7 +46,7 @@ export type FeedbackConsentConfig = {
    * (lib/feedback/submission.ts), which the client_feedback_consent_gate CHECK constraint mirrors.
    */
   minScore: number
-  /** The anonymity promise on the welcome screen. The respondent sees it before answering, so it is part of the record. */
+  /** The anonymity promise, rendered on the welcome screen under the intro copy. The respondent sees it before answering, so it is part of the record. */
   privacyLine: string
   /** The testimonial question: asked on its own, never as a follow-up to what was already written. */
   heading: string
@@ -54,13 +54,19 @@ export type FeedbackConsentConfig = {
   noLabel: string
   /** The testimonial step, shown only after a Yes. Written fresh for publication, separate from private feedback. */
   testimonialPrompt: string
-  testimonialHint: string
+  /** Optional note under the testimonial prompt. */
+  testimonialHint?: string
   testimonialPlaceholder: string
   testimonialMaxLength: number
   attributionLabel: string
   attributions: { id: FeedbackAttributionId; label: string }[]
-  /** Shown on the contact step after a Yes, where an email is required so the wording can be approved. */
-  emailNote: string
+  /**
+   * Legacy (consent v4 and earlier): when set, a Yes requires an email on the contact step and this note says why.
+   * Kept so forms configured that way behave exactly as their recorded wording promised.
+   */
+  emailNote?: string
+  /** Optional note on the contact step after a Yes, in place of the contact question's own hint. Requires nothing. */
+  contactNote?: string
 }
 
 export type FeedbackFormConfig = {
@@ -146,14 +152,13 @@ export const SAMPLE_FEEDBACK_FORM: FeedbackFormConfig = {
     },
   ],
   consent: {
-    version: 'sample-feedback-consent-2026-11-02-v4',
+    version: 'sample-feedback-consent-2026-11-02-v5',
     minScore: 8,
     privacyLine: 'Answers are anonymous unless you choose to provide your information.',
     heading: 'Would you be open to a short public testimonial?',
     yesLabel: 'Yes',
     noLabel: 'No',
     testimonialPrompt: 'In a sentence or two, what would you tell someone considering working with us?',
-    testimonialHint: "We'll check the final wording with you before anything is published.",
     testimonialPlaceholder: 'Type your testimonial here',
     testimonialMaxLength: 1000,
     attributionLabel: 'How should we credit you?',
@@ -162,7 +167,7 @@ export const SAMPLE_FEEDBACK_FORM: FeedbackFormConfig = {
       { id: 'company', label: 'Company name only' },
       { id: 'anonymous', label: 'Anonymous' },
     ],
-    emailNote: 'We need your email so we can send you the wording to approve.',
+    contactNote: "Optional. Add your name if you'd like us to credit you by name.",
   },
 }
 
@@ -187,7 +192,16 @@ export const FEEDBACK_UI = {
   intro: {
     eyebrow: (client: string, project: string) => `${client} ${project}`,
     heading: 'Feedback Request',
-    body: 'Please take two minutes to help us improve our process at Vibrana. Answers are anonymous unless you choose to provide your information.',
+    /** The form's own consent.privacyLine is shown as the next paragraph. */
+    body: "We've recently had the chance to work together. At Vibrana, we are constantly learning and improving. Your feedback helps shape our offerings, process and decisions. If you could spare a few minutes to share yours, we would be very grateful.",
+    signOff: 'John and the team at Vibrana',
+    team: [
+      { name: 'John', photo: '/assets/team/john-ellison.webp' },
+      { name: 'Fatma', photo: '/assets/team/fatma-ghedira.webp' },
+      { name: 'Abe', photo: '/assets/team/abe-isleem.webp' },
+      { name: 'Stephan', photo: '/assets/team/stephan-ledain.webp' },
+      { name: 'Chetan', photo: '/assets/team/chetan-nandakumar.webp' },
+    ],
     start: 'Start',
   },
   nav: {
@@ -211,26 +225,42 @@ export const FEEDBACK_UI = {
     body: 'Your feedback helps us improve and deliver better services to our clients.',
     eyebrow: 'Keep exploring',
     cards: [
+      // Images: each tool's own report screen with sample data (scripts/feedback-report-mocks).
+      {
+        href: '/ai-build-sprint/readiness',
+        image: '/assets/feedback/report-build-sprint.webp',
+        title: 'AI Build Sprint Brief',
+        description: 'Shape a useful first release, with an optional business case.',
+      },
       {
         href: '/ai-readiness',
-        image: '/assets/feedback/card-ai-readiness.webp',
+        image: '/assets/feedback/report-ai-readiness.webp',
         title: 'AI Readiness Assessment',
         description: 'See where your organization stands across six areas.',
       },
       {
         href: '/eu-ai-act-readiness',
-        image: '/assets/feedback/card-eu-ai-act.webp',
+        image: '/assets/feedback/report-eu-ai-act.webp',
         title: 'EU AI Act Readiness',
         description: 'Find the obligations that apply to you, and when.',
       },
       {
         href: '/ai-transformation/simulator',
-        image: '/assets/feedback/card-simulator.webp',
+        image: '/assets/feedback/report-simulator.webp',
         title: 'AI Transformation Simulator',
         description: 'Model cost, time and capacity, team by team.',
       },
     ],
     callLine: 'Want to keep the conversation going?',
+    activity: {
+      eyebrow: 'What we have been building',
+      /** The count animates up; `heading` wraps it. */
+      heading: (count: string) => `${count} pull requests shipped in the last 3 months`,
+      note: 'Merged pull requests on GitHub across the team, day by day.',
+      less: 'Less',
+      more: 'More',
+      cell: (count: number, date: string) => `${count === 0 ? 'No' : count} merged pull request${count === 1 ? '' : 's'} on ${date}`,
+    },
     connectLabel: 'Connect on LinkedIn',
   },
   email: {

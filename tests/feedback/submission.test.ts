@@ -98,7 +98,7 @@ describe('consent gating', () => {
     expect(outcome.snapshot).toContain(form.consent.heading)
     expect(outcome.snapshot).toContain(`${form.consent.yesLabel} / ${form.consent.noLabel}`)
     expect(outcome.snapshot).toContain(form.consent.testimonialPrompt)
-    expect(outcome.snapshot).toContain(form.consent.emailNote)
+    expect(outcome.snapshot).toContain(form.consent.contactNote)
   })
 
   it('records a No answer as answered but not given, with no attribution or text', () => {
@@ -116,11 +116,28 @@ describe('consent gating', () => {
     expect(noCredit).toEqual({ status: 'invalid' })
   })
 
-  it('a Yes without an email is invalid, because the wording must be confirmed with the person', () => {
+  it('a Yes is the permission: it records without an email', () => {
     const noEmail = { answers: { overall: 9 }, consent: { version, testimonial: true, attribution: 'anonymous' } }
-    expect(evaluateConsent(form, 9, schema.parse(body(noEmail)))).toEqual({ status: 'invalid' })
+    expect(evaluateConsent(form, 9, schema.parse(body(noEmail)))).toMatchObject({ status: 'recorded', testimonial: true, attribution: 'anonymous' })
     const blank = { answers: { overall: 9, contact: { email: '' } }, consent: { version, testimonial: true, attribution: 'anonymous' } }
-    expect(evaluateConsent(form, 9, schema.parse(body(blank)))).toEqual({ status: 'invalid' })
+    expect(evaluateConsent(form, 9, schema.parse(body(blank)))).toMatchObject({ status: 'recorded', testimonial: true })
+  })
+
+  it('a legacy form whose wording promised email confirmation (emailNote) still needs an email on a Yes', () => {
+    const legacy = { ...form, consent: { ...form.consent, emailNote: 'We need your email so we can send you the wording to approve.' } }
+    const noEmail = { answers: { overall: 9 }, consent: { version, testimonial: true, attribution: 'anonymous' } }
+    expect(evaluateConsent(legacy, 9, schema.parse(body(noEmail)))).toEqual({ status: 'invalid' })
+    const withEmail = { answers: { overall: 9, contact: { email: 'rob@example.com' } }, consent: { version, testimonial: true, attribution: 'anonymous' } }
+    expect(evaluateConsent(legacy, 9, schema.parse(body(withEmail)))).toMatchObject({ status: 'recorded', testimonial: true })
+  })
+
+  it('leaves optional consent notes a form does not set out of the recorded wording', () => {
+    const bare = { ...form, consent: { ...form.consent, testimonialHint: undefined, emailNote: undefined, contactNote: undefined } }
+    expect(consentSnapshot(bare)).not.toContain('Testimonial note:')
+    expect(consentSnapshot(bare)).not.toContain('Contact step note:')
+    const full = { ...form, consent: { ...form.consent, testimonialHint: 'A hint', emailNote: 'A note' } }
+    expect(consentSnapshot(full)).toContain('Testimonial note: A hint')
+    expect(consentSnapshot(full)).toContain('Contact step note: A note')
   })
 
   it('a high score without a consent block records nothing', () => {

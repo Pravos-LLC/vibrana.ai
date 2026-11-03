@@ -87,7 +87,7 @@ export type ConsentOutcome =
   | { status: 'stale' }
   /** A consent block arrived with a score below the threshold. The real form never sends one. */
   | { status: 'forbidden' }
-  /** Right wording version, but a shape the real form never sends (a Yes with no credit choice or no email). */
+  /** Right wording version, but a shape the real form never sends (a Yes with no credit choice, or no email on a legacy form). */
   | { status: 'invalid' }
   | {
       status: 'recorded'
@@ -100,8 +100,8 @@ export type ConsentOutcome =
 
 /**
  * Every consent-related string the respondent sees, in screen order: the welcome-screen privacy
- * line, the testimonial question and its Yes / No options, the testimonial step, and the email note.
- * Stored with every consent record.
+ * line, the testimonial question and its Yes / No options, the testimonial step, and the contact-step
+ * note. Optional notes a form does not set are left out. Stored with every consent record.
  */
 export function consentCopy(form: FeedbackFormConfig): string[] {
   const c = form.consent
@@ -111,11 +111,12 @@ export function consentCopy(form: FeedbackFormConfig): string[] {
     c.yesLabel,
     c.noLabel,
     c.testimonialPrompt,
-    c.testimonialHint,
+    ...(c.testimonialHint ? [c.testimonialHint] : []),
     c.testimonialPlaceholder,
     c.attributionLabel,
     ...c.attributions.map((a) => a.label),
-    c.emailNote,
+    ...(c.emailNote ? [c.emailNote] : []),
+    ...(c.contactNote ? [c.contactNote] : []),
   ]
 }
 
@@ -126,11 +127,12 @@ export function consentSnapshot(form: FeedbackFormConfig): string {
     `Testimonial question: ${c.heading}`,
     `Answer options: ${c.yesLabel} / ${c.noLabel}`,
     `Testimonial prompt: ${c.testimonialPrompt}`,
-    `Testimonial note: ${c.testimonialHint}`,
+    ...(c.testimonialHint ? [`Testimonial note: ${c.testimonialHint}`] : []),
     `Testimonial placeholder: ${c.testimonialPlaceholder}`,
     `Credit question: ${c.attributionLabel}`,
     `Credit options: ${c.attributions.map((a) => a.label).join(' / ')}`,
-    `Contact step note: ${c.emailNote}`,
+    ...(c.emailNote ? [`Contact step note: ${c.emailNote}`] : []),
+    ...(c.contactNote ? [`Contact step note: ${c.contactNote}`] : []),
   ]
   return lines.join('\n')
 }
@@ -149,9 +151,10 @@ export function evaluateConsent(form: FeedbackFormConfig, score: number, submiss
   if (typeof block.testimonial !== 'boolean') return { status: 'invalid' }
   const snapshot = consentSnapshot(form)
   if (!block.testimonial) return { status: 'recorded', testimonial: false, version: form.consent.version, snapshot }
-  // A Yes needs a credit choice, and an email: the wording is always confirmed with the person before it is used.
+  // A Yes needs a credit choice. The Yes is the permission; contact details stay optional, except on a
+  // legacy form whose recorded wording (emailNote) promised to confirm the testimonial by email.
   const contact = submission.answers[contactQuestionId(form)] as { email?: string } | undefined
-  if (!block.attribution || !contact?.email) return { status: 'invalid' }
+  if (!block.attribution || (form.consent.emailNote && !contact?.email)) return { status: 'invalid' }
   return {
     status: 'recorded',
     testimonial: true,
