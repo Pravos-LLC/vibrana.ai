@@ -7,14 +7,15 @@ import { cn } from '@/src/components/prism/utils/cn'
  * studied. Data comes from the ledger snapshot (src/lib/readiness-page/evidence.ts);
  * the sample line comes from page copy and is checked against the source by tests.
  */
-export function Cite({ findings, sample, className }: { findings: readonly string[]; sample?: string; className?: string }) {
+export function Cite({ findings, sample, className, inline }: { findings: readonly string[]; sample?: string; className?: string; /** Render as a span, for a source slot inside a paragraph (ProofMetric). */ inline?: boolean }) {
   // One source line per distinct source document, in the order first cited.
   const seen = new Set<string>()
   const sources = findings
     .map(cite)
     .filter((c) => (seen.has(c.url) ? false : (seen.add(c.url), true)))
+  const Tag = inline ? 'span' : 'div'
   return (
-    <div className={cn('text-xs leading-5 text-ink-tertiary', className)}>
+    <Tag className={cn(inline ? undefined : 'text-xs leading-5 text-ink-tertiary', className)}>
       {L.source}:{' '}
       {sources.map((c, i) => (
         <span key={c.slug}>
@@ -25,6 +26,6 @@ export function Cite({ findings, sample, className }: { findings: readonly strin
         </span>
       ))}
       .{sample ? ` ${L.studied}: ${sample}.` : ''}
-    </div>
+    </Tag>
   )
 }

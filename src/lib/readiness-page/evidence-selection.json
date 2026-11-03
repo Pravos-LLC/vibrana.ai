@@ -1,7 +1,6 @@
 {
   "_comment": "Which knowledge-base findings, approved case facts and approved quotes the /ai-readiness page may cite. Edit here, then run `node scripts/readiness-evidence/sync.mjs` from a checkout inside the Vibrana hub (or with VIBRANA_HUB set) to refresh evidence-ledger.json. Findings must pass the hub ledger (verified, public or anonymized); case facts and quotes must appear verbatim in an engagement's Approved facts table or Approved quotes list. tests/readiness-page/evidence.test.ts checks every number and quote on the page against this snapshot.",
   "findings": [
-    "pwc-ceo-survey-2026-56-percent-no-ai-benefit",
     "mckinsey-state-of-ai-2026-ebit-impact-flat",
     "bcg-widening-ai-value-gap-60-percent-no-material-value",
     "bcg-widening-ai-value-gap-2025-maturity-distribution",
