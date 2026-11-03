@@ -8,6 +8,8 @@
 // Persona target: founder-visionary (home primary), gatekeeper-coo (secondary).
 // New lines here went through vibrana-copywriting → persona-review.
 
+import { landingMedia } from '@/src/landing-media'
+
 // Where each "One methodology, four parts" card links, keyed by the pillar
 // title in ENTERPRISE_METHODOLOGY (src/enterprise-content.ts).
 export const METHODOLOGY_LINKS: Record<string, { href: string; external: boolean }> = {
@@ -90,31 +92,26 @@ export const HOMEPAGE_ROLE_ORDER = [
   'IT Systems',
 ]
 
-// AIOS screenshots (light mode, from aios-website), in AIOS_ECOSYSTEM.points order
-// for the first two points. The third point (open source) renders as a strip.
-export const AIOS_SCREENSHOTS = [
-  {
-    src: '/assets/imagery/homepage/prism-grid-solar.webp',
-    alt: 'The AIOS workspace: a personal agent workspace with tasks, context and chat',
-    width: 1280,
-    height: 836,
-  },
-  {
-    src: '/assets/imagery/homepage/prism-grid-solar.webp',
-    alt: 'The AIOS team brain home: ask the brain, knowledge growth, recent decisions and open tasks',
-    width: 1280,
-    height: 1588,
-  },
-]
+// AIOS screenshots, light and dark (landing media home/*), in AIOS_ECOSYSTEM.points order for the
+// first two points; the page shows the one that matches the theme. The third point (open source)
+// renders as a strip.
+const aiosShot = (name: 'aios-workspace' | 'aios-team-brain') => {
+  const light = landingMedia(`home/${name}-light.webp`)
+  const dark = landingMedia(`home/${name}-dark.webp`)
+  return { src: light.path, srcDark: dark.path, alt: light.alt, width: light.width, height: light.height }
+}
+
+export const AIOS_SCREENSHOTS = [aiosShot('aios-workspace'), aiosShot('aios-team-brain')]
 
 // Closing card: the readiness report on a tablet over a desk photo.
+const READINESS_PROFILE = landingMedia('readiness/readiness-profile.webp')
 export const CLOSING_MOCK = {
   sceneId: 'scene-desk-wood',
   screenshot: {
-    src: '/assets/public-demo/readiness-profile-desktop.svg',
-    alt: 'A sample AI readiness profile: an overall score and a bar for each category',
-    width: 1600,
-    height: 1000,
+    src: READINESS_PROFILE.path,
+    alt: READINESS_PROFILE.alt,
+    width: READINESS_PROFILE.width,
+    height: READINESS_PROFILE.height,
   },
   primaryCta: { text: 'Take the Readiness Assessment', href: '/ai-readiness' },
 }
