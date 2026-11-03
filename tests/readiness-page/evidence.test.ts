@@ -14,6 +14,9 @@ import {
   READINESS_QUOTES,
 } from '@/src/ai-readiness-content';
 import { ORG_DIMENSIONS } from '@/src/lib/assessment/scoring';
+import assessmentLedger from '@/src/lib/assessment/evidence-ledger.json';
+import assessmentSelection from '@/src/lib/assessment/evidence-selection.json';
+import { buildSampleReport } from '@/src/components/readiness/report-fixture';
 
 // Every number on /ai-readiness must trace to the knowledge-base snapshot. A number is a run
 // of digits (with , or .), so "4,454", "0.20" and "11,556" are checked whole.
@@ -175,5 +178,45 @@ describe('/ai-readiness evidence', () => {
     expect(text).not.toMatch(/\bminutes? to (complete|finish)|\d+\s*min\b/i);
     expect(text).not.toMatch(/\b(leverage|unlock|empower|seamless|transformative|landscape|change management|upskill|replace|headcount savings)\b/i);
     expect(text).not.toMatch(/\b(organisation|realise|colour|centre|analyse|programme)\b/i);
+  });
+});
+
+// The sample report in the hero shows research figures too. They come from the assessment's own
+// evidence ledger (the same findings the real report shows), so check them against that snapshot
+// and require the source link the page promises next to every figure.
+
+describe('/ai-readiness sample report figures', () => {
+  const sample = buildSampleReport();
+  const findings = Object.values((assessmentLedger as { findings: Record<string, { claim: string; url: string; source: { method: string } }> }).findings);
+
+  it('shows two lowest areas, each with a sourced finding and a case', () => {
+    expect(sample.lowest).toHaveLength(2);
+    for (const a of sample.lowest) {
+      expect(a.finding, a.dimension).not.toBeNull();
+      expect(a.caseFact, a.dimension).not.toBeNull();
+    }
+  });
+
+  it('every research figure on the sheet traces to the assessment ledger and links to its source', () => {
+    for (const a of sample.lowest) {
+      const f = a.finding!;
+      const row = findings.find((x) => x.claim === f.claim);
+      expect(row, `${a.dimension}: "${f.claim}" is a ledger claim`).toBeDefined();
+      expect(f.url).toBe(row!.url);
+      expect(f.url).toMatch(/^https:\/\//);
+      expect(f.sourceLabel.length).toBeGreaterThan(5);
+      expect(f.method).toBe(row!.source.method);
+      expectNumbersIn(`${f.claim} ${f.method}`, `${row!.claim} ${row!.source.method}`, a.dimension);
+    }
+  });
+
+  it('every case figure on the sheet is an approved case fact', () => {
+    const facts = Object.values(assessmentSelection.dimensions as Record<string, { case?: { fact: string } }>).map((d) => d.case?.fact ?? '');
+    for (const a of sample.lowest) expect(facts, a.dimension).toContain(a.caseFact!.fact);
+  });
+
+  it('the overall score is the plain average of the fixture areas', () => {
+    const mean = sample.dimensions.reduce((n, d) => n + d.score, 0) / sample.dimensions.length;
+    expect(sample.overall).toBe(Math.round(mean));
   });
 });

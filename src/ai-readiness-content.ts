@@ -77,7 +77,6 @@ export const READINESS_REPORT = {
 
 export const READINESS_CHAPTERS = {
   title: 'Contents',
-  skipLabel: 'Skip the chapter list',
   progress: (n: number) => `Chapter ${n}`,
   chapters: [
     { id: 'report', title: 'Your report' },
@@ -89,10 +88,14 @@ export const READINESS_CHAPTERS = {
     { id: 'your-data', title: 'Your data' },
     { id: 'start', title: 'Start' },
   ],
+  /** The visible pause and play button on the assessment loop (WCAG 2.2.2). */
+  loopControls: { pause: 'Pause the loop', play: 'Play the loop' },
   /** Figure captions (mono). The loop and still are the real product, recorded with sample answers. */
   figures: {
-    loop: 'FIG 1.1 / Recorded with sample answers',
-    question: 'FIG 1.2 / One question',
+    question: 'FIG 1.1 / One question',
+    loop: 'FIG 1.2 / Recorded with sample answers',
+    /** Under the closing tablet: a second recorded sample, not the hero's Sample Company. */
+    closing: 'FIG 8.1 / A different sample company',
     split: 'FIG 2.1',
     gap: 'FIG 3.1',
     benchmark: 'FIG 6.1',

@@ -61,10 +61,12 @@ export default function AIReadinessPage({ sample }: { sample: SampleReport }) {
 
       {/* ── Hero: the headline beside the report the reader will hold ── */}
       <section className="px-5 pb-20 pt-28 sm:px-8 md:pt-32 lg:pb-28">
-        <div className="mx-auto grid max-w-[1360px] items-start gap-14 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-6">
-          <div className="lg:pt-12">
+        {/* Two columns only from xl, where the sheet column holds a legible sheet (about 450px at 1280);
+            below that the sheet sits under the headline at its full 520px. */}
+        <div className="mx-auto grid max-w-[1360px] items-start gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.9fr)] xl:gap-6">
+          <div className="xl:pt-12">
             <div className="label-mono text-ink-tertiary">{HERO.eyebrow}</div>
-            <h1 className="mt-6 max-w-[19ch] font-display font-semibold text-ink" style={{ fontSize: 'clamp(2.375rem, 1.6rem + 1.9vw, 3.375rem)', lineHeight: 1.06, letterSpacing: '-0.035em' }}>
+            <h1 className="mt-6 max-w-[19ch] font-display font-semibold text-ink" style={{ fontSize: 'clamp(2.375rem, 1.5rem + 1.6vw, 3.125rem)', lineHeight: 1.06, letterSpacing: '-0.035em' }}>
               {HERO.headline.lead}
               <span className="font-serif-accent inline-block pb-1 tracking-normal">{HERO.headline.accent}</span>
               {HERO.headline.trail}
@@ -94,7 +96,7 @@ export default function AIReadinessPage({ sample }: { sample: SampleReport }) {
       {/* ── Chapters, with the rail beside them ── */}
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8 md:grid md:grid-cols-[168px_minmax(0,1fr)] md:gap-10 lg:gap-16">
         <aside className="max-md:contents md:pt-20">
-          <ChapterRail chapters={CHAPTERS.chapters} label={CHAPTERS.title} skipLabel={CHAPTERS.skipLabel} formatProgress={CHAPTERS.progress} top={96} />
+          <ChapterRail chapters={CHAPTERS.chapters} label={CHAPTERS.title} formatProgress={CHAPTERS.progress} top={96} />
         </aside>
 
         <div className="min-w-0">
@@ -105,7 +107,7 @@ export default function AIReadinessPage({ sample }: { sample: SampleReport }) {
                 <h2 className="font-display font-semibold text-ink" style={H2}>{DO.title}</h2>
                 <Steps items={DO.items} />
               </div>
-              <Plate caption={CHAPTERS.figures.question}>
+              <Plate caption={CHAPTERS.figures.question} tone>
                 {/* On phones the shot crops to the question itself, at a size that can be read. */}
                 <div className="relative aspect-[6/5] md:aspect-[16/10]">
                   <Image src={QUESTION.path} alt={QUESTION.alt} fill sizes="(max-width: 768px) 150vw, (max-width: 1024px) 92vw, 560px" className="object-cover object-[92%_0%] md:object-center" />
@@ -113,8 +115,8 @@ export default function AIReadinessPage({ sample }: { sample: SampleReport }) {
               </Plate>
             </div>
             <div className="mt-20 grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-14">
-              <Plate caption={CHAPTERS.figures.loop} className="lg:order-first" bare>
-                <ScreenLoop wide={LOOP_WIDE} tall={LOOP_TALL} label={LOOP_WIDE.mp4.alt} />
+              <Plate caption={CHAPTERS.figures.loop} className="lg:order-first" bare tone>
+                <ScreenLoop wide={LOOP_WIDE} tall={LOOP_TALL} label={LOOP_WIDE.mp4.alt} labels={CHAPTERS.loopControls} />
               </Plate>
               <div>
                 <h2 className="font-display font-semibold text-ink" style={H2}>{GET.title}</h2>
@@ -327,6 +329,8 @@ export default function AIReadinessPage({ sample }: { sample: SampleReport }) {
               scene={{ src: scene?.file ?? '', alt: CLOSING.scene.alt }}
               screenshot={{ src: PROFILE.path, alt: PROFILE.alt }}
             />
+            {/* The tablet is a recorded sample of the real report, not the hero's sample company. */}
+            <div className="label-mono mt-4 text-right text-ink-tertiary">{CHAPTERS.figures.closing}</div>
             <p className="mx-auto mt-8 max-w-3xl text-center text-ink-tertiary" style={{ fontSize: 12.5, lineHeight: 1.6 }}>{LABELS.ledgerNote}</p>
           </Chapter>
         </div>
@@ -367,12 +371,18 @@ function Steps({ items }: { items: readonly string[] }) {
   )
 }
 
-/** A product figure: framed, with its mono caption under it. */
-function Plate({ caption, className, bare, children }: { caption: string; className?: string; bare?: boolean; children: React.ReactNode }) {
+/**
+ * A product figure on a neutral mat, with its mono caption under it. `tone` quiets the capture's
+ * own gradient wash (the page keeps one gradient per viewport) and dims it a little in dark mode,
+ * where no dark capture of the assessment exists yet.
+ */
+function Plate({ caption, className, bare, tone, children }: { caption: string; className?: string; bare?: boolean; tone?: boolean; children: React.ReactNode }) {
   return (
     <figure className={cn('m-0 min-w-0', className)}>
-      <div className={cn('overflow-hidden', bare ? 'rounded-xl md:ring-1 md:ring-line-subtle max-md:rounded-[28px] max-md:ring-1 max-md:ring-line-subtle max-md:mx-auto max-md:max-w-[360px]' : 'rounded-xl ring-1 ring-line-subtle')} style={{ boxShadow: '0 24px 60px -32px rgba(36, 24, 90, 0.35)' }}>
-        {children}
+      <div className={cn('rounded-2xl border border-line bg-surface-raised p-2 sm:p-2.5', bare && 'max-md:mx-auto max-md:max-w-[380px] max-md:rounded-[30px]')}>
+        <div className={cn('overflow-hidden', bare ? 'rounded-xl max-md:rounded-[22px]' : 'rounded-xl', tone && 'saturate-[.55] dark:brightness-[.82]')}>
+          {children}
+        </div>
       </div>
       <figcaption className="label-mono mt-3 text-ink-tertiary">{caption}</figcaption>
     </figure>

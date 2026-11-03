@@ -42,19 +42,59 @@ for (const theme of ['light', 'dark'] as const) {
   }
 }
 
-test('the report preview steps through cover, score and findings at 1440px', async ({ page }) => {
-  await open(page, 1440, 'light')
+/** Rendered width of the sheet and the smallest rendered text on the beat in view. */
+async function measureSheet(page: Page) {
+  return page.locator(PREVIEW).evaluate((fig) => {
+    const layer = fig.querySelector<HTMLElement>('.origin-top-left')!
+    const scale = layer.getBoundingClientRect().width / layer.offsetWidth
+    let smallest = Infinity
+    let smallestText = ''
+    for (const el of Array.from(layer.querySelectorAll<HTMLElement>('*'))) {
+      const own = Array.from(el.childNodes).some((n) => n.nodeType === 3 && n.textContent!.trim())
+      if (!own) continue
+      const size = parseFloat(getComputedStyle(el).fontSize) * scale
+      if (size < smallest) {
+        smallest = size
+        smallestText = el.textContent!.trim().slice(0, 40)
+      }
+    }
+    return { sheetWidth: layer.getBoundingClientRect().width, smallest, smallestText }
+  })
+}
+
+// The sheet must be legible where it sits beside the headline: 440px or more at 1280, 500px or
+// more from 1440, and no text on any beat rendered under 11px.
+for (const [width, minSheet] of [[1280, 440], [1440, 500]] as const) {
+  test(`the report preview is legible and steps through its beats at ${width}px`, async ({ page }) => {
+    await open(page, width, 'light')
+    const preview = page.locator(PREVIEW)
+    await expect(preview).toHaveAttribute('data-dp-mode', 'scaled')
+    // Stop auto-advance first, so each check reads the beat it asked for.
+    await preview.getByRole('button', { name: 'Pause the preview' }).click()
+    for (const [beat, text] of [['Cover', 'Sample Company'], ['Score', 'Overall score'], ['Findings', 'Your two lowest areas']] as const) {
+      await preview.getByRole('button', { name: new RegExp(beat) }).click()
+      await expect(preview.getByText(text, { exact: true })).toBeVisible()
+      await page.waitForTimeout(450)
+      const m = await measureSheet(page)
+      expect(m.sheetWidth, `sheet width at ${width}px`).toBeGreaterThanOrEqual(minSheet)
+      expect(m.smallest, `smallest text on ${beat}: "${m.smallestText}"`).toBeGreaterThanOrEqual(11)
+    }
+    // Research on the sheet links to its source.
+    await expect(preview.locator('a[href^="https://"]').first()).toBeVisible()
+  })
+}
+
+test('between 1024 and 1279px the sheet sits under the headline at full size, not stacked', async ({ page }) => {
+  await open(page, 1024, 'light')
   const preview = page.locator(PREVIEW)
-  await expect(preview).toBeVisible()
   await expect(preview).toHaveAttribute('data-dp-mode', 'scaled')
-  await expect(preview.getByText('Sample Company')).toBeVisible()
-  await preview.getByRole('button', { name: /Score/ }).click()
-  await expect(preview.getByText('Overall score', { exact: true })).toBeVisible()
-  // The real assessment radar loads into the score page.
-  await expect(preview.locator('.recharts-polar-grid').first()).toBeVisible()
-  await preview.getByRole('button', { name: /Findings/ }).click()
-  await expect(preview.getByText('Your two lowest areas', { exact: true })).toBeVisible()
-  await expect(preview.getByText('Talent & Capability').first()).toBeVisible()
+  const box = await preview.boundingBox()
+  expect(box!.height, 'one sheet, not three stacked').toBeLessThan(1100)
+})
+
+test('the assessment loop has a visible pause control', async ({ page }) => {
+  await open(page, 1440, 'light')
+  await expect(page.getByRole('button', { name: /^(Pause|Play) the loop$/ }).filter({ visible: true })).toHaveCount(1)
 })
 
 test('the report preview stacks its three pages at reading size at 390px', async ({ page }) => {
