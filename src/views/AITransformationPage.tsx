@@ -1,121 +1,229 @@
 'use client'
 
-import { Compass, ShieldCheck } from 'lucide-react'
+import React from 'react'
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { EnterprisePageShell } from '@/src/components/enterprise/EnterprisePageShell'
 import { EnterpriseInquiryForm } from '@/src/components/enterprise/EnterpriseInquiryForm'
-import { AITransformationLandscape } from '@/src/components/enterprise/AITransformationLandscape'
-import { AITransformationDifferentiators } from '@/src/components/enterprise/AITransformationDifferentiators'
-import { Button, Eyebrow, MetricProof, Section, SectionHeader } from '@/src/components/prism'
-import { TRANSFORMATION_PAGE } from '@/src/ai-transformation-content'
+import { Button } from '@/src/components/prism'
+import { ChapterRail } from '@/src/components/landing'
+import { TRANSFORMATION_PAGE as T } from '@/src/ai-transformation-content'
+import { OperatingMap } from '@/src/components/transformation/OperatingMap'
+import { PathwayFilm } from '@/src/components/transformation/PathwayFilm'
+import { accent } from '@/src/components/transformation/accent'
+import {
+  Chapter,
+  Differentiators,
+  FitCriteria,
+  Landscape,
+  OutcomesBridge,
+  PhaseBody,
+  ProofSpread,
+  SafeguardClauses,
+} from '@/src/components/transformation/chapters'
 
-const panel = 'rounded-2xl border border-line-subtle bg-surface-frost backdrop-blur-md'
+const SHELL = 'mx-auto w-full max-w-[1320px] px-5 sm:px-8'
+const PHASE_IDS = ['map', 'build', 'learn', 'transfer'] as const
 
+/**
+ * /ai-transformation, Editorial Field Report: a masthead over the operating map, then the program as a
+ * report in eight numbered chapters (ChapterRail), each phase chapter closing on its GateCard.
+ * Copy: src/ai-transformation-content.ts (hub copy deck transformation.md).
+ */
 export default function AITransformationPage() {
   return (
     <EnterprisePageShell>
-      <section className="px-6 pb-20 pt-32 md:pb-24 md:pt-44">
-        <div className="mx-auto max-w-6xl">
-          <Eyebrow gradient="prism">{TRANSFORMATION_PAGE.hero.eyebrow}</Eyebrow>
-          <h1 className="mt-6 max-w-5xl text-5xl font-semibold leading-[1.02] tracking-tight text-ink md:text-7xl">{TRANSFORMATION_PAGE.hero.title}</h1>
-          <p className="mt-7 max-w-3xl text-lg leading-8 text-ink-secondary md:text-xl">{TRANSFORMATION_PAGE.hero.subtitle}</p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Button href="/ai-readiness" showArrow>{TRANSFORMATION_PAGE.hero.primaryCta}</Button>
-            <Button href="#discuss" variant="secondary">{TRANSFORMATION_PAGE.hero.secondaryCta}</Button>
+      {/* Masthead */}
+      <header className={`${SHELL} pt-24 md:pt-28`}>
+        <div className="flex items-baseline justify-between gap-6 border-b border-line pb-4">
+          <p className="label-mono text-ink-secondary">{T.hero.eyebrow}</p>
+        </div>
+        <h1
+          className="mt-8 max-w-[19ch] font-display font-semibold text-ink md:mt-10"
+          style={{
+            fontSize: 'clamp(2.5rem, 1.35rem + 4.1vw, 5.1rem)',
+            lineHeight: 1.02,
+            letterSpacing: '-0.035em',
+          }}
+        >
+          {accent(T.hero.title)}
+        </h1>
+        <div className="mt-8 grid gap-8 md:mt-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
+          <div className="max-w-[58ch]">
+            <p
+              className="text-ink-secondary"
+              style={{
+                fontSize: 'clamp(1.05rem, 0.98rem + 0.35vw, 1.25rem)',
+                lineHeight: 1.55,
+              }}
+            >
+              {T.hero.subtitle}
+            </p>
+            <p className="label-mono tabular mt-4 text-ink">{T.hero.priceLine}</p>
+          </div>
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center lg:flex-col lg:items-end">
+            <Button href="/ai-readiness" showArrow>
+              {T.hero.primaryCta}
+            </Button>
+            <Link
+              href="#discuss"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-current"
+            >
+              {T.hero.secondaryCta}
+              <ArrowRight aria-hidden className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      <div className={`${SHELL} mt-12 md:mt-6`}>
+        <OperatingMap />
+      </div>
+
+      {/* The report */}
+      <div
+        className={`${SHELL} mt-16 md:mt-24 md:grid md:grid-cols-[168px_minmax(0,1fr)] md:gap-x-10 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-x-16`}
+      >
+        <aside className="max-md:contents md:pt-14">
+          {/* Heading and rail stick together; below md the wrapper dissolves so the rail's own bar sticks. */}
+          <div className="max-md:contents md:sticky md:top-[88px]">
+            <p className="label-mono hidden pb-3 pl-4 text-ink-tertiary md:block">{T.rail.heading}</p>
+            <ChapterRail
+              chapters={T.rail.chapters}
+              label={T.rail.label}
+              skipLabel={T.rail.skipLabel}
+              formatProgress={(_n, _total, chapter) => T.rail.formatProgress(chapter.number ?? String(_n))}
+              top={109}
+            />
+          </div>
+        </aside>
+
+        <div className="min-w-0">
+          <Chapter id="problem" title={T.chapters.problem.title} lede={T.chapters.problem.lede} aside={<FitCriteria />}>
+            <div className="flex flex-col gap-20 md:gap-28">
+              <Landscape />
+              <Differentiators />
+              <OutcomesBridge />
+            </div>
+          </Chapter>
+
+          {PHASE_IDS.map((id) => (
+            <Chapter key={id} id={id} title={T.chapters[id].title} lede={T.chapters[id].lede} strip={id}>
+              <PhaseBody phase={id} />
+            </Chapter>
+          ))}
+
+          <Chapter id="proof" title={T.chapters.proof.title} eyebrow={T.proof.eyebrow}>
+            <ProofSpread />
+          </Chapter>
+
+          <Chapter id="safeguards" title={T.chapters.safeguards.title} eyebrow={T.safeguards.eyebrow} lede={T.safeguards.description}>
+            <SafeguardClauses />
+          </Chapter>
+
+          <Chapter id="start" title={T.chapters.start.title}>
+            <div className="flex flex-col gap-16">
+              <DiagnosticBand />
+              <SimulatorLine />
+            </div>
+          </Chapter>
+        </div>
+      </div>
+
+      <section id="discuss" className="scroll-mt-24 border-t border-line bg-surface-raised">
+        <div className={`${SHELL} py-20 md:py-28`}>
+          <div className="mx-auto max-w-5xl">
+            <EnterpriseInquiryForm {...T.inquiry} />
           </div>
         </div>
       </section>
-
-      <Section container="full" surface="raised">
-        <MetricProof eyebrow={TRANSFORMATION_PAGE.proof.eyebrow} statement={TRANSFORMATION_PAGE.proof.title} metrics={[...TRANSFORMATION_PAGE.proof.metrics]} attribution={{ name: TRANSFORMATION_PAGE.proof.description }} />
-        <div className="mt-5">
-          <Link href={TRANSFORMATION_PAGE.proof.caseStudyHref} className="inline-flex items-center gap-2 text-sm font-medium text-brand-violet-strong hover:underline">
-            {TRANSFORMATION_PAGE.proof.caseStudyLink}
-          </Link>
-        </div>
-      </Section>
-
-      <Section container="full">
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className={`${panel} p-8`}>
-            <div className="flex items-center gap-3">
-              <Compass className="h-5 w-5 text-brand-violet-strong" />
-              <h2 className="text-2xl font-semibold text-ink">{TRANSFORMATION_PAGE.outcomes.title}</h2>
-            </div>
-            <ul className="mt-6 space-y-4">
-              {TRANSFORMATION_PAGE.outcomes.items.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <ShieldCheck className="mt-1 h-4 w-4 flex-none text-brand-violet-strong" />
-                  <span className="text-sm leading-6 text-ink">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className={`${panel} p-8`}>
-            <Eyebrow>{TRANSFORMATION_PAGE.outcomes.fitEyebrow}</Eyebrow>
-            <div className="mt-5 between:border-t between:border-line-subtle">
-              {TRANSFORMATION_PAGE.outcomes.fit.map((item) => <p key={item} className="py-4 text-sm leading-6 text-ink-secondary">{item}</p>)}
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <AITransformationLandscape />
-
-      <Section container="full" surface="overlay">
-        <SectionHeader {...TRANSFORMATION_PAGE.phases} />
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {TRANSFORMATION_PAGE.phases.items.map((phase, index) => (
-            <div key={phase.title} className={`${panel} p-6`}>
-              <Eyebrow>0{index + 1}</Eyebrow>
-              <h3 className="mt-3 text-2xl font-semibold text-ink">{phase.title}</h3>
-              <p className="mt-4 text-sm leading-6 text-ink-secondary">{phase.description}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      <AITransformationDifferentiators />
-
-      <Section container="wide" surface="raised">
-        <SectionHeader eyebrow={TRANSFORMATION_PAGE.safeguards.eyebrow} title={TRANSFORMATION_PAGE.safeguards.title} subtitle={TRANSFORMATION_PAGE.safeguards.description} />
-        <div className="grid gap-4 md:grid-cols-2">
-          {TRANSFORMATION_PAGE.safeguards.items.map((item) => <div key={item} className="border-t border-line-subtle pt-4 text-sm leading-6 text-ink-secondary">{item}</div>)}
-        </div>
-      </Section>
-
-      <Section id="simulator" container="wide" rhythm="compact">
-        <div className={`${panel} grid gap-6 p-8 md:grid-cols-[1fr_auto] md:items-center`}>
-          <div className="max-w-2xl">
-            <Eyebrow gradient="prism">{TRANSFORMATION_PAGE.simulator.eyebrow}</Eyebrow>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink">{TRANSFORMATION_PAGE.simulator.title}</h2>
-            <p className="mt-4 text-base leading-7 text-ink-secondary">{TRANSFORMATION_PAGE.simulator.description}</p>
-          </div>
-          <Button href={TRANSFORMATION_PAGE.simulator.href} variant="secondary" showArrow>{TRANSFORMATION_PAGE.simulator.cta}</Button>
-        </div>
-      </Section>
-
-      <Section id="assessment" container="wide">
-        <div className="grid gap-10 border-y border-line-strong py-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div>
-            <Eyebrow gradient="regenerative">{TRANSFORMATION_PAGE.assessment.eyebrow}</Eyebrow>
-            <h2 className="mt-5 text-4xl font-semibold tracking-tight text-ink md:text-5xl">{TRANSFORMATION_PAGE.assessment.title}</h2>
-            <p className="mt-5 text-base leading-7 text-ink-secondary">{TRANSFORMATION_PAGE.assessment.description}</p>
-          </div>
-          <div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {TRANSFORMATION_PAGE.assessment.details.map((detail) => <div key={detail} className="border-t border-line-subtle pt-4 text-sm font-medium text-ink">{detail}</div>)}
-            </div>
-            <p className="mt-6 text-sm leading-6 text-ink-secondary">{TRANSFORMATION_PAGE.assessment.method}</p>
-            <p className="mt-4 text-xs leading-5 text-ink-tertiary">{TRANSFORMATION_PAGE.assessment.privacy}</p>
-            <Button href="/ai-readiness" className="mt-8" showArrow>{TRANSFORMATION_PAGE.assessment.cta}</Button>
-          </div>
-        </div>
-      </Section>
-
-      <Section id="discuss" container="wide" surface="raised">
-        <EnterpriseInquiryForm {...TRANSFORMATION_PAGE.inquiry} />
-      </Section>
     </EnterprisePageShell>
+  )
+}
+
+/**
+ * The page's one dark band (the Field Report's film moment): the diagnostic offer beside the
+ * pathway loop of a sample readiness report. Pinned to the dark tokens whatever the page theme.
+ */
+function DiagnosticBand() {
+  const A = T.assessment
+  return (
+    <div
+      id="assessment"
+      data-theme="dark"
+      className="scroll-mt-28 rounded-[28px] bg-surface-raised p-6 text-ink ring-1 ring-white/10 sm:p-10 lg:p-12"
+      style={{ colorScheme: 'dark' }}
+    >
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
+        <div className="flex flex-col">
+          <p className="label-mono text-ink-tertiary">{A.eyebrow}</p>
+          <h3
+            className="mt-4 font-display font-semibold text-ink"
+            style={{
+              fontSize: 'clamp(1.4rem, 1.2rem + 0.6vw, 1.8rem)',
+              lineHeight: 1.2,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            {A.title}
+          </h3>
+          <p className="mt-5 text-ink-secondary" style={{ fontSize: '1rem', lineHeight: 1.6 }}>
+            {A.description}
+          </p>
+          <ul className="mt-7 grid grid-cols-1 gap-x-6 sm:grid-cols-2">
+            {A.details.map((d) => (
+              <li key={d} className="border-t border-line py-3 text-sm font-medium text-ink">
+                {d}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8">
+            {/* The dark-mode button tokens key off a dark ancestor of .prism-light, which this band is not. */}
+            <Button href="/ai-readiness" showArrow className="![--g-text:#f1eaff] ![--g-edge:rgba(167,139,250,0.45)]">
+              {A.cta}
+            </Button>
+          </div>
+        </div>
+        <div className="flex min-w-0 flex-col gap-8">
+          <PathwayFilm caption={A.figCaption} />
+          <div className="flex flex-col gap-3 border-t border-line pt-5">
+            <p className="text-ink-secondary" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
+              {A.method}
+            </p>
+            <p className="text-ink-tertiary" style={{ fontSize: '0.75rem', lineHeight: 1.55 }}>
+              {A.privacy}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/** The simulator offer (kept copy), set as one ruled line rather than a second panel. */
+function SimulatorLine() {
+  const S = T.simulator
+  return (
+    <div id="simulator" className="grid scroll-mt-28 gap-6 border-y border-line py-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-12">
+      <div className="max-w-[62ch]">
+        <p className="label-mono text-ink-tertiary">{S.eyebrow}</p>
+        <h3
+          className="mt-3 font-display font-semibold text-ink"
+          style={{
+            fontSize: 'clamp(1.35rem, 1.15rem + 0.7vw, 1.75rem)',
+            lineHeight: 1.2,
+            letterSpacing: '-0.015em',
+          }}
+        >
+          {accent(S.title)}
+        </h3>
+        <p className="mt-3 text-ink-secondary" style={{ fontSize: '0.975rem', lineHeight: 1.6 }}>
+          {S.description}
+        </p>
+      </div>
+      <Button href={S.href} variant="secondary" showArrow>
+        {S.cta}
+      </Button>
+    </div>
   )
 }

@@ -1,31 +1,156 @@
+/**
+ * /ai-transformation copy. Source: hub gtm/programs/assessment-landing-pages/copy/transformation.md
+ * (Wave 1 deck, Editorial Field Report). Ledger ids (T1 to T12, J2 to J4) are in the hub copy brief.
+ * `*word*` marks the one serif italic word in a headline; the page renders it, never a raw asterisk.
+ * Strings marked "kept" are as live before the rebuild.
+ */
+
+export type ChapterId = 'problem' | 'map' | 'build' | 'learn' | 'transfer' | 'proof' | 'safeguards' | 'start'
+export type PhaseId = 'map' | 'build' | 'learn' | 'transfer'
+
 export const TRANSFORMATION_PAGE = {
   hero: {
-    eyebrow: 'AI-native transformation · 12-week pathway',
-    title: 'Scope and deliver an agreed 12-week change program beyond a single workflow.',
-    subtitle: 'Before contract, we fix the functions and workflows in scope, participant load, governance, deliverables, acceptance gates, exclusions, delivery team, price, and exit terms. Qualified 12-week scopes are quoted within a $120,000–$250,000 range.',
+    /** Mono dateline over the masthead (T1, J4). */
+    eyebrow: 'Program / 12 weeks / 4 phases / 4 gates you sign',
+    title: 'Twelve weeks to take AI past one workflow. You *sign* every gate.',
+    subtitle:
+      'Four phases across the functions you choose, each closed by a gate you sign. The next phase starts only after you do. Scope, team, price and exit terms are fixed before contract.',
+    priceLine: 'Quoted between $120,000 and $250,000',
     primaryCta: 'Take the AI Readiness Assessment',
     secondaryCta: 'Discuss a Transformation',
   },
+
+  /** The operating map, the hero centerpiece (page-local component). Equal widths: the SOW sets the weeks (T1). */
+  map: {
+    phases: [
+      { id: 'map', label: '01 Map', name: 'Map', artifact: 'The approved scope map' },
+      { id: 'build', label: '02 Build', name: 'Build', artifact: 'Workflows that pass their tests' },
+      { id: 'learn', label: '03 Learn', name: 'Learn', artifact: 'Each role trained on its own work' },
+      { id: 'transfer', label: '04 Transfer', name: 'Transfer', artifact: 'Your lead runs it' },
+    ] as const satisfies readonly { id: PhaseId; label: string; name: string; artifact: string }[],
+    gateLabel: (n: number) => `Gate ${n} / you sign`,
+    caption: 'FIG 0.1 / The 12-week pathway. The SOW sets the weeks and owners for each phase.',
+    ariaSummary:
+      'The 12-week pathway: Map, Build, Learn and Transfer. Each phase ends at a gate you sign, and the next phase starts only after you do.',
+    reducedMotionNote: 'The full map is shown at once.',
+  },
+
+  rail: {
+    heading: 'Contents',
+    label: 'Chapters',
+    skipLabel: 'Skip the chapter list',
+    chapters: [
+      { id: 'problem', number: '0', title: 'The problem' },
+      { id: 'map', number: '1', title: 'Map' },
+      { id: 'build', number: '2', title: 'Build' },
+      { id: 'learn', number: '3', title: 'Learn' },
+      { id: 'transfer', number: '4', title: 'Transfer' },
+      { id: 'proof', number: '5', title: 'Proof' },
+      { id: 'safeguards', number: '6', title: 'Safeguards' },
+      { id: 'start', number: '7', title: 'Start here' },
+    ] as const satisfies readonly { id: ChapterId; number: string; title: string }[],
+    formatProgress: (number: string) => `Chapter ${number}`,
+  },
+
+  chapters: {
+    problem: {
+      title: 'Several pilots. No shared *practice*.',
+      lede: 'You have AI pilots in a few teams. None of them has become how the company works yet. This program is built for that gap, at 150 to 500 people.',
+    },
+    map: {
+      title: "Map: what's in scope, written *down*.",
+      lede: 'We map only the people, workflows, systems and decisions inside the scope you contract, with your access and confidentiality rules. You approve the map before anything is built.',
+    },
+    build: {
+      title: 'Build: workflows with controls you can *test*.',
+      lede: 'We build the number of workflows in your contract, each in a named environment, with human approvals, evaluation thresholds and rollback. Whether one goes to production is your call.',
+    },
+    learn: {
+      title: 'Learn: each role trained on its own *work*.',
+      lede: 'Each function in scope gets its own curriculum and competency checks, inside a participant-hour budget you agree up front. Managers know their part before it starts.',
+    },
+    transfer: {
+      title: "Transfer: your lead runs it, and you decide what's *next*.",
+      lede: 'Your named internal lead runs the operating tests, takes the artifact register and the open-risk log, and you decide to stop, extend or take it fully in-house.',
+    },
+    proof: { title: 'One company. Every department. *Six* weeks.' },
+    safeguards: { title: 'Decisions about your people stay *yours*.' },
+    start: { title: 'Start with a *diagnostic*, or start the conversation.' },
+  },
+
+  /** GateCard props, one per phase chapter (J2: every gate signed by the owners named in the SOW; J4: four gates). */
+  gates: {
+    map: {
+      gate: 1,
+      when: 'End of Map',
+      title:
+        "You approve what's in scope: the operating map, the evidence baseline, the risk register, governance, and which workflows get built first.",
+      criteria: ['Scope map approved', 'Evidence baseline recorded', 'Risk register opened', 'Workflow list in priority order'],
+      signedBy: 'the owners named in your SOW',
+      transfers: ['The approved operating map, under your access and confidentiality rules'],
+      note: 'Build starts only after this gate is signed.',
+    },
+    build: {
+      gate: 2,
+      when: 'End of Build',
+      title:
+        'You check each contracted workflow against its acceptance tests, in its named environment, with human approvals and rollback in place.',
+      criteria: ['Acceptance tests passed', 'Human approval steps in place', 'Rollback tested', 'Production limits written down'],
+      signedBy: 'the owners named in your SOW',
+      transfers: ['The workflows, their tests and their production limits', 'Going live is your decision alone'],
+      note: 'Learn starts only after this gate is signed.',
+    },
+    learn: {
+      gate: 3,
+      when: 'End of Learn',
+      title: "You confirm each role's curriculum ran inside the agreed participant hours, and the competency checks are done.",
+      criteria: ['Curricula delivered by role', 'Participant hours inside budget', 'Competency checks complete'],
+      signedBy: 'the owners named in your SOW',
+      transfers: ['The curricula and the competency measures'],
+      note: 'Transfer starts only after this gate is signed.',
+    },
+    transfer: {
+      gate: 4,
+      when: 'End of Transfer',
+      title: 'You decide to stop, extend, or take it fully in-house, after your own lead has run the operating tests.',
+      criteria: [
+        'Operating tests run by your lead',
+        'Artifact register handed over',
+        'Open risks logged with owners',
+        'Stop, extend or in-house: decided',
+      ],
+      signedBy: 'the owners named in your SOW',
+      transfers: ['The artifact register and the open-risk log', 'Day-to-day running, by your named lead'],
+      note: 'Your stop, extend or in-house decision is the last gate you sign.',
+    },
+  } as const satisfies Record<PhaseId, unknown>,
+  gateLabels: { transfers: 'Yours from here' },
+  /** Page-level margin note, once, beside the first GateCard (T1). */
+  marginNote: 'Stop/go rights at every gate are in the SOW.',
+
   proof: {
-    eyebrow: 'One related company-scale engagement',
-    title: 'Delivery experience across 100+ people and 20+ job families in six weeks.',
-    description: 'These are participation, scope, and duration counts from one engagement, not audited business-outcome proof. Qualified buyers can review the measurement method, approved evidence, limitations, and available reference process during diligence.',
+    eyebrow: 'A related six-week engagement, not the 12-week program / scope and participation counts',
+    title: 'One company. Every department. *Six* weeks.',
+    metrics: [
+      { value: '100+', label: 'people in scope' },
+      { value: '20+', label: 'job families, each with its own curriculum' },
+      { value: '6', label: 'weeks, start to finish' },
+    ],
+    body: 'A mid-sized tech company brought every department in at once. One result its people-team can see each month: the newsletter that took about 10 hours of work now takes 1.',
+    diligence: 'In diligence, you can review how we counted and ask to speak with a client reference.',
     caseStudyLink: 'Read the AI transformation case study',
     caseStudyHref: '/case-studies/orion-tech',
-    metrics: [
-      { value: '100+', label: 'people included in the program scope' },
-      { value: '6 weeks', label: 'engagement duration' },
-      { value: '20+', label: 'job families with tailored curricula' },
-    ],
   },
+
+  /** Kept as live; each item now sits in its phase chapter (deck: "the outcomes list, now chapter 1 to 4 detail"). */
   outcomes: {
     title: 'Outputs are fixed in the SOW, not discovered after kickoff',
-    items: [
-      'A client-approved map of only the people, workflows, systems, and decisions inside the contracted scope, with access and confidentiality controls.',
-      'A fixed number of named workflows with defined environments, human approvals, evaluation thresholds, rollback, and production boundaries.',
-      'Role-specific learning for the contracted functions, with participant hours, manager responsibilities, and competency measures agreed in advance.',
-      'A governance charter, adoption measures, artifact register, and named internal lead with agreed authority, capacity, and handoff tests.',
-    ],
+    items: {
+      map: 'A client-approved map of only the people, workflows, systems, and decisions inside the contracted scope, with access and confidentiality controls.',
+      build: 'A fixed number of named workflows with defined environments, human approvals, evaluation thresholds, rollback, and production boundaries.',
+      learn: 'Role-specific learning for the contracted functions, with participant hours, manager responsibilities, and competency measures agreed in advance.',
+      transfer: 'A governance charter, adoption measures, artifact register, and named internal lead with agreed authority, capacity, and handoff tests.',
+    } as const satisfies Record<PhaseId, string>,
     fitEyebrow: 'Initial fit criteria',
     fit: [
       '150–500 people, with several AI pilots that have not moved into shared operating practice',
@@ -33,21 +158,12 @@ export const TRANSFORMATION_PAGE = {
       'Willingness to fix scope, participant load, governance, evidence, workforce safeguards, and budget before contract',
     ],
   },
-  phases: {
-    eyebrow: 'Contracted pathway',
-    title: 'Four phases with a client-owned gate between each.',
-    subtitle: 'The SOW assigns weeks, owners, inputs, deliverables, acceptance criteria, and stop/go rights for every phase.',
-    items: [
-      { title: 'Map', description: 'Approve the in-scope operating map, evidence baseline, data and interview plan, risk register, governance, and prioritized workflow list.' },
-      { title: 'Build', description: 'Implement the contracted workflow count against named environments, evaluations, human controls, and acceptance tests.' },
-      { title: 'Learn', description: 'Run the agreed role-specific curricula and competency checks within the participant-hour budget and workforce safeguards.' },
-      { title: 'Transfer', description: 'Complete owner-led operating tests, hand over the artifact register and unresolved-risk log, and make the client’s stop, extend, or internalize decision.' },
-    ],
-  },
+
   safeguards: {
     eyebrow: 'Workforce and data safeguards',
-    title: 'Vibrana changes systems and practices; the client retains employment authority.',
-    description: 'Before contract, the parties agree the workforce-impact assessment, participant hours, employee-data boundaries, consultation responsibilities, AI provider and subprocessor schedule, data flows, retention and deletion, incident ownership, and audit access.',
+    title: 'Decisions about your people stay *yours*.',
+    description:
+      'Before contract, the parties agree the workforce-impact assessment, participant hours, employee-data boundaries, consultation responsibilities, AI provider and subprocessor schedule, data flows, retention and deletion, incident ownership, and audit access.',
     items: [
       'No individual employee surveillance or performance scoring is included by default.',
       'The client alone makes employment, role, organization-design, and production-deployment decisions.',
@@ -63,6 +179,8 @@ export const TRANSFORMATION_PAGE = {
     method: 'Dimensions: leadership and strategy, data readiness, technology infrastructure, talent and capability, governance and responsible AI, and culture and change readiness. Each area’s score is the average of your answers, and every area counts the same in the overall score; company context and recommendations are kept apart from the published research.',
     privacy: 'Contact details, your answers and your scores are stored to deliver the report and manage assessment-related follow-up. Public company content, your answers and your scores may be processed through Firecrawl, OpenRouter and the open-weight AI models it routes to, for company context and the written analysis. The privacy policy explains providers and your access, correction, objection, and deletion rights.',
     cta: 'Take the Readiness Assessment',
+    /** Caption for the pathway loop beside the assessment block (page microcopy, under five words after the FIG number). */
+    figCaption: 'FIG 7.1 / A sample readiness report',
   },
   simulator: {
     eyebrow: 'AI Transformation Simulator',
