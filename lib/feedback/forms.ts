@@ -56,6 +56,8 @@ const formSchema = z.object({
     || contacts[0]?.id !== 'contact' || form.questions.at(-1)?.id !== 'contact') {
     ctx.addIssue({ code: 'custom', message: 'Invalid question structure' })
   }
+  // Only one contact-step note is ever shown, so a form sets one; the consent record must match the screen.
+  if (form.consent.emailNote && form.consent.contactNote) ctx.addIssue({ code: 'custom', message: 'Set emailNote or contactNote, not both' })
 })
 const envelopeSchema = z.object({ schema: z.literal(1), forms: z.record(slugSchema, formSchema) }).strict()
 
