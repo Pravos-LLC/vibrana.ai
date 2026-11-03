@@ -110,7 +110,7 @@ export function ChapterRail({ chapters, label = 'Chapters', top = 96, skipLabel 
       </nav>
 
       {/* Mobile bar */}
-      <nav aria-label={label} className="sticky z-20 border-b border-line-subtle bg-surface-nav px-1 backdrop-blur md:hidden" style={{ top: Math.max(0, top - 32) }}>
+      <nav aria-label={label} className="sticky z-20 border-b border-line-subtle bg-[var(--surface-nav)] px-1 backdrop-blur md:hidden" style={{ top: Math.max(0, top - 32) }}>
         <a href={`#${current?.id ?? ''}`} className="flex items-baseline gap-3 py-3 text-sm">
           <span className="label-mono tabular shrink-0 text-ink-tertiary">{current ? formatProgress(active + 1, chapters.length, current) : null}</span>
           <span className="truncate font-medium text-ink">{current?.title}</span>
