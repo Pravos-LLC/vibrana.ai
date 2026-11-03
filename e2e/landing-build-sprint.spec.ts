@@ -53,6 +53,63 @@ test('asking for sound swaps the hero loop for the full cut', async ({ page }) =
   await expect(stage.locator('video source[type="video/mp4"]')).toHaveAttribute('src', /factory-reel-full\./)
 })
 
+test('clicking the hero picture plays the full cut with sound on the first click', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/ai-build-sprint')
+  const stage = page.getByRole('region', { name: SPRINT_HERO_REEL.title })
+  const video = stage.locator('video')
+  await expect(video).toHaveCount(1)
+  const box = (await video.boundingBox())!
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height * 0.4)
+  // Still the one element: the sources swapped in place, so the click's own handler reached it.
+  await expect(video).toHaveCount(1)
+  await expect(video.locator('source[type="video/mp4"]')).toHaveAttribute('src', /factory-reel-full\./)
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.currentSrc), { timeout: 10_000 }).toMatch(/factory-reel-full\./)
+  const start = await video.evaluate((v: HTMLVideoElement) => v.currentTime)
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.currentTime), { timeout: 10_000 }).toBeGreaterThan(start + 0.5)
+  expect(await video.evaluate((v: HTMLVideoElement) => ({ muted: v.muted, paused: v.paused }))).toEqual({ muted: false, paused: false })
+  await expect(stage.getByText(/^Playing/)).toBeVisible()
+})
+
+for (const width of [1024, 1280, 1440]) {
+  test(`${width}px: every proof-row mark fits inside its cell`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/ai-build-sprint')
+    const overflows = await page.getByTestId('sprint-logo-strip').evaluate((ul) =>
+      [...ul.children].flatMap((li) => {
+        const cell = li.getBoundingClientRect()
+        return [...li.children]
+          .map((child) => child.getBoundingClientRect())
+          .filter((r) => r.left < cell.left - 0.5 || r.right > cell.right + 0.5)
+          .map((r) => `${li.textContent || li.querySelector('img')?.getAttribute('alt')}: ${r.width.toFixed(0)}px in ${cell.width.toFixed(0)}px`)
+      }),
+    )
+    expect(overflows).toEqual([])
+  })
+}
+
+test('both case studies are in the server HTML, not only the active tab', async ({ request }) => {
+  const html = await (await request.get('/ai-build-sprint')).text()
+  for (const card of SPRINT_WORK.cards) {
+    expect(html).toContain(card.metricLabel)
+    expect(html).toContain(card.body)
+  }
+})
+
+test('the pinned build log fits the viewport with its CTA visible, or does not pin', async ({ page }) => {
+  for (const [width, height] of [[1024, 768], [1280, 800], [1440, 900]] as const) {
+    await page.setViewportSize({ width, height })
+    await page.goto('/ai-build-sprint')
+    const log = page.getByTestId('sprint-timeline')
+    await expect(log).not.toHaveAttribute('data-mode', 'static')
+    if ((await log.getAttribute('data-mode')) !== 'pinned') continue
+    const top = await log.evaluate((el) => el.getBoundingClientRect().top + window.scrollY)
+    await page.evaluate((y) => window.scrollTo(0, y + 200), top)
+    await page.waitForTimeout(300)
+    await expect(log.getByRole('link', { name: 'Book a 30-min call' })).toBeInViewport({ ratio: 1 })
+  }
+})
+
 test('the problem sequence renders its three lines, the close and a screen-reader summary', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/ai-build-sprint')

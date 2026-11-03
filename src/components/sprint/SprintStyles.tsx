@@ -19,8 +19,6 @@ const CSS = `
 @keyframes sprint-slide { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
 @keyframes sprint-stamp { from { opacity: 0; transform: rotate(-6deg) scale(1.3); } to { opacity: 1; transform: rotate(-6deg) scale(1); } }
 @keyframes sprint-caret { 50% { opacity: 0; } }
-/* The build log pins only where it fits: 1024px wide, 760px tall, motion allowed. The height is
-   reserved from the server render so hydration never moves the page. */
 /* Kit workaround: DistinctProductFrame holds unfitted browser and app frames at 560px on phones
    and scrolls them sideways. The Build Sprint product screens reflow to a purpose-made phone crop
    instead, so on this page the frame takes the column width. */
@@ -28,7 +26,10 @@ const CSS = `
   .sprint-work-frame > figure { overflow-x: visible !important; padding-bottom: 0 !important; }
   .sprint-work-frame > figure > div { min-width: 0 !important; }
 }
-@media (min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference) {
+/* The build log pins only where its whole block, CTA included, fits: 1024px wide, 860px tall,
+   motion allowed (the pinned block measures about 800px). The height is reserved from the server
+   render so hydration never moves the page. */
+@media (min-width: 1024px) and (min-height: 860px) and (prefers-reduced-motion: no-preference) {
   .sprint-log-track { height: calc(100dvh + 11 * 38vh); }
 }
 `

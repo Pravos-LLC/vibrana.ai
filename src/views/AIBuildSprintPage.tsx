@@ -100,6 +100,7 @@ export default function AIBuildSprintPage() {
           <div className="mt-12">
             <SprintOutcomePlates />
           </div>
+          <MonoLabel className="mt-2">{SPRINT_WORK.recreatedNote}</MonoLabel>
         </div>
       </section>
 

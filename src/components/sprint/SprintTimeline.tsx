@@ -22,12 +22,13 @@ function phaseOf(day: number) {
 }
 
 type Mode = 'static' | 'pinned' | 'flow'
-const PIN_QUERY = '(min-width: 1024px) and (min-height: 760px)'
+/** Keep in step with `.sprint-log-track` in SprintStyles. */
+const PIN_QUERY = '(min-width: 1024px) and (min-height: 860px)'
 
 /**
  * SprintTimeline: the ten days as a build log (plan B7, hub deck §4).
  *
- * Pinned (1024px wide and 760px tall, motion allowed): the section holds while the visitor
+ * Pinned (1024px wide and 860px tall, motion allowed): the section holds while the visitor
  * scrolls. Each scroll step is one day: the D1 to D10 rail fills with the page's gradient, the
  * phase on the left lights, and that day's log line types into the dark build window. After D10
  * a "Shipped" stamp lands and the D+30 line follows.

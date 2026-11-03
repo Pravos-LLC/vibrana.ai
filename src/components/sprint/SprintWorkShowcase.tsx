@@ -61,6 +61,24 @@ export function SprintWorkShowcase() {
         items={SPRINT_WORK.cards.map((card) => ({ id: card.id, label: card.option, audience: card.frameCaption, content: <Panel card={card} /> }))}
       />
       <MonoLabel className="mt-8 text-center">{SPRINT_WORK.recreatedNote}</MonoLabel>
+      {/*
+        ProductToggle renders only the active panel, so the other case would be missing from the
+        server HTML. This hidden copy keeps every case's caption, metric and summary crawlable and
+        readable without JavaScript; `hidden` keeps it out of the layout and the accessibility tree.
+      */}
+      <div hidden data-testid="sprint-work-crawlable">
+        {SPRINT_WORK.cards.map((card) => (
+          <section key={card.id}>
+            <h3>{card.tag}</h3>
+            <p>{card.frameCaption}</p>
+            <p>
+              {card.metric} {card.metricLabel}
+            </p>
+            <p>{card.body}</p>
+            <a href={card.href}>{SPRINT_WORK.linkLabel}</a>
+          </section>
+        ))}
+      </div>
     </div>
   )
 }

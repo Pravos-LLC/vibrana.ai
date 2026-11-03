@@ -95,11 +95,6 @@ export type SprintOutcomeVisual = 'product' | 'team' | 'code'
 
 export const SPRINT_OUTCOMES = {
   eyebrow: 'What you get',
-  /** Address-bar text on the product mocks (illustrative, from the case-study mocks). */
-  mockUrls: {
-    product: 'assist.client.vibrana.ai/inbox',
-    team: 'client-assistant/knowledge',
-  },
   heading: 'On day 10, you have three things.',
   /** One line under the heading so the cards also fit the non-software tracks. */
   trackNote: 'On the Governance and People tracks, the thing you get is a working policy or program, not software.',
@@ -131,7 +126,7 @@ export const SPRINT_OUTCOMES = {
     sourcesLabel: 'Sources',
     sources: ['Your CRM', 'Your docs'],
     draftLabel: 'Draft reply',
-    draft: 'Your refund is approved. You will see it on your card soon.',
+    draft: 'Draft ready for review.',
     approve: 'Approve',
     edit: 'Edit',
   },
@@ -260,7 +255,7 @@ export const SPRINT_WORK = {
   heading: 'Real builds. Real numbers.',
   linkLabel: 'Read the case study',
   toggleLabel: 'Choose a case study',
-  /** builder-added: the footnote under the recreated product screens. */
+  /** builder-added: the footnote under every recreated product screen (FIG 1.1 and the work section). */
   recreatedNote: 'Interfaces recreated for illustration.',
   cards: [
     {

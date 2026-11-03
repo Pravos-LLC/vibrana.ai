@@ -15,14 +15,23 @@ export function LoopPlate({ stem, className, aspect }: { stem: string; className
   const media = landingVideo(stem)
   const ref = useRef<HTMLVideoElement>(null)
   const [inView, setInView] = useState(false)
+  /** The poster loads only once the plate is near the viewport, so below-fold stills cost nothing up front. */
+  const [near, setNear] = useState(false)
   const reduce = useHydratedReducedMotion()
 
   useEffect(() => {
     const el = ref.current
     if (!el || typeof IntersectionObserver === 'undefined') return
     const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.35 })
+    const nearIo = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) setNear(true)
+    }, { rootMargin: '800px 0px' })
     io.observe(el)
-    return () => io.disconnect()
+    nearIo.observe(el)
+    return () => {
+      io.disconnect()
+      nearIo.disconnect()
+    }
   }, [])
 
   useEffect(() => {
@@ -39,7 +48,7 @@ export function LoopPlate({ stem, className, aspect }: { stem: string; className
       <video
         ref={ref}
         className="absolute inset-0 h-full w-full object-cover"
-        poster={media.poster.path}
+        poster={near ? media.poster.path : undefined}
         muted
         playsInline
         loop

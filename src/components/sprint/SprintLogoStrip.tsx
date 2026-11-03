@@ -13,9 +13,10 @@ export function SprintLogoStrip() {
     <section aria-label={LOGO_ROW_LABELS.combined} className="px-6 pb-16 md:pb-24">
       <div className="mx-auto max-w-7xl">
         <MonoLabel className="mb-4">{LOGO_ROW_LABELS.combined}</MonoLabel>
-        <ul className="grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:grid-cols-9">
+        <ul className="grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:grid-cols-10" data-testid="sprint-logo-strip">
           {PROOF_LOGOS.map(({ name, src, height, anonymized }) => (
-            <li key={name} className="flex h-16 items-center sm:h-20 justify-center border-b border-r border-line px-4">
+            // The NDA chip takes two columns at lg so it never crosses into its neighbors.
+            <li key={name} className={`flex h-16 min-w-0 items-center justify-center border-b border-r border-line px-3 sm:h-20 ${anonymized ? 'lg:col-span-2' : ''}`}>
               {anonymized ? (
                 <RedactedLogo descriptor={NDA_SLOT_LABEL} />
               ) : (
