@@ -4,17 +4,29 @@ import { expect, test, type Page } from '@playwright/test'
 // four gate cards, and the operating map draws and signs all four gates once read.
 
 const PATH = '/ai-transformation'
-const WIDTHS = [390, 1024, 1280, 1440] as const
+const WIDTHS = [390, 768, 1024, 1280, 1440] as const
 const CHAPTERS = ['problem', 'map', 'build', 'learn', 'transfer', 'proof', 'safeguards', 'start'] as const
 
-/** Walk the page so every in-view and scroll-driven effect (pinned map, gate ticks) has fired. */
-async function walk(page: Page) {
-  const height = await page.evaluate(() => document.documentElement.scrollHeight)
-  for (let y = 0; y < height; y += 400) {
-    await page.evaluate((top) => window.scrollTo(0, top), y)
-    await page.waitForTimeout(60)
-  }
-  await page.waitForTimeout(800)
+/**
+ * Walk a range of the page in one evaluate (one round trip, not one per step), so scroll-driven state
+ * (the pinned map, gate ticks, in-view effects) fires without the cost of dozens of CDP calls on a
+ * slow runner. Stride is 80% of the viewport; each step yields two frames.
+ */
+async function walk(page: Page, selector?: string) {
+  await page.evaluate(async (sel) => {
+    const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))
+    const el = sel ? document.querySelector<HTMLElement>(sel) : null
+    const from = el ? Math.max(0, el.getBoundingClientRect().top + window.scrollY - window.innerHeight) : 0
+    const to = el ? el.getBoundingClientRect().bottom + window.scrollY : document.documentElement.scrollHeight
+    const stride = Math.round(window.innerHeight * 0.8)
+    for (let y = from; y <= to; y += stride) {
+      window.scrollTo(0, y)
+      await frame()
+    }
+    window.scrollTo(0, to)
+    await frame()
+  }, selector ?? null)
+  await page.waitForTimeout(500)
 }
 
 async function setTheme(page: Page, theme: 'light' | 'dark', baseURL: string | undefined) {
@@ -27,7 +39,7 @@ for (const theme of ['light', 'dark'] as const) {
       await setTheme(page, theme, baseURL)
       await page.setViewportSize({ width, height: 900 })
       await page.goto(PATH)
-      await walk(page)
+      // scrollWidth does not depend on reveals, so no walk: the layout is final at load.
       const { scrollWidth, innerWidth } = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth }))
       expect(scrollWidth, `document is ${scrollWidth}px wide in a ${innerWidth}px viewport`).toBeLessThanOrEqual(innerWidth)
     })
@@ -60,11 +72,10 @@ for (const width of [390, 1440] as const) {
 }
 
 test('ai-transformation: the operating map signs all four gates once scrolled through', async ({ page }) => {
+  test.setTimeout(60_000)
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto(PATH)
-  await walk(page)
-  await page.locator('section#problem').scrollIntoViewIfNeeded()
-  await page.waitForTimeout(500)
+  await walk(page, '[data-operating-map]')
   // Every gate node in the wide map shows its check (drawn only once the gate is signed).
   const checks = await page
     .locator('[data-operating-map] ol.md\\:grid path')
@@ -75,7 +86,6 @@ test('ai-transformation: the operating map signs all four gates once scrolled th
 test('ai-transformation: the ProofMetric cells never squish', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 900 })
   await page.goto(PATH)
-  await walk(page)
   const cells = await page.locator('[data-proof-metric]').evaluateAll((els) =>
     els.map((el) => {
       const figure = el.querySelector<HTMLElement>('[data-proof-figure]')!

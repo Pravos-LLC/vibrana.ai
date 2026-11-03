@@ -65,9 +65,9 @@ export function OperatingMap() {
       {/* From md the pinned frame is centered in the viewport under the nav; the wrapper starts half the
           spare height early so the map sits right under the masthead before it pins. That band is
           transparent to the pointer, so the masthead links above it stay clickable. */}
-      <div ref={wrap} data-operating-map="" className="pointer-events-none relative md:mt-[calc(-1*max(0px,(100dvh-560px)/2))] motion-safe:md:h-[180vh]">
-        <div className="md:sticky md:top-[77px] md:flex md:min-h-[calc(100dvh-77px)] md:flex-col md:justify-center md:py-8">
-          <div aria-hidden className="pointer-events-auto rounded-[28px] border border-line bg-surface-base px-5 pb-6 pt-7 sm:px-8 md:px-10 md:pb-8 md:pt-9">
+      <div ref={wrap} data-operating-map="" className="pointer-events-none relative motion-safe:md:-mb-[max(0px,calc((100dvh-560px)/2))] motion-safe:md:-mt-[max(0px,calc((100dvh-560px)/2))] motion-safe:md:h-[180vh]">
+        <div className="md:sticky md:top-[77px] md:flex md:flex-col md:justify-center md:py-8 motion-safe:md:min-h-[calc(100dvh-77px)]">
+          <div aria-hidden className="pointer-events-auto rounded-[28px] border border-line bg-surface-base px-5 pb-6 pt-7 sm:px-8 md:px-6 md:pb-8 md:pt-9 lg:px-10">
             {/* Wide: left to right */}
             <ol className="hidden grid-cols-4 md:grid">
               {MAP.phases.map((phase, i) => (
@@ -80,7 +80,7 @@ export function OperatingMap() {
                     <GateNode signed={signed > i} className="absolute right-0 top-0" />
                   </div>
                   <p className="label-mono mt-2.5 pr-0 text-right text-ink-secondary">{MAP.gateLabel(i + 1)}</p>
-                  <Artifact text={phase.artifact} dropped={dropped > i} className="mr-10 mt-6 lg:mr-14" />
+                  <Artifact text={phase.artifact} dropped={dropped > i} className="mr-3 mt-6 lg:mr-14" />
                 </li>
               ))}
             </ol>
@@ -154,7 +154,8 @@ function PhaseName({ index, on }: { index: number; on: boolean }) {
 
 /**
  * One phase's stretch of the line. The gradient is sized to the whole map and offset per phase, so
- * the four segments read as one continuous stroke: the page's single gradient element.
+ * the four segments read as one continuous stroke: the page's single gradient element. On phones the
+ * vertical map draws in ink, because the chapter bar's gradient hairline shares that screen.
  */
 function Segment({ progress, index, done, axis }: { progress: MotionValue<number>; index: number; done: boolean; axis: 'x' | 'y' }) {
   const start = index / N
@@ -169,9 +170,8 @@ function Segment({ progress, index, done, axis }: { progress: MotionValue<number
           : 'absolute bottom-7 left-1/2 top-0 w-[2px] -translate-x-1/2 rounded-full motion-reduce:!transform-none'
       }
       style={{
-        background: horizontal ? PRISM_STROKE : PRISM_STROKE.replace('90deg', '180deg'),
-        backgroundSize: horizontal ? `${N * 100}% 100%` : `100% ${N * 100}%`,
-        backgroundPosition: horizontal ? `${pos} 0` : `0 ${pos}`,
+        background: horizontal ? PRISM_STROKE : 'var(--text-primary)',
+        ...(horizontal ? { backgroundSize: `${N * 100}% 100%`, backgroundPosition: `${pos} 0` } : {}),
         transformOrigin: horizontal ? '0% 50%' : '50% 0%',
         ...(done ? {} : horizontal ? { scaleX: scale } : { scaleY: scale }),
       }}
@@ -212,7 +212,7 @@ function GateNode({ signed, className }: { signed: boolean; className?: string }
 function Artifact({ text, dropped, className }: { text: string; dropped: boolean; className?: string }) {
   return (
     <motion.div
-      className={`rounded-xl border bg-surface-raised px-4 py-3.5 ${className ?? ''}`}
+      className={`rounded-xl border bg-surface-raised px-3 py-3 lg:px-4 lg:py-3.5 ${className ?? ''}`}
       initial={false}
       animate={{
         opacity: dropped ? 1 : 0.5,

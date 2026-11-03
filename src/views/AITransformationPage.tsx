@@ -82,7 +82,7 @@ export default function AITransformationPage() {
 
       {/* The report */}
       <div
-        className={`${SHELL} mt-16 md:mt-24 md:grid md:grid-cols-[168px_minmax(0,1fr)] md:gap-x-10 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-x-16`}
+        className={`${SHELL} mt-16 md:mt-12 md:grid md:grid-cols-[168px_minmax(0,1fr)] md:gap-x-10 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-x-16`}
       >
         <aside className="max-md:contents md:pt-14">
           {/* Heading and rail stick together; below md the wrapper dissolves so the rail's own bar sticks. */}
@@ -154,7 +154,7 @@ function DiagnosticBand() {
       className="scroll-mt-28 rounded-[28px] bg-surface-raised p-6 text-ink ring-1 ring-white/10 sm:p-10 lg:p-12"
       style={{ colorScheme: 'dark' }}
     >
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-16">
         <div className="flex flex-col">
           <p className="label-mono text-ink-tertiary">{A.eyebrow}</p>
           <h3
@@ -183,10 +183,7 @@ function DiagnosticBand() {
               {A.cta}
             </Button>
           </div>
-        </div>
-        <div className="flex min-w-0 flex-col gap-8">
-          <PathwayFilm caption={A.figCaption} />
-          <div className="flex flex-col gap-3 border-t border-line pt-5">
+          <div className="mt-10 flex flex-col gap-3 border-t border-line pt-5">
             <p className="text-ink-secondary" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
               {A.method}
             </p>
@@ -194,6 +191,9 @@ function DiagnosticBand() {
               {A.privacy}
             </p>
           </div>
+        </div>
+        <div className="min-w-0 lg:pt-1">
+          <PathwayFilm caption={A.figCaption} />
         </div>
       </div>
     </div>
