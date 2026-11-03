@@ -76,19 +76,7 @@ const LOGO_MARQUEE = [
 ]
 
 const PAGES: { route: string; load: () => Promise<{ default: () => React.ReactElement }>; known: string[] }[] = [
-  {
-    route: '/ai-build-sprint',
-    load: () => import('@/app/ai-build-sprint/page'),
-    known: [
-      // B1: the sprint-hourglass tile resolves to the placeholder, next to a real prism-grid-solar tile.
-      'duplicate /assets/imagery/homepage/prism-grid-solar.webp x3',
-      'placeholder /assets/imagery/homepage/prism-grid-solar.webp x3',
-      'duplicate /assets/imagery/sprint/sprint-prototype-laptop.webp x2',
-      'duplicate /assets/imagery/sprint/sprint-whiteboard-team.webp x2',
-      'duplicate /assets/team/polaroid/john-ellison.webp x2',
-      ...LOGO_MARQUEE,
-    ],
-  },
+  { route: '/ai-build-sprint', load: () => import('@/app/ai-build-sprint/page'), known: [] },
   { route: '/ai-transformation', load: () => import('@/app/ai-transformation/page'), known: [] },
   {
     route: '/ai-readiness',

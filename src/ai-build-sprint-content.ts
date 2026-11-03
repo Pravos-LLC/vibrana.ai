@@ -2,6 +2,9 @@
 //
 // Source of every string: research/landing-pages/ai-build-sprint-copy.md (the approved
 // copy deck, headline option A), governed by research/landing-pages/ai-build-sprint-brief.md.
+// The 2026-11 Workshop Log rebuild adds the hub deck
+// gtm/programs/assessment-landing-pages/copy/build-sprint.md (FIG captions, problem captions,
+// build log, "On day 10" lines). Every other string is kept exactly as live.
 // Sections below run top to bottom in page order. Prices appear ONLY in SPRINT_PRICING
 // and SPRINT_FAQ (the brief allows price in the FAQ answer on cost).
 //
@@ -28,7 +31,7 @@ export const SPRINT_META = {
 
 // 1. Hero
 export const SPRINT_HERO = {
-  eyebrow: 'AI Build Sprint · 10 business days',
+  eyebrow: 'AI Build Sprint / 10 business days',
   /** "We build *working* AI with your team in 10 days." split for the opaque-block layout. */
   headline: {
     lead: 'We build',
@@ -41,6 +44,20 @@ export const SPRINT_HERO = {
   microcopy: '30 minutes. No prep. You talk to a builder, not a salesperson.',
 } as const
 
+/** The hero reel: the approved AI software factory reel until the Build Sprint film clears. */
+export const SPRINT_HERO_REEL = {
+  /** Muted hero loop, swapped for the full cut (with sound) on the first sound request. */
+  loopStem: 'build-sprint/factory-reel-loop',
+  fullStem: 'build-sprint/factory-reel-full',
+  label: 'AI software factory',
+  caption: 'FIG 0.1 / Our own AI software factory, shipping code',
+  captionNote: 'On-screen text, no voiceover.',
+  title: 'A short film of the AI software factory our team runs, with on-screen text and no voiceover',
+  playLabel: 'Watch',
+  playingLabel: 'Playing',
+  labels: { play: 'Play the film', pause: 'Pause the film' },
+} as const
+
 // 3. Problem
 export const SPRINT_PROBLEM = {
   eyebrow: 'Why AI stalls',
@@ -51,6 +68,26 @@ export const SPRINT_PROBLEM = {
     'The tool shows up. Nobody on your team can run it.',
   ],
   close: 'We build the real thing, with the people who will run it.',
+  /** Mono caption on each line's scene, in line order. */
+  visualCaptions: ['Status: still a demo', 'Deliverable: deck.pdf', 'Who runs it: the vendor'],
+  /** Mono caption on the build window the close resolves into. */
+  closeCaption: 'Status: shipped. Who runs it: your team.',
+  /** Screen readers get the sequence as one summary. */
+  ariaSummary:
+    'Three ways AI work stops short: the pilot never ships, the consultants leave slides, and nobody on your team can run the tool. We build the real thing, with the people who will run it.',
+  /** builder-added: the words drawn inside the small scenes (illustration, not claims). */
+  scene: {
+    demoBadge: 'demo',
+    deploy: 'Deploy',
+    slideTitle: 'Next steps',
+    folder: 'build/',
+    signIn: 'Sign in',
+    vendorNote: 'Contact your vendor',
+    shipped: 'Shipped',
+    windowTitle: 'your-product',
+    /** The close's build window: the three failures, reversed. */
+    checks: ['Deployed', 'Your team runs it', 'Docs written'],
+  },
 } as const
 
 // 4. What you walk away with
@@ -71,6 +108,33 @@ export const SPRINT_OUTCOMES = {
     { visual: 'team', title: 'A team that can build the next one.', body: 'Your team builds with us every day. They keep going after we go.' },
     { visual: 'code', title: 'The code and docs. Yours.', body: 'You keep the code, the docs and the keys. Nothing to renew with us.' },
   ] satisfies { visual: SprintOutcomeVisual; title: string; body: string }[],
+  /** FIG plate captions and keyed annotations (hub deck §3). */
+  plates: {
+    product: {
+      figCaption: 'FIG 1.1 / The product, put to work by real users before we leave',
+      annotations: ['Your data', 'A person approves this step', 'Tried by real users, not a demo'],
+    },
+    team: {
+      figCaption: 'FIG 1.2 / Your builder works beside ours, every day of the sprint',
+      /** John's approved b-roll loop B2 (generated b-roll: no place, date or second person named). */
+      brollStem: 'build-sprint/broll/john-broll-b2-16x9',
+    },
+    code: {
+      figCaption: 'FIG 1.3 / Your repo on day 10: the code, the docs and the setup',
+      annotations: ['Yours to keep', 'How it works, written down'],
+    },
+  },
+  /** builder-added: the words inside the FIG 1.1 product plate (an illustration). */
+  productPlate: {
+    title: 'your-product',
+    inUse: 'In use',
+    sourcesLabel: 'Sources',
+    sources: ['Your CRM', 'Your docs'],
+    draftLabel: 'Draft reply',
+    draft: 'Your refund is approved. You will see it on your card soon.',
+    approve: 'Approve',
+    edit: 'Edit',
+  },
 } as const
 
 /**
@@ -95,9 +159,28 @@ export const SPRINT_DAYS = {
     { days: 'Day 9', span: 1, title: 'Real users try it', body: 'The people who will use it put it to work. We fix what they find.' },
     { days: 'Day 10', span: 1, title: 'Hand over', body: 'You get the product, the code and the docs. Your team runs it from here.' },
   ],
-  /** Day ticks on the diagram (builder-added: the axis label). */
-  dayTick: 'Day',
   pricingLink: 'See pricing',
+  figCaption: 'FIG 2.1 / The sprint as a build log',
+  /** The build log, one line per day (hub deck §4). `day` renders as the mono prefix. */
+  log: [
+    { day: 'D01', text: 'Scope locked. We confirm what “working” means and who checks it. Your sponsor is in the room.' },
+    { day: 'D02', text: 'Build starts in your tools, on data you approved. Your builder pairs with ours.' },
+    { day: 'D03', text: 'Build day. You see it grow, not a status report.' },
+    { day: 'D04', text: 'Build day. Key calls go to your sponsor.' },
+    { day: 'D05', text: 'Build day. Your builder and ours, side by side.' },
+    { day: 'D06', text: 'Build day. The day 1 list is the checklist.' },
+    { day: 'D07', text: 'Build day. The docs get written with the code, not after it.' },
+    { day: 'D08', text: 'Build day. Ready for the people who will use it.' },
+    { day: 'D09', text: 'Real users put it to work. We fix what they find.' },
+    { day: 'D10', text: 'Hand over: the product, the code, the docs and the keys. We check it against the day 1 list together.' },
+  ],
+  shippedStamp: 'Shipped',
+  afterLine: { day: 'D+30', text: "One hour together to see how it's going." },
+  /** Progress rail label for day n. */
+  railLabel: (n: number) => `D${n}`,
+  reducedMotionNote: 'All ten days are shown at once.',
+  /** builder-added: the build log window title. */
+  logTitle: 'sprint.log',
 } as const
 
 // 6. Four tracks (no prices, ever)
@@ -105,8 +188,14 @@ export interface SprintTrackCard {
   id: Extract<SprintTrackId, 'product' | 'workflow' | 'governance' | 'people'>
   name: string
   outcome: string
-  /** Imagery manifest id (research/landing-pages/ai-build-sprint-imagery.md). */
-  imageId: string
+  /**
+   * The card image: an imagery manifest id (`imagery`) or a landing-media id (`landing`,
+   * src/landing-media). Product and Governance use the 2026-11 replacements (plan B4).
+   */
+  image: { imagery: string } | { landing: string }
+  /** What the client holds on day 10 (hub deck §5). */
+  dayTen: string
+  figCaption: string
   leads: { name: string; photo: string }[]
   /** The line under the image, exactly as in the deck. */
   ledBy: string
@@ -122,7 +211,9 @@ export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
     id: 'product',
     name: 'Product',
     outcome: 'Take a prototype to production, or build a new product.',
-    imageId: 'sprint-track-product',
+    image: { landing: 'build-sprint/sprint-track-product-build.webp' },
+    dayTen: 'On day 10: a product real users have already tried.',
+    figCaption: 'FIG 3.1 / Product: from prototype to production',
     leads: [
       { name: 'John Ellison', photo: '/assets/team/john-ellison.webp' },
       { name: 'Chetan Nandakumar', photo: '/assets/team/chetan-nandakumar.webp' },
@@ -133,7 +224,9 @@ export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
     id: 'workflow',
     name: 'Workflow automation',
     outcome: 'Agents take the repeat work. Your people stay in charge.',
-    imageId: 'sprint-track-workflow',
+    image: { imagery: 'sprint-track-workflow' },
+    dayTen: 'On day 10: the workflow runs on real work, and your people approve what it does.',
+    figCaption: 'FIG 3.2 / Workflow automation: an agent drafts, a person approves',
     leads: [{ name: 'Abe Isleem', photo: '/assets/team/abe-isleem.webp' }],
     ledBy: 'Led by Abe Isleem',
   },
@@ -141,7 +234,9 @@ export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
     id: 'governance',
     name: 'Governance & policy',
     outcome: 'Clear AI rules your teams can follow, and people ready to approve new AI use.',
-    imageId: 'sprint-track-governance',
+    image: { landing: 'build-sprint/sprint-track-governance-approval.webp' },
+    dayTen: 'On day 10: your AI rules in writing, and the people who approve new AI use.',
+    figCaption: 'FIG 3.3 / Governance & policy: the rules, and who signs off',
     leads: [{ name: 'Stephan Ledain', photo: '/assets/team/stephan-ledain.webp' }],
     ledBy: 'Led by Stephan Ledain',
   },
@@ -149,7 +244,9 @@ export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
     id: 'people',
     name: 'People & culture',
     outcome: 'AI fits the work your teams already do, and they have the skills to use it.',
-    imageId: 'sprint-track-people',
+    image: { imagery: 'sprint-track-people' },
+    dayTen: "On day 10: a working program that fits AI into each team's real work.",
+    figCaption: 'FIG 3.4 / People & culture: training built on the work each team does',
     leads: [{ name: 'Fatma Ghedira', photo: '/assets/team/fatma-ghedira.webp' }],
     ledBy: 'Led by Fatma Ghedira',
   },
@@ -162,8 +259,14 @@ export const SPRINT_WORK = {
   eyebrow: "Work we've shipped",
   heading: 'Real builds. Real numbers.',
   linkLabel: 'Read the case study',
+  toggleLabel: 'Choose a case study',
+  /** builder-added: the footnote under the recreated product screens. */
+  recreatedNote: 'Interfaces recreated for illustration.',
   cards: [
     {
+      id: 'insurtech',
+      option: 'Insurtech / call reviews',
+      frameCaption: 'FIG 4.1 / For a 70-person UK insurtech: two working prototypes in two weeks',
       tag: 'Insurtech',
       metric: '5% → 100%',
       metricLabel: 'of calls now reviewed',
@@ -173,6 +276,9 @@ export const SPRINT_WORK = {
       mockUrl: 'assist.client.vibrana.ai/calls/live',
     },
     {
+      id: 'real-estate',
+      option: 'Real estate / knowledge assistant',
+      frameCaption: 'FIG 4.2 / For a 50-person European real-estate firm: a knowledge assistant, then 7 people trained to build',
       tag: 'Real estate',
       metric: '7 to 11 hours',
       metricLabel: 'estimated saving per trained person, per week',
@@ -182,6 +288,9 @@ export const SPRINT_WORK = {
       mockUrl: 'client-assistant/inbox',
     },
   ] satisfies {
+    id: string
+    option: string
+    frameCaption: string
     tag: string
     metric: string
     metricLabel: string
@@ -215,6 +324,7 @@ export const SPRINT_FIT = {
 export const SPRINT_TEAM = {
   eyebrow: 'The team',
   heading: 'The people who build with you.',
+  figCaption: 'FIG 5.1 / The people who build with you',
   members: [
     { name: 'John Ellison', role: 'Leads Product', line: '16 years building software. Built and exited two companies.', photo: '/assets/team/polaroid/john-ellison.webp', angle: -3 },
     { name: 'Chetan Nandakumar', role: 'Co-leads Product', line: 'AI PhD from UC Berkeley. 10+ years launching AI products.', photo: '/assets/team/polaroid/chetan-nandakumar.webp', angle: 2 },
@@ -308,7 +418,8 @@ export const SPRINT_FINAL = {
   quote: '“Tell me what should work differently in 10 days. I’ll tell you if we can build it.”',
   name: 'John Ellison',
   role: 'Founder',
-  photo: '/assets/team/polaroid/john-ellison.webp',
+  /** John's approved b-roll loop B, beside his quote (the polaroid already sits in the team sheet). */
+  brollStem: 'build-sprint/broll/john-broll-b-16x9',
 } as const
 
 /** The 5-field fit-call form. The component holds layout only. */
@@ -352,18 +463,6 @@ export const SPRINT_FORM = {
 // 13. Sticky mobile bar
 export const SPRINT_STICKY = {
   label: 'AI Build Sprint · 10 days',
-} as const
-
-/** Image credit (the hourglass is CC BY 2.0 and needs attribution). builder-added wording. */
-export const SPRINT_CREDITS = {
-  prefix: 'Image credit:',
-  work: 'Hourglass with sand',
-  workHref: 'https://commons.wikimedia.org/wiki/File:Hourglass_with_sand.jpg',
-  by: 'by',
-  author: 'John Morgan',
-  license: 'CC BY 2.0',
-  licenseHref: 'https://creativecommons.org/licenses/by/2.0',
-  note: 'graded from the original',
 } as const
 
 /** Short names used in the admin email, confirmation email and admin pipeline. */
