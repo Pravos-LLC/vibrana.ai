@@ -47,7 +47,18 @@ const DRIFT_PX_PER_SECOND = 22
  * motion. Every card has exactly one button: the free assessment takes the assessment, the rest
  * book a call.
  */
-export function OfferGallery({ offers, currency, assessmentHref }: { offers: OfferCard[]; currency: Currency; assessmentHref: string }) {
+export function OfferGallery({
+  offers,
+  currency,
+  assessmentHref,
+  media = true,
+}: {
+  offers: OfferCard[]
+  currency: Currency
+  assessmentHref: string
+  /** Card photos and lead portraits. The landing page turns them off: several offers share an image, and the team section already shows each face once. */
+  media?: boolean
+}) {
   const track = useRef<HTMLUListElement>(null)
   const reduce = useReducedMotion()
   const [paused, setPaused] = useState(false)
@@ -159,7 +170,7 @@ export function OfferGallery({ offers, currency, assessmentHref }: { offers: Off
               transition={{ duration: 0.5, delay: Math.min(i, 4) * 0.06, ease: EASE }}
             >
               <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line-subtle bg-surface-base transition-shadow hover:shadow-[0_14px_40px_rgba(76,29,149,0.10)]">
-                <div className="relative aspect-[16/9] overflow-hidden bg-surface-overlay">
+                {media && <div className="relative aspect-[16/9] overflow-hidden bg-surface-overlay">
                   {img && (
                     <Image
                       src={img.file}
@@ -169,7 +180,7 @@ export function OfferGallery({ offers, currency, assessmentHref }: { offers: Off
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
                   )}
-                </div>
+                </div>}
                 <div className="flex flex-1 flex-col p-4">
                   <p className="font-display type-base font-semibold leading-snug text-ink">{copy.title}</p>
                   <p className="mt-1.5 type-xs leading-relaxed text-ink-secondary">{copy.body}</p>
@@ -181,12 +192,13 @@ export function OfferGallery({ offers, currency, assessmentHref }: { offers: Off
                   </div>
                   <div className="mt-auto pt-4">
                     <p className="type-xs text-ink-tertiary">{h.ledBy}</p>
-                    <ul className="mt-1.5 grid gap-2" style={{ gridTemplateColumns: `repeat(${Math.max(1, o.leads.length)}, minmax(0, 1fr))` }}>
+                    {/* Wraps instead of equal columns, so a third lead's focus word ("Governance") never truncates. */}
+                    <ul className="mt-1.5 flex flex-wrap gap-x-4 gap-y-2">
                       {o.leads.map((id) => {
                         const person = SIM_TEAM[id]
-                        const photo = photoFor(person.name)
+                        const photo = media ? photoFor(person.name) : null
                         return (
-                          <li key={id} className="flex min-w-0 items-center gap-2">
+                          <li key={id} className="flex items-center gap-2">
                             {photo ? (
                               <Image src={photo} alt="" width={28} height={28} className="h-7 w-7 flex-none rounded-full object-cover" />
                             ) : (
@@ -194,9 +206,9 @@ export function OfferGallery({ offers, currency, assessmentHref }: { offers: Off
                                 {person.first.charAt(0)}
                               </span>
                             )}
-                            <span className="min-w-0 leading-tight">
-                              <span className="block truncate type-xs font-medium text-ink">{person.first}</span>
-                              <span className="block truncate text-[0.6875rem] text-ink-tertiary">{person.word}</span>
+                            <span className="leading-tight">
+                              <span className="block type-xs font-medium text-ink">{person.first}</span>
+                              <span className="block text-[0.6875rem] text-ink-tertiary">{person.word}</span>
                             </span>
                           </li>
                         )

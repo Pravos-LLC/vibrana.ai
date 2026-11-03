@@ -95,23 +95,7 @@ const PAGES: { route: string; load: () => Promise<{ default: () => React.ReactEl
   { route: '/ai-transformation', load: () => import('@/app/ai-transformation/page'), known: [] },
   { route: '/ai-readiness', load: () => import('@/app/ai-readiness/page'), known: [] },
   { route: '/eu-ai-act-readiness', load: () => import('@/app/eu-ai-act-readiness/page'), known: [] },
-  {
-    route: '/ai-transformation/simulator',
-    load: () => import('@/app/ai-transformation/simulator/page'),
-    known: [
-      'duplicate /assets/imagery/homepage/prism-grid-solar.webp x2',
-      'placeholder /assets/imagery/homepage/prism-grid-solar.webp x2',
-      'duplicate /assets/imagery/sprint/sprint-prototype-laptop.webp x2',
-      'duplicate /assets/team/abe-isleem.webp x6',
-      'duplicate /assets/team/fatma-ghedira.webp x4',
-      'duplicate /assets/team/john-ellison.webp x8',
-      'duplicate /assets/team/stephan-ledain.webp x3',
-      // X: sector example and AI provider marks shown as text stand-ins.
-      'duplicate public-demo:logo x10',
-      'public-demo public-demo:logo x10',
-      ...LOGO_MARQUEE,
-    ],
-  },
+  { route: '/ai-transformation/simulator', load: () => import('@/app/ai-transformation/simulator/page'), known: [] },
 ]
 
 describe('offer pages: one asset per slot, no placeholders', () => {

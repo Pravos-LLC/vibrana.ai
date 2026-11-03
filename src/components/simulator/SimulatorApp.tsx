@@ -50,13 +50,30 @@ import { AssumptionsDrawer } from './AssumptionsDrawer'
 import { SimulatorActions, assessmentHref, type RunHandle } from './SimulatorActions'
 import { SamplePreview } from './SamplePreview'
 import { RangeInput } from './RangeInput'
+import { focusSimulatorUrl } from './landing/FinalCta'
 
 type Step = 'company' | 'reading' | 'profile' | 'setup' | 'result'
 const s = SIM_STEPS
 const PROFILE_TIMEOUT_MS = 50_000
 const DATA_ICON: Record<DataRule, LucideIcon> = { public: Globe, internal: Building2, client: ShieldCheck }
 
-export function SimulatorApp({ landing }: { landing?: ReactNode } = {}) {
+/** What the landing sandbox hands to the full simulator: defaults the visitor can still change. */
+export type SimulatorSeed = { sector: SectorId; headcount: number; adoptionTarget: number }
+
+type SimulatorAppProps = {
+  /** Below the form while the visitor is still on the company step. */
+  landing?: ReactNode
+  /**
+   * Above the form until a result shows (the landing sandbox). Gets `start`, which scrolls to the
+   * form and, given a seed, fills only the fields the visitor has not touched. When set, the form's
+   * title becomes an h2 under the hero's h1.
+   */
+  hero?: (start: (seed?: SimulatorSeed) => void) => ReactNode
+  /** Replaces the sample preview beside the form. */
+  aside?: ReactNode
+}
+
+export function SimulatorApp({ landing, hero, aside }: SimulatorAppProps = {}) {
   const guard = useFormGuard({ turnstile: true })
   const [step, setStep] = useState<Step>('company')
   const [url, setUrl] = useState('')
@@ -196,6 +213,17 @@ export function SimulatorApp({ landing }: { landing?: ReactNode } = {}) {
     setStep('profile')
   }
 
+  function start(seed?: SimulatorSeed) {
+    if (seed && step === 'company') {
+      if (people === '') setPeople(String(seed.headcount))
+      if (sector === null) setSector(seed.sector)
+      // The pace has no field on this step, so the seed is the only thing that can have set it; the
+      // caller sends a seed only after the visitor played (landing/sandbox.ts sandboxSeed).
+      setAdoptionTarget(seed.adoptionTarget)
+    }
+    focusSimulatorUrl()
+  }
+
   const setupControls = (
     <SetupControls
       hideSector={step === 'setup'}
@@ -263,12 +291,14 @@ export function SimulatorApp({ landing }: { landing?: ReactNode } = {}) {
     )
   }
 
+  const Title = hero ? 'h2' : 'h1'
   return (
     <>
-    <div ref={topRef} className="grid scroll-mt-28 grid-cols-[minmax(0,1fr)] items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14">
+    {hero?.(start)}
+    <div ref={topRef} className={`grid scroll-mt-28 grid-cols-[minmax(0,1fr)] items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14 ${hero ? 'mt-24 md:mt-32' : ''}`}>
       <div className="min-w-0">
         <Eyebrow gradient="prism">{SIM_INTRO.eyebrow}</Eyebrow>
-        <h1 className="mt-4 font-display type-4xl font-semibold leading-[1.05] tracking-tight text-ink">{SIM_INTRO.title}</h1>
+        <Title className="mt-4 font-display type-4xl font-semibold leading-[1.05] tracking-tight text-ink">{SIM_INTRO.title}</Title>
         <p className="mt-4 max-w-xl type-lg leading-8 text-ink-secondary">{SIM_INTRO.subtitle}</p>
 
         <div className="mt-8">
@@ -362,8 +392,12 @@ export function SimulatorApp({ landing }: { landing?: ReactNode } = {}) {
       </div>
 
       <div className="min-w-0 lg:sticky lg:top-28">
-        <SamplePreview />
-        <p className="mt-3 type-xs text-ink-tertiary">{SIM_INTRO.sampleCaption}</p>
+        {aside ?? (
+          <>
+            <SamplePreview />
+            <p className="mt-3 type-xs text-ink-tertiary">{SIM_INTRO.sampleCaption}</p>
+          </>
+        )}
       </div>
     </div>
     {step === 'company' && landing}

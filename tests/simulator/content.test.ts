@@ -229,7 +229,9 @@ describe('simulator email claims', () => {
   it('never says the result comes without an email, or that the result is emailed', () => {
     expect(files.length).toBeGreaterThan(10)
     for (const f of files) {
-      const text = readFileSync(join(process.cwd(), f), 'utf8')
+      // The one exception: the hero sandbox really runs with no email (tests/simulator/landing-sandbox.test.ts
+      // asserts MiniSimulator has no form, email field or request), so its own subtitle may say so.
+      const text = readFileSync(join(process.cwd(), f), 'utf8').replace(f.endsWith('simulator-landing-hero-content.ts') ? 'No email to play.' : '\u0000', '')
       expect(text, f).not.toMatch(/no email|email (is )?not (needed|required)|without (an |any |your )?email|before any email/i)
       expect(text, f).not.toMatch(/result (and PDF )?go(es)? (here|to your)/i)
     }

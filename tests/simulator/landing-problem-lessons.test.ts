@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { SIM_PROBLEM, SIM_PROBLEM_BCG, SIM_PROBLEM_MIT, SIM_PROBLEM_PWC } from '@/src/simulator-landing-problem-content'
+import * as PROBLEM from '@/src/simulator-landing-problem-content'
+import { SIM_PROBLEM, SIM_PROBLEM_MIT, SIM_PROBLEM_PWC } from '@/src/simulator-landing-problem-content'
 import { SIM_LESSONS, SIM_WHY } from '@/src/simulator-landing-lessons-content'
 
 const ROOT = join(__dirname, '..', '..')
@@ -37,9 +38,12 @@ describe('landing problem and lessons copy', () => {
     expect(SIM_PROBLEM_PWC.both.value).toBe('12%')
     expect(SIM_PROBLEM_PWC.sample).toBe('4,454 CEOs')
     expect(SIM_PROBLEM_PWC.dots.neither + SIM_PROBLEM_PWC.dots.both).toBeLessThanOrEqual(100)
-    expect(SIM_PROBLEM_BCG.segments.map((s) => s.value)).toEqual([10, 20, 70])
-    for (const s of [SIM_PROBLEM_PWC.source, SIM_PROBLEM_BCG.source, SIM_PROBLEM_MIT.source]) expect(s.length).toBeGreaterThan(10)
+    for (const s of [SIM_PROBLEM_PWC.source, SIM_PROBLEM_MIT.source]) expect(s.length).toBeGreaterThan(10)
     for (const i of SIM_LESSONS.items) expect(i.source.length, i.id).toBeGreaterThan(10)
+  })
+
+  it('keeps only the figures this page owns (PwC and MIT); McKinsey and BCG live on Readiness', () => {
+    expect(Object.keys(PROBLEM).sort()).toEqual(['SIM_PROBLEM', 'SIM_PROBLEM_MIT', 'SIM_PROBLEM_PWC'])
   })
 
   it('MIT NANDA 95% is framed as contested, preliminary, 153 respondents', () => {

@@ -184,7 +184,7 @@ export function ReelStage({
     else togglePlay()
   }
 
-  const width = `min(78vw, ${cardWidth}px)`
+  const width = `min(78vw, 100%, ${cardWidth}px)`
 
   return (
     <section ref={stageRef} aria-label={title} className={cn('relative isolate', className)}>

@@ -1,7 +1,6 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import Image from '@/src/components/PublicDemoImage'
 import { motion, useReducedMotion } from 'framer-motion'
 import { CountUp } from '@/src/components/prism/motion/CountUp'
 import { Button } from '@/src/components/prism/Button'
@@ -222,14 +221,8 @@ function WhyBlock({ onRun }: { onRun: () => void }) {
             <p key={p}>{p}</p>
           ))}
         </div>
+        {/* Signed by name only: John's portrait appears once on this page, in the team section. */}
         <div className="mt-8 flex items-center gap-3">
-          <Image
-            src={"/assets/team/john-ellison.webp"}
-            alt=""
-            width={48}
-            height={48}
-            className="size-12 shrink-0 rounded-full object-cover"
-          />
           <div>
             <p className="font-display text-lg font-semibold text-ink">{W.signature.name}</p>
             <p className="type-sm text-ink-tertiary">{W.signature.org}</p>

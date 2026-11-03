@@ -83,10 +83,13 @@ export function OrgScene({ result, layout, month, animated, growthLabel, agents 
             <motion.path d={sp.backPath} fill="none" stroke="url(#sim-link)" strokeLinecap="round" strokeDasharray="2 5" initial={false} animate={{ opacity: st.opacity * 0.7, strokeWidth: st.width }} transition={t} />
             {animated && st.flow > 0 && !reduce && (
               <>
-                <circle r={2.6} fill={cl.color}>
+                {/* Hidden until its motion begins, so a delayed particle never sits at the SVG origin. */}
+                <circle r={2.6} fill={cl.color} opacity={0}>
+                  <set attributeName="opacity" to="1" begin={`${(k * 0.37) % 2.6}s`} />
                   <animateMotion dur="2.6s" repeatCount="indefinite" begin={`${(k * 0.37) % 2.6}s`} path={sp.path} />
                 </circle>
-                <circle r={2.6} fill="#7c3aed">
+                <circle r={2.6} fill="#7c3aed" opacity={0}>
+                  <set attributeName="opacity" to="1" begin={`${(k * 0.37 + 1.3) % 2.6}s`} />
                   <animateMotion dur="2.6s" repeatCount="indefinite" begin={`${(k * 0.37 + 1.3) % 2.6}s`} path={sp.backPath} />
                 </circle>
               </>

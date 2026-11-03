@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { EnterprisePageShell } from '@/src/components/enterprise/EnterprisePageShell'
 import { Section } from '@/src/components/prism'
-import { SimulatorApp } from '@/src/components/simulator/SimulatorApp'
-import { SimulatorLanding } from '@/src/components/simulator/landing/SimulatorLanding'
+import { SimulatorLandingPage } from '@/src/components/simulator/landing/SimulatorLandingPage'
 import { SIM_META } from '@/src/simulator-content'
 
 const URL = 'https://www.vibrana.ai/ai-transformation/simulator'
@@ -18,7 +17,7 @@ export default function SimulatorPage() {
   return (
     <EnterprisePageShell>
       <Section container="full" rhythm="none" className="pb-24 pt-28 md:pt-32">
-        <SimulatorApp landing={<SimulatorLanding />} />
+        <SimulatorLandingPage />
       </Section>
     </EnterprisePageShell>
   )
