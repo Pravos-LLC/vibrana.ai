@@ -2,6 +2,7 @@ import { expect, test, type Page } from '@playwright/test'
 import { SIM_PACES, SIM_SECTOR_LABELS, SIM_STEPS } from '@/src/simulator-content'
 import { SIM_HERO, SIM_MINI } from '@/src/simulator-landing-hero-content'
 import { SIM_WALKTHROUGH } from '@/src/simulator-landing-walkthrough-content'
+import { STICKY_CTA_CONTENT } from '@/src/simulator-landing-cta-content'
 import { collectErrors } from './support'
 
 // The simulator landing: a play-first sandbox that never asks for an email, the scroll run that
@@ -102,4 +103,43 @@ test('the scroll run hands its scenario back to the sandbox', async ({ page }) =
   await page.getByRole('button', { name: SIM_WALKTHROUGH.takeOver }).click()
   await expect(sandbox(page).getByRole('button', { name: SIM_PACES.cautious.label, exact: true })).toHaveAttribute('aria-pressed', 'true')
   await expect(sandbox(page)).toBeInViewport()
+})
+
+test('an untouched sandbox leaves the lead form empty and the size still required', async ({ page }) => {
+  await page.goto(URL)
+  await page.getByRole('button', { name: SIM_HERO.ctaPrimary }).first().click()
+  await expect(page.getByLabel(SIM_STEPS.company.emailLabel)).toBeFocused()
+  await expect(page.getByLabel(SIM_STEPS.company.peopleLabel)).toHaveValue('')
+  await page.getByLabel(SIM_STEPS.company.emailLabel).fill('someone@example.com')
+  await page.getByRole('button', { name: SIM_STEPS.company.skip }).click()
+  await expect(page.getByText(SIM_STEPS.company.errors.people)).toBeVisible()
+})
+
+test('the sticky bar leaves when the visitor jumps back to the top (390px, Home)', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto(URL)
+  const bar = page.locator('div.fixed.bottom-0').getByRole('button', { name: STICKY_CTA_CONTENT.primary })
+  await page.locator('#why-it-stalls').scrollIntoViewIfNeeded()
+  await expect(bar).toBeVisible()
+  await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+  await page.keyboard.press('Home')
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+  await expect(bar).toHaveCount(0)
+})
+
+test('the pinned run panel keeps "Try it yourself" on screen and uncovered at 1280x720', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await page.goto(URL)
+  for (const step of [SIM_WALKTHROUGH.steps[1], SIM_WALKTHROUGH.steps[2], SIM_WALKTHROUGH.steps[5]]) {
+    await page.getByText(step.caption).evaluate((el) => el.scrollIntoView({ block: 'center' }))
+    const button = page.getByRole('button', { name: SIM_WALKTHROUGH.takeOver })
+    await expect(button).toBeInViewport({ ratio: 1 })
+    await page.waitForTimeout(500) // let the sticky bar finish sliding in
+    const hit = await button.evaluate((el) => {
+      const r = el.getBoundingClientRect()
+      const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
+      return !!top && (el === top || el.contains(top))
+    })
+    expect(hit, `"${SIM_WALKTHROUGH.takeOver}" is covered at "${step.id}"`).toBe(true)
+  }
 })

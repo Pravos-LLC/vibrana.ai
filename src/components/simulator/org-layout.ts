@@ -21,8 +21,8 @@ export const DOT_IDLE = 'rgba(15,15,17,0.14)';
 export const HALO = { fill: tint(CAPACITY_GREEN, 0.08), stroke: tint(CAPACITY_GREEN, 0.5), text: '#15803d' };
 
 /** The brain goes live through months 6 to 12 (the roadmap's third phase). */
-const BRAIN_START = 6;
-const BRAIN_FULL = 12;
+export const BRAIN_START = 6;
+export const BRAIN_FULL = 12;
 
 export type Dot = { x: number; y: number; order: number };
 export type Cluster = {

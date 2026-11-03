@@ -14,10 +14,11 @@ export function RollingText({ text, className }: { text: string; className?: str
   const reduce = useHydratedReducedMotion()
   const chars = Array.from(text)
   return (
-    <span aria-hidden className={cn('inline-flex whitespace-nowrap tabular', className)}>
+    // One line box for every glyph: digits (1em cells) and "$", "k", "%" share a baseline at line-height 1.
+    <span aria-hidden className={cn('inline-flex items-baseline whitespace-nowrap tabular', className)} style={{ lineHeight: 1 }}>
       {chars.map((c, i) => {
         const key = chars.length - i
-        if (!/\d/.test(c)) return <span key={`c${key}`} style={{ whiteSpace: 'pre' }}>{c}</span>
+        if (!/\d/.test(c)) return <span key={`c${key}`} style={{ whiteSpace: 'pre', lineHeight: 1 }}>{c}</span>
         return (
           <span key={`d${key}`} className="relative inline-block overflow-hidden" style={{ height: '1em', lineHeight: 1 }}>
             <span className="invisible">0</span>

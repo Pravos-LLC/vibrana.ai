@@ -81,3 +81,13 @@ export const isSample = (s: Sandbox) => s.sector === SANDBOX_DEFAULT.sector && s
 export function nearestStop(n: number): number {
   return PEOPLE_STOPS.reduce((best, v) => (Math.abs(v - n) < Math.abs(best - n) ? v : best), PEOPLE_STOPS[0])
 }
+
+/**
+ * What "Run it on your company" hands the form: nothing unless the visitor actually played. An
+ * untouched sandbox is the sample insurer, and pre-filling 240 people into a lead form would
+ * record a size the visitor never gave. Returning to the exact sample counts as untouched too.
+ */
+export function sandboxSeed(s: Sandbox, touched: boolean): { sector: SectorId; headcount: number; adoptionTarget: number } | undefined {
+  if (!touched || isSample(s)) return undefined
+  return { sector: s.sector, headcount: s.people, adoptionTarget: PACE_TARGET[s.pace] }
+}

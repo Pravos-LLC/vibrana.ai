@@ -192,12 +192,13 @@ export function OfferGallery({
                   </div>
                   <div className="mt-auto pt-4">
                     <p className="type-xs text-ink-tertiary">{h.ledBy}</p>
-                    <ul className="mt-1.5 grid gap-2" style={{ gridTemplateColumns: `repeat(${Math.max(1, o.leads.length)}, minmax(0, 1fr))` }}>
+                    {/* Wraps instead of equal columns, so a third lead's focus word ("Governance") never truncates. */}
+                    <ul className="mt-1.5 flex flex-wrap gap-x-4 gap-y-2">
                       {o.leads.map((id) => {
                         const person = SIM_TEAM[id]
                         const photo = media ? photoFor(person.name) : null
                         return (
-                          <li key={id} className="flex min-w-0 items-center gap-2">
+                          <li key={id} className="flex items-center gap-2">
                             {photo ? (
                               <Image src={photo} alt="" width={28} height={28} className="h-7 w-7 flex-none rounded-full object-cover" />
                             ) : (
@@ -205,9 +206,9 @@ export function OfferGallery({
                                 {person.first.charAt(0)}
                               </span>
                             )}
-                            <span className="min-w-0 leading-tight">
-                              <span className="block truncate type-xs font-medium text-ink">{person.first}</span>
-                              <span className="block truncate text-[0.6875rem] text-ink-tertiary">{person.word}</span>
+                            <span className="leading-tight">
+                              <span className="block type-xs font-medium text-ink">{person.first}</span>
+                              <span className="block text-[0.6875rem] text-ink-tertiary">{person.word}</span>
                             </span>
                           </li>
                         )

@@ -12,7 +12,7 @@ const findForm = () =>
   document.getElementById(SIM_URL_FIELD_ID) ?? document.querySelector<HTMLElement>('input[inputmode="url"]')
 
 /**
- * A bar fixed to the bottom that slides in once the hero form has scrolled out of view above,
+ * A bar fixed to the bottom that slides in once the form has scrolled out of view above,
  * and steps aside while the form or the closing CTA is on screen.
  */
 export function StickyCtaBar() {
@@ -20,30 +20,32 @@ export function StickyCtaBar() {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    const form = findForm()
-    const final = document.getElementById(FINAL_CTA_ID)
-    const state = { formInView: true, formAbove: false, finalInView: false }
-    const update = () => setShow(!state.formInView && state.formAbove && !state.finalInView)
-
-    const observers: IntersectionObserver[] = []
-    if (form) {
-      const io = new IntersectionObserver(([entry]) => {
-        state.formInView = entry.isIntersecting
-        state.formAbove = entry.boundingClientRect.top < 0
-        update()
-      })
-      io.observe(form)
-      observers.push(io)
+    // Read positions on every scroll (once per frame) rather than from IntersectionObserver
+    // callbacks: a jump (Home key, status-bar tap, a reduced-motion scroll to the hero) can cross
+    // the form without ever intersecting it, and an observer would then keep a stale state.
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const form = findForm()
+      const final = document.getElementById(FINAL_CTA_ID)
+      const vh = window.innerHeight
+      const visible = (r: DOMRect) => r.bottom > 0 && r.top < vh
+      const formRect = form?.getBoundingClientRect()
+      const formAbove = formRect ? formRect.bottom <= 0 : false
+      const finalInView = final ? visible(final.getBoundingClientRect()) : false
+      setShow(formAbove && !finalInView)
     }
-    if (final) {
-      const io = new IntersectionObserver(([entry]) => {
-        state.finalInView = entry.isIntersecting
-        update()
-      })
-      io.observe(final)
-      observers.push(io)
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update)
     }
-    return () => observers.forEach((o) => o.disconnect())
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
   }, [])
 
   return (

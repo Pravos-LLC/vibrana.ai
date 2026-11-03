@@ -5,7 +5,7 @@ import { SimulatorApp } from '../SimulatorApp'
 import { MINI_SIMULATOR_ID, MiniSimulator } from './MiniSimulator'
 import { SimulatorLanding } from './SimulatorLanding'
 import { StepsAside } from './StepsSection'
-import { PACE_TARGET, SANDBOX_DEFAULT, type Sandbox } from './sandbox'
+import { SANDBOX_DEFAULT, sandboxSeed, type Sandbox } from './sandbox'
 
 /**
  * The simulator landing page: the hero sandbox, then the full simulator's form (unchanged), then
@@ -14,9 +14,12 @@ import { PACE_TARGET, SANDBOX_DEFAULT, type Sandbox } from './sandbox'
  */
 export function SimulatorLandingPage() {
   const [sandbox, setSandbox] = useState<Sandbox>(SANDBOX_DEFAULT)
+  /** The visitor moved a control (or took over the scroll run). Only then does the sandbox seed the form. */
+  const [touched, setTouched] = useState(false)
 
   const takeOver = (s: Sandbox) => {
     setSandbox(s)
+    setTouched(true)
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     document.getElementById(MINI_SIMULATOR_ID)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
   }
@@ -26,8 +29,11 @@ export function SimulatorLandingPage() {
       hero={(start) => (
         <MiniSimulator
           value={sandbox}
-          onChange={setSandbox}
-          onStart={() => start({ sector: sandbox.sector, headcount: sandbox.people, adoptionTarget: PACE_TARGET[sandbox.pace] })}
+          onChange={(s) => {
+            setSandbox(s)
+            setTouched(true)
+          }}
+          onStart={() => start(sandboxSeed(sandbox, touched))}
         />
       )}
       aside={<StepsAside />}

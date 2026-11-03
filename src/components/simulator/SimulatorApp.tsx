@@ -217,6 +217,8 @@ export function SimulatorApp({ landing, hero, aside }: SimulatorAppProps = {}) {
     if (seed && step === 'company') {
       if (people === '') setPeople(String(seed.headcount))
       if (sector === null) setSector(seed.sector)
+      // The pace has no field on this step, so the seed is the only thing that can have set it; the
+      // caller sends a seed only after the visitor played (landing/sandbox.ts sandboxSeed).
       setAdoptionTarget(seed.adoptionTarget)
     }
     focusSimulatorUrl()

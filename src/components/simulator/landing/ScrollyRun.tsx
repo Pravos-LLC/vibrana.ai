@@ -9,14 +9,14 @@ import { cn } from '@/src/components/prism/utils/cn'
 import { compareDelivery, simulate } from '@/src/lib/simulator/engine'
 import { READINESS_DIMENSIONS, type Pace, type ReadinessInput, type SimulatorResult } from '@/src/lib/simulator/types'
 import { readinessBand } from '@/src/lib/simulator/readiness'
-import { formatAbout, formatMoney } from '@/src/lib/simulator/format'
+import { formatMoney, formatRange } from '@/src/lib/simulator/format'
 import { SIM_PACES, SIM_SECTOR_LABELS } from '@/src/simulator-content'
 import { SIM_MINI } from '@/src/simulator-landing-hero-content'
 import { SIM_WALKTHROUGH } from '@/src/simulator-landing-walkthrough-content'
 import { CostChart } from '../CostChart'
 import { NetChart } from '../NetChart'
 import { OrgScene } from '../OrgVisual'
-import { buildLayout } from '../org-layout'
+import { BRAIN_START, buildLayout } from '../org-layout'
 import { RollingText } from './RollingText'
 import { RoadmapStrip } from './RoadmapStrip'
 import { SCROLLY_RUN_ID } from './MiniSimulator'
@@ -32,9 +32,12 @@ const HIGH_BASELINE = answers([70, 70, 100, 70, 70, 70])
 
 type StepId = (typeof W.steps)[number]['id']
 /** What each caption sets on the panel: the pace it runs at and the picture it shows. */
-const STEP_STATE: Record<StepId, { pace: Pace; month?: number }> = {
+/** The brain step's month: two months after the brain starts going live, when knowledge visibly flows. */
+export const BRAIN_STEP_MONTH = BRAIN_START + 2
+
+export const STEP_STATE: Record<StepId, { pace: Pace; month?: number }> = {
   'month-0': { pace: 'steady', month: 0 },
-  'month-4': { pace: 'steady', month: 4 },
+  'brain-live': { pace: 'steady', month: BRAIN_STEP_MONTH },
   pnl: { pace: 'steady' },
   cautious: { pace: 'cautious' },
   readiness: { pace: 'steady' },
@@ -72,13 +75,14 @@ function useDesktop() {
 
 function NetworkView({ run, month }: { run: Run; month: number }) {
   const reduce = useHydratedReducedMotion()
-  const hours = run.steady.scenarios.central.months[month].hoursFreed
+  // A range like every other figure on the page: conservative to optimistic at this month.
+  const hours = { low: run.steady.scenarios.conservative.months[month].hoursFreed, high: run.steady.scenarios.optimistic.months[month].hoursFreed }
   return (
     <div>
       <div className="flex items-end justify-between gap-4">
         <span className="whitespace-nowrap font-display type-2xl font-semibold tabular text-ink">{W.network.month(month)}</span>
         <span className="text-right type-sm text-ink-secondary">
-          <span className="font-display type-lg font-semibold tabular text-ink">{formatAbout(hours)}</span> {W.network.hours}
+          <span className="font-display type-lg font-semibold tabular text-ink">{formatRange(hours)}</span> {W.network.hours}
         </span>
       </div>
       <div className="mt-2">
@@ -100,6 +104,8 @@ function ReadinessView({ run }: { run: Run }) {
   ]
   const maxCost = Math.max(...sides.map((s) => trainingCost(s.result)), 1)
   const fmt = (n: number) => (Math.round(n * 10) / 10).toString()
+  // Rounded up, so "by month N" stays true for a fractional half-adoption month.
+  const byMonth = (n: number) => String(Math.ceil(n))
   return (
     <div className="grid gap-3 sm:grid-cols-2">
       {sides.map((s) => {
@@ -113,10 +119,11 @@ function ReadinessView({ run }: { run: Run }) {
               <span className="type-xs text-ink-tertiary">{R.score}</span>
             </p>
             <p className="font-display type-base font-semibold text-ink">{R.bands[readinessBand(score)]}</p>
-            <p className="mt-3 type-sm text-ink-secondary">{R.half(fmt(s.result.resolved.adoptionCurve.t0))}</p>
+            <p className="mt-3 type-sm text-ink-secondary">{R.half(byMonth(s.result.resolved.adoptionCurve.t0))}</p>
             <p className="type-sm text-ink-secondary">{R.training(fmt(s.result.resolved.trainingHoursPerPerson))}</p>
             <p className="mt-3 type-xs text-ink-tertiary">{R.cost}</p>
             <p className="font-display type-lg font-semibold tabular text-ink">{formatMoney(cost, 'USD', { compact: true })}</p>
+            <p className="type-xs text-ink-tertiary">{R.sameInAll}</p>
             <div className="mt-2 h-1.5 rounded-full bg-[rgba(124,58,237,0.12)]">
               <div className="h-full rounded-full bg-brand-violet-strong" style={{ width: `${(cost / maxCost) * 100}%` }} />
             </div>
@@ -130,7 +137,7 @@ function ReadinessView({ run }: { run: Run }) {
 function View({ id, run }: { id: StepId; run: Run }) {
   switch (id) {
     case 'month-0':
-    case 'month-4':
+    case 'brain-live':
       return <NetworkView run={run} month={STEP_STATE[id].month ?? 0} />
     case 'pnl':
       return <CostChart result={run.steady} currency="USD" />
@@ -138,6 +145,16 @@ function View({ id, run }: { id: StepId; run: Run }) {
       return (
         <div className="py-2">
           <RoadmapStrip result={run.cautious} ghost={run.steady} caption={SIM_MINI.roadmapLabel} label={SIM_MINI.roadmapAria(SIM_PACES.cautious.label.toLowerCase())} />
+          <p className="mt-3 flex flex-wrap gap-x-5 gap-y-1 type-xs text-ink-secondary">
+            <span className="inline-flex items-center gap-2">
+              <span aria-hidden className="inline-block h-0.5 w-5 rounded bg-brand-violet-strong" />
+              {SIM_PACES.cautious.label}
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <span aria-hidden className="inline-block w-5 border-t-[1.5px] border-dashed border-ink-tertiary" />
+              {SIM_PACES.steady.label}
+            </span>
+          </p>
           <p className="mt-4 type-sm text-ink-secondary">{SIM_MINI.paceHint.cautious}</p>
         </div>
       )
@@ -148,16 +165,47 @@ function View({ id, run }: { id: StepId; run: Run }) {
   }
 }
 
+/** What each picture shows, labeled where it prints a single central value (the net chart). */
+const VIEW_CAPTION: Partial<Record<StepId, string>> = {
+  'month-0': W.network.caption,
+  'brain-live': W.network.caption,
+  pnl: W.pnl.caption,
+  readiness: W.readiness.caption,
+  net: W.net.caption,
+}
+
 const pill = (on: boolean) =>
   cn('inline-flex items-center rounded-full border px-3 py-1 type-xs transition-colors duration-200', on ? 'border-brand-violet bg-[rgba(124,58,237,0.09)] text-ink' : 'border-line-subtle text-ink-tertiary')
 
 /** The sticky panel: the sandbox's inputs as the run sets them, its three outputs, and the step's picture. */
-function Panel({ index, run, onTakeOver, outputs = true, children }: { index: number; run: Run; onTakeOver: (s: Sandbox) => void; /** The three ranges; stacked panels show them only where the step changes them. */ outputs?: boolean; children: ReactNode }) {
+function Panel({
+  index,
+  run,
+  onTakeOver,
+  outputs = true,
+  capped = false,
+  children,
+}: {
+  index: number
+  run: Run
+  onTakeOver: (s: Sandbox) => void
+  /** The three ranges; stacked panels show them only where the step changes them. */
+  outputs?: boolean
+  /** Pinned panel: hold to the viewport height. */
+  capped?: boolean
+  children: ReactNode
+}) {
   const step = W.steps[index]
   const pace = STEP_STATE[step.id].pace
   const out = sandboxOutputs(pace === 'cautious' ? run.cautious : run.steady)
   return (
-    <div className="overflow-hidden rounded-[1.5rem] border border-line-subtle bg-surface-base shadow-[0_30px_80px_rgba(30,27,75,0.10)]">
+    <div
+      className={cn(
+        'flex flex-col overflow-hidden rounded-[1.5rem] border border-line-subtle bg-surface-base shadow-[0_30px_80px_rgba(30,27,75,0.10)]',
+        // Pinned beside the captions it never outgrows the viewport, less the nav and the sticky CTA bar: the picture scrolls, the hand-back button stays.
+        capped && 'max-h-[calc(100dvh-11.5rem)]',
+      )}
+    >
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line-subtle bg-surface-raised px-5 py-3.5">
         <span className="label-mono text-ink-tertiary">{W.presetLabel(index + 1)}</span>
         <span className="flex flex-wrap gap-1.5" aria-hidden>
@@ -186,8 +234,11 @@ function Panel({ index, run, onTakeOver, outputs = true, children }: { index: nu
           </div>
         ))}
       </div>}
-      <div className="p-5">{children}</div>
-      <div className="flex justify-end border-t border-line-subtle px-5 py-3">
+      <div className="min-h-0 flex-1 overflow-y-auto p-5">
+        {VIEW_CAPTION[step.id] && <p className="label-mono mb-3 text-ink-tertiary">{VIEW_CAPTION[step.id]}</p>}
+        {children}
+      </div>
+      <div className="flex shrink-0 justify-end border-t border-line-subtle px-5 py-3">
         <button
           type="button"
           onClick={() => onTakeOver({ ...SANDBOX_DEFAULT, pace })}
@@ -225,7 +276,7 @@ export function ScrollyRun({ onTakeOver }: { onTakeOver: (s: Sandbox) => void })
   }, [desktop])
 
   // Both network steps share one picture, so month 0 to month 4 animates in place instead of swapping.
-  const viewKey = (i: number) => (W.steps[i].id.startsWith('month') ? 'network' : W.steps[i].id)
+  const viewKey = (i: number) => (STEP_STATE[W.steps[i].id].month !== undefined ? 'network' : W.steps[i].id)
 
   return (
     <Section id={SCROLLY_RUN_ID} surface="raised" className="scroll-mt-16">
@@ -260,7 +311,7 @@ export function ScrollyRun({ onTakeOver }: { onTakeOver: (s: Sandbox) => void })
         {desktop && (
           <div className="relative">
             <div className="sticky top-24">
-              <Panel index={active} run={run} onTakeOver={onTakeOver}>
+              <Panel index={active} run={run} onTakeOver={onTakeOver} capped>
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={viewKey(active)}
