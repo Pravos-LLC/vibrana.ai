@@ -6,7 +6,8 @@ import { useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
 import { Eyebrow, Section, SectionHeader } from '@/src/components/prism'
-import { LogoRow } from '@/src/components/proof/LogoRow'
+import { RedactedLogo } from '@/src/components/proof/AnonymizedMark'
+import { LOGO_ROW_LABELS, NDA_SLOT_LABEL, PROOF_LOGOS } from '@/src/logo-rows-content'
 import { cn } from '@/src/components/prism/utils/cn'
 import { SECTOR_EXAMPLES, type SectorExample } from '@/src/lib/simulator/sector-examples'
 import { PROOF_CONTENT as C, PROOF_WALL, PROOF_WALL_COLUMNS, type ProofWallLogo } from '@/src/simulator-landing-proof-content'
@@ -23,18 +24,33 @@ const ENTRIES: Entry[] = PROOF_WALL.flatMap((wall) => {
   return example ? [{ wall, example }] : []
 })
 
-function Mark({ wall }: { wall: ProofWallLogo }) {
-  const img = (
-    <PublicDemoImg
-      src={wall.src}
-      alt=""
-      loading="lazy"
-      style={{ height: wall.height ?? 30 }}
-      className={cn('w-auto max-w-full object-contain', wall.mono && 'logo-mono')}
-    />
+/**
+ * The company's name set as a wordmark. The real marks are not cleared for this repo yet, so the
+ * wall shows names in type rather than a stand-in image.
+ */
+function Mark({ example }: { example: SectorExample }) {
+  return (
+    <span className="font-display font-semibold text-ink" style={{ fontSize: '1.0625rem', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
+      {example.company}
+    </span>
   )
-  // A mark kept in its own colors sits on a white chip so it reads in both themes.
-  return wall.mono ? img : <span className="inline-flex items-center rounded bg-white px-2 py-1">{img}</span>
+}
+
+/** Clients and where the team has delivered, each mark once, wrapped (no marquee copies). */
+function DeliveredRow() {
+  return (
+    <ul aria-label={LOGO_ROW_LABELS.combined} className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+      {PROOF_LOGOS.map(({ name, src, height, anonymized }) => (
+        <li key={name} className="flex items-center">
+          {anonymized ? (
+            <RedactedLogo descriptor={NDA_SLOT_LABEL} />
+          ) : (
+            <PublicDemoImg src={src} alt={name} loading="lazy" className="proof-logo opacity-75" style={{ height: `${height}px`, width: 'auto' }} />
+          )}
+        </li>
+      ))}
+    </ul>
+  )
 }
 
 /**
@@ -80,7 +96,7 @@ export function ProofSection() {
               )}
             >
               <span className={cn('flex items-center transition-opacity duration-300', on ? 'opacity-100' : 'opacity-60 group-hover:opacity-100')}>
-                <Mark wall={wall} />
+                <Mark example={example} />
               </span>
               <span
                 aria-hidden
@@ -140,7 +156,8 @@ export function ProofSection() {
         <Eyebrow>{C.delivered.eyebrow}</Eyebrow>
         <h3 className="mt-2 font-display type-lg font-semibold text-ink">{C.delivered.title}</h3>
         <p className="mx-auto mt-2 max-w-md type-sm text-ink-tertiary">{C.delivered.note}</p>
-        <LogoRow className="mt-8" />
+        <DeliveredRow />
+        <p className="mx-auto mt-4 max-w-md type-xs text-ink-tertiary">{LOGO_ROW_LABELS.clientsNote}</p>
       </div>
     </Section>
   )

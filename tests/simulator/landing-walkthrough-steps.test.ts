@@ -28,7 +28,7 @@ const BANNED = [
 ]
 const BRITISH = [/\b(realis|organis|analys|optimis|prioritis|recognis)(e|ed|es|ing)\b/i, /\bcolour/i, /\bcentre/i, /\blicence\b/i, /\bprogramme/i]
 
-const files = ['src/simulator-landing-walkthrough-content.ts', 'src/simulator-landing-steps-content.ts']
+const files = ['src/simulator-landing-walkthrough-content.ts', 'src/simulator-landing-steps-content.ts', 'src/simulator-landing-hero-content.ts']
 
 describe('landing walkthrough and steps content lint', () => {
   for (const file of files) {
@@ -40,18 +40,21 @@ describe('landing walkthrough and steps content lint', () => {
   }
 
   it('every title is under 7 words', () => {
-    const titles = [SIM_WALKTHROUGH.title, SIM_LANDING_STEPS.title, ...SIM_WALKTHROUGH.steps.map((s) => s.title), ...SIM_LANDING_STEPS.steps.map((s) => s.title)]
+    const titles = [SIM_WALKTHROUGH.title, SIM_LANDING_STEPS.title, ...SIM_LANDING_STEPS.steps.map((s) => s.title)]
     for (const t of titles) expect(t.trim().split(/\s+/).length, t).toBeLessThan(7)
   })
 
-  it('has four walkthrough steps and three how-it-works steps, each with a line', () => {
-    expect(SIM_WALKTHROUGH.steps).toHaveLength(4)
+  it('has the six scroll-run captions from the deck and three how-it-works steps, each with a line', () => {
+    expect(SIM_WALKTHROUGH.steps).toHaveLength(6)
+    expect(SIM_WALKTHROUGH.steps[0].caption).toMatch(/^Month 0\. A 240-person insurer/)
+    expect(SIM_WALKTHROUGH.steps[3].caption).toMatch(/by month 9, not month 6/)
     expect(SIM_LANDING_STEPS.steps).toHaveLength(3)
-    for (const s of [...SIM_WALKTHROUGH.steps, ...SIM_LANDING_STEPS.steps]) expect(s.line.length).toBeGreaterThan(20)
+    for (const s of SIM_WALKTHROUGH.steps) expect(s.caption.length).toBeGreaterThan(20)
+    for (const s of SIM_LANDING_STEPS.steps) expect(s.line.length).toBeGreaterThan(20)
   })
 
   it('the components keep copy out of JSX', () => {
-    for (const f of ['src/components/simulator/landing/WalkthroughSection.tsx', 'src/components/simulator/landing/StepsSection.tsx']) {
+    for (const f of ['src/components/simulator/landing/ScrollyRun.tsx', 'src/components/simulator/landing/StepsSection.tsx']) {
       expect(source(f)).toMatch(/simulator-landing-(walkthrough|steps)-content/)
     }
   })

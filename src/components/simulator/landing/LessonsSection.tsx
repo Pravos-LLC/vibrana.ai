@@ -224,7 +224,7 @@ function WhyBlock({ onRun }: { onRun: () => void }) {
         </div>
         <div className="mt-8 flex items-center gap-3">
           <Image
-            src={"/assets/team/john-ellison.webp"}
+            src="/assets/team/polaroid/john-ellison.webp"
             alt=""
             width={48}
             height={48}
