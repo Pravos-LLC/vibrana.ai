@@ -143,3 +143,31 @@ test('the pinned run panel keeps "Try it yourself" on screen and uncovered at 12
     expect(hit, `"${SIM_WALKTHROUGH.takeOver}" is covered at "${step.id}"`).toBe(true)
   }
 })
+
+test('"Why it stalls" keeps its content inside the column at 390px', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto(URL)
+  const section = page.locator('#why-it-stalls')
+  await section.scrollIntoViewIfNeeded()
+  // Every element inside the section must end within the section's content box; page-level
+  // horizontal scroll alone did not catch two 160px stat cells widening a one-column grid.
+  const overflow = await section.evaluate((el) => {
+    // Measure against the content box of the column that holds the section's grid.
+    const grid = el.querySelector('.grid') as HTMLElement
+    const column = grid.parentElement as HTMLElement
+    const box = column.getBoundingClientRect()
+    const right = box.right - parseFloat(getComputedStyle(column).paddingRight)
+    return Array.from(grid.querySelectorAll('*'))
+      .filter((child) => {
+        const r = child.getBoundingClientRect()
+        if (r.width === 0 || r.right <= right + 1) return false
+        // Decoration clipped by an overflow-hidden ancestor inside the column never shows.
+        for (let a = child.parentElement; a && a !== grid; a = a.parentElement) {
+          if (getComputedStyle(a).overflow !== 'visible' && a.getBoundingClientRect().right <= right + 1) return false
+        }
+        return true
+      })
+      .map((child) => `${child.tagName.toLowerCase()}.${String(child.className).slice(0, 60)} +${Math.round(child.getBoundingClientRect().right - right)}px`)
+  })
+  expect(overflow).toEqual([])
+})

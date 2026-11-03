@@ -30,7 +30,7 @@ export function ProblemSection() {
   const P = SIM_PROBLEM
   return (
     <Section id={P.id} container="wide" className="scroll-mt-16">
-      <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] lg:gap-20">
+      <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] lg:gap-20">
         <div className="min-w-0">
           <p className="label-mono text-ink-tertiary">{P.eyebrow}</p>
           <h2 className="mt-4 max-w-[18ch] font-display font-semibold text-ink" style={{ fontSize: 'clamp(2rem, 1.4rem + 2vw, 3rem)', lineHeight: 1.08, letterSpacing: '-0.03em' }}>
