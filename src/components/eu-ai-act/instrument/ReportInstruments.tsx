@@ -46,7 +46,7 @@ export function ReportInstruments({ report, today }: { report: SampleReport; tod
       <Panel fig="FIG 3" title={R.labels.sections} caption={RP.callouts.sections} className="border-t lg:col-span-12">
         {/* Phones: the radar's axis labels cannot fit legibly, so the labeled score list beside it
             (the same five values) carries the panel alone. */}
-        <div className="max-md:[&>div>svg]:hidden">
+        <div className="max-md:[&>div>svg]:hidden md:px-8 lg:px-12">
           <SectionRadar sections={profile.sectionScores} />
         </div>
       </Panel>

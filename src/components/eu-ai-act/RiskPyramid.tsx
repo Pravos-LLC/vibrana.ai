@@ -21,8 +21,7 @@ const EASE = [0.23, 1, 0.32, 1] as const
  * Each band is a clip-path trapezoid in its tone's color; the bands build up from the base when
  * the pyramid scrolls into view, and each band's row of text sits level with it on desktop.
  * Under reduced motion everything renders in place. Identity is never color alone: every band
- * carries its label. The fine caps are shown once on the page, in the penalties ledger, so the
- * tiers carry only their citations here.
+ * carries its label. Each tier keeps its fine cap next to the Article 99 citation that supports it.
  */
 export function RiskPyramid({ tiers }: { tiers: readonly Tier[] }) {
   const reduce = useReducedMotion()
@@ -97,6 +96,7 @@ export function RiskPyramid({ tiers }: { tiers: readonly Tier[] }) {
               >
                 <h3 className={cn('font-display text-lg font-semibold tracking-tight', tone.text)}>{t.label}</h3>
                 <p className="mt-1 text-sm leading-6 text-ink-secondary">{t.body}</p>
+                {t.fine && <p className="label-mono tabular mt-1.5 text-ink">{t.fine}</p>}
                 <LegalCite findings={t.findings} className="mt-1.5" />
               </motion.div>
             </motion.li>
