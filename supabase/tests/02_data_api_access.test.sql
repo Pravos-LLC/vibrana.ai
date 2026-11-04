@@ -135,8 +135,6 @@ returns text[] language sql immutable set search_path = '' as $$
     'gtm_channel_daily', 'gtm_content_items', 'gtm_crm_snapshots', 'gtm_enrichment_runs',
     'gtm_post_metrics', 'gtm_post_metrics_latest', 'gtm_spend', 'gtm_zernio_events',
     'review_batches', 'review_assets', 'review_comments',
-    'gtm_piece_delivery_attempts','gtm_piece_deliveries','gtm_piece_decision_events',
-    'gtm_piece_reviews', 'gtm_piece_part_decisions', 'gtm_piece_fixes',
     'gtm_stories', 'gtm_story_assets', 'gtm_story_asset_channels', 'gtm_story_feedback', 'gtm_story_asset_versions', 'gtm_seasons',
     'gtm_story_stages', 'gtm_story_stage_decisions',
     'gtm_inspiration', 'gtm_signal_stories', 'gtm_signal_items', 'gtm_signal_feedback', 'gtm_signal_runs',
@@ -215,18 +213,6 @@ insert into public.gtm_stories (id, title, link_url)
   values ('seed-story', 'Seed Story', 'https://example.test/story');
 insert into public.gtm_story_assets (id, story_id, title, kind, source, sha256, body)
   values ('seed-copy', 'seed-story', 'Seed Copy', 'copy', 'seed/copy.txt', repeat('a', 64), 'Seed copy');
--- Separate shared piece keeps the legacy RPC fixture below meaningful.
-insert into public.gtm_stories(id,title,link_url) values('seed-shared','Shared','https://example.test/shared');
-insert into public.gtm_story_assets(id,story_id,title,kind,source,sha256,body,storage_path) values
- ('seed-shared-text','seed-shared','Text','copy','text.md',repeat('b',64),'Shared caption',null),
- ('seed-shared-video','seed-shared','Video','video','video.mp4',repeat('c',64),null,'shared/video.mp4');
-insert into public.gtm_piece_reviews(story_id,text_asset_id,video_asset_id,channels) values('seed-shared','seed-shared-text','seed-shared-video','{linkedin}');
-insert into public.gtm_piece_part_decisions(story_id,part,fingerprint) values('seed-shared','text','seed');
-insert into public.gtm_content_items(id,story_id,week,date,time,pillar,title,format,channels,status) values('seed-shared-linkedin','seed-shared',1,'2030-01-01','14:00','proof','Shared','video','{linkedin}','drafted');
-insert into public.gtm_piece_deliveries(story_id,channel,calendar_id,slot_date,slot_time,timezone,review_snapshot) values('seed-shared','linkedin','seed-shared-linkedin','2030-01-01','14:00','UTC','{}');
-insert into public.gtm_piece_delivery_attempts(id,delivery_id,story_id,channel,calendar_id,request) select gen_random_uuid(),id,story_id,channel,calendar_id,'{}' from public.gtm_piece_deliveries where story_id='seed-shared';
--- Decision-event trigger seeded the append-only event with the preceding pending decision.
-insert into public.gtm_piece_fixes(story_id,part,asset_id,note,base_fingerprint,base_revision,base_asset) values('seed-shared','text','seed-shared-text','Correct spelling','seed',1,'{}');
 insert into public.gtm_reviewer_asset_decisions (story_id, asset_id, asset_sha256, revision, party, decision, note)
   values ('seed-story', 'seed-copy', repeat('a', 64), 1, 'Seed Partner', 'note', 'Seed note');
 insert into public.gtm_story_asset_channels (asset_id, channel)
