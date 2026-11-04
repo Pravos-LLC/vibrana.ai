@@ -192,10 +192,14 @@ export type FrameState = {
 
 const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
 
+/**
+ * Which caption the picture shows. The "Shared know-how" caption says the company brain goes
+ * live, so it starts at BRAIN_START, never before (SIM_DASH.efficiency.frames, tested).
+ */
 export function frameFor(month: number): 0 | 1 | 2 | 3 {
   if (month <= 0) return 0;
-  if (month <= 3) return 1;
-  if (month <= 12) return 2;
+  if (month < BRAIN_START) return 1;
+  if (month <= BRAIN_FULL) return 2;
   return 3;
 }
 

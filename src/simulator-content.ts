@@ -435,7 +435,8 @@ export const SIM_DASH = {
     frames: [
       { from: 0, title: 'Today', body: 'Every team, before the rollout starts.' },
       { from: 1, title: 'First users', body: 'Teams with the most to gain start first. A few people start building.' },
-      { from: 4, title: 'Shared know-how', body: 'The company brain goes live: what one team builds, others reuse.' },
+      // Starts at BRAIN_START (org-layout.ts): the brain goes live from month 6, not before.
+      { from: 6, title: 'Shared know-how', body: 'The company brain goes live: what one team builds, others reuse.' },
       { from: 13, title: 'Capacity for growth', body: 'Freed hours move into work you choose.' },
     ],
   },
