@@ -143,6 +143,7 @@ returns text[] language sql immutable set search_path = '' as $$
     'gtm_comments', 'gtm_comment_runs', 'gtm_red_flag_alerts', 'gtm_red_flag_resolutions', 'gtm_engage_lessons',
     'gtm_manual_metrics', 'gtm_content_reports', 'gtm_report_actions', 'gtm_sync_state', 'gtm_analytics_reports',
     'gtm_settings', 'gtm_settings_history',
+    'gtm_team_mailboxes', 'gtm_team_mail_events', 'gtm_team_stock_daily',
     'gtm_content_candidates', 'gtm_ideas',
     'gtm_storyboards', 'gtm_storyboard_versions', 'gtm_storyboard_rules', 'gtm_storyboard_comments',
     'gtm_storyboard_scene_decisions', 'gtm_storyboard_spend', 'gtm_broll_shots',
@@ -196,6 +197,9 @@ insert into public.gtm_content_reports (id, kind, period_start, period_end)
 insert into public.gtm_report_actions (report_id, type, proposal)
   values ('00000000-0000-0000-0000-0000000000e1', 'move', 'Seed change');
 insert into public.gtm_sync_state (key, value) values ('seed', '{}');
+insert into public.gtm_team_mailboxes (member, address, token_ciphertext) values ('SEED', 'seed-mailbox@example.test', repeat('x', 60));
+insert into public.gtm_team_mail_events (member, gmail_message_id, thread_id, kind, at) values ('SEED', 'a1', 'a1', 'outreach', now());
+insert into public.gtm_team_stock_daily (member, date, metrics) values ('SEED', current_date, '{}');
 -- Writes the setting and, through its trigger, one history row.
 insert into public.gtm_settings (key, value, updated_by) values ('seed', '{}', 'seed');
 insert into public.gtm_analytics_reports (kind, slug, period_start, period_end, title, headline, doc)
