@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { simulate } from '@/src/lib/simulator/engine'
-import { buildLayout, frameState, peoplePerDot, sceneSvg } from '@/src/components/simulator/org-layout'
+import { BRAIN_FULL, BRAIN_START, buildLayout, frameFor, frameState, peoplePerDot, sceneSvg } from '@/src/components/simulator/org-layout'
+import { SIM_DASH } from '@/src/simulator-content'
 import type { SimulatorInputs } from '@/src/lib/simulator/types'
 
 const base: SimulatorInputs = {
@@ -70,5 +71,22 @@ describe('org visual: nobody leaves the picture (spec 9)', () => {
     expect(svg.startsWith('<svg')).toBe(true)
     expect(svg).not.toContain('NaN')
     expect(sceneSvg(simulate(base), 24, { mark: 'data:image/svg+xml;base64,AAA' })).toContain('<image')
+  })
+})
+
+describe('picture captions follow the model', () => {
+  const frames = SIM_DASH.efficiency.frames
+  it('each caption starts at the month the picture switches to it', () => {
+    frames.forEach((f, i) => {
+      expect(frameFor(f.from), f.title).toBe(i)
+      if (f.from > 0) expect(frameFor(f.from - 1), f.title).toBe(i - 1)
+    })
+  })
+  it('the caption that says the brain goes live never shows before the brain starts', () => {
+    const brainFrame = frames.findIndex((f) => /brain goes live/.test(f.body))
+    expect(brainFrame).toBeGreaterThan(0)
+    expect(frames[brainFrame].from).toBe(BRAIN_START)
+    for (let m = 0; m < BRAIN_START; m += 0.25) expect(frameFor(m), `month ${m}`).not.toBe(brainFrame)
+    expect(frameFor(BRAIN_FULL)).toBe(brainFrame)
   })
 })
