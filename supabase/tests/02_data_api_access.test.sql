@@ -275,6 +275,17 @@ insert into public.simulator_company_profiles (domain, sector, sector_confidence
 insert into public.simulator_runs (slug, domain, headcount, inputs, result, engine_version, benchmarks_version, prices_version, ip_hash, owner_token_hash)
   values ('seedslug01', 'seed.example', 200, '{}', '{}', '1.0.0', 'seed', 'seed', 'seed', repeat('f', 64));
 insert into public.simulator_budget (day) values (current_date);
+-- New service-only scheduling tables are distinct from retired paid bookings.
+-- Seed them so the global RLS sweeps exercise real rows for every browser role.
+insert into public.booking_connections(id, host_id, account, token, calendars)
+  values ('00000000-0000-4000-8000-0000000000d2', 'john', 'seed-calendar@example.test', 'test-ciphertext', array['seed-calendar']);
+insert into public.booking_invites(id, host_id, token_hash, from_date, to_date, expires_at)
+  values ('00000000-0000-4000-8000-0000000000d3', 'john', repeat('d',64), current_date, current_date+1, now()+interval '1 day');
+insert into public.booking_reservations(id,host_id,token_hash,management_secret,name,email,start_at,end_at,status,connection_id,calendar_id,invite_id)
+  values ('00000000-0000-4000-8000-0000000000d4','john',repeat('c',64),'test-ciphertext','Seed','seed-reservation@example.test',now()+interval '1 day',now()+interval '1 day 30 minutes','confirmed','00000000-0000-4000-8000-0000000000d2','seed-calendar','00000000-0000-4000-8000-0000000000d3');
+insert into public.booking_jobs(booking_id,host_id,kind,event_key,payload)
+  values ('00000000-0000-4000-8000-0000000000d4','john','crm','synthetic-security-seed','{}');
+insert into public.booking_ai_budget(day,hits) values(current_date,0);
 -- The booking tables are being retired; seed them only while they exist.
 do $$
 begin

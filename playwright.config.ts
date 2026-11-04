@@ -32,7 +32,13 @@ export default defineConfig({
     },
     {
       command: `npx next start -p ${APP_PORT}`,
-      env: { FEEDBACK_FORMS_JSON: JSON.stringify({ schema: 1, forms: { [SAMPLE_FEEDBACK_FORM.slug]: SAMPLE_FEEDBACK_FORM } }) },
+      env: {
+        FEEDBACK_FORMS_JSON: JSON.stringify({ schema: 1, forms: { [SAMPLE_FEEDBACK_FORM.slug]: SAMPLE_FEEDBACK_FORM } }),
+        // Booking UI specs intercept provider APIs. Smoke tests exercise the
+        // honest unconfigured state, never a developer's real calendar account.
+        BOOKING_GOOGLE_CLIENT_ID: '', BOOKING_GOOGLE_CLIENT_SECRET: '', BOOKING_ENCRYPTION_KEY: '',
+        BOOKING_JOHN_EMAIL: '', BOOKING_ABE_EMAIL: '', BOOKING_CRM_ENABLED: '', BOOKING_BRIEFING_ENABLED: '',
+      },
       url: `http://localhost:${APP_PORT}/`,
       reuseExistingServer: false,
       timeout: 60_000,
