@@ -55,7 +55,7 @@ export const SPRINT_HERO_REEL = {
   label: 'AI Build Sprint',
   caption: 'FIG 0.1 / The AI Build Sprint, in 14 seconds',
   captionNote: 'Voiceover by John Ellison. On-screen text reads muted.',
-  title: 'A short film about the AI Build Sprint: a participant quote, the team, and the line AI, without losing the human',
+  title: 'A short film about the AI Build Sprint: a participant quote, the team, and the line "AI, without losing the human."',
   playLabel: 'Watch',
   playingLabel: 'Playing',
   labels: { play: 'Play the film', pause: 'Pause the film' },
@@ -150,7 +150,7 @@ export const SPRINT_REPO_MOCK = {
 export const SPRINT_DAYS = {
   eyebrow: 'The 10 days',
   heading: 'Ten days from kickoff to hand over.',
-  /** `span` = how many of the ten days the step covers (drives the diagram widths). */
+  /** `span` = how many of the ten days the step covers (SprintTimeline derives each day's phase from it). */
   steps: [
     { days: 'Days 1 to 4', span: 4, title: 'Scope and build', body: 'We meet the people who will use it, lock what “working” means, then build it with your team.' },
     { days: 'Day 5', span: 1, title: 'Real users try it', body: 'It goes live and the people who will use it put it to work while we watch.' },

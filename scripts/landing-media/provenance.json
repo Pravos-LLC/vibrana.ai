@@ -103,8 +103,8 @@
     },
     {
       "id": "build-sprint/build-sprint-film-loop.mp4",
-      "path": "/assets/landing/build-sprint/build-sprint-film-loop.f6066bcd.mp4",
-      "sha256": "f6066bcdcc84f127a421cdca3dd5b4780d345a259ddd7921f0712f0e04a8c6db",
+      "path": "/assets/landing/build-sprint/build-sprint-film-loop.5b482d6c.mp4",
+      "sha256": "5b482d6c9c01facbd97172fab80cdcb8cadfdbaf01963ba08a786f88cc7d7e36",
       "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
       "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line",
       "note": "Loop is the whole 13.7 s site cut, muted: participant quote, the team, then \"AI, without losing the human.\""
@@ -118,8 +118,8 @@
     },
     {
       "id": "build-sprint/build-sprint-film-loop.webm",
-      "path": "/assets/landing/build-sprint/build-sprint-film-loop.26f817fe.webm",
-      "sha256": "26f817fe2aa6da60691b64a010e842c655be3bd37e1d8238a961f1f17c3dc015",
+      "path": "/assets/landing/build-sprint/build-sprint-film-loop.b4ea6e0d.webm",
+      "sha256": "b4ea6e0dfe494551887f70843c2d49cdd40578c940300b274719d714ffb5d9ae",
       "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
       "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line",
       "note": "Loop is the whole 13.7 s site cut, muted: participant quote, the team, then \"AI, without losing the human.\""
@@ -140,17 +140,17 @@
     },
     {
       "id": "build-sprint/broll/john-broll-b-16x9.mp4",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.c18595da.mp4",
-      "sha256": "c18595da1d12527834ec1e95d0ec4a7738320c74607344515c92261bcd4d3230",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-steady.mp4 (generated, graded); a 10 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back, with a shared light grade",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.88afab48.mp4",
+      "sha256": "88afab4820a6e5c10a7102962f6e34cfdab0fed20a58cecacab23d44f01078a3",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-steady.mp4 (generated, graded); a 9.9 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back, with a shared light grade",
       "sourceFile": "B-kling-steady.mp4",
       "approval": "John Ellison b-roll, approved by John 2026-11-02"
     },
     {
       "id": "build-sprint/broll/john-broll-b-16x9.webm",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.cdb750ee.webm",
-      "sha256": "cdb750eec328878daa40561bfb86fd7cd38f1aa6f2b4405ef6c0b161139443cc",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-steady.mp4 (generated, graded); a 10 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back, with a shared light grade",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.127a5454.webm",
+      "sha256": "127a545434c116b22423faf10a5fb70653fb05b755dd7e5631b4dcaed39ed78a",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-steady.mp4 (generated, graded); a 9.9 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back, with a shared light grade",
       "sourceFile": "B-kling-steady.mp4",
       "approval": "John Ellison b-roll, approved by John 2026-11-02"
     },
@@ -158,7 +158,7 @@
       "id": "build-sprint/broll/john-broll-b-16x9-poster.webp",
       "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9-poster.386a21b8.webp",
       "sha256": "386a21b8b76b7d94511cbf7caaa92088a712aa4e790b78a73ed88c0403f2ae45",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-steady.mp4 (generated, graded); a 10 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back, with a shared light grade",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-steady.mp4 (generated, graded); a 9.9 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back, with a shared light grade",
       "sourceFile": "B-kling-steady.mp4",
       "approval": "John Ellison b-roll, approved by John 2026-11-02"
     },

@@ -84,6 +84,15 @@ describe('landing media manifest', () => {
     }
   })
 
+  it('ships the Build Sprint film only as the 13.7 s site cut', () => {
+    const film = provenance.assets.filter((p: { id: string }) => p.id.startsWith('build-sprint/build-sprint-film'))
+    expect(film.length).toBeGreaterThan(0)
+    for (const p of film) expect(p.source, p.id).toMatch(/build-sprint-b-v2\.7-site-cut\.mp4/)
+    for (const id of ['build-sprint/build-sprint-film-full.mp4', 'build-sprint/build-sprint-film-loop.mp4']) {
+      expect(landingMedia(id).duration ?? Infinity, id).toBeLessThanOrEqual(13.8)
+    }
+  })
+
   it('resolves videos with sources and posters by stem', () => {
     const v = landingVideo('eu-ai-act/eu-ai-act-explainer-loop')
     expect(v.mp4.codecs).toMatch(/^h264/)

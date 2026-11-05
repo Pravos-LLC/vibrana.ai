@@ -30,7 +30,7 @@ duration, codecs, bytes, sha256, captions and alt text. Source files, approvals 
 
 | Folder | What |
 |---|---|
-| `build-sprint/` | AI software factory reel, Product and Governance track images, `broll/` John b-roll loops |
+| `build-sprint/` | Build Sprint film (hook-free site cut), Product and Governance track images, `broll/` b-roll loops (John, two builders pairing) |
 | `eu-ai-act/` | EU AI Act explainer reel, EU assessment and report screen loops |
 | `simulator/` | Simulator sizzle reel |
 | `readiness/` | Readiness assessment screen loops, assessment and report stills |

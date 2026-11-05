@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "totalBytes": 30997284,
+  "totalBytes": 29915922,
   "assets": [
     {
       "id": "eu-ai-act/eu-ai-act-explainer-full.mp4",
@@ -195,18 +195,18 @@
     },
     {
       "id": "build-sprint/build-sprint-film-loop.mp4",
-      "path": "/assets/landing/build-sprint/build-sprint-film-loop.f6066bcd.mp4",
+      "path": "/assets/landing/build-sprint/build-sprint-film-loop.5b482d6c.mp4",
       "kind": "video-loop",
       "page": "ai-build-sprint",
       "slot": "ReelStage hero loop (muted autoplay)",
       "captions": "Burned-in on-screen text; reads muted",
       "alt": "Muted loop from the AI Build Sprint film",
-      "width": 720,
-      "height": 1280,
+      "width": 540,
+      "height": 960,
       "duration": 13.7,
       "codecs": "h264",
-      "bytes": 1657507,
-      "sha256": "f6066bcdcc84f127a421cdca3dd5b4780d345a259ddd7921f0712f0e04a8c6db"
+      "bytes": 879951,
+      "sha256": "5b482d6c9c01facbd97172fab80cdcb8cadfdbaf01963ba08a786f88cc7d7e36"
     },
     {
       "id": "build-sprint/build-sprint-film-full.webm",
@@ -225,18 +225,18 @@
     },
     {
       "id": "build-sprint/build-sprint-film-loop.webm",
-      "path": "/assets/landing/build-sprint/build-sprint-film-loop.26f817fe.webm",
+      "path": "/assets/landing/build-sprint/build-sprint-film-loop.b4ea6e0d.webm",
       "kind": "video-loop",
       "page": "ai-build-sprint",
       "slot": "ReelStage hero loop (muted autoplay)",
       "captions": "Burned-in on-screen text; reads muted",
       "alt": "Muted loop from the AI Build Sprint film",
-      "width": 720,
-      "height": 1280,
+      "width": 540,
+      "height": 960,
       "duration": 13.7,
       "codecs": "av1",
-      "bytes": 763017,
-      "sha256": "26f817fe2aa6da60691b64a010e842c655be3bd37e1d8238a961f1f17c3dc015"
+      "bytes": 463777,
+      "sha256": "b4ea6e0dfe494551887f70843c2d49cdd40578c940300b274719d714ffb5d9ae"
     },
     {
       "id": "build-sprint/build-sprint-film-poster.webp",
@@ -268,7 +268,7 @@
     },
     {
       "id": "build-sprint/broll/john-broll-b-16x9.mp4",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.c18595da.mp4",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.88afab48.mp4",
       "kind": "video-loop",
       "page": "ai-build-sprint",
       "slot": "Supporting b-roll loop (muted)",
@@ -276,14 +276,14 @@
       "alt": "John Ellison working on a laptop on a veranda above rice terraces, morning mist",
       "width": 1280,
       "height": 720,
-      "duration": 9.958,
+      "duration": 9.917,
       "codecs": "h264",
-      "bytes": 778426,
-      "sha256": "c18595da1d12527834ec1e95d0ec4a7738320c74607344515c92261bcd4d3230"
+      "bytes": 774812,
+      "sha256": "88afab4820a6e5c10a7102962f6e34cfdab0fed20a58cecacab23d44f01078a3"
     },
     {
       "id": "build-sprint/broll/john-broll-b-16x9.webm",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.cdb750ee.webm",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.127a5454.webm",
       "kind": "video-loop",
       "page": "ai-build-sprint",
       "slot": "Supporting b-roll loop (muted)",
@@ -291,10 +291,10 @@
       "alt": "John Ellison working on a laptop on a veranda above rice terraces, morning mist",
       "width": 1280,
       "height": 720,
-      "duration": 9.959,
+      "duration": 9.917,
       "codecs": "av1",
-      "bytes": 345949,
-      "sha256": "cdb750eec328878daa40561bfb86fd7cd38f1aa6f2b4405ef6c0b161139443cc"
+      "bytes": 344997,
+      "sha256": "127a545434c116b22423faf10a5fb70653fb05b755dd7e5631b4dcaed39ed78a"
     },
     {
       "id": "build-sprint/broll/john-broll-b-16x9-poster.webp",

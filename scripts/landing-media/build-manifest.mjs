@@ -51,7 +51,7 @@ const REELS = {
 const BROLL = {
   'john-broll-b-16x9': {
     src: 'B-kling-steady.mp4', alt: 'John Ellison working on a laptop on a veranda above rice terraces, morning mist',
-    cut: 'a 10 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back',
+    cut: 'a 9.9 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back',
     approval: 'John Ellison b-roll, approved by John 2026-11-02',
   },
   'builders-pair-16x9': {
