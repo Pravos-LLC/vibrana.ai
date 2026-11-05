@@ -142,6 +142,7 @@ returns text[] language sql immutable set search_path = '' as $$
     'gtm_manual_metrics', 'gtm_content_reports', 'gtm_report_actions', 'gtm_sync_state', 'gtm_analytics_reports',
     'gtm_settings', 'gtm_settings_history',
     'gtm_team_mailboxes', 'gtm_team_mail_events', 'gtm_team_stock_daily',
+    'gtm_yt_videos', 'gtm_yt_video_daily', 'gtm_yt_channel_daily', 'gtm_yt_dim_daily',
     'gtm_content_candidates', 'gtm_ideas',
     'gtm_storyboards', 'gtm_storyboard_versions', 'gtm_storyboard_rules', 'gtm_storyboard_comments',
     'gtm_storyboard_scene_decisions', 'gtm_storyboard_spend', 'gtm_broll_shots',
@@ -198,6 +199,11 @@ insert into public.gtm_sync_state (key, value) values ('seed', '{}');
 insert into public.gtm_team_mailboxes (member, address, token_ciphertext) values ('SEED', 'seed-mailbox@example.test', repeat('x', 60));
 insert into public.gtm_team_mail_events (member, gmail_message_id, thread_id, kind, at) values ('SEED', 'a1', 'a1', 'outreach', now());
 insert into public.gtm_team_stock_daily (member, date, metrics) values ('SEED', current_date, '{}');
+insert into public.gtm_yt_videos (video_id, title) values ('seedvideo001', 'Seed video');
+insert into public.gtm_yt_video_daily (date, video_id, views) values (current_date, 'seedvideo001', 1);
+insert into public.gtm_yt_channel_daily (date, views) values (current_date, 1);
+insert into public.gtm_yt_dim_daily (date, dimension, key, views) values (current_date, 'traffic_source', 'SEED', 1);
+insert into public.gtm_yt_report_files (report_id, report_type) values ('seed', 'channel_reach_basic_a1');
 -- Writes the setting and, through its trigger, one history row.
 insert into public.gtm_settings (key, value, updated_by) values ('seed', '{}', 'seed');
 insert into public.gtm_analytics_reports (kind, slug, period_start, period_end, title, headline, doc)
