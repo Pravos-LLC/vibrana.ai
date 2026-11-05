@@ -143,6 +143,7 @@ returns text[] language sql immutable set search_path = '' as $$
     'gtm_settings', 'gtm_settings_history',
     'gtm_team_mailboxes', 'gtm_team_mail_events', 'gtm_team_stock_daily',
     'gtm_yt_videos', 'gtm_yt_video_daily', 'gtm_yt_channel_daily', 'gtm_yt_dim_daily', 'gtm_yt_report_files',
+    'gtm_deal_milestones', 'gtm_deal_stage_history', 'gtm_linkedin_connections', 'gtm_linkedin_threads', 'gtm_web_daily',
     'gtm_content_candidates', 'gtm_ideas',
     'gtm_storyboards', 'gtm_storyboard_versions', 'gtm_storyboard_rules', 'gtm_storyboard_comments',
     'gtm_storyboard_scene_decisions', 'gtm_storyboard_spend', 'gtm_broll_shots',
@@ -204,6 +205,12 @@ insert into public.gtm_yt_video_daily (date, video_id, views) values (current_da
 insert into public.gtm_yt_channel_daily (date, views) values (current_date, 1);
 insert into public.gtm_yt_dim_daily (date, dimension, key, views) values (current_date, 'traffic_source', 'SEED', 1);
 insert into public.gtm_yt_report_files (report_id, report_type) values ('seed', 'channel_reach_basic_a1');
+insert into public.gtm_deal_milestones (opportunity_id, label, amount, currency) values ('00000000-0000-0000-0000-0000000000d9', 'Seed', 1, 'USD');
+insert into public.gtm_deal_stage_history (opportunity_id, stage) values ('00000000-0000-0000-0000-0000000000d9', 'SIGNED');
+insert into public.gtm_linkedin_connections (owner, profile_hash, connected_on) values ('SEED', repeat('d', 64), current_date);
+insert into public.gtm_linkedin_threads (owner, thread_hash, first_at, last_at, started_by_owner, two_way, messages, owner_messages)
+  values ('SEED', repeat('d', 64), now(), now(), true, false, 1, 1);
+insert into public.gtm_web_daily (site, day, visitors, pageviews) values ('seed.example', current_date, 0, 0);
 -- Writes the setting and, through its trigger, one history row.
 insert into public.gtm_settings (key, value, updated_by) values ('seed', '{}', 'seed');
 insert into public.gtm_analytics_reports (kind, slug, period_start, period_end, title, headline, doc)
