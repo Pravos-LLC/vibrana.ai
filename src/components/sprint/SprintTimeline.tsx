@@ -13,12 +13,17 @@ const { steps, log, shippedStamp, afterLine, railLabel, reducedMotionNote, logTi
 const STEPS = log.length + 1
 const SHIPPED = log.length
 
-/** Which of the four kept phases (Scope, Build together, Real users, Hand over) a day belongs to. */
+/**
+ * Which of the four phases a day belongs to (0-based day index). Derived from each step's `span`,
+ * so the rail can never disagree with the steps it lights.
+ */
 function phaseOf(day: number) {
-  if (day <= 0) return 0
-  if (day <= 7) return 1
-  if (day === 8) return 2
-  return 3
+  let end = 0
+  for (let i = 0; i < steps.length; i++) {
+    end += steps[i].span
+    if (day < end) return i
+  }
+  return steps.length - 1
 }
 
 type Mode = 'static' | 'pinned' | 'flow'

@@ -69,7 +69,7 @@ export default function AIBuildSprintPage() {
       <SprintStyles />
       <FunnelEvent name="sprint_landing_view" entry="sprint" />
 
-      {/* 1. Hero: headline beside the factory reel (B1, B2) */}
+      {/* 1. Hero: headline beside the Build Sprint film (B1, B2) */}
       <SprintHero />
 
       {/* 2. Proof row, directly under the hero */}

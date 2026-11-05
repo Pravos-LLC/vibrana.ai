@@ -22,7 +22,10 @@ const GTM = 'john-workspace/2-work/vibrana-gtm'
 const HASHED = /^(.*)\.([0-9a-f]{8})(\.[a-z0-9]+)$/
 
 // Approved John b-roll sources. Nothing else from the team b-roll trial may be used.
-export const APPROVED_BROLL = ['B-kling.mp4', 'B-kling-9x16.mp4', 'B2-kling.mp4', 'B2-kling-9x16.mp4']
+// B-kling-steady is clip B re-graded without the film-finish gate weave (a 1-2 px per-frame
+// wobble that read as shaking on the site, John 2026-11-05). P-kling is generated support b-roll
+// of two unnamed builders, no team likeness (John asked for it, 2026-11-05).
+export const APPROVED_BROLL = ['B-kling-steady.mp4', 'P-kling.mp4']
 
 const REELS = {
   'eu-ai-act-explainer': {
@@ -37,17 +40,25 @@ const REELS = {
     approval: 'Approved reel s1-42 (Simulator sizzle), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02',
     loop: 'Loop is 5.3 to 14.0 s of the cut: the simulator builds a model, then costs, timeline, capacity and team views',
   },
-  'factory-reel': {
-    dir: 'build-sprint', page: 'ai-build-sprint', name: 'the AI software factory reel',
-    source: `${GTM}/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)`,
-    approval: 'Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off',
-    loop: 'Loop is 34.6 to 41.8 s of the cut: kanban cards move while the agent log runs',
+  'build-sprint-film': {
+    dir: 'build-sprint', page: 'ai-build-sprint', name: 'the AI Build Sprint film',
+    source: `${GTM}/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s`,
+    approval: "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line",
+    loop: 'Loop is the whole 13.7 s site cut, muted: participant quote, the team, then "AI, without losing the human."',
   },
 }
 
 const BROLL = {
-  b: { src: 'B-kling', alt: 'John Ellison working on a laptop on a veranda above rice terraces, morning mist' },
-  b2: { src: 'B2-kling', alt: 'John Ellison at his laptop on a veranda over rice terraces, a glass of tea beside him' },
+  'john-broll-b-16x9': {
+    src: 'B-kling-steady.mp4', alt: 'John Ellison working on a laptop on a veranda above rice terraces, morning mist',
+    cut: 'a 10 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back',
+    approval: 'John Ellison b-roll, approved by John 2026-11-02',
+  },
+  'builders-pair-16x9': {
+    src: 'P-kling.mp4', alt: 'Two builders side by side at one laptop: one types while the other points at the screen',
+    cut: 'a seamless 4.4 s cross-faded loop (locked-off camera)',
+    approval: 'Generated support b-roll of two unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-05',
+  },
 }
 
 const SCREEN = 'Screen recording of the real local app (next dev) with synthetic answers, headless Chrome via Playwright (scripts/landing-media/record). Every write endpoint stubbed; the submission is scored but never stored or emailed. Fictional company, .example email domain; no client data'
@@ -67,15 +78,11 @@ for (const [slug, r] of Object.entries(REELS)) {
   add(`${r.dir}/${slug}-loop-poster.webp`, { kind: 'poster', page: r.page, slot: 'ReelStage hero poster (reduced motion and before playback)', alt: `Still from ${r.name}` }, prov)
 }
 
-for (const [k, b] of Object.entries(BROLL)) {
-  for (const ratio of ['16x9', '9x16']) {
-    const file = `${b.src}${ratio === '9x16' ? '-9x16' : ''}.mp4`
-    const prov = { source: `${GTM}/team-broll-trial/graded/${file} (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade`, sourceFile: file, approval: 'John Ellison b-roll, approved by John 2026-11-02' }
-    const slug = `john-broll-${k}-${ratio}`
-    const pub = { kind: 'video-loop', page: 'ai-build-sprint', slot: 'Supporting b-roll loop (muted)', captions: 'None (no speech)', alt: b.alt }
-    for (const ext of ['mp4', 'webm']) add(`build-sprint/broll/${slug}.${ext}`, pub, prov)
-    add(`build-sprint/broll/${slug}-poster.webp`, { ...pub, kind: 'poster', slot: 'Poster for the b-roll loop' }, prov)
-  }
+for (const [slug, b] of Object.entries(BROLL)) {
+  const prov = { source: `${GTM}/team-broll-trial/graded/${b.src} (generated, graded); ${b.cut}, with a shared light grade`, sourceFile: b.src, approval: b.approval }
+  const pub = { kind: 'video-loop', page: 'ai-build-sprint', slot: 'Supporting b-roll loop (muted)', captions: 'None (no speech)', alt: b.alt }
+  for (const ext of ['mp4', 'webm']) add(`build-sprint/broll/${slug}.${ext}`, pub, prov)
+  add(`build-sprint/broll/${slug}-poster.webp`, { ...pub, kind: 'poster', slot: 'Poster for the b-roll loop' }, prov)
 }
 
 const LOOPS = [
