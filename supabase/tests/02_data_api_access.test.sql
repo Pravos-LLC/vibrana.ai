@@ -142,7 +142,7 @@ returns text[] language sql immutable set search_path = '' as $$
     'gtm_manual_metrics', 'gtm_content_reports', 'gtm_report_actions', 'gtm_sync_state', 'gtm_analytics_reports',
     'gtm_settings', 'gtm_settings_history',
     'gtm_team_mailboxes', 'gtm_team_mail_events', 'gtm_team_stock_daily',
-    'gtm_yt_videos', 'gtm_yt_video_daily', 'gtm_yt_channel_daily', 'gtm_yt_dim_daily',
+    'gtm_yt_videos', 'gtm_yt_video_daily', 'gtm_yt_channel_daily', 'gtm_yt_dim_daily', 'gtm_yt_report_files',
     'gtm_content_candidates', 'gtm_ideas',
     'gtm_storyboards', 'gtm_storyboard_versions', 'gtm_storyboard_rules', 'gtm_storyboard_comments',
     'gtm_storyboard_scene_decisions', 'gtm_storyboard_spend', 'gtm_broll_shots',
