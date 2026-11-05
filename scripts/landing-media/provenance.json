@@ -1,11 +1,9 @@
 {
   "version": 2,
-  "generated": "2026-11-02",
+  "generated": "2026-11-05",
   "approvedBroll": [
-    "B-kling.mp4",
-    "B-kling-9x16.mp4",
-    "B2-kling.mp4",
-    "B2-kling-9x16.mp4"
+    "B-kling-steady.mp4",
+    "P-kling.mp4"
   ],
   "assets": [
     {
@@ -97,144 +95,96 @@
       "approval": "Approved reel s1-42 (Simulator sizzle), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02"
     },
     {
-      "id": "build-sprint/factory-reel-full.mp4",
-      "path": "/assets/landing/build-sprint/factory-reel-full.258b3a96.mp4",
-      "sha256": "258b3a961b82a80d331b1a8fe5e3b7ae161ce09cd9670cc79f278d5a7d32969a",
-      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
-      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off"
+      "id": "build-sprint/build-sprint-film-full.mp4",
+      "path": "/assets/landing/build-sprint/build-sprint-film-full.e8d1ce7a.mp4",
+      "sha256": "e8d1ce7a1221565a560c457c2d9c0112b9b03c6d54827e6a050baca40128e60d",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
+      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line"
     },
     {
-      "id": "build-sprint/factory-reel-loop.mp4",
-      "path": "/assets/landing/build-sprint/factory-reel-loop.ad9d4c7e.mp4",
-      "sha256": "ad9d4c7eed2c7b0390b6208f634cca790d50fce25d8af8e28f96b6b8acc849c9",
-      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
-      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off",
-      "note": "Loop is 34.6 to 41.8 s of the cut: kanban cards move while the agent log runs"
+      "id": "build-sprint/build-sprint-film-loop.mp4",
+      "path": "/assets/landing/build-sprint/build-sprint-film-loop.5b482d6c.mp4",
+      "sha256": "5b482d6c9c01facbd97172fab80cdcb8cadfdbaf01963ba08a786f88cc7d7e36",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
+      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line",
+      "note": "Loop is the whole 13.7 s site cut, muted: participant quote, the team, then \"AI, without losing the human.\""
     },
     {
-      "id": "build-sprint/factory-reel-full.webm",
-      "path": "/assets/landing/build-sprint/factory-reel-full.5ad48ce7.webm",
-      "sha256": "5ad48ce7e2f663234addab935b7552cbb8062121959d0cf41872e7ba56eb707e",
-      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
-      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off"
+      "id": "build-sprint/build-sprint-film-full.webm",
+      "path": "/assets/landing/build-sprint/build-sprint-film-full.62a2ff03.webm",
+      "sha256": "62a2ff036fa8f44d269e0a3726775907dc7a72801ab1804c6b9aebeeede46686",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
+      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line"
     },
     {
-      "id": "build-sprint/factory-reel-loop.webm",
-      "path": "/assets/landing/build-sprint/factory-reel-loop.5bb7f432.webm",
-      "sha256": "5bb7f432b62be4a2fb32d34af0e4c31b2a3eebd19210738604781be11efb2ac5",
-      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
-      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off",
-      "note": "Loop is 34.6 to 41.8 s of the cut: kanban cards move while the agent log runs"
+      "id": "build-sprint/build-sprint-film-loop.webm",
+      "path": "/assets/landing/build-sprint/build-sprint-film-loop.b4ea6e0d.webm",
+      "sha256": "b4ea6e0dfe494551887f70843c2d49cdd40578c940300b274719d714ffb5d9ae",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
+      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line",
+      "note": "Loop is the whole 13.7 s site cut, muted: participant quote, the team, then \"AI, without losing the human.\""
     },
     {
-      "id": "build-sprint/factory-reel-poster.webp",
-      "path": "/assets/landing/build-sprint/factory-reel-poster.0c057cb5.webp",
-      "sha256": "0c057cb5ff60a07e382e09af9febef8580e5c2f5f915cf047112b5101fee0936",
-      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
-      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off"
+      "id": "build-sprint/build-sprint-film-poster.webp",
+      "path": "/assets/landing/build-sprint/build-sprint-film-poster.7ecfbb06.webp",
+      "sha256": "7ecfbb06b802127a1ae349d03930ff7cc80fd5724bc9672f92690e11c3cd1093",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
+      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line"
     },
     {
-      "id": "build-sprint/factory-reel-loop-poster.webp",
-      "path": "/assets/landing/build-sprint/factory-reel-loop-poster.7362d873.webp",
-      "sha256": "7362d873ebf06f796c4ad76d87d9ccb8e242edd359b52ed02f71bae87023be53",
-      "source": "john-workspace/2-work/vibrana-gtm/factory-reel/output/ai-software-factory-reel-9x16-final-nda.mp4 (sha256 53ac07155dd3...)",
-      "approval": "Approved reel s1-26 (AI software factory), GTM cockpit 2026-10-28; verified in the cockpit 2026-11-02. Build Sprint hero stand-in until the Build Sprint film clears its third-party sign-off"
+      "id": "build-sprint/build-sprint-film-loop-poster.webp",
+      "path": "/assets/landing/build-sprint/build-sprint-film-loop-poster.7ecfbb06.webp",
+      "sha256": "7ecfbb06b802127a1ae349d03930ff7cc80fd5724bc9672f92690e11c3cd1093",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
+      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line"
     },
     {
       "id": "build-sprint/broll/john-broll-b-16x9.mp4",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.263736f3.mp4",
-      "sha256": "263736f3ef246c840e32d20998297882a91889da431ab71601979436f75cd6a1",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B-kling.mp4",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.88afab48.mp4",
+      "sha256": "88afab4820a6e5c10a7102962f6e34cfdab0fed20a58cecacab23d44f01078a3",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-steady.mp4 (generated, graded); a 9.9 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back, with a shared light grade",
+      "sourceFile": "B-kling-steady.mp4",
       "approval": "John Ellison b-roll, approved by John 2026-11-02"
     },
     {
       "id": "build-sprint/broll/john-broll-b-16x9.webm",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.4b79da3e.webm",
-      "sha256": "4b79da3ee69f10256b27cbcfe5802fc7ca24274d33706d34faadb43e527ad327",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B-kling.mp4",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9.127a5454.webm",
+      "sha256": "127a545434c116b22423faf10a5fb70653fb05b755dd7e5631b4dcaed39ed78a",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-steady.mp4 (generated, graded); a 9.9 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back, with a shared light grade",
+      "sourceFile": "B-kling-steady.mp4",
       "approval": "John Ellison b-roll, approved by John 2026-11-02"
     },
     {
       "id": "build-sprint/broll/john-broll-b-16x9-poster.webp",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9-poster.3996050d.webp",
-      "sha256": "3996050d198a87eb3dbcf2265873236214f0234ad2c30c094d478a9ec889d426",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B-kling.mp4",
+      "path": "/assets/landing/build-sprint/broll/john-broll-b-16x9-poster.386a21b8.webp",
+      "sha256": "386a21b8b76b7d94511cbf7caaa92088a712aa4e790b78a73ed88c0403f2ae45",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-steady.mp4 (generated, graded); a 9.9 s boomerang loop (0 to 5 s forward, then reversed) so the moving camera never jumps back, with a shared light grade",
+      "sourceFile": "B-kling-steady.mp4",
       "approval": "John Ellison b-roll, approved by John 2026-11-02"
     },
     {
-      "id": "build-sprint/broll/john-broll-b-9x16.mp4",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b-9x16.934517c3.mp4",
-      "sha256": "934517c337fc1276056805063568e35044379a7b3b4a205d99834d7e0d4a89c7",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B-kling-9x16.mp4",
-      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+      "id": "build-sprint/broll/builders-pair-16x9.mp4",
+      "path": "/assets/landing/build-sprint/broll/builders-pair-16x9.6d7083ad.mp4",
+      "sha256": "6d7083adc5cf5a4e75c1eeeffc5921151d5a28f5e4c18095a685f984a371ab58",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/P-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "P-kling.mp4",
+      "approval": "Generated support b-roll of two unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-05"
     },
     {
-      "id": "build-sprint/broll/john-broll-b-9x16.webm",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b-9x16.aa79c2b8.webm",
-      "sha256": "aa79c2b8c38ebd698d9a87b6562ca95d78b2e4412f273d947701def74f60fb29",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B-kling-9x16.mp4",
-      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+      "id": "build-sprint/broll/builders-pair-16x9.webm",
+      "path": "/assets/landing/build-sprint/broll/builders-pair-16x9.5e53f215.webm",
+      "sha256": "5e53f2151af40a2a39a46a027551416372e6f037230e659a08f2ea1c52aed103",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/P-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "P-kling.mp4",
+      "approval": "Generated support b-roll of two unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-05"
     },
     {
-      "id": "build-sprint/broll/john-broll-b-9x16-poster.webp",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b-9x16-poster.5ad913fd.webp",
-      "sha256": "5ad913fd34340355321678e7a430654a316b594a3ba3feab70f4660c24c6629a",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B-kling-9x16.mp4",
-      "approval": "John Ellison b-roll, approved by John 2026-11-02"
-    },
-    {
-      "id": "build-sprint/broll/john-broll-b2-16x9.mp4",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b2-16x9.ac1d7e42.mp4",
-      "sha256": "ac1d7e42e22c9a97c222678cd156681a75c2d6e0c1c279780ce515aa8a9199f4",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B2-kling.mp4",
-      "approval": "John Ellison b-roll, approved by John 2026-11-02"
-    },
-    {
-      "id": "build-sprint/broll/john-broll-b2-16x9.webm",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b2-16x9.fb780645.webm",
-      "sha256": "fb78064592c43a31d0bfa76b8b03481ba710696ffba4fb57a407dc96f3d86ebd",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B2-kling.mp4",
-      "approval": "John Ellison b-roll, approved by John 2026-11-02"
-    },
-    {
-      "id": "build-sprint/broll/john-broll-b2-16x9-poster.webp",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b2-16x9-poster.1276560f.webp",
-      "sha256": "1276560f275b33a4982021993405ef0a62497d2b75814d12961eaf6b100a4536",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B2-kling.mp4",
-      "approval": "John Ellison b-roll, approved by John 2026-11-02"
-    },
-    {
-      "id": "build-sprint/broll/john-broll-b2-9x16.mp4",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b2-9x16.c52f8346.mp4",
-      "sha256": "c52f8346929f85f47a1fa7022ed88483b32bc98c6c5ee30d816df191e8d8525f",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B2-kling-9x16.mp4",
-      "approval": "John Ellison b-roll, approved by John 2026-11-02"
-    },
-    {
-      "id": "build-sprint/broll/john-broll-b2-9x16.webm",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b2-9x16.27b94594.webm",
-      "sha256": "27b945948fe4d08132ff0d21e6a6a2f9f18605e5e16eefed35ef066ee28d1c1f",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B2-kling-9x16.mp4",
-      "approval": "John Ellison b-roll, approved by John 2026-11-02"
-    },
-    {
-      "id": "build-sprint/broll/john-broll-b2-9x16-poster.webp",
-      "path": "/assets/landing/build-sprint/broll/john-broll-b2-9x16-poster.5a34152e.webp",
-      "sha256": "5a34152e676e0670b3c2464f017992a59a858a3a17b56639eda92f54cf3d855a",
-      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/B2-kling-9x16.mp4 (generated, graded); trimmed to a seamless 4.4 s loop with a shared light grade",
-      "sourceFile": "B2-kling-9x16.mp4",
-      "approval": "John Ellison b-roll, approved by John 2026-11-02"
+      "id": "build-sprint/broll/builders-pair-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/broll/builders-pair-16x9-poster.2c9b7403.webp",
+      "sha256": "2c9b74037b60be4d795948edc75e1c2917096d27b28c51bd4edfba49d5e15ef4",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/P-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "P-kling.mp4",
+      "approval": "Generated support b-roll of two unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-05"
     },
     {
       "id": "readiness/readiness-assessment-16x9.mp4",

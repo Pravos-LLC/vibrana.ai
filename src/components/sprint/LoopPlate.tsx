@@ -6,7 +6,7 @@ import { useHydratedReducedMotion } from '@/src/components/prism/motion/useHydra
 import { landingVideo } from '@/src/landing-media'
 
 /**
- * A muted b-roll loop as a framed plate (John's approved clips B and B2 only). Poster first,
+ * A muted b-roll loop as a framed plate (approved clips listed in APPROVED_BROLL only). Poster first,
  * no video bytes until the plate is in view, plays only while visible, and stays on the poster
  * under reduced motion or Save-Data. Supporting motion, never a hero.
  */

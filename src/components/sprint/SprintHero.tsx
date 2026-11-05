@@ -7,7 +7,7 @@ import { MonoLabel } from './ui'
 export const SPRINT_HERO_ID = 'sprint-hero'
 
 /**
- * The hero: the headline on the left, the AI software factory reel in a framed 9:16 card on the
+ * The hero: the headline on the left, the Build Sprint film in a framed 9:16 card on the
  * right (plan B1, B2: the photo collage and the placeholder disc are gone). The headline paints
  * with the HTML and carries no entrance motion, and the reel loads no video bytes until it is
  * half in view. Note: the LCP element is the reel's blurred backdrop (the 41 KB loop poster), not

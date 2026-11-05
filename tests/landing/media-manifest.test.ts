@@ -12,7 +12,7 @@ const provenance = JSON.parse(readFileSync(path.join(ROOT, 'scripts', 'landing-m
 }
 
 // The only team b-roll sources John has approved (2026-11-02). An allowlist, so nothing else slips in.
-const APPROVED_BROLL = new Set(['B-kling.mp4', 'B-kling-9x16.mp4', 'B2-kling.mp4', 'B2-kling-9x16.mp4'])
+const APPROVED_BROLL = new Set(['B-kling-steady.mp4', 'P-kling.mp4'])
 
 function walk(dir: string): string[] {
   return readdirSync(dir).flatMap((f) => {
@@ -74,11 +74,22 @@ describe('landing media manifest', () => {
     expect(LANDING_MEDIA.reduce((s, a) => s + a.bytes, 0)).toBeLessThanOrEqual(31 * 1024 * 1024)
   })
 
-  it('uses only approved b-roll and no Build Sprint film file', () => {
+  it('uses only approved b-roll, and only the hook-free site cut of the Build Sprint film', () => {
     for (const p of provenance.assets) {
-      expect(p.source, p.id).not.toMatch(/build-sprint-campaign/)
+      // The full film opens on a client story that still waits on that client's sign-off. Only the
+      // site cut (17.125 to 30.80 s, John 2026-11-05) leaves it out, so no other film file may ship.
+      if (/build-sprint-campaign/.test(p.source)) expect(p.source, p.id).toMatch(/build-sprint-b-v2\.7-site-cut\.mp4, cut from .* at 17\.125 to 30\.80 s/)
       if (/team-broll-trial/.test(p.source)) expect(APPROVED_BROLL.has(p.sourceFile ?? ''), `${p.id} from ${p.sourceFile}`).toBe(true)
       if (p.id.includes('broll')) expect(p.source, p.id).toMatch(/team-broll-trial\/graded\//)
+    }
+  })
+
+  it('ships the Build Sprint film only as the 13.7 s site cut', () => {
+    const film = provenance.assets.filter((p: { id: string }) => p.id.startsWith('build-sprint/build-sprint-film'))
+    expect(film.length).toBeGreaterThan(0)
+    for (const p of film) expect(p.source, p.id).toMatch(/build-sprint-b-v2\.7-site-cut\.mp4/)
+    for (const id of ['build-sprint/build-sprint-film-full.mp4', 'build-sprint/build-sprint-film-loop.mp4']) {
+      expect(landingMedia(id).duration ?? Infinity, id).toBeLessThanOrEqual(13.8)
     }
   })
 
@@ -88,7 +99,7 @@ describe('landing media manifest', () => {
     expect(v.webm.codecs).toMatch(/^av1/)
     expect(v.poster.kind).toBe('poster')
     expect(landingVideo('eu-ai-act/eu-ai-act-explainer-full').poster.id).toBe('eu-ai-act/eu-ai-act-explainer-poster.webp')
-    expect(landingVideo('build-sprint/broll/john-broll-b2-9x16').poster.id).toBe('build-sprint/broll/john-broll-b2-9x16-poster.webp')
+    expect(landingVideo('build-sprint/broll/builders-pair-16x9').poster.id).toBe('build-sprint/broll/builders-pair-16x9-poster.webp')
     expect(() => landingMedia('nope.mp4')).toThrow(/Unknown landing media id/)
   })
 })

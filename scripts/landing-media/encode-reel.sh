@@ -3,7 +3,7 @@
 #
 # Web encodes of one approved 9:16 reel:
 #   <slug>-full.mp4 / .webm   whole cut with sound, 540x960 (H.264 + AAC faststart, AV1 + Opus)
-#   <slug>-loop.mp4 / .webm   muted hero loop, 720x1280
+#   <slug>-loop.mp4 / .webm   muted hero loop, 720x1280 (the Build Sprint film loop is 540x960: it is the whole cut, so it matches the full cut)
 #   <slug>-poster.webp        opening hook of the full cut
 #   <slug>-loop-poster.webp   a strong frame inside the loop (what reduced-motion visitors see)
 #

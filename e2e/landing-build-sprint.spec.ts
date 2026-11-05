@@ -37,9 +37,9 @@ test('the hero reel renders beside the headline, poster first and no video bytes
   const stage = page.getByRole('region', { name: SPRINT_HERO_REEL.title })
   await expect(stage).toBeVisible()
   const video = stage.locator('video')
-  await expect(video).toHaveAttribute('poster', /factory-reel-loop-poster\.[0-9a-f]{8}\.webp$/)
+  await expect(video).toHaveAttribute('poster', /build-sprint-film-loop-poster\.[0-9a-f]{8}\.webp$/)
   await expect(video).toHaveAttribute('preload', 'none')
-  await expect(video.locator('source[type="video/mp4"]')).toHaveAttribute('src', /factory-reel-loop\./)
+  await expect(video.locator('source[type="video/mp4"]')).toHaveAttribute('src', /build-sprint-film-loop\./)
   await expect(stage.getByText(SPRINT_HERO_REEL.caption)).toBeVisible()
   // No placeholder disc, no collage: the hero holds no <img> at all.
   await expect(page.locator('#sprint-hero img')).toHaveCount(0)
@@ -50,7 +50,7 @@ test('asking for sound swaps the hero loop for the full cut', async ({ page }) =
   await page.goto('/ai-build-sprint')
   const stage = page.getByRole('region', { name: SPRINT_HERO_REEL.title })
   await stage.getByRole('button', { name: 'Sound' }).click()
-  await expect(stage.locator('video source[type="video/mp4"]')).toHaveAttribute('src', /factory-reel-full\./)
+  await expect(stage.locator('video source[type="video/mp4"]')).toHaveAttribute('src', /build-sprint-film-full\./)
 })
 
 test('clicking the hero picture plays the full cut with sound on the first click', async ({ page }) => {
@@ -63,8 +63,8 @@ test('clicking the hero picture plays the full cut with sound on the first click
   await page.mouse.click(box.x + box.width / 2, box.y + box.height * 0.4)
   // Still the one element: the sources swapped in place, so the click's own handler reached it.
   await expect(video).toHaveCount(1)
-  await expect(video.locator('source[type="video/mp4"]')).toHaveAttribute('src', /factory-reel-full\./)
-  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.currentSrc), { timeout: 10_000 }).toMatch(/factory-reel-full\./)
+  await expect(video.locator('source[type="video/mp4"]')).toHaveAttribute('src', /build-sprint-film-full\./)
+  await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.currentSrc), { timeout: 10_000 }).toMatch(/build-sprint-film-full\./)
   const start = await video.evaluate((v: HTMLVideoElement) => v.currentTime)
   await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.currentTime), { timeout: 10_000 }).toBeGreaterThan(start + 0.5)
   expect(await video.evaluate((v: HTMLVideoElement) => ({ muted: v.muted, paused: v.paused }))).toEqual({ muted: false, paused: false })

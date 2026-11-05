@@ -44,15 +44,18 @@ export const SPRINT_HERO = {
   microcopy: '30 minutes. No prep. You talk to a builder, not a salesperson.',
 } as const
 
-/** The hero reel: the approved AI software factory reel until the Build Sprint film clears. */
+/**
+ * The hero reel: a site cut of the approved Build Sprint film (v2.7). It leaves out the opening
+ * hook and the client's 10/10 story, which wait on that client's sign-off (John, 2026-11-05).
+ */
 export const SPRINT_HERO_REEL = {
   /** Muted hero loop, swapped for the full cut (with sound) on the first sound request. */
-  loopStem: 'build-sprint/factory-reel-loop',
-  fullStem: 'build-sprint/factory-reel-full',
-  label: 'AI software factory',
-  caption: 'FIG 0.1 / Our own AI software factory, shipping code',
-  captionNote: 'On-screen text, no voiceover.',
-  title: 'A short film of the AI software factory our team runs, with on-screen text and no voiceover',
+  loopStem: 'build-sprint/build-sprint-film-loop',
+  fullStem: 'build-sprint/build-sprint-film-full',
+  label: 'AI Build Sprint',
+  caption: 'FIG 0.1 / The AI Build Sprint, in 14 seconds',
+  captionNote: 'Voiceover by John Ellison. On-screen text reads muted.',
+  title: 'A short film about the AI Build Sprint: a participant quote, the team, and the line "AI, without losing the human."',
   playLabel: 'Watch',
   playingLabel: 'Playing',
   labels: { play: 'Play the film', pause: 'Pause the film' },
@@ -111,8 +114,8 @@ export const SPRINT_OUTCOMES = {
     },
     team: {
       figCaption: 'FIG 1.2 / Your builder works beside ours, every day of the sprint',
-      /** John's approved b-roll loop B2 (generated b-roll: no place, date or second person named). */
-      brollStem: 'build-sprint/broll/john-broll-b2-16x9',
+      /** Generated support b-roll of two unnamed builders at one laptop (John asked for it, 2026-11-05). */
+      brollStem: 'build-sprint/broll/builders-pair-16x9',
     },
     code: {
       figCaption: 'FIG 1.3 / Your repo on day 10: the code, the docs and the setup',
@@ -147,27 +150,27 @@ export const SPRINT_REPO_MOCK = {
 export const SPRINT_DAYS = {
   eyebrow: 'The 10 days',
   heading: 'Ten days from kickoff to hand over.',
-  /** `span` = how many of the ten days the step covers (drives the diagram widths). */
+  /** `span` = how many of the ten days the step covers (SprintTimeline derives each day's phase from it). */
   steps: [
-    { days: 'Day 1', span: 1, title: 'Scope', body: 'We lock what we build and what “working” means.' },
-    { days: 'Days 2 to 8', span: 7, title: 'Build together', body: 'We build with your team every day. You see it grow.' },
-    { days: 'Day 9', span: 1, title: 'Real users try it', body: 'The people who will use it put it to work. We fix what they find.' },
-    { days: 'Day 10', span: 1, title: 'Hand over', body: 'You get the product, the code and the docs. Your team runs it from here.' },
+    { days: 'Days 1 to 4', span: 4, title: 'Scope and build', body: 'We meet the people who will use it, lock what “working” means, then build it with your team.' },
+    { days: 'Day 5', span: 1, title: 'Real users try it', body: 'It goes live and the people who will use it put it to work while we watch.' },
+    { days: 'Days 6 to 9', span: 4, title: 'Iterate', body: 'We fix and improve what real users found. You see it change every day.' },
+    { days: 'Day 10', span: 1, title: 'Final demo and hand over', body: 'We demo it, check it against the day 1 list, and hand it over. Your team runs it from here.' },
   ],
   pricingLink: 'See pricing',
   figCaption: 'FIG 2.1 / The sprint as a build log',
   /** The build log, one line per day (hub deck §4). `day` renders as the mono prefix. */
   log: [
-    { day: 'D01', text: 'Scope locked. We confirm what “working” means and who checks it. Your sponsor is in the room.' },
-    { day: 'D02', text: 'Build starts in your tools, on data you approved. Your builder pairs with ours.' },
+    { day: 'D01', text: 'Discovery with your sponsor and the people who will use it. We confirm what “working” means and who checks it.' },
+    { day: 'D02', text: 'We map the work and lock the scope. Your builder pairs with ours, in your tools, on data you approved.' },
     { day: 'D03', text: 'Build day. You see it grow, not a status report.' },
     { day: 'D04', text: 'Build day. Key calls go to your sponsor.' },
-    { day: 'D05', text: 'Build day. Your builder and ours, side by side.' },
-    { day: 'D06', text: 'Build day. The day 1 list is the checklist.' },
-    { day: 'D07', text: 'Build day. The docs get written with the code, not after it.' },
-    { day: 'D08', text: 'Build day. Ready for the people who will use it.' },
-    { day: 'D09', text: 'Real users put it to work. We fix what they find.' },
-    { day: 'D10', text: 'Hand over: the product, the code, the docs and the keys. We check it against the day 1 list together.' },
+    { day: 'D05', text: 'It goes live. Real users put it to work while we watch, and we write down what they find.' },
+    { day: 'D06', text: 'Iteration starts. We fix what real users found on day 5.' },
+    { day: 'D07', text: 'Iterate. The docs get written with the code, not after it.' },
+    { day: 'D08', text: 'Iterate. Your builder and ours, side by side.' },
+    { day: 'D09', text: 'Iterate. The day 1 list is the checklist.' },
+    { day: 'D10', text: 'Final demo and hand over: the product, the code, the docs and the keys. We check it against the day 1 list together.' },
   ],
   shippedStamp: 'Shipped',
   afterLine: { day: 'D+30', text: "One hour together to see how it's going." },
@@ -360,7 +363,7 @@ export const SPRINT_PRICING = {
 export const SPRINT_GUARANTEE = {
   eyebrow: 'Your first sprint',
   heading: '100% first-sprint money-back guarantee',
-  timeline: 'Week one builds to a demo. Week two covers feedback, iteration and change requests.',
+  timeline: 'Week one ends with real users trying it on day 5. Week two covers their feedback, iteration and change requests, then the final demo on day 10.',
   offer: 'At first-sprint handover, an unsatisfied client can receive a full refund of first-sprint fees. Third-party charges are separate.',
   conditions: 'If you choose the refund, the build is not deployed or handed over, and access to the studio-controlled build ends. The contract governs ownership and cleanup.',
 } as const
@@ -410,10 +413,10 @@ export const SPRINT_FAQ = {
 
 // 12. Final CTA
 export const SPRINT_FINAL = {
-  quote: '“Tell me what should work differently in 10 days. I’ll tell you if we can build it.”',
+  quote: '“Tell me your big hairy audacious goal, and we’ll decide what we can build in 10 days.”',
   name: 'John Ellison',
   role: 'Founder',
-  /** John's approved b-roll loop B, beside his quote (the polaroid already sits in the team sheet). */
+  /** John's approved b-roll loop B, re-graded steady and looped as a boomerang (no jump, no wobble). */
   brollStem: 'build-sprint/broll/john-broll-b-16x9',
 } as const
 
