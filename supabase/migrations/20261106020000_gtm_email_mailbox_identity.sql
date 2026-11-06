@@ -28,6 +28,11 @@ alter table public.gtm_email_reply_labels drop constraint gtm_email_reply_labels
 alter table public.gtm_email_reply_labels add constraint gtm_email_reply_labels_event_id_fkey
   foreign key (event_id) references public.gtm_team_mail_events (id) on delete cascade;
 
+-- Covering indexes for the remaining foreign keys (Supabase advisor unindexed_foreign_keys).
+create index gtm_email_attempts_delivery_event_idx on public.gtm_email_attempts (delivery_event_id);
+create index gtm_email_sync_ops_evidence_event_idx on public.gtm_email_sync_ops (evidence_event_id);
+create index gtm_email_sync_ops_label_idx on public.gtm_email_sync_ops (label_id);
+
 create or replace function public.gtm_email_reply_labels_append_only()
 returns trigger language plpgsql set search_path = '' as $$
 begin
