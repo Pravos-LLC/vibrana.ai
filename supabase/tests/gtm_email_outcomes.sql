@@ -64,8 +64,9 @@ select is((select delivery from public.gtm_email_attempts where recipient_hash =
   'the other recipient on the same message keeps its own outcome');
 select throws_ok($$update public.gtm_email_attempts set verification = 'deliverable' where recipient_hash = repeat('h', 32)$$,
   '23514', null, 'verification has four states, none of them inferred from silence');
-select throws_ok($$delete from public.gtm_team_mail_events where gmail_message_id = 'a02'$$,
-  '23503', null, 'an event with attempts cannot be deleted');
+-- (Deleting an event takes its attempts with it since 20261106020000: see gtm_email_mailbox_identity.sql.)
+select throws_ok($$insert into public.gtm_email_attempts (event_id, recipient_hash, field, match, stream) values (-1, repeat('z', 32), 'to', 'unmatched', 'unknown')$$,
+  '23503', null, 'an attempt always belongs to a stored event');
 
 -- Reply decisions
 insert into public.gtm_outreach_drafts (id, batch, domain, subject, body)
