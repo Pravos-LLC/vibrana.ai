@@ -2,7 +2,7 @@
 -- psql "$DB_URL" -v ON_ERROR_STOP=1 -f supabase/tests/gtm_email_outcomes.sql   (also `supabase test db`)
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(40);
+select plan(48);
 
 create or replace function pg_temp.as_role(r text, owner boolean) returns void language plpgsql as $$
 begin
@@ -83,6 +83,15 @@ select throws_ok($$insert into public.gtm_email_reply_labels (source, intent) va
   '23514', null, 'a decision belongs to a reply or a draft');
 select throws_ok($$insert into public.gtm_email_reply_labels (draft_id, source, intent, labeled_by)
   values ('00000000-0000-0000-0000-0000000000f9', 'legacy', 'positive', 'x')$$, '23514', null, 'legacy words are mapped before storage');
+select throws_ok($$update public.gtm_email_reply_labels set intent = 'neutral' where source = 'human' and draft_id = '00000000-0000-0000-0000-0000000000f9'$$,
+  '42501', null, 'a decision is never edited, not even by the service role');
+select throws_ok($$delete from public.gtm_email_reply_labels where source = 'model'$$, '42501', null, 'a decision is never deleted');
+select lives_ok($$update public.gtm_email_reply_labels set superseded_at = now() where source = 'human' and draft_id = '00000000-0000-0000-0000-0000000000f9'$$,
+  'a correction supersedes the old decision');
+select throws_ok($$update public.gtm_email_reply_labels set superseded_at = now() + interval '1 day' where source = 'human' and draft_id = '00000000-0000-0000-0000-0000000000f9'$$,
+  '42501', null, 'a decision is superseded once');
+select lives_ok($$insert into public.gtm_email_reply_labels (draft_id, source, intent, labeled_by)
+  values ('00000000-0000-0000-0000-0000000000f9', 'human', 'not_now', 'owner@example.com')$$, 'the correction is a new current decision');
 
 -- Desk drafts: new labels and their provenance
 select lives_ok($$update public.gtm_outreach_drafts set reply_sentiment = 'interested', reply_label_source = 'model',
@@ -92,10 +101,16 @@ select lives_ok($$update public.gtm_outreach_drafts set reply_sentiment = 'posit
   'the legacy five remain valid');
 select throws_ok($$update public.gtm_outreach_drafts set reply_label_source = 'guess' where id = '00000000-0000-0000-0000-0000000000f9'$$,
   '23514', null, 'a label is human or model');
+select lives_ok($$delete from public.gtm_outreach_drafts where id = '00000000-0000-0000-0000-0000000000f9'$$, 'a desk draft can still be deleted');
+select is((select count(*) from public.gtm_email_reply_labels where draft_id = '00000000-0000-0000-0000-0000000000f9'), 3::bigint,
+  'its decision history outlives it');
 
 -- Sync operations
-select lives_ok($$insert into public.gtm_email_sync_ops (op_key, destination, action, address_hash, reason, policy_version, observed_at)
+select throws_ok($$insert into public.gtm_email_sync_ops (op_key, destination, action, address_hash, reason, policy_version, observed_at)
   values ('addr:hhhh:invalid', 'twenty', 'address_restrict', repeat('h', 32), 'EMAIL_BOUNCED', 'v1', now())$$,
+  '23514', null, 'an address restriction names its person');
+select lives_ok($$insert into public.gtm_email_sync_ops (op_key, destination, action, person_id, address_hash, reason, policy_version, observed_at)
+  values ('addr:hhhh:invalid', 'twenty', 'address_restrict', '00000000-0000-0000-0000-0000000000a1', repeat('h', 32), 'EMAIL_BOUNCED', 'v1', now())$$,
   'an address restriction starts pending review');
 select lives_ok($$insert into public.gtm_email_sync_ops (op_key, destination, action, address_hash, reason, policy_version, observed_at)
   values ('addr:hhhh:invalid', 'origami', 'exclusion_upsert', repeat('h', 32), 'EMAIL_BOUNCED', 'v1', now())$$,

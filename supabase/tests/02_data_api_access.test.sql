@@ -205,8 +205,8 @@ insert into public.gtm_email_attempts (event_id, recipient_hash, field, match, s
   select id, repeat('s', 32), 'to', 'unmatched', 'unknown' from public.gtm_team_mail_events where member = 'SEED' and gmail_message_id = 'a1';
 insert into public.gtm_email_reply_labels (event_id, source, intent)
   select id, 'legacy', 'neutral' from public.gtm_team_mail_events where member = 'SEED' and gmail_message_id = 'a1';
-insert into public.gtm_email_sync_ops (op_key, destination, action, address_hash, reason, policy_version, observed_at)
-  values ('seed:op:0001', 'twenty', 'address_restrict', repeat('s', 32), 'SEED', 'seed', now());
+insert into public.gtm_email_sync_ops (op_key, destination, action, person_id, address_hash, reason, policy_version, observed_at)
+  values ('seed:op:0001', 'twenty', 'address_restrict', '00000000-0000-0000-0000-0000000000a1', repeat('s', 32), 'SEED', 'seed', now());
 insert into public.gtm_email_incidents (incident_key, kind, severity, summary) values ('seed', 'seed', 'warning', 'Seed');
 insert into public.gtm_dmarc_reports (report_key, reporter, domain, begin_at, end_at, messages, dmarc_pass, dkim_aligned, spf_aligned)
   values (repeat('a', 64), 'seed', 'example.test', now() - interval '1 day', now(), 1, 1, 1, 1);

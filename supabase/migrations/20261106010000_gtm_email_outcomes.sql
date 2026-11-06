@@ -15,7 +15,9 @@
 -- 3. gtm_email_attempts: one row per outbound message and recipient. Message totals count events; bounce denominators
 --    count attempts; contact and reply measures count distinct people and outreach episodes.
 -- 4. gtm_email_reply_labels: append-only reply decisions (human, model, deterministic, provider, legacy). Intent and
---    opt-out are separate typed answers. A human decision outranks a model one; history is superseded, never edited.
+--    opt-out are separate typed answers. A human decision outranks a model one. A decision is never edited or deleted, not
+--    even by the service role: a correction marks the old row superseded (once) and inserts a new one. draft_id has no
+--    foreign key on purpose, so the history outlives a deleted desk draft.
 -- 5. gtm_email_sync_ops: each restriction per destination (Twenty, Origami) with its own state, from pending review to
 --    read-back confirmed, so a CRM write never implies provider enforcement.
 -- 6. gtm_email_incidents: durable, de-duplicated health incidents shown to and emailed to both owners.
@@ -97,7 +99,7 @@ create index gtm_email_attempts_failed_idx on public.gtm_email_attempts (deliver
 create table public.gtm_email_reply_labels (
   id bigint generated always as identity primary key,
   event_id bigint references public.gtm_team_mail_events (id) on delete restrict,
-  draft_id uuid references public.gtm_outreach_drafts (id) on delete cascade,
+  draft_id uuid,
   person_id uuid,
   episode_id text check (episode_id is null or episode_id ~ '^[a-f0-9]{32,64}$'),
   source text not null check (source in ('human', 'model', 'deterministic', 'provider', 'legacy')),
@@ -121,6 +123,20 @@ create unique index gtm_email_reply_labels_current_event
   on public.gtm_email_reply_labels (event_id, source) where superseded_at is null and event_id is not null;
 create unique index gtm_email_reply_labels_current_draft
   on public.gtm_email_reply_labels (draft_id, source) where superseded_at is null and event_id is null;
+
+-- The only change a decision accepts: superseded_at set once, nothing else touched. Deletes are refused.
+create function public.gtm_email_reply_labels_append_only()
+returns trigger language plpgsql set search_path = '' as $$
+begin
+  if tg_op = 'UPDATE' and old.superseded_at is null and new.superseded_at is not null
+     and (to_jsonb(new) - 'superseded_at') = (to_jsonb(old) - 'superseded_at') then
+    return new;
+  end if;
+  raise exception 'reply decisions are append-only: supersede a decision, never edit or delete it' using errcode = 'insufficient_privilege';
+end $$;
+revoke all on function public.gtm_email_reply_labels_append_only() from public, anon, authenticated;
+create trigger gtm_email_reply_labels_append_only before update or delete on public.gtm_email_reply_labels
+  for each row execute function public.gtm_email_reply_labels_append_only();
 
 -- ---- 5. destination-specific restriction state ---------------------------------------------------------------
 
@@ -150,7 +166,11 @@ create table public.gtm_email_sync_ops (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   constraint gtm_email_sync_ops_once unique (op_key, destination),
-  constraint gtm_email_sync_ops_target check (person_id is not null or company_id is not null or address_hash is not null),
+  -- What each action needs: an address action names the address and its person; a person opt-out names the person.
+  constraint gtm_email_sync_ops_target check (
+    (action in ('address_restrict', 'address_opt_out') and address_hash is not null and person_id is not null)
+    or (action = 'person_opt_out' and person_id is not null)
+    or (action in ('exclusion_upsert', 'exclusion_release') and (person_id is not null or company_id is not null or address_hash is not null))),
   constraint gtm_email_sync_ops_approved check (state in ('pending_review', 'held', 'canceled') or approved_at is not null),
   constraint gtm_email_sync_ops_confirmed check ((state = 'confirmed') = (confirmed_at is not null))
 );
