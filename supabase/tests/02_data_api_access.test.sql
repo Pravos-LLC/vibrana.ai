@@ -145,6 +145,7 @@ returns text[] language sql immutable set search_path = '' as $$
     'gtm_email_attempts', 'gtm_email_reply_labels', 'gtm_email_sync_ops', 'gtm_email_incidents', 'gtm_dmarc_reports',
     'gtm_yt_videos', 'gtm_yt_video_daily', 'gtm_yt_channel_daily', 'gtm_yt_dim_daily', 'gtm_yt_report_files',
     'gtm_deal_milestones', 'gtm_deal_stage_history', 'gtm_linkedin_connections', 'gtm_linkedin_threads', 'gtm_web_daily',
+    'gtm_team_calendars', 'gtm_calendar_meetings',
     'gtm_content_candidates', 'gtm_ideas',
     'gtm_storyboards', 'gtm_storyboard_versions', 'gtm_storyboard_rules', 'gtm_storyboard_comments',
     'gtm_storyboard_scene_decisions', 'gtm_storyboard_spend', 'gtm_broll_shots',
@@ -223,6 +224,9 @@ insert into public.gtm_linkedin_connections (owner, profile_hash, connected_on) 
 insert into public.gtm_linkedin_threads (owner, thread_hash, first_at, last_at, started_by_owner, two_way, messages, owner_messages)
   values ('SEED', repeat('d', 64), now(), now(), true, false, 1, 1);
 insert into public.gtm_web_daily (site, day, visitors, pageviews) values ('seed.example', current_date, 0, 0);
+insert into public.gtm_team_calendars (member, address, token_ciphertext) values ('SEED', 'seed-calendar@example.test', repeat('x', 60));
+insert into public.gtm_calendar_meetings (member, event_key, meeting_id, origin, start_at, kind)
+  values ('SEED', repeat('s', 32), '00000000-0000-4000-8000-0000000000c9', 'created', now(), 'OTHER');
 -- Writes the setting and, through its trigger, one history row.
 insert into public.gtm_settings (key, value, updated_by) values ('seed', '{}', 'seed');
 insert into public.gtm_analytics_reports (kind, slug, period_start, period_end, title, headline, doc)
