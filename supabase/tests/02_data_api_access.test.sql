@@ -141,7 +141,7 @@ returns text[] language sql immutable set search_path = '' as $$
     'gtm_comments', 'gtm_comment_runs', 'gtm_red_flag_alerts', 'gtm_red_flag_resolutions', 'gtm_engage_lessons',
     'gtm_manual_metrics', 'gtm_content_reports', 'gtm_report_actions', 'gtm_sync_state', 'gtm_analytics_reports',
     'gtm_settings', 'gtm_settings_history',
-    'gtm_team_mailboxes', 'gtm_team_mail_events', 'gtm_team_stock_daily',
+    'gtm_team_mailboxes', 'gtm_team_mail_events', 'gtm_team_stock_daily', 'gtm_crm_people',
     'gtm_email_attempts', 'gtm_email_reply_labels', 'gtm_email_sync_ops', 'gtm_email_incidents', 'gtm_dmarc_reports',
     'gtm_yt_videos', 'gtm_yt_video_daily', 'gtm_yt_channel_daily', 'gtm_yt_dim_daily', 'gtm_yt_report_files',
     'gtm_deal_milestones', 'gtm_deal_stage_history', 'gtm_linkedin_connections', 'gtm_linkedin_threads', 'gtm_web_daily',
@@ -201,6 +201,7 @@ insert into public.gtm_sync_state (key, value) values ('seed', '{}');
 insert into public.gtm_team_mailboxes (member, address, token_ciphertext) values ('SEED', 'seed-mailbox@example.test', repeat('x', 60));
 insert into public.gtm_team_mail_events (member, gmail_message_id, thread_id, kind, at) values ('SEED', 'a1', 'a1', 'outreach', now());
 insert into public.gtm_team_stock_daily (member, date, metrics) values ('SEED', current_date, '{}');
+insert into public.gtm_crm_people (id, created_at, updated_at) values ('00000000-0000-0000-0000-0000000000c1', now(), now());
 insert into public.gtm_email_attempts (event_id, recipient_hash, field, match, stream)
   select id, repeat('s', 32), 'to', 'unmatched', 'unknown' from public.gtm_team_mail_events where member = 'SEED' and gmail_message_id = 'a1';
 insert into public.gtm_email_reply_labels (event_id, source, intent)
