@@ -443,7 +443,7 @@ export const READINESS_DETAILS = {
     },
   ],
   privacyLink: { label: 'Read the privacy policy', href: '/privacy' },
-  noObligation: 'No obligation to buy anything. If you want help afterward, our build sprints start from $10,000.',
+  noObligation: 'No obligation to buy anything. If you want help afterward, our build sprints start from $15,000.',
 } as const
 
 // ── 7. Quotes ────────────────────────────────────────────────────────────────

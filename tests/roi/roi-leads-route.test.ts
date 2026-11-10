@@ -31,7 +31,7 @@ const valid = {
   currency: 'GBP',
   weeksPerYear: 48,
   workWeekHours: 40,
-  sprintCost: 7560,
+  sprintCost: 11330,
   runCostPerMonth: 0,
   workflows: [{ id: 'support', people: 10, hoursPerWeek: 20, hourlyCost: 50, conservativePct: 8.5, expectedPct: 15 }],
 }

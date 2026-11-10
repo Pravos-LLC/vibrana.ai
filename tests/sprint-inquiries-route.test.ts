@@ -53,7 +53,7 @@ describe('POST /api/sprint-inquiries', () => {
     const response = await post(fitCall)
 
     expect(response.status).toBe(200)
-    expect(await response.json()).toEqual({ success: true, inquiryId: 'inquiry-1' })
+    expect(await response.json()).toEqual({ success: true, inquiryId: 'inquiry-1', bookingUrl: 'https://calendar.app.google/2DswLVndhkpMVx7K7' })
     expect(inserts).toHaveLength(1)
     expect(inserts[0]).toMatchObject({
       table: 'engagement_inquiries',

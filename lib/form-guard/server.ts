@@ -173,6 +173,8 @@ export const FORM_GUARDS = {
   sprintInquiries: {
     endpoint: 'sprint-inquiries',
     minFillMs: 4000,
+    // The fit-call form hands the visitor the booking calendar, so it needs a real person (Turnstile).
+    turnstile: true,
     limits: [
       { key: 'ip', max: 10, windowSec: HOUR },
       { key: 'ip', max: 30, windowSec: DAY },

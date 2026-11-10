@@ -43,6 +43,13 @@ export interface ReelStageProps {
   labels?: { play?: string; pause?: string; sound?: string; chooseClip?: string }
   /** Card width on desktop, 300 to 360px. */
   cardWidth?: 300 | 320 | 340 | 360
+  /**
+   * `panel` (default): the enlarged, blurred picture fills a rounded panel behind the card.
+   * `glow`: no panel and no edges, only a faint, heavily blurred screen shadow that fades to
+   * nothing in every direction. It reads the poster once and never re-samples the playing frame,
+   * so its color stays steady instead of shifting as the film plays.
+   */
+  backdrop?: 'panel' | 'glow'
   className?: string
 }
 
@@ -72,6 +79,7 @@ export function ReelStage({
   playingLabel = 'Playing',
   labels,
   cardWidth = 320,
+  backdrop = 'panel',
   className,
 }: ReelStageProps) {
   const L = { play: 'Play', pause: 'Pause', sound: 'Sound', chooseClip: 'Choose a clip', ...labels }
@@ -113,7 +121,7 @@ export function ReelStage({
 
   // Sample the playing frame into the backdrop canvas, four times a second, only while playing.
   useEffect(() => {
-    if (!playing) return
+    if (!playing || backdrop === 'glow') return
     const v = videoRef.current
     const c = canvasRef.current
     const ctx = c?.getContext('2d')
@@ -124,7 +132,7 @@ export function ReelStage({
     draw()
     const id = window.setInterval(draw, 250)
     return () => window.clearInterval(id)
-  }, [playing, index])
+  }, [playing, index, backdrop])
 
   const select = useCallback((i: number) => {
     fullRef.current = false
@@ -188,22 +196,35 @@ export function ReelStage({
 
   return (
     <section ref={stageRef} aria-label={title} className={cn('relative isolate', className)}>
-      {/* Backdrop: the same picture, enlarged and blurred. CSS background so it reads as one slot. */}
-      <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden rounded-[28px] bg-surface-overlay">
-        <div
-          className="absolute inset-[-12%] scale-110 bg-cover bg-center opacity-60 blur-2xl saturate-150 transition-opacity duration-300"
-          style={{ backgroundImage: `url(${clip.poster})`, opacity: playing ? 0 : undefined }}
-        />
-        <canvas
-          ref={canvasRef}
-          width={24}
-          height={42}
-          className="absolute inset-[-12%] h-[124%] w-[124%] blur-2xl saturate-150 transition-opacity duration-300"
-          style={{ opacity: playing ? 0.8 : 0 }}
-        />
-        {/* Wash keeps the card edge and any text on the stage legible in both themes. */}
-        <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_45%,transparent,var(--surface-base))] opacity-55" />
-      </div>
+      {backdrop === 'glow' ? (
+        <div aria-hidden className="pointer-events-none absolute -inset-x-[18%] -inset-y-[10%] -z-10">
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-[0.22] blur-[90px] saturate-125"
+            style={{
+              backgroundImage: `url(${clip.poster})`,
+              maskImage: 'radial-gradient(closest-side, #000 0%, rgba(0,0,0,0.5) 45%, transparent 100%)',
+              WebkitMaskImage: 'radial-gradient(closest-side, #000 0%, rgba(0,0,0,0.5) 45%, transparent 100%)',
+            }}
+          />
+        </div>
+      ) : (
+        /* Backdrop: the same picture, enlarged and blurred. CSS background so it reads as one slot. */
+        <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden rounded-[28px] bg-surface-overlay">
+          <div
+            className="absolute inset-[-12%] scale-110 bg-cover bg-center opacity-60 blur-2xl saturate-150 transition-opacity duration-300"
+            style={{ backgroundImage: `url(${clip.poster})`, opacity: playing ? 0 : undefined }}
+          />
+          <canvas
+            ref={canvasRef}
+            width={24}
+            height={42}
+            className="absolute inset-[-12%] h-[124%] w-[124%] blur-2xl saturate-150 transition-opacity duration-300"
+            style={{ opacity: playing ? 0.8 : 0 }}
+          />
+          {/* Wash keeps the card edge and any text on the stage legible in both themes. */}
+          <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_45%,transparent,var(--surface-base))] opacity-55" />
+        </div>
+      )}
 
       <div className="flex flex-col items-center px-4 py-8 sm:px-10 sm:py-12">
         <div

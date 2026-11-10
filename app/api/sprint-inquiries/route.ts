@@ -151,7 +151,7 @@ export async function POST(request: NextRequest) {
       }
       return NextResponse.json({ success: true, inquiryId: inquiry.id, brief, emailDelivered })
     }
-    return NextResponse.json({ success: true, inquiryId: inquiry.id })
+    return NextResponse.json({ success: true, inquiryId: inquiry.id, bookingUrl: SPRINT_FIT_CALL_URL })
   } catch {
     console.error('Sprint inquiry request failed')
     return NextResponse.json({ error: 'We couldn’t save your request. Please try again.' }, { status: 500 })

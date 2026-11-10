@@ -6,7 +6,7 @@ import { TrackedLink } from './TrackedLink'
 import { MonoLabel } from './ui'
 
 /**
- * "Real builds. Real numbers." (plan B3): one product at a time, at full size, behind a labeled
+ * "Real builds. Real outcomes." (plan B3): one product at a time, at full size, behind a labeled
  * toggle. Insurtech is a browser console on the violet end, compact; real estate is a desktop
  * app on the teal end, comfortable. Each metric sits in a ProofMetric cell beside its product.
  */
@@ -58,7 +58,7 @@ export function SprintWorkShowcase() {
     <div>
       <ProductToggle
         label={SPRINT_WORK.toggleLabel}
-        items={SPRINT_WORK.cards.map((card) => ({ id: card.id, label: card.option, audience: card.frameCaption, content: <Panel card={card} /> }))}
+        items={SPRINT_WORK.cards.map((card) => ({ id: card.id, label: card.option, audience: card.audience, content: <Panel card={card} /> }))}
       />
       <MonoLabel className="mt-8 text-center">{SPRINT_WORK.recreatedNote}</MonoLabel>
       {/*
@@ -70,7 +70,7 @@ export function SprintWorkShowcase() {
         {SPRINT_WORK.cards.map((card) => (
           <section key={card.id}>
             <h3>{card.tag}</h3>
-            <p>{card.frameCaption}</p>
+            <p>{card.audience}</p>
             <p>
               {card.metric} {card.metricLabel}
             </p>

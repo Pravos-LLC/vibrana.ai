@@ -24,6 +24,12 @@ export const SPRINT_CTA = {
   href: '#fit-call',
 } as const
 
+/** The secondary action, paired with SPRINT_CTA everywhere the primary appears. */
+export const SPRINT_SECONDARY_CTA = {
+  label: 'Build your sprint brief',
+  href: '/ai-build-sprint/readiness',
+} as const
+
 export const SPRINT_META = {
   title: 'AI Build Sprint: working AI in 10 days | Vibrana',
   description: 'We build working AI products and workflows with your team in 10 business days. Your team learns to build the next one.',
@@ -53,8 +59,6 @@ export const SPRINT_HERO_REEL = {
   loopStem: 'build-sprint/build-sprint-film-loop',
   fullStem: 'build-sprint/build-sprint-film-full',
   label: 'AI Build Sprint',
-  caption: 'FIG 0.1 / The AI Build Sprint, in 14 seconds',
-  captionNote: 'Voiceover by John Ellison. On-screen text reads muted.',
   title: 'A short film about the AI Build Sprint: a participant quote, the team, and the line "AI, without losing the human."',
   playLabel: 'Watch',
   playingLabel: 'Playing',
@@ -65,6 +69,7 @@ export const SPRINT_HERO_REEL = {
 export const SPRINT_PROBLEM = {
   eyebrow: 'Why AI stalls',
   heading: 'Most AI work stops short.',
+  accent: 'stops short',
   lines: [
     'The pilot works. Then it never ships.',
     'The consultants leave slides. Nothing gets built.',
@@ -99,27 +104,19 @@ export type SprintOutcomeVisual = 'product' | 'team' | 'code'
 export const SPRINT_OUTCOMES = {
   eyebrow: 'What you get',
   heading: 'On day 10, you have three things.',
+  accent: 'three things',
   /** One line under the heading so the cards also fit the non-software tracks. */
   trackNote: 'On the Governance and People tracks, the thing you get is a working policy or program, not software.',
   cards: [
-    { visual: 'product', title: 'A working product, in use.', body: 'Real users put it to work before we leave.' },
-    { visual: 'team', title: 'A team that can build the next one.', body: 'Your team builds with us every day. They keep going after we go.' },
-    { visual: 'code', title: 'The code and docs. Yours.', body: 'You keep the code, the docs and the keys. Nothing to renew with us.' },
+    { visual: 'product', title: 'A working product, in use.', body: 'Not a demo and not a prototype. The people who will use it put it to work on real tasks while we watch, so what you get has already survived contact with your team. Every step that matters has a person approving it.' },
+    { visual: 'team', title: 'A team that can build the next one.', body: 'One of your people builds beside ours every day of the sprint, in your tools, on your data. By day 10 they know how it works and why, so they can fix it, extend it and start the next one without us.' },
+    { visual: 'code', title: 'The code and docs. Yours.', body: 'The repository, the setup notes and every login are handed to you. How it works is written down in plain language, so a new hire can read it. Nothing to renew with us, and nothing that stops working if we leave.' },
   ] satisfies { visual: SprintOutcomeVisual; title: string; body: string }[],
-  /** FIG plate captions and keyed annotations (hub deck §3). */
+  /** The b-roll plate in the middle card. */
   plates: {
-    product: {
-      figCaption: 'FIG 1.1 / The product, put to work by real users before we leave',
-      annotations: ['Your data', 'A person approves this step', 'Tried by real users, not a demo'],
-    },
     team: {
-      figCaption: 'FIG 1.2 / Your builder works beside ours, every day of the sprint',
       /** Generated support b-roll of two unnamed builders at one laptop (John asked for it, 2026-11-05). */
       brollStem: 'build-sprint/broll/builders-pair-16x9',
-    },
-    code: {
-      figCaption: 'FIG 1.3 / Your repo on day 10: the code, the docs and the setup',
-      annotations: ['Yours to keep', 'How it works, written down'],
     },
   },
   /** builder-added: the words inside the FIG 1.1 product plate (an illustration). */
@@ -150,15 +147,15 @@ export const SPRINT_REPO_MOCK = {
 export const SPRINT_DAYS = {
   eyebrow: 'The 10 days',
   heading: 'Ten days from kickoff to hand over.',
+  accent: 'hand over',
   /** `span` = how many of the ten days the step covers (SprintTimeline derives each day's phase from it). */
   steps: [
-    { days: 'Days 1 to 4', span: 4, title: 'Scope and build', body: 'We meet the people who will use it, lock what “working” means, then build it with your team.' },
-    { days: 'Day 5', span: 1, title: 'Real users try it', body: 'It goes live and the people who will use it put it to work while we watch.' },
-    { days: 'Days 6 to 9', span: 4, title: 'Iterate', body: 'We fix and improve what real users found. You see it change every day.' },
-    { days: 'Day 10', span: 1, title: 'Final demo and hand over', body: 'We demo it, check it against the day 1 list, and hand it over. Your team runs it from here.' },
+    { days: 'Days 1 to 4', span: 4, title: 'Scope and build', stem: 'build-sprint/phases/scope-build-16x9', body: 'We meet the people who will use it, lock what “working” means, then build it with your team.' },
+    { days: 'Day 5', span: 1, title: 'Real users try it', stem: 'build-sprint/phases/real-users-16x9', body: 'It goes live and the people who will use it put it to work while we watch.' },
+    { days: 'Days 6 to 9', span: 4, title: 'Iterate', stem: 'build-sprint/phases/iterate-16x9', body: 'We fix and improve what real users found. You see it change every day.' },
+    { days: 'Day 10', span: 1, title: 'Final demo and hand over', stem: 'build-sprint/phases/demo-handover-16x9', body: 'We demo it, check it against the day 1 list, and hand it over. Your team runs it from here.' },
   ],
   pricingLink: 'See pricing',
-  figCaption: 'FIG 2.1 / The sprint as a build log',
   /** The build log, one line per day (hub deck §4). `day` renders as the mono prefix. */
   log: [
     { day: 'D01', text: 'Discovery with your sponsor and the people who will use it. We confirm what “working” means and who checks it.' },
@@ -173,6 +170,8 @@ export const SPRINT_DAYS = {
     { day: 'D10', text: 'Final demo and hand over: the product, the code, the docs and the keys. We check it against the day 1 list together.' },
   ],
   shippedStamp: 'Shipped',
+  /** Label on the day rail; clicking a day jumps to its phase. */
+  railAria: 'Jump to a day of the sprint',
   afterLine: { day: 'D+30', text: "One hour together to see how it's going." },
   /** Progress rail label for day n. */
   railLabel: (n: number) => `D${n}`,
@@ -187,13 +186,12 @@ export interface SprintTrackCard {
   name: string
   outcome: string
   /**
-   * The card image: an imagery manifest id (`imagery`) or a landing-media id (`landing`,
-   * src/landing-media). Product and Governance use the 2026-11 replacements (plan B4).
+   * The card media: a looping clip of the person who leads the track (`video`, a landing-media stem)
+   * or a still (`landing`, a landing-media id). Real people, never Orchid imagery, on this page.
    */
-  image: { imagery: string } | { landing: string }
+  media: { video: string } | { landing: string }
   /** What the client holds on day 10 (hub deck §5). */
   dayTen: string
-  figCaption: string
   leads: { name: string; photo: string }[]
   /** The line under the image, exactly as in the deck. */
   ledBy: string
@@ -202,6 +200,7 @@ export interface SprintTrackCard {
 export const SPRINT_TRACKS_SECTION = {
   eyebrow: 'Four tracks',
   heading: 'Pick the kind of work. Meet who leads it.',
+  accent: 'who leads it',
 } as const
 
 export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
@@ -209,9 +208,8 @@ export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
     id: 'product',
     name: 'Product',
     outcome: 'Take a prototype to production, or build a new product.',
-    image: { landing: 'build-sprint/sprint-track-product-build.webp' },
+    media: { video: 'build-sprint/team/john-workshop-16x9' },
     dayTen: 'On day 10: a product real users have already tried.',
-    figCaption: 'FIG 3.1 / Product: from prototype to production',
     leads: [
       { name: 'John Ellison', photo: '/assets/team/john-ellison.webp' },
       { name: 'Chetan Nandakumar', photo: '/assets/team/chetan-nandakumar.webp' },
@@ -222,9 +220,8 @@ export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
     id: 'workflow',
     name: 'Workflow automation',
     outcome: 'Agents take the repeat work. Your people stay in charge.',
-    image: { imagery: 'sprint-track-workflow' },
+    media: { video: 'build-sprint/team/abe-plane-16x9' },
     dayTen: 'On day 10: the workflow runs on real work, and your people approve what it does.',
-    figCaption: 'FIG 3.2 / Workflow automation: an agent drafts, a person approves',
     leads: [{ name: 'Abe Isleem', photo: '/assets/team/abe-isleem.webp' }],
     ledBy: 'Led by Abe Isleem',
   },
@@ -232,9 +229,8 @@ export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
     id: 'governance',
     name: 'Governance & policy',
     outcome: 'Clear AI rules your teams can follow, and people ready to approve new AI use.',
-    image: { landing: 'build-sprint/sprint-track-governance-approval.webp' },
+    media: { video: 'build-sprint/team/stephan-presenting-16x9' },
     dayTen: 'On day 10: your AI rules in writing, and the people who approve new AI use.',
-    figCaption: 'FIG 3.3 / Governance & policy: the rules, and who signs off',
     leads: [{ name: 'Stephan Ledain', photo: '/assets/team/stephan-ledain.webp' }],
     ledBy: 'Led by Stephan Ledain',
   },
@@ -242,9 +238,8 @@ export const SPRINT_TRACKS: readonly SprintTrackCard[] = [
     id: 'people',
     name: 'People & culture',
     outcome: 'AI fits the work your teams already do, and they have the skills to use it.',
-    image: { imagery: 'sprint-track-people' },
+    media: { landing: 'build-sprint/team/fatma-workshop.webp' },
     dayTen: "On day 10: a working program that fits AI into each team's real work.",
-    figCaption: 'FIG 3.4 / People & culture: training built on the work each team does',
     leads: [{ name: 'Fatma Ghedira', photo: '/assets/team/fatma-ghedira.webp' }],
     ledBy: 'Led by Fatma Ghedira',
   },
@@ -255,16 +250,17 @@ export type SprintWorkMock = 'insurtech-call-qa' | 'proptech-inbox'
 
 export const SPRINT_WORK = {
   eyebrow: "Work we've shipped",
-  heading: 'Real builds. Real numbers.',
+  heading: 'Real builds. Real outcomes.',
+  accent: 'Real outcomes',
   linkLabel: 'Read the case study',
   toggleLabel: 'Choose a case study',
-  /** builder-added: the footnote under every recreated product screen (FIG 1.1 and the work section). */
+  /** builder-added: the footnote under every recreated product screen (the work section only). */
   recreatedNote: 'Interfaces recreated for illustration.',
   cards: [
     {
       id: 'insurtech',
       option: 'Insurtech / call reviews',
-      frameCaption: 'FIG 4.1 / For a 70-person UK insurtech: two working prototypes in two weeks',
+      audience: 'For a 70-person UK insurtech: two working prototypes in two weeks',
       tag: 'Insurtech',
       metric: '5% → 100%',
       metricLabel: 'of calls now reviewed',
@@ -276,7 +272,7 @@ export const SPRINT_WORK = {
     {
       id: 'real-estate',
       option: 'Real estate / knowledge assistant',
-      frameCaption: 'FIG 4.2 / For a 50-person European real-estate firm: a knowledge assistant, then 7 people trained to build',
+      audience: 'For a 50-person European real-estate firm: a knowledge assistant, then 7 people trained to build',
       tag: 'Real estate',
       metric: '7 to 11 hours',
       metricLabel: 'estimated saving per trained person, per week',
@@ -288,7 +284,7 @@ export const SPRINT_WORK = {
   ] satisfies {
     id: string
     option: string
-    frameCaption: string
+    audience: string
     tag: string
     metric: string
     metricLabel: string
@@ -302,6 +298,7 @@ export const SPRINT_WORK = {
 // 8. Who it's for
 export const SPRINT_FIT = {
   heading: 'Is this for you?',
+  accent: 'for you',
   forLabel: 'For you if:',
   notForLabel: 'Not for you if:',
   forYou: [
@@ -322,7 +319,7 @@ export const SPRINT_FIT = {
 export const SPRINT_TEAM = {
   eyebrow: 'The team',
   heading: 'The people who build with you.',
-  figCaption: 'FIG 5.1 / The people who build with you',
+  accent: 'build with you',
   members: [
     { name: 'John Ellison', role: 'Leads Product', line: '16 years building software. Built and exited two companies.', photo: '/assets/team/polaroid/john-ellison.webp', angle: -3 },
     { name: 'Chetan Nandakumar', role: 'Co-leads Product', line: 'AI PhD from UC Berkeley. 10+ years launching AI products.', photo: '/assets/team/polaroid/chetan-nandakumar.webp', angle: 2 },
@@ -336,7 +333,8 @@ export const SPRINT_TEAM = {
 export const SPRINT_PRICING = {
   eyebrow: 'Pricing',
   heading: 'One fixed price, agreed before you start.',
-  price: 'Sprints from $10,000',
+  accent: 'fixed price',
+  price: 'Sprints from $15,000',
   fixed: 'Fixed price agreed before you start.',
   triage: {
     lead: 'Not ready for a sprint?',
@@ -347,21 +345,39 @@ export const SPRINT_PRICING = {
     body: 'retainers from $3,000 a month.',
   },
   currency: 'All prices in US dollars.',
-  /** The Workflow ROI calculator (/ai-build-sprint/roi): the sprint's front door for cold buyers. */
+} as const
+
+// 10b. Ways in before a call: the brief leads, two quieter tools follow
+export const SPRINT_WAYS_IN = {
+  brief: {
+    eyebrow: 'Free, no call needed',
+    heading: 'Build your sprint brief.',
+    accent: 'sprint brief',
+    body: 'Answer a few questions about what you want built. You get a clear brief: the first release, who uses it, how you will know it works, and what to prepare. A copy lands in your inbox, and you can bring it to the call.',
+    points: ['The first release, scoped', 'How you will measure it', 'What to prepare before day 1'],
+    imageAlt: 'A sample sprint brief: the company, the proposed first release, first users, current state and success measures',
+    image: '/assets/sprint-fit/sample-brief.png',
+  },
   roi: {
     prompt: 'Not sure which workflow to build first?',
     link: 'Estimate the hours it could free.',
     href: '/ai-build-sprint/roi',
+    imageAlt: 'The workflow ROI estimate: hours freed per week and the sprint payback',
+    image: '/assets/sprint-fit/roi-report.png',
   },
   scorecard: {
     prompt: 'Not ready to talk?',
     link: 'Take the free AI readiness scorecard.',
+    imageAlt: 'A sample AI readiness report: an overall score of 51, the archetype, and bars for strategic vision and operational capability',
+    imageId: 'readiness/readiness-profile.webp',
   },
 } as const
 
 // First-sprint terms, agreed for the Build Sprint page.
 export const SPRINT_GUARANTEE = {
   eyebrow: 'Your first sprint',
+  stamp: '100%',
+  stampCaption: 'Money-back',
   heading: '100% first-sprint money-back guarantee',
   timeline: 'Week one ends with real users trying it on day 5. Week two covers their feedback, iteration and change requests, then the final demo on day 10.',
   offer: 'At first-sprint handover, an unsatisfied client can receive a full refund of first-sprint fees. Third-party charges are separate.',
@@ -371,10 +387,11 @@ export const SPRINT_GUARANTEE = {
 // 11. FAQ
 export const SPRINT_FAQ = {
   heading: 'Questions we get asked',
+  accent: 'asked',
   items: [
     {
       question: 'How much does it cost?',
-      answer: 'Sprints start at $10,000. We agree one fixed price before you start, so there are no surprises.',
+      answer: 'Sprints start at $15,000. We agree one fixed price before you start, so there are no surprises.',
       /** Quiet link to the simulator for buyers sizing a wider program (VIB-430). */
       source: { label: 'Model a two-year program for your company', href: '/ai-transformation/simulator' },
     },
@@ -454,8 +471,8 @@ export const SPRINT_FORM = {
   submitting: 'Sending',
   /** builder-added (review fix): the button takes you to the calendar, so say so. */
   footnote: 'Next, you pick a time on our calendar.',
-  directBooking: 'Rather skip the form?',
-  directBookingLink: 'Open the calendar',
+  /** Shown only when the request was accepted but no calendar link came back. */
+  sentNote: 'Thanks. We have your request and will send you a link to pick a time.',
 } as const
 
 // 13. Sticky mobile bar

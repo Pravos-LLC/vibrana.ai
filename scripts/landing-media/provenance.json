@@ -1,9 +1,15 @@
 {
   "version": 2,
-  "generated": "2026-11-05",
+  "generated": "2026-11-10",
   "approvedBroll": [
     "B-kling-steady.mp4",
-    "P-kling.mp4"
+    "P-kling.mp4",
+    "Ab2-kling.mp4",
+    "A-kling.mp4",
+    "S1-kling.mp4",
+    "S2-kling.mp4",
+    "S3-kling.mp4",
+    "S4-kling.mp4"
   ],
   "assets": [
     {
@@ -185,6 +191,202 @@
       "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/P-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
       "sourceFile": "P-kling.mp4",
       "approval": "Generated support b-roll of two unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-05"
+    },
+    {
+      "id": "build-sprint/team/abe-plane-16x9.mp4",
+      "path": "/assets/landing/build-sprint/team/abe-plane-16x9.4f887026.mp4",
+      "sha256": "4f887026d9ee1af1f1f5f0f00f41dda37bf95748df307b27ba27decfc3e49601",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/Ab2-kling.mp4 (generated from team photos, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "Ab2-kling.mp4",
+      "approval": "Team likeness b-roll, requested by John 2026-11-10 for the Build Sprint page"
+    },
+    {
+      "id": "build-sprint/team/abe-plane-16x9.webm",
+      "path": "/assets/landing/build-sprint/team/abe-plane-16x9.93a39142.webm",
+      "sha256": "93a3914289d6f95801ee84089e4992ccf1d4fdcad5b23f9abb2abf8a842c1721",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/Ab2-kling.mp4 (generated from team photos, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "Ab2-kling.mp4",
+      "approval": "Team likeness b-roll, requested by John 2026-11-10 for the Build Sprint page"
+    },
+    {
+      "id": "build-sprint/team/abe-plane-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/team/abe-plane-16x9-poster.124628e2.webp",
+      "sha256": "124628e233afe9153df1f17e6cdb3fc3e822849ada6863dfdb28a4c5ea735181",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/Ab2-kling.mp4 (generated from team photos, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "Ab2-kling.mp4",
+      "approval": "Team likeness b-roll, requested by John 2026-11-10 for the Build Sprint page"
+    },
+    {
+      "id": "build-sprint/team/stephan-presenting-16x9.mp4",
+      "path": "/assets/landing/build-sprint/team/stephan-presenting-16x9.2dc50881.mp4",
+      "sha256": "2dc50881d43ae14e1db95a601a7fb917e6ae5575a7414b89313fc78dfd0ba359",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/A-kling.mp4 (generated from team photos, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "A-kling.mp4",
+      "approval": "Team likeness b-roll, requested by John 2026-11-10 for the Build Sprint page"
+    },
+    {
+      "id": "build-sprint/team/stephan-presenting-16x9.webm",
+      "path": "/assets/landing/build-sprint/team/stephan-presenting-16x9.2fc0fac3.webm",
+      "sha256": "2fc0fac3850688409258025fb8e6dc9329f93d3d9815761d796f1ad46b862683",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/A-kling.mp4 (generated from team photos, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "A-kling.mp4",
+      "approval": "Team likeness b-roll, requested by John 2026-11-10 for the Build Sprint page"
+    },
+    {
+      "id": "build-sprint/team/stephan-presenting-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/team/stephan-presenting-16x9-poster.633c5f11.webp",
+      "sha256": "633c5f111c5519f81d3d61a17a216ad3b644c1e180d3488c1ed9f8f2da9aaf6b",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/A-kling.mp4 (generated from team photos, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "A-kling.mp4",
+      "approval": "Team likeness b-roll, requested by John 2026-11-10 for the Build Sprint page"
+    },
+    {
+      "id": "build-sprint/team/john-workshop-16x9.mp4",
+      "path": "/assets/landing/build-sprint/team/john-workshop-16x9.328f9f97.mp4",
+      "sha256": "328f9f97e5847657e478def6556320c7269d80a1aaab4cc9966ee8e986d9d5a8",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/work/ai-john/vid-listen-1.mp4, centre-cropped to 16:9 (generated from John's photo for Build Sprint film v2.7, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "vid-listen-1.mp4",
+      "approval": "John Ellison workshop shot from the Build Sprint film, requested by John 2026-11-10; Chetan removed"
+    },
+    {
+      "id": "build-sprint/team/john-workshop-16x9.webm",
+      "path": "/assets/landing/build-sprint/team/john-workshop-16x9.2555a438.webm",
+      "sha256": "2555a438aac2dbb22f79fe937d6360ae24f9f7fea86acd7a5a8c6766c7b5e968",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/work/ai-john/vid-listen-1.mp4, centre-cropped to 16:9 (generated from John's photo for Build Sprint film v2.7, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "vid-listen-1.mp4",
+      "approval": "John Ellison workshop shot from the Build Sprint film, requested by John 2026-11-10; Chetan removed"
+    },
+    {
+      "id": "build-sprint/team/john-workshop-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/team/john-workshop-16x9-poster.c69463ec.webp",
+      "sha256": "c69463ec6b8cf7226351d386000cde113a6a0ec8b8a5374f2af0a52d3d409bfe",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/work/ai-john/vid-listen-1.mp4, centre-cropped to 16:9 (generated from John's photo for Build Sprint film v2.7, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "vid-listen-1.mp4",
+      "approval": "John Ellison workshop shot from the Build Sprint film, requested by John 2026-11-10; Chetan removed"
+    },
+    {
+      "id": "build-sprint/team/fatma-workshop.webp",
+      "path": "/assets/landing/build-sprint/team/fatma-workshop.b12bdfcb.webp",
+      "sha256": "b12bdfcb39520b03da078042b57c6f3f6c78652fa8400b94abec8a935dbaeea8",
+      "source": "john-workspace/2-work/vibrana-gtm/../../sites/john-ellison.com/public/images/ai-transformation/fatma-workshop-circle.webp (1280x714, byte-identical copy)",
+      "approval": "Workshop circle image John likes, requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/team/fatma-workshop-16x9.mp4",
+      "path": "/assets/landing/build-sprint/team/fatma-workshop-16x9.45bd1e3e.mp4",
+      "sha256": "45bd1e3e143917bb68b439e50bbf0a6283cbe9d79a7cf92044bbda5694b0fb67",
+      "source": "john-workspace/2-work/vibrana-gtm/../../sites/john-ellison.com/public/images/ai-transformation/fatma-workshop-circle.webp, slow 8 s zoom and drift (ffmpeg zoompan, returns to the first frame so it loops), light grade",
+      "approval": "Workshop circle image John likes, requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/team/fatma-workshop-16x9.webm",
+      "path": "/assets/landing/build-sprint/team/fatma-workshop-16x9.0f5dfc7d.webm",
+      "sha256": "0f5dfc7db0a0490cef4f70fa7b06e9b2125d3a4977386fba72f37913e5c02893",
+      "source": "john-workspace/2-work/vibrana-gtm/../../sites/john-ellison.com/public/images/ai-transformation/fatma-workshop-circle.webp, slow 8 s zoom and drift (ffmpeg zoompan, returns to the first frame so it loops), light grade",
+      "approval": "Workshop circle image John likes, requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/team/fatma-workshop-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/team/fatma-workshop-16x9-poster.648d79c2.webp",
+      "sha256": "648d79c257211177d44be7ff72438bfa8a93a64d827454161205f9a43c1ba5a4",
+      "source": "john-workspace/2-work/vibrana-gtm/../../sites/john-ellison.com/public/images/ai-transformation/fatma-workshop-circle.webp, slow 8 s zoom and drift (ffmpeg zoompan, returns to the first frame so it loops), light grade",
+      "approval": "Workshop circle image John likes, requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/scope-build-16x9.mp4",
+      "path": "/assets/landing/build-sprint/phases/scope-build-16x9.e2c6f81d.mp4",
+      "sha256": "e2c6f81dc98ebe0339f237ee77af68ebeb9b0485dbac4d78c9c3400622556bac",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S1-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S1-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/scope-build-16x9.webm",
+      "path": "/assets/landing/build-sprint/phases/scope-build-16x9.c56ff8aa.webm",
+      "sha256": "c56ff8aad690c1fc04e82bde9572d31c16df3115ea05e96827379671a22e67d1",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S1-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S1-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/scope-build-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/phases/scope-build-16x9-poster.d313f2b7.webp",
+      "sha256": "d313f2b71907c0bc809c90e09f0c60d99e2766c7568314ee4a4f282c5b30249a",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S1-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S1-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/real-users-16x9.mp4",
+      "path": "/assets/landing/build-sprint/phases/real-users-16x9.b898467c.mp4",
+      "sha256": "b898467c9abf5a0b86394c6699e6e2b70f698aca39b3a9cdc95a528a89d022b1",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S2-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S2-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/real-users-16x9.webm",
+      "path": "/assets/landing/build-sprint/phases/real-users-16x9.9f0edb56.webm",
+      "sha256": "9f0edb56f1dd2d08be32c935c25a6878ece41c0dbc103ee954492143879e581e",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S2-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S2-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/real-users-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/phases/real-users-16x9-poster.16f45078.webp",
+      "sha256": "16f45078ae8bd2437524a6fd0a72dd10de9b6aae26ac854535929733323189d8",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S2-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S2-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/iterate-16x9.mp4",
+      "path": "/assets/landing/build-sprint/phases/iterate-16x9.6e5b5519.mp4",
+      "sha256": "6e5b55195e3abba6a494159647b6a6a52290b84182d70dc604c39deeca249f06",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S3-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S3-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/iterate-16x9.webm",
+      "path": "/assets/landing/build-sprint/phases/iterate-16x9.fbb6a90d.webm",
+      "sha256": "fbb6a90dc638ca04c0fdc142ded76e100816903341338cc3f61d8a1be52d7bbd",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S3-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S3-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/iterate-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/phases/iterate-16x9-poster.824d1a72.webp",
+      "sha256": "824d1a72b1780c4ada85080249cf096566cbd33244b45f754630337f73f0e362",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S3-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S3-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/demo-handover-16x9.mp4",
+      "path": "/assets/landing/build-sprint/phases/demo-handover-16x9.0e876fcb.mp4",
+      "sha256": "0e876fcbbce84cf28c838e9b69c27ee930f8b5ecf84ecac8a6639280a717faac",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S4-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S4-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/demo-handover-16x9.webm",
+      "path": "/assets/landing/build-sprint/phases/demo-handover-16x9.4668bf23.webm",
+      "sha256": "4668bf2303e2a4d5635acb881eea9a5325d53e7ae94c1741132b7aa17ad00121",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S4-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S4-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
+    },
+    {
+      "id": "build-sprint/phases/demo-handover-16x9-poster.webp",
+      "path": "/assets/landing/build-sprint/phases/demo-handover-16x9-poster.b234bc4d.webp",
+      "sha256": "b234bc4dc2a63d8984baf2cb58f7b110bef5cfb833593422efc38a3cd59b8aac",
+      "source": "john-workspace/2-work/vibrana-gtm/team-broll-trial/graded/S4-kling.mp4 (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade",
+      "sourceFile": "S4-kling.mp4",
+      "approval": "Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10"
     },
     {
       "id": "readiness/readiness-assessment-16x9.mp4",

@@ -4,9 +4,10 @@ import { FormEvent, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { currentEntry, trackCallClick, trackFunnel } from '@/src/lib/funnel/client'
 import { Button, Field, Input, Select } from '@/src/components/prism'
-import { SPRINT_FIT_CALL_URL, SPRINT_FORM } from '@/src/ai-build-sprint-content'
+import { SPRINT_FORM } from '@/src/ai-build-sprint-content'
 import { isSprintTrackId, type SprintTrackId } from '@/src/lib/sprint-tracks'
 import { useFormGuard } from '@/lib/form-guard/client'
+import { TurnstileWidget } from '@/lib/form-guard/TurnstileWidget'
 
 /** The short sprint fit-call form. Posts to /api/sprint-inquiries (same route, table and emails as the old application). */
 interface FitCallFormState {
@@ -35,7 +36,8 @@ export function SprintApplicationForm() {
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [started, setStarted] = useState(false)
-  const guard = useFormGuard()
+  const guard = useFormGuard({ turnstile: true })
+  const [sent, setSent] = useState(false)
 
   const attribution = useMemo(() => ({
     utm_source: searchParams.get('utm_source') || '',
@@ -78,6 +80,8 @@ export function SprintApplicationForm() {
     setSubmitting(true)
     setError('')
     try {
+      // The invisible Turnstile check usually finishes in about a second; a quick submit waits for it.
+      await guard.turnstile.ready()
       const response = await fetch('/api/sprint-inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -88,12 +92,18 @@ export function SprintApplicationForm() {
 
       trackFunnel('sprint_form_complete', { track: form.track })
       trackCallClick('sprint-form-submit')
-      // The button promises a call, so the next screen is the calendar itself.
-      window.location.assign(SPRINT_FIT_CALL_URL)
+      // The calendar link is only ever handed out here, after the guard (token, Turnstile, rate
+      // limits) has passed, so it is not in the page source for scrapers to find.
+      if (typeof result.bookingUrl === 'string' && result.bookingUrl.startsWith('https://')) {
+        window.location.assign(result.bookingUrl)
+      } else {
+        setSent(true)
+      }
     } catch (submissionError) {
       setError(submissionError instanceof Error ? submissionError.message : SPRINT_FORM.errors.fallback)
     } finally {
       setSubmitting(false)
+      guard.turnstile.refresh()
     }
   }
 
@@ -132,16 +142,13 @@ export function SprintApplicationForm() {
         </div>
       </div>
 
+      <TurnstileWidget guard={guard} className="mt-4" />
+      {sent && <p role="status" className="mt-5 text-sm text-ink-secondary">{SPRINT_FORM.sentNote}</p>}
       {error && <p role="alert" className="mt-5 text-sm text-brand-red-strong">{error}</p>}
 
       <div className="mt-7">
         <Button type="submit" loading={submitting} className="w-full sm:w-auto">{submitting ? SPRINT_FORM.submitting : SPRINT_FORM.submit}</Button>
-        <p className="type-sm mt-3 text-ink-secondary">
-          {SPRINT_FORM.footnote} {SPRINT_FORM.directBooking}{' '}
-          <a href={SPRINT_FIT_CALL_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackCallClick('sprint-form')} className="rounded font-medium text-brand-violet-strong underline decoration-line-strong underline-offset-4 hover:text-ink">
-            {SPRINT_FORM.directBookingLink}
-          </a>
-        </p>
+        <p className="type-sm mt-3 text-ink-secondary">{SPRINT_FORM.footnote}</p>
       </div>
     </form>
   )

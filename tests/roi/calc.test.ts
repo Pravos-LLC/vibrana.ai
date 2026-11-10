@@ -168,15 +168,15 @@ describe('calculate', () => {
 })
 
 describe('currency', () => {
-  it('quotes the sprint price as $10,000 and converts it at the published rate', () => {
+  it('quotes the sprint price as $15,000 and converts it at the published rate', () => {
     expect(sprintFromPrice('USD')).toBe(SPRINT_FROM_USD)
-    expect(sprintFromPrice('EUR')).toBe(8940)
-    expect(sprintFromPrice('GBP')).toBe(7560)
-    expect(defaultAssumptions('GBP').sprintCost).toBe(7560)
+    expect(sprintFromPrice('EUR')).toBe(13420)
+    expect(sprintFromPrice('GBP')).toBe(11330)
+    expect(defaultAssumptions('GBP').sprintCost).toBe(11330)
   })
 
   it('does not convert user-entered costs: the result is in the currency they were typed in', () => {
-    const gbp = calculate([row()], { ...defaultAssumptions('GBP'), sprintCost: 7560 })
+    const gbp = calculate([row()], { ...defaultAssumptions('GBP'), sprintCost: 11330 })
     expect(gbp.totals.timeValue.expected).toBeCloseTo(72_000)
     expect(formatMoney(gbp.totals.timeValue.expected, 'GBP')).toBe('£72,000')
     expect(formatMoney(1_234_567, 'EUR')).toBe('€1.2M')
@@ -205,6 +205,6 @@ describe('payback wording', async () => {
     const p = paybackParts(r)
     expect(p.text).toBe('1 month at the high end')
     expect(p.note).toMatch(/None at the low end/)
-    expect(paybackParts(calculate([row()], usd)).text).toBe('2 to 3 months')
+    expect(paybackParts(calculate([row()], usd)).text).toBe('3 to 5 months')
   })
 })

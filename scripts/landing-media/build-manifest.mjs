@@ -26,6 +26,9 @@ const HASHED = /^(.*)\.([0-9a-f]{8})(\.[a-z0-9]+)$/
 // wobble that read as shaking on the site, John 2026-11-05). P-kling is generated support b-roll
 // of two unnamed builders, no team likeness (John asked for it, 2026-11-05).
 export const APPROVED_BROLL = ['B-kling-steady.mp4', 'P-kling.mp4']
+// Sprint-page team and phase loops (John asked for them, 2026-11-10). Team likeness clips are Abe's
+// (Ab2-kling) and Stephan's (A-kling); S1 to S4 are generated phase loops with no real person.
+export const APPROVED_TEAM_PHASE = ['Ab2-kling.mp4', 'A-kling.mp4', 'S1-kling.mp4', 'S2-kling.mp4', 'S3-kling.mp4', 'S4-kling.mp4']
 
 const REELS = {
   'eu-ai-act-explainer': {
@@ -83,6 +86,46 @@ for (const [slug, b] of Object.entries(BROLL)) {
   const pub = { kind: 'video-loop', page: 'ai-build-sprint', slot: 'Supporting b-roll loop (muted)', captions: 'None (no speech)', alt: b.alt }
   for (const ext of ['mp4', 'webm']) add(`build-sprint/broll/${slug}.${ext}`, pub, prov)
   add(`build-sprint/broll/${slug}-poster.webp`, { ...pub, kind: 'poster', slot: 'Poster for the b-roll loop' }, prov)
+}
+
+const TRIAL_DIR = `${GTM}/team-broll-trial/graded`
+const TEAM_LOOPS = {
+  'abe-plane-16x9': { src: 'Ab2-kling.mp4', alt: 'A software engineer in a cap works on a laptop in an airplane seat at dusk, the sky glowing orange outside the window', cut: 'a seamless 4.4 s cross-faded loop (locked-off camera)' },
+  'stephan-presenting-16x9': { src: 'A-kling.mp4', alt: 'A facilitator presents to a seated group in a warm studio with a whiteboard and plants', cut: 'a seamless 4.4 s cross-faded loop (locked-off camera)' },
+}
+for (const [slug, b] of Object.entries(TEAM_LOOPS)) {
+  const prov = { source: `${TRIAL_DIR}/${b.src} (generated from team photos, graded); ${b.cut}, with a shared light grade`, sourceFile: b.src, approval: 'Team likeness b-roll, requested by John 2026-11-10 for the Build Sprint page' }
+  const pub = { kind: 'video-loop', page: 'ai-build-sprint', slot: 'Team member loop (muted)', captions: 'None (no speech)', alt: b.alt }
+  for (const ext of ['mp4', 'webm']) add(`build-sprint/team/${slug}.${ext}`, pub, prov)
+  add(`build-sprint/team/${slug}-poster.webp`, { ...pub, kind: 'poster', slot: 'Poster for the team loop' }, prov)
+}
+{
+  const prov = { source: `${GTM}/build-sprint-campaign/film-v2/work/ai-john/vid-listen-1.mp4, centre-cropped to 16:9 (generated from John's photo for Build Sprint film v2.7, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade`, sourceFile: 'vid-listen-1.mp4', approval: 'John Ellison workshop shot from the Build Sprint film, requested by John 2026-11-10; Chetan removed' }
+  const pub = { kind: 'video-loop', page: 'ai-build-sprint', slot: 'Team member loop (muted)', captions: 'None (no speech)', alt: 'A facilitator in a white shirt smiles and points at a wall of sticky notes in a workshop' }
+  for (const ext of ['mp4', 'webm']) add(`build-sprint/team/john-workshop-16x9.${ext}`, pub, prov)
+  add('build-sprint/team/john-workshop-16x9-poster.webp', { ...pub, kind: 'poster', slot: 'Poster for the team loop' }, prov)
+}
+{
+  const prov = { source: `${GTM}/../../sites/john-ellison.com/public/images/ai-transformation/fatma-workshop-circle.webp (1280x714, byte-identical copy)`, approval: 'Workshop circle image John likes, requested by John 2026-11-10' }
+  const pubImg = { kind: 'image', page: 'ai-build-sprint', slot: 'Team member still', alt: 'A facilitator sits in a circle of colleagues around a table of sticky notes and a Leadership Alignment sheet in a bright room' }
+  add('build-sprint/team/fatma-workshop.webp', pubImg, prov)
+  const kb = { source: `${GTM}/../../sites/john-ellison.com/public/images/ai-transformation/fatma-workshop-circle.webp, slow 8 s zoom and drift (ffmpeg zoompan, returns to the first frame so it loops), light grade`, approval: prov.approval }
+  const pub = { ...pubImg, kind: 'video-loop', slot: 'Team member loop (muted)', captions: 'None (no speech)' }
+  for (const ext of ['mp4', 'webm']) add(`build-sprint/team/fatma-workshop-16x9.${ext}`, pub, kb)
+  add('build-sprint/team/fatma-workshop-16x9-poster.webp', { ...pub, kind: 'poster', slot: 'Poster for the team loop' }, kb)
+}
+
+const PHASES = {
+  'scope-build-16x9': { src: 'S1-kling.mp4', alt: 'Three colleagues scope a product around a whiteboard of sticky notes and a laptop' },
+  'real-users-16x9': { src: 'S2-kling.mp4', alt: 'Over the shoulder of an office worker trying a new product on a laptop while a colleague watches' },
+  'iterate-16x9': { src: 'S3-kling.mp4', alt: 'Two builders refine a product: one types while the other moves sticky notes on a wall of wireframes' },
+  'demo-handover-16x9': { src: 'S4-kling.mp4', alt: 'A presenter at a wall screen in a bright room hands over the finished product to a seated client team' },
+}
+for (const [slug, b] of Object.entries(PHASES)) {
+  const prov = { source: `${TRIAL_DIR}/${b.src} (generated, graded); a seamless 4.4 s cross-faded loop (locked-off camera), with a shared light grade`, sourceFile: b.src, approval: 'Generated support b-roll of unnamed people (Nano Banana Pro keyframe, Kling 4 image-to-video), requested by John 2026-11-10' }
+  const pub = { kind: 'video-loop', page: 'ai-build-sprint', slot: 'Sprint phase loop (muted)', captions: 'None (no speech)', alt: b.alt }
+  for (const ext of ['mp4', 'webm']) add(`build-sprint/phases/${slug}.${ext}`, pub, prov)
+  add(`build-sprint/phases/${slug}-poster.webp`, { ...pub, kind: 'poster', slot: 'Poster for the phase loop' }, prov)
 }
 
 const LOOPS = [
@@ -174,5 +217,5 @@ if (byId.size) throw new Error(`files without a manifest entry: ${[...byId.keys(
 const totalBytes = assets.reduce((s, a) => s + a.bytes, 0)
 fs.mkdirSync(path.dirname(PUBLIC_MANIFEST), { recursive: true })
 fs.writeFileSync(PUBLIC_MANIFEST, JSON.stringify({ version: 2, totalBytes, assets }, null, 2) + '\n')
-fs.writeFileSync(PROVENANCE, JSON.stringify({ version: 2, generated: new Date().toISOString().slice(0, 10), approvedBroll: APPROVED_BROLL, assets: provenance }, null, 2) + '\n')
+fs.writeFileSync(PROVENANCE, JSON.stringify({ version: 2, generated: new Date().toISOString().slice(0, 10), approvedBroll: [...APPROVED_BROLL, ...APPROVED_TEAM_PHASE], assets: provenance }, null, 2) + '\n')
 console.log(`${assets.length} assets, ${(totalBytes / 1048576).toFixed(2)} MB`)
