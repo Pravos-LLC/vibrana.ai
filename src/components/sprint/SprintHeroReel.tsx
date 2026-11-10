@@ -49,12 +49,11 @@ export function SprintHeroReel({ className }: { className?: string }) {
       <ReelStage
         clips={[CLIPS[mode]]}
         title={SPRINT_HERO_REEL.title}
-        caption={SPRINT_HERO_REEL.caption}
-        captionNote={SPRINT_HERO_REEL.captionNote}
         playLabel={SPRINT_HERO_REEL.playLabel}
         playingLabel={SPRINT_HERO_REEL.playingLabel}
         labels={SPRINT_HERO_REEL.labels}
         cardWidth={300}
+        backdrop="glow"
       />
     </div>
   )

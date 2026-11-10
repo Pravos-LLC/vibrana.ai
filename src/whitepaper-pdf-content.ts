@@ -743,7 +743,7 @@ export const tableOfContents = [
 export const whitepaperCta: WhitepaperCtaContent = {
   title: 'Where Does Your Organization Stand?',
   subtitle:
-    'The next step is mapping your own readiness risks. If you then want to build, a sprint has a fixed price, scope and end date agreed before it starts, from $10,000, and you own what we build.',
+    'The next step is mapping your own readiness risks. If you then want to build, a sprint has a fixed price, scope and end date agreed before it starts, from $15,000, and you own what we build.',
   buttonLabel: 'Take the Readiness Assessment',
   url: 'vibrana.ai/ai-transformation/assessment',
   featuresLabel: 'The Free Readiness Assessment Includes:',

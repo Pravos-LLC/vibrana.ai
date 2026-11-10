@@ -20,7 +20,7 @@ export function isCurrency(value: unknown): value is Currency {
 }
 
 /** Sprints start from this price in US dollars (vibrana.ai #159, John 2026-10-12). */
-export const SPRINT_FROM_USD = 10_000;
+export const SPRINT_FROM_USD = 15_000;
 
 /** Same working-year arithmetic as the simulator and our published case studies. */
 export const DEFAULT_WEEKS_PER_YEAR = WORKING_WEEKS.value;

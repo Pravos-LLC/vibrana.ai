@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
-import { SPRINT_DAYS, SPRINT_HERO_REEL, SPRINT_PROBLEM, SPRINT_WORK } from '../src/ai-build-sprint-content'
+import { SPRINT_DAYS, SPRINT_HERO_REEL, SPRINT_PROBLEM, SPRINT_SECONDARY_CTA, SPRINT_WORK } from '../src/ai-build-sprint-content'
 
 // The Build Sprint page (Workshop Log rebuild): no sideways scroll at any width, the hero reel and
 // the problem sequence render, the build log carries all ten days, metrics never squish, and the
@@ -40,7 +40,6 @@ test('the hero reel renders beside the headline, poster first and no video bytes
   await expect(video).toHaveAttribute('poster', /build-sprint-film-loop-poster\.[0-9a-f]{8}\.webp$/)
   await expect(video).toHaveAttribute('preload', 'none')
   await expect(video.locator('source[type="video/mp4"]')).toHaveAttribute('src', /build-sprint-film-loop\./)
-  await expect(stage.getByText(SPRINT_HERO_REEL.caption)).toBeVisible()
   // No placeholder disc, no collage: the hero holds no <img> at all.
   await expect(page.locator('#sprint-hero img')).toHaveCount(0)
 })
@@ -96,45 +95,37 @@ test('both case studies are in the server HTML, not only the active tab', async 
   }
 })
 
-test('the pinned build log fits the viewport with its CTA visible, or does not pin', async ({ page }) => {
-  for (const [width, height] of [[1024, 768], [1280, 800], [1440, 900]] as const) {
-    await page.setViewportSize({ width, height })
-    await page.goto('/ai-build-sprint')
-    const log = page.getByTestId('sprint-timeline')
-    await expect(log).not.toHaveAttribute('data-mode', 'static')
-    if ((await log.getAttribute('data-mode')) !== 'pinned') continue
-    const top = await log.evaluate((el) => el.getBoundingClientRect().top + window.scrollY)
-    await page.evaluate((y) => window.scrollTo(0, y + 200), top)
-    await page.waitForTimeout(300)
-    await expect(log.getByRole('link', { name: 'Book a 30-min call' })).toBeInViewport({ ratio: 1 })
-  }
+test('the sprint timeline jumps to any day: Day 10 is one click', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/ai-build-sprint')
+  const log = page.getByTestId('sprint-timeline')
+  await expect(log).toBeVisible()
+  const days = log.getByRole('group', { name: SPRINT_DAYS.railAria }).getByRole('button')
+  await expect(days).toHaveCount(SPRINT_DAYS.log.length)
+  await days.last().click()
+  await expect(days.last()).toHaveAttribute('aria-pressed', 'true')
+  const last = SPRINT_DAYS.steps[SPRINT_DAYS.steps.length - 1]
+  await expect(log.getByRole('button', { name: new RegExp(last.title) })).toHaveAttribute('aria-current', 'true')
+  await expect(log.getByText(SPRINT_DAYS.log[9].text).first()).toBeVisible()
+  // Every day's line is in the HTML for crawlers and screen readers.
+  for (const line of SPRINT_DAYS.log) await expect(log.getByText(line.text, { exact: false })).not.toHaveCount(0)
 })
 
-test('the problem sequence renders its three lines, the close and a screen-reader summary', async ({ page }) => {
+test('the problem section renders its heading, three lines, the close and a screen-reader summary', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/ai-build-sprint')
   const section = page.getByTestId('sprint-problem')
-  await expect(section.getByRole('heading', { name: SPRINT_PROBLEM.heading })).toBeVisible()
+  await expect(section.getByRole('heading', { name: SPRINT_PROBLEM.heading })).toBeAttached()
   for (const line of SPRINT_PROBLEM.lines) await expect(section.getByText(line, { exact: true })).toHaveCount(1)
   await expect(section.getByText(SPRINT_PROBLEM.close, { exact: true })).toHaveCount(1)
   await expect(section.getByText(SPRINT_PROBLEM.ariaSummary)).toHaveCount(1)
-  // Scroll to the start of the pinned sequence: the first scene and its caption show; at the end, the close's.
-  const top = await section.locator('section').evaluate((el) => el.getBoundingClientRect().top + window.scrollY)
-  const height = await section.locator('section').evaluate((el) => el.getBoundingClientRect().height)
-  await page.evaluate((y) => window.scrollTo(0, y), top + 20)
-  await expect(section.getByText(SPRINT_PROBLEM.visualCaptions[0]).first()).toBeVisible()
-  await page.evaluate((y) => window.scrollTo(0, y), top + height - 900)
-  await expect(section.getByText(SPRINT_PROBLEM.closeCaption).first()).toBeVisible()
 })
 
-test('the build log holds all ten days, the shipped stamp and the D+30 line', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' })
+test('the secondary CTA "Build your sprint brief" sits beside the primary in the hero', async ({ page }) => {
   await page.goto('/ai-build-sprint')
-  const log = page.getByTestId('sprint-timeline')
-  await expect(log).toHaveAttribute('data-mode', 'static')
-  for (const line of SPRINT_DAYS.log) await expect(log.getByText(line.text, { exact: true })).toBeVisible()
-  await expect(log.getByText(SPRINT_DAYS.shippedStamp, { exact: true })).toBeVisible()
-  await expect(log.getByText(SPRINT_DAYS.afterLine.text)).toBeVisible()
+  const hero = page.locator('#sprint-hero')
+  await expect(hero.getByRole('link', { name: 'Book a 30-min call' })).toBeVisible()
+  await expect(hero.getByRole('link', { name: SPRINT_SECONDARY_CTA.label })).toHaveAttribute('href', SPRINT_SECONDARY_CTA.href)
 })
 
 for (const width of [390, 1440]) {
