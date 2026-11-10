@@ -94,7 +94,7 @@ const TEAM_LOOPS = {
   'stephan-presenting-16x9': { src: 'A-kling.mp4', alt: 'A facilitator presents to a seated group in a warm studio with a whiteboard and plants', cut: 'a seamless 4.4 s cross-faded loop (locked-off camera)' },
 }
 for (const [slug, b] of Object.entries(TEAM_LOOPS)) {
-  const prov = { source: `${TRIAL_DIR}/${b.src} (generated from team photos, graded); ${b.cut}, with a shared light grade`, sourceFile: b.src, approval: 'Team likeness b-roll, requested by John 2026-11-10 for the Build Sprint page' }
+  const prov = { source: `${TRIAL_DIR}/${b.src} (generated from team photos, graded); ${b.cut}, with a shared light grade`, sourceFile: b.src, approval: 'Team likeness b-roll, requested by John 2026-11-10 for the Build Sprint page; likeness approved by the person shown, relayed by John 2026-11-10' }
   const pub = { kind: 'video-loop', page: 'ai-build-sprint', slot: 'Team member loop (muted)', captions: 'None (no speech)', alt: b.alt }
   for (const ext of ['mp4', 'webm']) add(`build-sprint/team/${slug}.${ext}`, pub, prov)
   add(`build-sprint/team/${slug}-poster.webp`, { ...pub, kind: 'poster', slot: 'Poster for the team loop' }, prov)
