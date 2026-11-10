@@ -33,7 +33,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Charlie Pool",
     role: "Head of Carbon Advisory",
     company: "Howden",
-    image: "/assets/imagery/homepage/prism-grid-solar.webp",
+    image: "/assets/charlie-pool.png",
   },
   {
     quote: "In just two weeks, I've been able to build several apps and websites. Your emails have honestly been clearer and more helpful than many YouTube tutorials.",

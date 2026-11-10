@@ -44,7 +44,7 @@ async function png(publicPath: string, size: number) {
 const TILES = {
   team: { src: '/assets/imagery/sprint/sprint-whiteboard-team.webp', w: 272, h: 340 },
   laptop: { src: '/assets/imagery/sprint/sprint-prototype-laptop.webp', w: 270, h: 180 },
-  hourglass: { src: '/assets/imagery/homepage/prism-grid-solar.webp', w: 136, h: 136 },
+  hourglass: { src: '/assets/imagery/sprint/sprint-hourglass.webp', w: 136, h: 136 },
 } as const
 
 export async function renderOgCard(copy: OgCardCopy) {

@@ -634,7 +634,7 @@ function AssessmentCta({ href }: { href: string }) {
       body={D.assessment.body}
       primaryCta={{ text: D.assessment.primary, href }}
       secondaryCta={{ text: D.assessment.secondary, href: '/contact' }}
-      scene={{ src: scene?.file ?? '/assets/imagery/homepage/prism-grid-solar.webp', alt: '' }}
+      scene={{ src: scene?.file ?? '/assets/imagery/homepage/scene-desk-wood.webp', alt: '' }}
       screenshot={{ src: CLOSING_MOCK.screenshot.src, alt: D.assessment.screenshotAlt }}
     />
   )

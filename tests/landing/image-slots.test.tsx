@@ -79,13 +79,9 @@ const PAGES: { route: string; load: () => Promise<{ default: () => React.ReactEl
   {
     route: '/',
     load: () => import('@/app/page'),
-    // The AIOS screenshots and the closing report are real now (prism-grid-solar went from x8 to
-    // x6; the closing tablet no longer shows a public-demo SVG). What is left is outside that change:
-    // imagery-manifest ids that still resolve to the placeholder, and repeats across sections.
+    // Repeated phase images remain allowlisted when the same story renders in multiple sections.
     known: [
       'duplicate /assets/imagery/homepage/phase-embed.webp x2',
-      'duplicate /assets/imagery/homepage/prism-grid-solar.webp x6',
-      'placeholder /assets/imagery/homepage/prism-grid-solar.webp x6',
       'duplicate /assets/imagery/sprint/sprint-track-people.webp x2',
       'duplicate /assets/imagery/sprint/sprint-track-workflow.webp x2',
       ...LOGO_MARQUEE,
