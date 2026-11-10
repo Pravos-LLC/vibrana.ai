@@ -151,7 +151,8 @@ returns text[] language sql immutable set search_path = '' as $$
     'gtm_storyboard_scene_decisions', 'gtm_storyboard_spend', 'gtm_broll_shots',
     'gtm_reviewer_invites', 'gtm_reviewer_invite_accounts', 'gtm_reviewer_asset_decisions', 'gtm_work_items', 'gtm_people',
     'gtm_outreach_drafts', 'gtm_outreach_draft_versions', 'gtm_outreach_dossiers', 'gtm_outreach_desk', 'gtm_outreach_tracks',
-    'gtm_outreach_angle_runs', 'gtm_outreach_angle_edits', 'gtm_outreach_lessons', 'gtm_outreach_learn_runs'
+    'gtm_outreach_angle_runs', 'gtm_outreach_angle_edits', 'gtm_outreach_lessons', 'gtm_outreach_learn_runs',
+    'gtm_origami_replies'
   ]
 $$;
 grant execute on function tests.owner_readable() to authenticated;
@@ -213,6 +214,10 @@ insert into public.gtm_email_incidents (incident_key, kind, severity, summary) v
 insert into public.gtm_dmarc_reports (report_key, reporter, domain, begin_at, end_at, messages, dmarc_pass, dkim_aligned, spf_aligned)
   values (repeat('a', 64), 'seed', 'example.test', now() - interval '1 day', now(), 1, 1, 1, 1);
 insert into public.gtm_job_leases (job, holder, expires_at) values ('seed', 'seed', now());
+insert into public.gtm_origami_replies (evidence_key, kind, source, sequence_id, received_at, rule_version, classification, reason, match)
+  values ('status:00000000-0000-4000-8000-0000000000f1', 'unsubscribed_status', 'status_scan', '00000000-0000-4000-8000-0000000000f1', now(),
+    'origami-reply-v1', 'none', 'seed', 'not_needed');
+insert into public.gtm_origami_webhook_deliveries (webhook_id, event) values ('seed', 'webhook.test');
 insert into public.gtm_yt_videos (video_id, title) values ('seedvideo001', 'Seed video');
 insert into public.gtm_yt_video_daily (date, video_id, views) values (current_date, 'seedvideo001', 1);
 insert into public.gtm_yt_channel_daily (date, views) values (current_date, 1);
