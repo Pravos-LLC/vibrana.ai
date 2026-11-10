@@ -115,7 +115,7 @@ test('the problem section renders its heading, three lines, the close and a scre
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/ai-build-sprint')
   const section = page.getByTestId('sprint-problem')
-  await expect(section.getByRole('heading', { name: SPRINT_PROBLEM.heading })).toBeAttached()
+  await expect(section.getByRole('heading', { name: /Most AI work\s+stops short/ })).toBeAttached()
   for (const line of SPRINT_PROBLEM.lines) await expect(section.getByText(line, { exact: true })).toHaveCount(1)
   await expect(section.getByText(SPRINT_PROBLEM.close, { exact: true })).toHaveCount(1)
   await expect(section.getByText(SPRINT_PROBLEM.ariaSummary)).toHaveCount(1)
