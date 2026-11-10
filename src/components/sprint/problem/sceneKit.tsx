@@ -17,8 +17,8 @@ export const RED = '#ef4444'
 export const GREEN = '#22c55e'
 export const PRISM = `linear-gradient(135deg, ${VIOLET} 0%, ${BLUE} 55%, ${TEAL} 100%)`
 
-type SceneState = { still: boolean; on: boolean }
-const SceneCtx = createContext<SceneState>({ still: true, on: true })
+type SceneState = { still: boolean; on: boolean; live: boolean }
+const SceneCtx = createContext<SceneState>({ still: true, on: true, live: true })
 export const useScene = () => useContext(SceneCtx)
 
 /** Marching dashes: a motion path/rect prop set that loops only while the scene is live. */
@@ -92,13 +92,13 @@ export function G({ stagger = 0.07, delay = 0, className, style, children }: { s
 
 /** Ambient loop: runs only once the scene is on screen and motion is allowed. */
 export function Loop({ animate, duration = 3, times, delay = 0, ease = 'easeInOut', className, style, children }: { animate: TargetAndTransition; duration?: number; times?: number[]; delay?: number; ease?: string | number[]; className?: string; style?: CSSProperties; children?: ReactNode }) {
-  const { still, on } = useScene()
+  const { still, live } = useScene()
   return (
     <motion.div
       className={className}
       style={style}
       initial={false}
-      animate={on && !still ? animate : undefined}
+      animate={live && !still ? animate : undefined}
       transition={{ duration, times, delay, ease: ease as never, repeat: Infinity }}
     >
       {children}
@@ -111,6 +111,8 @@ export function Scene({ still, tint = [VIOLET, BLUE], children, className }: { s
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { amount: 0.4, once: true })
   const on = still || inView
+  // Ambient loops follow current visibility (not the once-latched reveal), so they stop when the scene scrolls away.
+  const live = useInView(ref, { amount: 0.05, margin: '120px 0px' })
   return (
     <div
       ref={ref}
@@ -120,7 +122,7 @@ export function Scene({ still, tint = [VIOLET, BLUE], children, className }: { s
         background: `radial-gradient(70% 80% at 12% 6%, color-mix(in srgb, ${tint[0]} 20%, transparent), transparent 72%), radial-gradient(70% 80% at 92% 100%, color-mix(in srgb, ${tint[1]} 18%, transparent), transparent 72%), var(--surface-raised)`,
       }}
     >
-      <SceneCtx.Provider value={{ still, on }}>
+      <SceneCtx.Provider value={{ still, on, live }}>
         <motion.div
           className="absolute inset-0"
           initial={still ? 'show' : 'hidden'}
