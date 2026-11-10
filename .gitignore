@@ -9,4 +9,3 @@ playwright-report/
 .vercel/
 
 # Generated production release provenance; no fetched assets belong in commits.
-.vercel
