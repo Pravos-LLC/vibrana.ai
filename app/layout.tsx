@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SiteTelemetry } from '@/src/components/SiteTelemetry';
 import { Providers } from '@/src/components/Providers';
 import { SEO_CONFIGS } from '@/src/components/seo-configs';
 import { SITE_URL } from '@/src/lib/site';
@@ -121,8 +120,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="font-body prism-light">
         <Providers>{children}</Providers>
-        <Analytics />
-        <SpeedInsights />
+        <SiteTelemetry />
       </body>
     </html>
   );

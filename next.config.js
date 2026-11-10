@@ -45,6 +45,20 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
+  async headers() {
+    return ['/book/:path*', '/api/booking/:path*'].map(source => ({ source, headers: [
+      { key: 'Referrer-Policy', value: 'no-referrer' },
+      { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+      { key: 'Cache-Control', value: 'private, no-store' },
+    ] }));
+  },
+  async rewrites() {
+    return { beforeFiles: [
+      { source: '/', has: [{ type: 'host', value: 'book.vibrana.ai' }], destination: '/book' },
+      { source: '/john', has: [{ type: 'host', value: 'book.vibrana.ai' }], destination: '/book/john' },
+      { source: '/abe', has: [{ type: 'host', value: 'book.vibrana.ai' }], destination: '/book/abe' },
+    ] };
+  },
   async redirects() {
     return [
       // Short link for the AI Transformation Simulator (VIB-430).

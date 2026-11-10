@@ -1,0 +1,76 @@
+.booking-page { min-height: 100dvh; background: var(--surface-base); color: var(--text-primary); }
+.booking-header, .booking-footer { max-width: 76rem; margin: auto; padding: 1.75rem clamp(1rem, 4vw, 3rem); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.booking-header { border-bottom: 1px solid var(--border-subtle); }
+.booking-header a, .booking-footer a { color: var(--text-secondary); font-size: .875rem; }
+.booking-header .booking-brand { font-family: var(--font-display); color: var(--text-primary); font-size: 1.7rem; font-weight: 600; letter-spacing: -.06em; display: inline-flex; align-items: center; gap: .6rem; }
+.booking-brand span { color: var(--violet); font-size: 1.6rem; }
+.booking-main { max-width: 72rem; margin: auto; padding: clamp(2rem, 5vw, 4.5rem) clamp(1rem, 4vw, 3rem); }
+.booking-intro { max-width: 42rem; margin-bottom: 2.5rem; }
+.booking-page h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.12; font-weight: 500; letter-spacing: -.04em; margin-bottom: 1rem; }
+.booking-page h2 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 500; margin: 0 0 1rem; }
+.booking-page h3 { font-weight: 600; margin-bottom: .75rem; }
+.booking-intro > p:not(.booking-kicker), .booking-settings section > p, .booking-status > p { color: var(--text-secondary); line-height: 1.6; }
+.booking-kicker { color: var(--violet); font-size: .85rem; font-weight: 600; margin-bottom: .75rem; }
+.booking-workspace { display: grid; grid-template-columns: 19rem minmax(0, 1fr); border: 1px solid var(--border-default); border-radius: 1.5rem; overflow: hidden; }
+.booking-host-panel { padding: 2rem; background: var(--surface-raised); border-right: 1px solid var(--border-subtle); }
+.booking-page fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.booking-page legend { font-size: .85rem; font-weight: 600; margin-bottom: 1rem; }
+.booking-hosts { display: flex; flex-direction: column; gap: .75rem; }
+.booking-page button, .booking-primary { cursor: pointer; border: 1px solid var(--border-default); border-radius: .5rem; padding: .7rem 1rem; font-size: .9rem; color: var(--text-primary); background: var(--surface-base); transition: border-color .15s; }
+.booking-page button:hover, .booking-page button[aria-pressed=true] { border-color: var(--violet); }
+.booking-page button:disabled { opacity: .55; cursor: wait; }
+.booking-page :focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+.booking-hosts button { display: flex; align-items: center; gap: .7rem; text-align: left; padding: .9rem; }
+.booking-avatar { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--surface-overlay); color: var(--text-secondary); font-size: .75rem; }
+.booking-radio { width: .7rem; height: .7rem; border-radius: 50%; border: 1px solid var(--border-strong); margin-left: auto; }
+.booking-hosts button[aria-pressed=true] .booking-radio { background: var(--violet); border-color: var(--violet); }
+.booking-facts { display: flex; flex-direction: column; gap: .6rem; margin: 2rem 0; color: var(--text-secondary); font-size: .9rem; }
+.booking-page .booking-help { font-size: .8rem; color: var(--text-secondary); line-height: 1.6; margin-top: 1rem; }
+.booking-picker { min-height: 27rem; padding: 2rem; }
+.booking-picker-controls, .booking-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: end; margin-bottom: 1.5rem; }
+.booking-page label { display: flex; flex-direction: column; gap: .5rem; font-size: .85rem; font-weight: 500; min-width: 0; }
+.booking-picker-controls label { flex: 1; min-width: 10rem; }
+.booking-page input, .booking-page select, .booking-page textarea { width: 100%; max-width: 100%; border: 1px solid var(--border-default); border-radius: .5rem; background: var(--surface-base); color: var(--text-primary); padding: .75rem; font: inherit; font-weight: 400; }
+.booking-times { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+.booking-times button { font-size: .8rem; padding: .85rem .5rem; }
+.booking-empty { color: var(--text-secondary); padding: 2rem 0; }
+.booking-page .booking-error { color: var(--red); font-size: .9rem; margin: 1.25rem 0; line-height: 1.5; }
+.booking-page .booking-text-button { padding: 0; border: 0; color: var(--text-secondary); margin-bottom: 2rem; background: none; }
+.booking-chosen { padding: 1rem 0; margin-bottom: .75rem; color: var(--violet); }
+.booking-fields { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 1.5rem; }
+.booking-fields label > span { color: var(--text-secondary); }
+.booking-page .booking-primary { background: var(--violet); color: white; border-color: var(--violet); display: inline-flex; justify-content: center; font-weight: 500; text-decoration: none; }
+.booking-footer { flex-wrap: wrap; justify-content: flex-start; gap: 1.5rem; padding-top: 2rem; padding-bottom: 2rem; }
+.booking-footer a:last-child { margin-left: auto; }
+.booking-status { max-width: 46rem; margin: auto; padding: 5rem 1.5rem; min-height: 70dvh; }
+.booking-summary { margin: 2rem 0; padding: 1.5rem 0; border-block: 1px solid var(--border-subtle); }
+.booking-summary p { margin-bottom: .75rem; color: var(--text-secondary); }
+.booking-actions { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
+.booking-settings { max-width: 54rem; margin: auto; padding: 3rem 1.5rem; }
+.booking-settings section { padding: 2rem 0; border-bottom: 1px solid var(--border-subtle); margin-bottom: 1rem; }
+.booking-settings section > p { margin-bottom: 1.5rem; }
+.booking-settings label { margin-bottom: 1rem; }
+.booking-account { padding: 1rem 0; }
+.booking-page .booking-checkbox { display: flex; flex-direction: row; align-items: center; gap: .6rem; font-weight: 400; }
+.booking-page input[type=checkbox] { width: 1rem; height: 1rem; accent-color: var(--violet); }
+.booking-weekdays { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; }
+.booking-row > fieldset { flex: 1; }
+.booking-list > div { padding: 1rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.booking-list small { display: block; color: var(--text-secondary); margin-top: .4rem; }
+.booking-exception { background: var(--surface-raised); border-radius: .75rem; padding: 1rem; margin-bottom: 1rem; }
+.booking-exception strong { display: block; margin-bottom: 1rem; }
+.booking-link { margin-top: 1.5rem; }
+@media (max-width: 760px) { .booking-workspace { grid-template-columns: minmax(0, 1fr); } .booking-host-panel { border-right: 0; border-bottom: 1px solid var(--border-subtle); padding: 1.5rem; } .booking-hosts { flex-direction: row; } .booking-hosts button { flex: 1; padding: .75rem; font-size: .8rem; } .booking-avatar { display: none; } .booking-facts { flex-direction: row; margin: 1rem 0; gap: 1.5rem; } .booking-picker { padding: 1.5rem; } .booking-footer a:last-child { margin-left: 0; } .booking-intro { margin-bottom: 1.5rem; } }
+@media (max-width: 420px) { .booking-times { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .booking-page button { transition: none; } }
+.booking-preparation { margin: 1.5rem 0; padding: 1.25rem; background: var(--surface-raised); border-radius: .75rem; }
+.booking-preparation a { color: var(--violet); }
+.booking-jobs article { padding: 1.25rem 0; border-bottom: 1px solid var(--border-subtle); }
+.booking-jobs small { display: block; color: var(--text-secondary); margin: 1rem 0 .5rem; }
+.booking-brief { white-space: pre-wrap; line-height: 1.6; }
+.booking-proof { margin-top: 3rem; }
+.booking-proof > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+.booking-proof a { display: block; border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; }
+.booking-proof a > span { font-size: .8rem; color: var(--text-secondary); }
+.booking-proof h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.4; margin: .75rem 0; }
+@media (max-width: 600px) { .booking-proof > div { grid-template-columns: 1fr; } }
