@@ -233,7 +233,7 @@ export default function AIBuildSprintPage() {
           {/* The guarantee: a stamp, not another text box */}
           <Reveal className="mt-16">
             <aside aria-labelledby="sprint-guarantee-heading" className="relative overflow-hidden rounded-2xl border border-line-strong bg-surface-raised">
-              <div aria-hidden className="pointer-events-none absolute -left-20 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full opacity-25 blur-3xl" style={{ background: 'radial-gradient(closest-side, #10b981, #3b82f6 70%, transparent)' }} />
+              <div aria-hidden className="pointer-events-none absolute -left-20 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full opacity-25 blur-3xl" style={{ background: 'radial-gradient(closest-side, #22c55e, #3b82f6 70%, transparent)' }} />
               <div className="relative grid gap-8 p-6 sm:p-10 lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1.3fr)] lg:items-center lg:gap-12">
                 <GuaranteeStamp className="mx-auto h-40 w-40 shrink-0 sm:h-48 sm:w-48" />
                 <div>

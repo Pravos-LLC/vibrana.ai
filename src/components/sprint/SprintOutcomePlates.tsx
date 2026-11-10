@@ -19,8 +19,8 @@ function Window({ title, badge, children, accent }: { title: ReactNode; badge?: 
       <div className="flex items-center gap-2 border-b border-line-subtle bg-surface-raised px-3.5 py-2.5">
         <span className="flex gap-1.5" aria-hidden>
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff6b6b]/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#fbbf24]/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#34d399]/80" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#f59e0b]/80" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#2dd4bf]/80" />
         </span>
         <span className="label-mono min-w-0 flex-1 truncate text-ink-secondary">{title}</span>
         {badge}
@@ -68,7 +68,7 @@ export function ProductPlate() {
             ))}
           </span>
         </DealItem>
-        <DealItem className="rounded-xl border border-line-subtle bg-gradient-to-br from-[#7c3aed]/[0.07] to-[#2dd4bf]/[0.07] p-3.5">
+        <DealItem className="rounded-xl border border-line-subtle bg-linear-to-br from-[#7c3aed]/[0.07] to-[#2dd4bf]/[0.07] p-3.5">
           <span className="label-mono flex items-center gap-1.5 text-[var(--lk-violet-text)]">
             <Sparkles aria-hidden className="h-3 w-3" />
             {productPlate.draftLabel}

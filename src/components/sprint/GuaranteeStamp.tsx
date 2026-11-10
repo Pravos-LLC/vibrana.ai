@@ -26,7 +26,7 @@ export function GuaranteeStamp({ className }: { className?: string }) {
       <svg viewBox="0 0 240 240" className="h-full w-full overflow-visible">
         <defs>
           <linearGradient id={grad} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#10b981" />
+            <stop offset="0%" stopColor="#22c55e" />
             <stop offset="55%" stopColor="#14b8a6" />
             <stop offset="100%" stopColor="#3b82f6" />
           </linearGradient>
