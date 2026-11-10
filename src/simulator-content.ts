@@ -626,8 +626,8 @@ export const SIM_OFFERS: Record<OfferId, { title: string; body: string; image: s
   'readiness-assessment': {
     title: 'Comprehensive AI Readiness Assessment',
     body: 'Every team surveyed: governance risks, psychological readiness and technical barriers, with a full analysis. Responses are anonymous and reported by team.',
-    image: 'prism-grid-solar',
-    imageAlt: 'Sunlight through a prism grid',
+    image: 'sprint-prototype-laptop',
+    imageAlt: 'A laptop displaying a working prototype',
   },
   workshop: {
     title: 'Workshop on one real problem',
@@ -662,8 +662,8 @@ export const SIM_OFFERS: Record<OfferId, { title: string; body: string; image: s
   'company-brain': {
     title: 'Company brain',
     body: 'A searchable map of your documents, processes and decisions, owned by you. Each person reviews what is recorded about their work; your operations lead signs it off and decides who can see it.',
-    image: 'prism-grid-solar',
-    imageAlt: 'Light refracting through a glass grid',
+    image: 'eng-sprint-table-a',
+    imageAlt: 'A team mapping its work together at a table',
   },
   governance: {
     title: 'Governance and compliance strategy',

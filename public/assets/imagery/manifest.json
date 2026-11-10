@@ -564,326 +564,343 @@
     },
     {
       "id": "machine-datacenter-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/machine-datacenter-01.webp",
+      "collection": "about",
+      "category": "machine",
+      "title": "Machine Datacenter 01",
+      "description": "A dim data-center hall, long rows of server racks with glowing blue cable runs down a receding aisle, softened under the vintage grade.",
+      "aspect": "1000 / 545",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/generated/machine-datacenter-01.webp"
       },
-      "preset": "",
+      "preset": "about-machine",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "machine-robot-02",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/machine-robot-02.webp",
+      "collection": "about",
+      "category": "machine",
+      "title": "Machine Robot 02",
+      "description": "An unbranded silver industrial robotic arm under a single spotlight in a dim factory bay, softened under the vintage grade.",
+      "aspect": "700 / 1000",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/generated/machine-robot-02.webp"
       },
-      "preset": "",
+      "preset": "about-machine",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "machine-chips-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/machine-chips-01.webp",
+      "collection": "about",
+      "category": "machine",
+      "title": "Machine Chips 01",
+      "description": "A silicon wafer and chip array macro, gold circuitry catching the light, softened under the vintage grade.",
+      "aspect": "1000 / 700",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/generated/machine-chips-01.webp"
       },
-      "preset": "",
+      "preset": "about-machine",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "machine-dataviz-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/machine-dataviz-01.webp",
+      "collection": "about",
+      "category": "machine",
+      "title": "Machine Dataviz 01",
+      "description": "A dark control room, a wall of screens showing data-visualization and network graphs, softened under the vintage grade.",
+      "aspect": "1000 / 545",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/generated/machine-dataviz-01.webp"
       },
-      "preset": "",
+      "preset": "about-machine",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "crisis-wildfire-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/crisis-wildfire-01.webp",
+      "collection": "about",
+      "category": "crisis",
+      "title": "Crisis Wildfire 01",
+      "description": "A forest wildfire at dusk, orange flames and thick smoke over a dark treeline silhouette, softened under the vintage grade.",
+      "aspect": "1000 / 545",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/generated/crisis-wildfire-01.webp"
       },
-      "preset": "",
+      "preset": "about-crisis",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "crisis-drought-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/crisis-drought-01.webp",
+      "collection": "about",
+      "category": "crisis",
+      "title": "Crisis Drought 01",
+      "description": "An aerial shot of a dried, cracked lakebed with deep drought fissures and a thin remaining water trickle, softened under the vintage grade.",
+      "aspect": "1000 / 545",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/generated/crisis-drought-01.webp"
       },
-      "preset": "",
+      "preset": "about-crisis",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "crisis-mining-pit-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/crisis-mining-pit-01.webp",
+      "collection": "about",
+      "category": "crisis",
+      "title": "Crisis Mining Pit 01",
+      "description": "An aerial view of a vast open-pit rare-earth mineral mine, terraced ochre earth in haze, softened under the vintage grade.",
+      "aspect": "1000 / 700",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/generated/crisis-mining-pit-01.webp"
       },
-      "preset": "",
+      "preset": "about-crisis",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "crisis-fab-plant-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/crisis-fab-plant-01.webp",
+      "collection": "about",
+      "category": "crisis",
+      "title": "Crisis Fab Plant 01",
+      "description": "The exterior of a large silicon chip fabrication plant at dusk, steam rising from its vents, softened under the vintage grade.",
+      "aspect": "700 / 1000",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/generated/crisis-fab-plant-01.webp"
       },
-      "preset": "",
+      "preset": "about-crisis",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "crisis-earth-nasa-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/crisis-earth-nasa-01.webp",
+      "collection": "about",
+      "category": "crisis",
+      "title": "Crisis Earth Nasa 01",
+      "description": "NASA's Blue Marble photograph of Earth's full disc from space, North and Central America visible, softened under the vintage grade.",
+      "aspect": "1200 / 1200",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/generated/crisis-earth-nasa-01.webp",
+        "license": "NASA Blue Marble 2012 (images.nasa.gov, nasa_id GSFC_20171208_Archive_e001386) - public domain, not copyrighted."
       },
-      "preset": "",
+      "preset": "about-crisis",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "machine-server-racks-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/machine-server-racks-01.webp",
+      "collection": "about",
+      "category": "machine",
+      "title": "Machine Server Racks 01",
+      "description": "A server rack interior with patch panels and cabling in a working server room, softened under the vintage grade.",
+      "aspect": "1600 / 1066",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/sourced/machine-server-racks-01.webp",
+        "license": "Unsplash License (free) - Photo by Kevin Ache - https://unsplash.com/photos/a-rack-of-servers-in-a-server-room-2JJ3wBHu4_0"
       },
-      "preset": "",
+      "preset": "about-machine",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "machine-processor-chip-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/machine-processor-chip-01.webp",
+      "collection": "about",
+      "category": "machine",
+      "title": "Machine Processor Chip 01",
+      "description": "A macro close-up of a processor die and PCB, orange circuit traces on a dark background, softened under the vintage grade.",
+      "aspect": "1600 / 1000",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/sourced/machine-processor-chip-01.webp",
+        "license": "Unsplash License (free) - Photo by BoliviaInteligente - https://unsplash.com/photos/close-up-of-a-computer-processor-chip-with-ryzen-branding-utzc2cBWUag"
       },
-      "preset": "",
+      "preset": "about-machine",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "machine-circuit-board-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/machine-circuit-board-01.webp",
+      "collection": "about",
+      "category": "machine",
+      "title": "Machine Circuit Board 01",
+      "description": "A macro shot of a black circuit board with visible chips and traces, softened under the vintage grade.",
+      "aspect": "1600 / 1066",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/sourced/machine-circuit-board-01.webp",
+        "license": "Unsplash License (free) - Photo by Alexandre Debieve - https://unsplash.com/photos/macro-photography-of-black-circuit-board-FO7JIlwjOtU"
       },
-      "preset": "",
+      "preset": "about-machine",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "machine-robot-arm-factory-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/machine-robot-arm-factory-01.webp",
+      "collection": "about",
+      "category": "machine",
+      "title": "Machine Robot Arm Factory 01",
+      "description": "An industrial robot arm in a factory setting, portrait orientation, softened under the vintage grade.",
+      "aspect": "900 / 1600",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/sourced/machine-robot-arm-factory-01.webp",
+        "license": "Unsplash License (free) - Photo by Oso-rio - https://unsplash.com/photos/a-robot-arm-works-in-a-factory-setting-nM71nHjH4Vk"
       },
-      "preset": "",
+      "preset": "about-machine",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "crisis-drought-cracked-earth-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/crisis-drought-cracked-earth-01.webp",
+      "collection": "about",
+      "category": "crisis",
+      "title": "Crisis Drought Cracked Earth 01",
+      "description": "Cracked, dry drought-stricken earth with sparse green grass and a rock, softened under the vintage grade.",
+      "aspect": "1600 / 1067",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/sourced/crisis-drought-cracked-earth-01.webp",
+        "license": "Unsplash License (free) - Photo by Lucas Schneider - https://unsplash.com/photos/cracked-dry-earth-with-sparse-green-grass-and-a-rock-yNcRlpFA5CU"
       },
-      "preset": "",
+      "preset": "about-crisis",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "crisis-mining-pit-aerial-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/crisis-mining-pit-aerial-01.webp",
+      "collection": "about",
+      "category": "crisis",
+      "title": "Crisis Mining Pit Aerial 01",
+      "description": "An aerial view of a large open rock quarry and mining pit with roads carved into its terraces, softened under the vintage grade.",
+      "aspect": "1600 / 900",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/sourced/crisis-mining-pit-aerial-01.webp",
+        "license": "Unsplash License (free) - Photo by Aleksandr Galichkin - https://unsplash.com/photos/an-aerial-view-of-a-large-rock-quarry-ZCsAkC4TnGw"
       },
-      "preset": "",
+      "preset": "about-crisis",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "crisis-chip-fab-cleanroom-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/crisis-chip-fab-cleanroom-01.webp",
+      "collection": "about",
+      "category": "crisis",
+      "title": "Crisis Chip Fab Cleanroom 01",
+      "description": "Workers in protective gear inside an industrial cleanroom manufacturing facility, softened under the vintage grade.",
+      "aspect": "1600 / 1066",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/sourced/crisis-chip-fab-cleanroom-01.webp",
+        "license": "Unsplash License (free) - Photo by TECNIC Bioprocess Solutions - https://unsplash.com/photos/workers-are-inside-a-clean-room-manufacturing-something-6RyofJC3sUw"
       },
-      "preset": "",
+      "preset": "about-crisis",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "crisis-wildfire-smoke-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/crisis-wildfire-smoke-01.webp",
+      "collection": "about",
+      "category": "crisis",
+      "title": "Crisis Wildfire Smoke 01",
+      "description": "A massive wildfire at night, orange blaze and a dense smoke plume behind transmission towers, softened under the vintage grade.",
+      "aspect": "1600 / 1066",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/sourced/crisis-wildfire-smoke-01.webp",
+        "license": "Unsplash License (free) - Photo by Mike Newbry - https://unsplash.com/photos/a-massive-wildfire-rages-under-an-orange-smoke-filled-sky-hUgNAfO5I4Y"
       },
-      "preset": "",
+      "preset": "about-crisis",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "machine-humanoid-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/machine-humanoid-01.webp",
+      "collection": "about",
+      "category": "machine",
+      "title": "Machine Humanoid 01",
+      "description": "A sleek modern humanoid robot, softened under the vintage grade — the machine made in our image.",
+      "aspect": "1883 / 3198",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/sourced/machine-humanoid-01.webp",
+        "license": "Public domain (Wikimedia Commons) - https://commons.wikimedia.org/wiki/File:Optimus_Tesla.jpg - Photo by Benjamin Ceci"
       },
-      "preset": "",
+      "preset": "about-machine",
       "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "machine-bci-01",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/about/machine-bci-01.webp",
+      "collection": "about",
+      "category": "machine",
+      "title": "Machine Bci 01",
+      "description": "Macro photo of a chronic multi-wire neural electrode array: fine gold-wire threads fanning out from a green PCB connector, evoking a brain-computer interface implant.",
+      "aspect": "5 / 3",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "public/assets/about/hero/sourced/machine-bci-01.webp",
+        "prompt": "Sourced photo: chronic multi-wire neural probe by Steve M. Potter, upscaled 3x (Lanczos) from the 300x180 Wikimedia Commons original before grading.",
+        "license": "Public domain (released by author Professorpotter, English Wikipedia) — https://commons.wikimedia.org/wiki/File:16wire_electrode_array.jpg"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "about-machine",
+      "tags": [
+        "machine",
+        "bci",
+        "neural-implant",
+        "electrode"
+      ],
+      "status": "approved",
+      "createdAt": "2026-07-10"
     },
     {
       "id": "sprint-whiteboard-team",
@@ -1024,190 +1041,273 @@
     },
     {
       "id": "sprint-hourglass",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
-      "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "file": "/assets/imagery/sprint/sprint-hourglass.webp",
+      "collection": "sprint",
+      "category": "poetic-object",
+      "title": "Sprint Hourglass",
+      "description": "An antique brass hourglass on a sunlit desk, sand running: ten days, counted.",
+      "aspect": "1 / 1",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "https://commons.wikimedia.org/wiki/File:Hourglass_with_sand.jpg",
+        "license": "CC BY 2.0 - 'Hourglass with sand' by John Morgan, Wikimedia Commons - https://commons.wikimedia.org/wiki/File:Hourglass_with_sand.jpg - https://creativecommons.org/licenses/by/2.0"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "poetic-recognizable",
+      "tags": [
+        "time",
+        "hourglass",
+        "ten-days",
+        "timer",
+        "sprint"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-25"
     },
     {
       "id": "eng-transformation-call-a",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/eng-transformation-call-a.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "people",
+      "title": "Transformation all-hands call (a)",
+      "description": "A laptop on a warm wooden desk at blue hour, its screen showing a 3x3 video-call grid of a company all-hands: nine international colleagues, one per tile, dissolved soft under the film grade; generic call chrome, no logos.",
+      "aspect": "16 / 10",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/eng-transformation-call-a.png",
+        "prompt": "An open silver laptop on a warm honey-toned wooden desk at blue hour, seen from slightly behind and to the side of the laptop, a window with deep blue dusk light beyond. The laptop screen shows a generic video-call app in a 3x3 grid of nine tiles, a company all-hands meeting, exactly one person per tile, each in their own home or office background, faces small and soft-focus, slightly blurred by the screen glow. The tiles, left to right, top to bottom: (1) a South Asian woman in a mustard-yellow kurta; (2) a Black West African man in a rust-orange patterned shirt; (3) a North African woman in a teal headscarf and cream knit sweater; (4) an East Asian man in a grey crewneck sweatshirt with round glasses; (5) a Middle Eastern man with a beard in an olive-green overshirt; (6) a Latin American woman with curly hair in a faded denim shirt; (7) a Caribbean man in a deep-burgundy hoodie; (8) a white woman with short grey hair in a striped Breton top; (9) a South Asian man in a black t-shirt under a tan corduroy jacket. No suits, no ties. The call interface chrome is minimal, thin and generic: a faint bottom toolbar of small round icons, no names, no readable labels, no logos. A ceramic mug and a closed notebook at the edge of the desk. Cool deep-blue dusk tones dominate with the screen as the only warm-ish glow. No people physically in the room. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "people-v2",
+      "tags": [
+        "people",
+        "video-call",
+        "all-hands",
+        "laptop",
+        "engagement"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "eng-sprint-table-a",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/eng-sprint-table-a.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "people",
+      "title": "Sprint table (a)",
+      "description": "Colleagues of many backgrounds around a long wooden table in a London studio office with glass walls and plants, seen from the side and behind, a wall screen showing a web-app dashboard; candid sprint working session, faces dissolved.",
+      "aspect": "3 / 2",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/eng-sprint-table-a.png",
+        "prompt": "Six colleagues around a long raw oak table in a modern London studio office with glass partition walls and leafy potted plants, overcast soft daylight. Seen from the side and from behind at a slight high angle; nobody looks at the camera, faces turned away or in soft profile. At the far end a large wall screen shows a generic web-app dashboard with simple charts and cards, no readable text. The people: (1) a South Asian woman in a mustard-yellow chunky sweater, seen from behind; (2) a Black Nigerian man in a rust-red overshirt over a white tee, standing and pointing at the screen, back to camera; (3) a North African woman in an olive-green headscarf and a cream wide-leg linen outfit, in profile; (4) an East Asian man in a navy crewneck with round glasses, seen from behind; (5) a Latin American woman with curly hair in a faded denim jacket, half cut off at the frame edge; (6) a white man with red hair in a heather-grey hoodie, side-on. Each a different height and build. Mismatched mugs, laptops, a notebook, a water bottle on the table. No suits, no ties. Candid, asymmetric, ad-hoc moment. Cool grey-blue daylight tones. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "people-v2",
+      "tags": [
+        "people",
+        "sprint",
+        "office",
+        "london",
+        "engagement"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "eng-journeys-laptop-a",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/eng-journeys-laptop-a.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "people",
+      "title": "Learning journeys laptop (a)",
+      "description": "Two people seen from behind at a wooden desk by a window, leaning toward a laptop that shows a generic learning-module interface; a quiet shared learning journey.",
+      "aspect": "16 / 10",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/eng-journeys-laptop-a.png",
+        "prompt": "Two people seen from directly behind, only the backs of their heads and shoulders visible, sitting side by side at a warm oak wooden desk looking at an open laptop. Soft window light from the left. Person on the left: a Black woman with short natural hair, wearing a mustard-yellow knit cardigan. Person on the right: a South Asian man with dark wavy hair, wearing a deep-green linen shirt. The laptop screen shows a generic learning-module interface: a left column of lesson steps with check circles, a large content card with an abstract illustration, a progress bar, all soft and with no readable text and no logos. A ceramic mug and a pencil nearby. Quiet, focused, intimate. Warm natural window-light tones only. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "people-v2",
+      "tags": [
+        "people",
+        "learning",
+        "laptop",
+        "engagement"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "phase-embed-a",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/phase-embed-a.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "poetic-object",
+      "title": "Embed phase handover (a)",
+      "description": "A laptop open on a long wooden table at dawn beside a potted plant, a notebook being handed across by a hand, no faces: the moment knowledge is embedded and handed over.",
+      "aspect": "4 / 3",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/phase-embed-a.png",
+        "prompt": "A long wooden table at dawn, soft first light through a window. An open laptop glowing softly sits on the table beside a potted green plant. From the right edge of the frame a single warm brown hand and forearm (sleeve of a rust-colored cotton shirt) reaches in, handing a closed linen-bound notebook across the table. No faces, no other people. Quiet, hopeful, intimate. Muted warm dawn tones. No people's faces. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "poetic-recognizable",
+      "tags": [
+        "phase",
+        "embed",
+        "laptop",
+        "hands",
+        "dawn"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "scene-desk-wood-a",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/scene-desk-wood-a.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "poetic-object",
+      "title": "Empty oak desk (a)",
+      "description": "An empty warm oak desk from a three-quarter overhead view, a coffee cup and notebook at the edges, soft plant shadow, a clear empty centre for an overlaid device; no devices in the photo.",
+      "aspect": "4 / 3",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/scene-desk-wood-a.png",
+        "prompt": "An empty warm oak wooden desk seen from a three-quarter top-down angle. A ceramic coffee cup sits at the upper-left edge of the frame and a closed notebook with a pencil at the lower-right edge. A large clear empty expanse of wood grain fills the center of the desk. Soft dappled shadow of plant leaves falls across one corner. No devices, no laptop, no phone, no tablet, no people. Calm, warm, quiet morning light. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "poetic-recognizable",
+      "tags": [
+        "scene",
+        "desk",
+        "wood",
+        "overlay-base"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "eng-transformation-call-b",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/eng-transformation-call-b.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "people",
+      "title": "Transformation all-hands call (b)",
+      "description": "A laptop on a warm wooden desk at blue hour, its screen showing a 3x3 video-call grid of a company all-hands: nine international colleagues, one per tile, dissolved soft under the film grade; generic call chrome, no logos.",
+      "aspect": "16 / 10",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/eng-transformation-call-b.png",
+        "prompt": "Close three-quarter view over the shoulder-height of an empty chair toward an open laptop on a warm walnut wooden desk in a quiet room at blue hour, deep navy dusk through the window behind. The laptop screen fills much of the frame and shows a generic video-call app with a 3x3 grid of nine tiles, a company all-hands, exactly one person per tile, faces soft and out of focus as if seen through the screen glow. Tiles left to right, top to bottom: (1) an East Asian woman in a lavender cardigan; (2) a Black Kenyan man in a forest-green linen shirt; (3) a Tunisian woman with long dark hair in a burnt-orange blouse; (4) an Indian man in a white kurta with a navy shawl; (5) a Brazilian woman in a coral sleeveless top; (6) a Palestinian man in a charcoal hoodie; (7) a Haitian woman with natural hair in a yellow-and-blue printed wrap top; (8) a white man with a beard in a heather-grey henley; (9) a Filipino man in a maroon polo. No suits, no ties, no corporate wear. The call UI is subtle and generic: thin tile borders, a faint row of round icons at the bottom, no names, no readable text, no logos. A potted plant leaf at the edge of frame. Cool blue-hour palette throughout, screen glow soft. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "people-v2",
+      "tags": [
+        "people",
+        "video-call",
+        "all-hands",
+        "laptop",
+        "engagement"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "eng-sprint-table-b",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/eng-sprint-table-b.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "people",
+      "title": "Sprint table (b)",
+      "description": "Colleagues of many backgrounds around a long wooden table in a London studio office with glass walls and plants, seen from the side and behind, a wall screen showing a web-app dashboard; candid sprint working session, faces dissolved.",
+      "aspect": "3 / 2",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/eng-sprint-table-b.png",
+        "prompt": "Low eye-level view from behind two seated people down the length of a long wooden table in a bright London studio office: glass walls, exposed brick, tall potted fiddle-leaf figs and trailing plants. Five colleagues in total; nobody faces the camera, faces in soft profile or turned toward a large wall-mounted screen at the end of the table showing a generic web-app dashboard with charts, no readable text. The people: (1) foreground left, a Middle Eastern man with a short beard in a terracotta knit polo, back to camera; (2) foreground right, a Black British woman with braids in a lilac cardigan, back to camera; (3) a South Asian man in a dark-green bomber jacket, standing at the screen, side-on; (4) an East Asian woman in a white oversized shirt with a black beanie, in profile, writing in a notebook; (5) a Brazilian man in a sky-blue striped linen shirt, leaning back, half turned away. Distinct heights and builds. Mismatched mugs and laptops, a fruit bowl, a tangle of cables. No suits, no ties. Candid, imperfect snapshot. Cool soft daylight. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "people-v2",
+      "tags": [
+        "people",
+        "sprint",
+        "office",
+        "london",
+        "engagement"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "eng-journeys-laptop-b",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/eng-journeys-laptop-b.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "people",
+      "title": "Learning journeys laptop (b)",
+      "description": "Two people seen from behind at a wooden desk by a window, leaning toward a laptop that shows a generic learning-module interface; a quiet shared learning journey.",
+      "aspect": "16 / 10",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/eng-journeys-laptop-b.png",
+        "prompt": "Over-the-shoulder view from behind two people at a wooden desk by a large window, backs of their heads only, no faces visible. Left: a North African woman with long dark curly hair loosely tied, in a terracotta cotton blouse. Right: an East Asian man with short black hair in a charcoal crewneck sweatshirt, one hand resting near the trackpad. They lean toward an open laptop whose screen shows a generic online learning module: a sidebar list of lessons with tick marks, a course card with a soft abstract image, a progress indicator, nothing readable, no logos. Soft daylight falls across the desk, a small plant and a notebook nearby. Warm soft light only. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "people-v2",
+      "tags": [
+        "people",
+        "learning",
+        "laptop",
+        "engagement"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "phase-embed-b",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/phase-embed-b.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "poetic-object",
+      "title": "Embed phase handover (b)",
+      "description": "A laptop open on a long wooden table at dawn beside a potted plant, a notebook being handed across by a hand, no faces: the moment knowledge is embedded and handed over.",
+      "aspect": "4 / 3",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/phase-embed-b.png",
+        "prompt": "Low side view along a long oak table at dawn with pale gold light through tall windows. An open laptop on the table, screen softly lit, a terracotta pot with a leafy plant beside it. In the middle of the frame one hand (deep brown skin, olive-green knit sleeve) passes a worn notebook to another hand (light-brown skin, cream sleeve) reaching in from the opposite edge; only hands and forearms visible, no faces. Calm, generous, a handover. Muted dawn palette. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "poetic-recognizable",
+      "tags": [
+        "phase",
+        "embed",
+        "laptop",
+        "hands",
+        "dawn"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "scene-desk-wood-b",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/scene-desk-wood-b.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "poetic-object",
+      "title": "Empty oak desk (b)",
+      "description": "An empty warm oak desk from a three-quarter overhead view, a coffee cup and notebook at the edges, soft plant shadow, a clear empty centre for an overlaid device; no devices in the photo.",
+      "aspect": "4 / 3",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/scene-desk-wood-b.png",
+        "prompt": "Three-quarter overhead view of a bare honey-oak desk in soft morning window light. Only two objects, both pushed to the edges: a handmade stoneware coffee cup at the top-right edge, and a linen notebook partly out of frame at the bottom-left edge. The center of the desk is a wide clean empty area of wood grain. Long soft shadows of a potted plant's leaves fall diagonally across the left side. No electronics, no devices, no people. Warm, still, minimal. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "poetic-recognizable",
+      "tags": [
+        "scene",
+        "desk",
+        "wood",
+        "overlay-base"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "eng-transformation-call",
@@ -1229,20 +1329,28 @@
     },
     {
       "id": "eng-sprint-table",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/eng-sprint-table.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "people",
+      "title": "Sprint table",
+      "description": "Colleagues of many backgrounds around a long wooden table in a London studio office with glass walls and plants, seen from the side and behind, a wall screen showing a web-app dashboard; candid sprint working session, faces dissolved.",
+      "aspect": "3 / 2",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/eng-sprint-table-b.png",
+        "prompt": "Low eye-level view from behind two seated people down the length of a long wooden table in a bright London studio office: glass walls, exposed brick, tall potted fiddle-leaf figs and trailing plants. Five colleagues in total; nobody faces the camera, faces in soft profile or turned toward a large wall-mounted screen at the end of the table showing a generic web-app dashboard with charts, no readable text. The people: (1) foreground left, a Middle Eastern man with a short beard in a terracotta knit polo, back to camera; (2) foreground right, a Black British woman with braids in a lilac cardigan, back to camera; (3) a South Asian man in a dark-green bomber jacket, standing at the screen, side-on; (4) an East Asian woman in a white oversized shirt with a black beanie, in profile, writing in a notebook; (5) a Brazilian man in a sky-blue striped linen shirt, leaning back, half turned away. Distinct heights and builds. Mismatched mugs and laptops, a fruit bowl, a tangle of cables. No suits, no ties. Candid, imperfect snapshot. Cool soft daylight. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "people-v2",
+      "tags": [
+        "people",
+        "sprint",
+        "office",
+        "london",
+        "engagement"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "eng-journeys-laptop",
@@ -1282,37 +1390,49 @@
     },
     {
       "id": "scene-desk-wood",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/scene-desk-wood.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "poetic-object",
+      "title": "Empty oak desk",
+      "description": "An empty warm oak desk from a three-quarter overhead view, a coffee cup and notebook at the edges, soft plant shadow, a clear empty centre for an overlaid device; no devices in the photo.",
+      "aspect": "4 / 3",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/imagery/bases/scene-desk-wood-a.png",
+        "prompt": "An empty warm oak wooden desk seen from a three-quarter top-down angle. A ceramic coffee cup sits at the upper-left edge of the frame and a closed notebook with a pencil at the lower-right edge. A large clear empty expanse of wood grain fills the center of the desk. Soft dappled shadow of plant leaves falls across one corner. No devices, no laptop, no phone, no tablet, no people. Calm, warm, quiet morning light. Cinematic editorial photograph, shot on grainy 35mm film, vintage nostalgic dreamlike mood, atmospheric haze. No readable text, no signage, no logos, no brand marks, no watermark. Not a stock photo, not corporate, not bright.",
+        "license": "AI-generated (fal-ai/nano-banana-pro), Vibrana-owned"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "poetic-recognizable",
+      "tags": [
+        "scene",
+        "desk",
+        "wood",
+        "overlay-base"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "ppl-john-fatma-session",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/ppl-john-fatma-session.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "people",
+      "title": "Ppl John Fatma Session",
+      "description": "John Ellison and Fatma reviewing a build together at a workshop table, laptops and a sketched flow diagram",
+      "aspect": "1 / 1",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/jf-square.png",
+        "license": "Vibrana-owned (john-ellison.com workshop library)"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "people",
+      "tags": [
+        "founder",
+        "workshop",
+        "case-study"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-03"
     },
     {
       "id": "fit-from-office",
@@ -1352,20 +1472,25 @@
     },
     {
       "id": "ppl-john-sprint-whiteboard",
-      "file": "/assets/imagery/homepage/prism-grid-solar.webp",
+      "file": "/assets/imagery/homepage/ppl-john-sprint-whiteboard.webp",
       "collection": "homepage",
-      "category": "prism-solar",
-      "title": "Grid in daylight",
-      "description": "Structure seen through glass at noon, order bent into a brighter spectrum.",
-      "aspect": "768 / 768",
+      "category": "people",
+      "title": "Ppl John Sprint Whiteboard",
+      "description": "John Ellison running an AI build sprint at a whiteboard, the team around him taking notes",
+      "aspect": "4 / 3",
       "source": {
-        "mode": "text",
-        "prompt": ""
+        "mode": "image",
+        "inputImage": "/private/tmp/claude-501/-Users-iamjohndass-Projects-vibrana/47d5067b-49b0-4f3e-8f8d-3e86966f9258/scratchpad/wb2x.png",
+        "license": "Vibrana-owned (john-ellison.com workshop library)"
       },
-      "preset": "",
-      "tags": [],
-      "status": "withheld",
-      "createdAt": ""
+      "preset": "people",
+      "tags": [
+        "founder",
+        "workshop",
+        "sprint"
+      ],
+      "status": "approved",
+      "createdAt": "2026-10-05"
     },
     {
       "id": "teams-call-diptych",

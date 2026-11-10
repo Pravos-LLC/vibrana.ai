@@ -246,7 +246,7 @@ export function ScrollMotionDemo() {
         gets plain fades.
       </CompHeading>
       <div className="grid gap-8 md:grid-cols-[1fr_1fr]">
-        <ParallaxMedia src={"/assets/imagery/homepage/prism-grid-solar.webp"} alt="" aspect="3 / 2" />
+        <ParallaxMedia src="/assets/imagery/homepage/eng-sprint-table-b.webp" alt="" aspect="3 / 2" />
         <div className="flex gap-6">
           <ScrollLine className="h-auto" />
           <RevealGroup className="space-y-6">

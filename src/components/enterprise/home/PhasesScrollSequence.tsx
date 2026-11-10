@@ -192,7 +192,13 @@ function MobileItem({
           {String(index + 1).padStart(2, '0')}
         </span>
         <h3 className="mt-3 font-display text-3xl tracking-tight text-ink">{phase.title}</h3>
-        <ParallaxMedia src={phase.image.src} alt={phase.image.alt} aspect="16 / 10" sizes="90vw" className="mt-5" />
+        <ParallaxMedia
+          src={index === 0 ? '/assets/imagery/homepage/eng-sprint-table-b.webp' : phase.image.src}
+          alt={phase.image.alt}
+          aspect="16 / 10"
+          sizes="90vw"
+          className="mt-5"
+        />
         <p className="mt-5 text-base leading-7 text-ink-secondary">{phase.description}</p>
       </RevealItem>
     </div>

@@ -78,9 +78,9 @@ export const CURRICULUM_PRICING = {
   finalCta: { headline: "Pick the roles. We'll build the journeys.", button: { label: 'Take the assessment', href: '/ai-readiness' } },
   // Plain-language "why three parts" for the model explainer on the page.
   modelExplainer: [
-    { part: 'Base', plain: 'A one-time build', detail: "Interview your stakeholders, map your Company Brain, customize a journey for each department.", image: '/assets/imagery/homepage/prism-grid-solar.webp', imageAlt: 'A stable foundation forming as ordered nodes settle out of a particle field.', accents: ['124,58,237', '59,130,246'] as [string, string] },
-    { part: 'Per learner', plain: 'Scales with who you enroll', detail: 'Every person on a journey. Enroll a department, a function, or the whole company.', image: '/assets/imagery/homepage/prism-grid-solar.webp', imageAlt: 'One point of light fanning out into many parallel streams.', accents: ['59,130,246', '45,212,191'] as [string, string] },
-    { part: 'Per week', plain: 'Scales with how long we run it', detail: 'We adapt the curriculum every week off daily feedback, so a 12-week program compounds more than a 6-week one.', image: '/assets/imagery/homepage/prism-grid-solar.webp', imageAlt: 'Horizontal layers of light stacking and compounding over time.', accents: ['45,212,191', '124,58,237'] as [string, string] },
+    { part: 'Base', plain: 'A one-time build', detail: "Interview your stakeholders, map your Company Brain, customize a journey for each department.", image: '/assets/curriculum/pricing/pricing-base.webp', imageAlt: 'A stable foundation forming as ordered nodes settle out of a particle field.', accents: ['124,58,237', '59,130,246'] as [string, string] },
+    { part: 'Per learner', plain: 'Scales with who you enroll', detail: 'Every person on a journey. Enroll a department, a function, or the whole company.', image: '/assets/curriculum/pricing/pricing-per-learner.webp', imageAlt: 'One point of light fanning out into many parallel streams.', accents: ['59,130,246', '45,212,191'] as [string, string] },
+    { part: 'Per week', plain: 'Scales with how long we run it', detail: 'We adapt the curriculum every week off daily feedback, so a 12-week program compounds more than a 6-week one.', image: '/assets/curriculum/pricing/pricing-per-week.webp', imageAlt: 'Horizontal layers of light stacking and compounding over time.', accents: ['45,212,191', '124,58,237'] as [string, string] },
   ],
 }
 

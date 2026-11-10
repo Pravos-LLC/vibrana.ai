@@ -116,13 +116,13 @@ export const SHOW_SWAG_SHIRTS = false
 export const SWAG_SHIRTS: SwagShirt[] = [
   {
     slug: 'vibe-coded-env-to-main',
-    image: '/assets/imagery/homepage/prism-grid-solar.webp',
+    image: '/assets/swag/shirt-vibe-coded-env.webp',
     imageAlt: 'Black t-shirt with a pixel-art tweet card reading "just shipped .env into main"',
     caption: 'no hooks. no skills. no evals. no tests.',
   },
   {
     slug: 'wetiko-404',
-    image: '/assets/imagery/homepage/prism-grid-solar.webp',
+    image: '/assets/swag/shirt-wetiko-404.webp',
     imageAlt: 'Black t-shirt with a retro pixel-art badge reading "ERROR 404: WETIKO NOT FOUND"',
     caption: 'ERROR 404: WETIKO NOT FOUND',
   },

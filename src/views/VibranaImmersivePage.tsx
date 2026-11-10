@@ -323,7 +323,7 @@ Thanks!`;
               >
                 <div className="aspect-video overflow-hidden">
                   <PublicDemoImg 
-                    src={"/assets/imagery/homepage/prism-grid-solar.webp"}
+                    src="/assets/panoramas_surf_berbere_taghazout_surf_school_.webp"
                     alt="Panorama Point of Taghazout"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -352,7 +352,7 @@ Thanks!`;
               >
                 <div className="aspect-video overflow-hidden">
                   <PublicDemoImg 
-                    src={"/assets/imagery/homepage/prism-grid-solar.webp"}
+                    src="/assets/Paradise_Valley_palmiers.webp"
                     alt="Retreat setting — palm valley"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -381,7 +381,7 @@ Thanks!`;
               >
                 <div className="aspect-video overflow-hidden">
                   <PublicDemoImg 
-                    src={"/assets/imagery/homepage/prism-grid-solar.webp"}
+                    src="/assets/banana-point-surf-maroc.webp"
                     alt="Banana Point Surf"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -410,7 +410,7 @@ Thanks!`;
               >
                 <div className="aspect-video overflow-hidden">
                   <PublicDemoImg 
-                    src={"/assets/imagery/homepage/prism-grid-solar.webp"}
+                    src="/assets/taghazout-village.webp"
                     alt="Moroccan Village"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
