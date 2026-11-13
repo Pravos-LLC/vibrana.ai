@@ -218,6 +218,7 @@ insert into public.gtm_origami_replies (evidence_key, kind, source, sequence_id,
   values ('status:00000000-0000-4000-8000-0000000000f1', 'unsubscribed_status', 'status_scan', '00000000-0000-4000-8000-0000000000f1', now(),
     'origami-reply-v1', 'none', 'seed', 'not_needed');
 insert into public.gtm_origami_webhook_deliveries (webhook_id, event) values ('seed', 'webhook.test');
+insert into public.gtm_network_mailbox (address, token_ciphertext, connected_by) values ('seed-network@example.test', repeat('x', 60), 'SEED');
 insert into public.gtm_yt_videos (video_id, title) values ('seedvideo001', 'Seed video');
 insert into public.gtm_yt_video_daily (date, video_id, views) values (current_date, 'seedvideo001', 1);
 insert into public.gtm_yt_channel_daily (date, views) values (current_date, 1);
