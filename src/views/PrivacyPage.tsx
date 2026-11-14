@@ -55,7 +55,7 @@ export default function PrivacyPage() {
             </ul>
             <p className="mb-4">Where it comes from: public company sources, professional data providers, and our founders&apos; own professional networks.</p>
             <p className="mb-4">Why we hold it: to contact you about AI transformation work for your company. We rely on legitimate interest, which means we think a relevant business message to a work address is a reasonable thing to send and that it is unlikely to surprise you. Contacts from a founder&apos;s own network are only used for that founder&apos;s personal messages to people they know, never for cold email sequences.</p>
-            <p className="mb-4">Where it is stored: in our CRM (Twenty, hosted by us on Fly.io) and in private files on our founders&apos; own devices. How long: we keep a record while it is relevant to our work. The founders review these records at least once a year.</p>
+            <p className="mb-4">Where it is stored: in our CRM (Twenty, hosted by us on Railway) and in private files on our founders&apos; own devices. How long: we keep a record while it is relevant to our work. The founders review these records at least once a year.</p>
             <p className="mb-4">You can object, opt out or ask what we hold about you at any time. Email hello@vibrana.ai. If you ask, we stop contacting you, remove your record from our CRM and keep only a suppression entry, used for nothing else, so you are not contacted again. This notice is general information, not legal advice.</p>
           </section>
 
@@ -70,7 +70,7 @@ export default function PrivacyPage() {
               <li>The AI model provider that OpenRouter sends these requests to, currently Google (Gemini models served by Google, as listed by OpenRouter)</li>
             </ul>
             <p className="mb-4">We keep this list current and update it when a processor changes.</p>
-            <p className="mb-4">The resulting summary is stored in our CRM (Twenty, hosted by us on Fly.io). We do not store raw transcripts in the CRM. Transcript copies on our processing server are deleted within 90 days.</p>
+            <p className="mb-4">The resulting summary is stored in our CRM (Twenty, hosted by us on Railway). We do not store raw transcripts in the CRM. Transcript copies on our processing server are deleted within 90 days.</p>
             <p className="mb-4">Internal meetings, and meetings with people who are not Vibrana contacts, are only transcribed and summarized by Granola. We do not send them through OpenRouter or to any AI model ourselves.</p>
             <p className="mb-4">You can ask us to delete the data from a meeting you were in at any time. Email hello@vibrana.ai.</p>
           </section>
