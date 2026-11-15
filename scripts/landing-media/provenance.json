@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated": "2026-11-10",
+  "generated": "2026-11-15",
   "approvedBroll": [
     "B-kling-steady.mp4",
     "P-kling.mp4",
@@ -101,48 +101,708 @@
       "approval": "Approved reel s1-42 (Simulator sizzle), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02"
     },
     {
-      "id": "build-sprint/build-sprint-film-full.mp4",
-      "path": "/assets/landing/build-sprint/build-sprint-film-full.e8d1ce7a.mp4",
-      "sha256": "e8d1ce7a1221565a560c457c2d9c0112b9b03c6d54827e6a050baca40128e60d",
-      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
-      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line"
+      "id": "build-sprint/build-sprint-rewind-full.mp4",
+      "path": "/assets/landing/build-sprint/build-sprint-rewind-full.917c5786.mp4",
+      "sha256": "917c57868d4847f0c9a7da557ac8c7cfe611c294a6b8fad9eb80b6dd5c4d7312",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/renders/build-sprint-sizzle-rewind-v5.mp4 (sha256 ec38b3621eef01328092f64cf9d3d1d048567c536f7d2d811ac1830889741690), the whole 39.3 s cut",
+      "approval": "Build Sprint \"Rewind\" film v5 (reel s1-50), approved by John in chat 2026-11-13, who asked for it as the featured video in the Build Sprint page hero the same day",
+      "music": "John's own Suno track \"Rewind Sizzle v1\" (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/music/suno/rewind-suno-v1.mp3)",
+      "imagery": "Opening still: a Nano Banana Pro edit of John's real headshot with a sticky note, made at John's request (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/assets/john/john-sticky-note.jpg); end card: John's headshot",
+      "footage": "Real third-party event footage from YouTube, cut and graded for the film; per-shot credits below. Credits run in the YouTube description; the site shows none",
+      "credits": [
+        {
+          "shot": "c-r1",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=93s"
+        },
+        {
+          "shot": "c-r2",
+          "credit": "Junction, \"Junction 2025 Aftermovie\"",
+          "url": "https://www.youtube.com/watch?v=o8kTKi4xi6w&t=24s"
+        },
+        {
+          "shot": "c-r3",
+          "credit": "Google Cloud, \"Inside a Google Cloud TPU Data Center\"",
+          "url": "https://www.youtube.com/watch?v=FsxthdQ_sL4&t=78s"
+        },
+        {
+          "shot": "c-r4",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=89s"
+        },
+        {
+          "shot": "c-r5",
+          "credit": "GOLDMEN MEDIA, \"AI for Good Hackathon 2025 | Official Aftermovie | Blend360 x Microsoft x Blood Warriors\"",
+          "url": "https://www.youtube.com/watch?v=xyy3uSjWB30&t=115s"
+        },
+        {
+          "shot": "c-r6",
+          "credit": "GV (Google Ventures), \"GV's Sprint Process in 90 Seconds\"",
+          "url": "https://www.youtube.com/watch?v=K2vSQPh6MCE&t=80s"
+        },
+        {
+          "shot": "c-wall1",
+          "credit": "249Startups, \"Orange Corners Batch 4 Hackathon highlights\"",
+          "url": "https://www.youtube.com/watch?v=2_I6X2IHr-Q&t=57s"
+        },
+        {
+          "shot": "c-wall2",
+          "credit": "AJ&Smart, \"AJ&SMART DESIGN SPRINT TRAINING: LEARN THE DESIGN SPRINT\"",
+          "url": "https://www.youtube.com/watch?v=sPloj4s6Tf0&t=87s"
+        },
+        {
+          "shot": "c-wall3",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=50s"
+        },
+        {
+          "shot": "c-users1",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=47s"
+        },
+        {
+          "shot": "c-users2",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=258s"
+        },
+        {
+          "shot": "c-users3",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=32s"
+        },
+        {
+          "shot": "c-users4",
+          "credit": "Hack4Bengal, \"Hack4Bengal 4.0 | Official Aftermovie | Eastern India’s Largest Hackathon\"",
+          "url": "https://www.youtube.com/watch?v=kclQlH005x4&t=109s"
+        },
+        {
+          "shot": "c-demo1",
+          "credit": "GirlCode ZA, \"GirlCodeHack 2025\"",
+          "url": "https://www.youtube.com/watch?v=YfijDKj8JTw&t=122s"
+        },
+        {
+          "shot": "c-demo2",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=133s"
+        },
+        {
+          "shot": "c-demo3",
+          "credit": "Miva Open University, \"2026 Miva AI Hackathon Highlight\"",
+          "url": "https://www.youtube.com/watch?v=xIWQI5rte6I&t=172s"
+        },
+        {
+          "shot": "c-demo4",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=73s"
+        },
+        {
+          "shot": "c-gv1",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=7s"
+        },
+        {
+          "shot": "c-gv2",
+          "credit": "GV (Google Ventures), \"Sprint: Monday\"",
+          "url": "https://www.youtube.com/watch?v=7zOBMxRYJ7I&t=144s"
+        },
+        {
+          "shot": "c-ask1",
+          "credit": "Bitcoin DADA, \"Hack4Freedom By Dada Devs Nairobi 2026 | Highlights: Women Building with Bitcoin & Freedom Tech\"",
+          "url": "https://www.youtube.com/watch?v=EDlq8z8rpxc&t=79s"
+        },
+        {
+          "shot": "c-ask2",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=96s"
+        }
+      ]
     },
     {
-      "id": "build-sprint/build-sprint-film-loop.mp4",
-      "path": "/assets/landing/build-sprint/build-sprint-film-loop.5b482d6c.mp4",
-      "sha256": "5b482d6c9c01facbd97172fab80cdcb8cadfdbaf01963ba08a786f88cc7d7e36",
-      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
-      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line",
-      "note": "Loop is the whole 13.7 s site cut, muted: participant quote, the team, then \"AI, without losing the human.\""
+      "id": "build-sprint/build-sprint-rewind-loop.mp4",
+      "path": "/assets/landing/build-sprint/build-sprint-rewind-loop.af55a63e.mp4",
+      "sha256": "af55a63e39a2d5e12c86e175c54441819607ef27f62838f45b833c3085ba661f",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/renders/build-sprint-sizzle-rewind-v5.mp4 (sha256 ec38b3621eef01328092f64cf9d3d1d048567c536f7d2d811ac1830889741690), the whole 39.3 s cut",
+      "approval": "Build Sprint \"Rewind\" film v5 (reel s1-50), approved by John in chat 2026-11-13, who asked for it as the featured video in the Build Sprint page hero the same day",
+      "music": "John's own Suno track \"Rewind Sizzle v1\" (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/music/suno/rewind-suno-v1.mp3)",
+      "imagery": "Opening still: a Nano Banana Pro edit of John's real headshot with a sticky note, made at John's request (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/assets/john/john-sticky-note.jpg); end card: John's headshot",
+      "footage": "Real third-party event footage from YouTube, cut and graded for the film; per-shot credits below. Credits run in the YouTube description; the site shows none",
+      "credits": [
+        {
+          "shot": "c-r1",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=93s"
+        },
+        {
+          "shot": "c-r2",
+          "credit": "Junction, \"Junction 2025 Aftermovie\"",
+          "url": "https://www.youtube.com/watch?v=o8kTKi4xi6w&t=24s"
+        },
+        {
+          "shot": "c-r3",
+          "credit": "Google Cloud, \"Inside a Google Cloud TPU Data Center\"",
+          "url": "https://www.youtube.com/watch?v=FsxthdQ_sL4&t=78s"
+        },
+        {
+          "shot": "c-r4",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=89s"
+        },
+        {
+          "shot": "c-r5",
+          "credit": "GOLDMEN MEDIA, \"AI for Good Hackathon 2025 | Official Aftermovie | Blend360 x Microsoft x Blood Warriors\"",
+          "url": "https://www.youtube.com/watch?v=xyy3uSjWB30&t=115s"
+        },
+        {
+          "shot": "c-r6",
+          "credit": "GV (Google Ventures), \"GV's Sprint Process in 90 Seconds\"",
+          "url": "https://www.youtube.com/watch?v=K2vSQPh6MCE&t=80s"
+        },
+        {
+          "shot": "c-wall1",
+          "credit": "249Startups, \"Orange Corners Batch 4 Hackathon highlights\"",
+          "url": "https://www.youtube.com/watch?v=2_I6X2IHr-Q&t=57s"
+        },
+        {
+          "shot": "c-wall2",
+          "credit": "AJ&Smart, \"AJ&SMART DESIGN SPRINT TRAINING: LEARN THE DESIGN SPRINT\"",
+          "url": "https://www.youtube.com/watch?v=sPloj4s6Tf0&t=87s"
+        },
+        {
+          "shot": "c-wall3",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=50s"
+        },
+        {
+          "shot": "c-users1",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=47s"
+        },
+        {
+          "shot": "c-users2",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=258s"
+        },
+        {
+          "shot": "c-users3",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=32s"
+        },
+        {
+          "shot": "c-users4",
+          "credit": "Hack4Bengal, \"Hack4Bengal 4.0 | Official Aftermovie | Eastern India’s Largest Hackathon\"",
+          "url": "https://www.youtube.com/watch?v=kclQlH005x4&t=109s"
+        },
+        {
+          "shot": "c-demo1",
+          "credit": "GirlCode ZA, \"GirlCodeHack 2025\"",
+          "url": "https://www.youtube.com/watch?v=YfijDKj8JTw&t=122s"
+        },
+        {
+          "shot": "c-demo2",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=133s"
+        },
+        {
+          "shot": "c-demo3",
+          "credit": "Miva Open University, \"2026 Miva AI Hackathon Highlight\"",
+          "url": "https://www.youtube.com/watch?v=xIWQI5rte6I&t=172s"
+        },
+        {
+          "shot": "c-demo4",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=73s"
+        },
+        {
+          "shot": "c-gv1",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=7s"
+        },
+        {
+          "shot": "c-gv2",
+          "credit": "GV (Google Ventures), \"Sprint: Monday\"",
+          "url": "https://www.youtube.com/watch?v=7zOBMxRYJ7I&t=144s"
+        },
+        {
+          "shot": "c-ask1",
+          "credit": "Bitcoin DADA, \"Hack4Freedom By Dada Devs Nairobi 2026 | Highlights: Women Building with Bitcoin & Freedom Tech\"",
+          "url": "https://www.youtube.com/watch?v=EDlq8z8rpxc&t=79s"
+        },
+        {
+          "shot": "c-ask2",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=96s"
+        }
+      ],
+      "note": "Loop is 0 to 7.566 s of the cut, muted: the face hook \"10 days ago, this was a sticky note.\", the D10 to D01 rewind, then \"Day 1.\" (ends on the cut before the next shot)"
     },
     {
-      "id": "build-sprint/build-sprint-film-full.webm",
-      "path": "/assets/landing/build-sprint/build-sprint-film-full.62a2ff03.webm",
-      "sha256": "62a2ff036fa8f44d269e0a3726775907dc7a72801ab1804c6b9aebeeede46686",
-      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
-      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line"
+      "id": "build-sprint/build-sprint-rewind-full.webm",
+      "path": "/assets/landing/build-sprint/build-sprint-rewind-full.39e1dfbb.webm",
+      "sha256": "39e1dfbbcf856f5e6718d255aa2cd89dd686743c21f86b99569c36e864d961f4",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/renders/build-sprint-sizzle-rewind-v5.mp4 (sha256 ec38b3621eef01328092f64cf9d3d1d048567c536f7d2d811ac1830889741690), the whole 39.3 s cut",
+      "approval": "Build Sprint \"Rewind\" film v5 (reel s1-50), approved by John in chat 2026-11-13, who asked for it as the featured video in the Build Sprint page hero the same day",
+      "music": "John's own Suno track \"Rewind Sizzle v1\" (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/music/suno/rewind-suno-v1.mp3)",
+      "imagery": "Opening still: a Nano Banana Pro edit of John's real headshot with a sticky note, made at John's request (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/assets/john/john-sticky-note.jpg); end card: John's headshot",
+      "footage": "Real third-party event footage from YouTube, cut and graded for the film; per-shot credits below. Credits run in the YouTube description; the site shows none",
+      "credits": [
+        {
+          "shot": "c-r1",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=93s"
+        },
+        {
+          "shot": "c-r2",
+          "credit": "Junction, \"Junction 2025 Aftermovie\"",
+          "url": "https://www.youtube.com/watch?v=o8kTKi4xi6w&t=24s"
+        },
+        {
+          "shot": "c-r3",
+          "credit": "Google Cloud, \"Inside a Google Cloud TPU Data Center\"",
+          "url": "https://www.youtube.com/watch?v=FsxthdQ_sL4&t=78s"
+        },
+        {
+          "shot": "c-r4",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=89s"
+        },
+        {
+          "shot": "c-r5",
+          "credit": "GOLDMEN MEDIA, \"AI for Good Hackathon 2025 | Official Aftermovie | Blend360 x Microsoft x Blood Warriors\"",
+          "url": "https://www.youtube.com/watch?v=xyy3uSjWB30&t=115s"
+        },
+        {
+          "shot": "c-r6",
+          "credit": "GV (Google Ventures), \"GV's Sprint Process in 90 Seconds\"",
+          "url": "https://www.youtube.com/watch?v=K2vSQPh6MCE&t=80s"
+        },
+        {
+          "shot": "c-wall1",
+          "credit": "249Startups, \"Orange Corners Batch 4 Hackathon highlights\"",
+          "url": "https://www.youtube.com/watch?v=2_I6X2IHr-Q&t=57s"
+        },
+        {
+          "shot": "c-wall2",
+          "credit": "AJ&Smart, \"AJ&SMART DESIGN SPRINT TRAINING: LEARN THE DESIGN SPRINT\"",
+          "url": "https://www.youtube.com/watch?v=sPloj4s6Tf0&t=87s"
+        },
+        {
+          "shot": "c-wall3",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=50s"
+        },
+        {
+          "shot": "c-users1",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=47s"
+        },
+        {
+          "shot": "c-users2",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=258s"
+        },
+        {
+          "shot": "c-users3",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=32s"
+        },
+        {
+          "shot": "c-users4",
+          "credit": "Hack4Bengal, \"Hack4Bengal 4.0 | Official Aftermovie | Eastern India’s Largest Hackathon\"",
+          "url": "https://www.youtube.com/watch?v=kclQlH005x4&t=109s"
+        },
+        {
+          "shot": "c-demo1",
+          "credit": "GirlCode ZA, \"GirlCodeHack 2025\"",
+          "url": "https://www.youtube.com/watch?v=YfijDKj8JTw&t=122s"
+        },
+        {
+          "shot": "c-demo2",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=133s"
+        },
+        {
+          "shot": "c-demo3",
+          "credit": "Miva Open University, \"2026 Miva AI Hackathon Highlight\"",
+          "url": "https://www.youtube.com/watch?v=xIWQI5rte6I&t=172s"
+        },
+        {
+          "shot": "c-demo4",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=73s"
+        },
+        {
+          "shot": "c-gv1",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=7s"
+        },
+        {
+          "shot": "c-gv2",
+          "credit": "GV (Google Ventures), \"Sprint: Monday\"",
+          "url": "https://www.youtube.com/watch?v=7zOBMxRYJ7I&t=144s"
+        },
+        {
+          "shot": "c-ask1",
+          "credit": "Bitcoin DADA, \"Hack4Freedom By Dada Devs Nairobi 2026 | Highlights: Women Building with Bitcoin & Freedom Tech\"",
+          "url": "https://www.youtube.com/watch?v=EDlq8z8rpxc&t=79s"
+        },
+        {
+          "shot": "c-ask2",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=96s"
+        }
+      ]
     },
     {
-      "id": "build-sprint/build-sprint-film-loop.webm",
-      "path": "/assets/landing/build-sprint/build-sprint-film-loop.b4ea6e0d.webm",
-      "sha256": "b4ea6e0dfe494551887f70843c2d49cdd40578c940300b274719d714ffb5d9ae",
-      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
-      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line",
-      "note": "Loop is the whole 13.7 s site cut, muted: participant quote, the team, then \"AI, without losing the human.\""
+      "id": "build-sprint/build-sprint-rewind-loop.webm",
+      "path": "/assets/landing/build-sprint/build-sprint-rewind-loop.c7f444e6.webm",
+      "sha256": "c7f444e6c6b837b1fbdf9a7104fddd5859445fc80ea6a5ffeb9d5fcf8da8fb39",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/renders/build-sprint-sizzle-rewind-v5.mp4 (sha256 ec38b3621eef01328092f64cf9d3d1d048567c536f7d2d811ac1830889741690), the whole 39.3 s cut",
+      "approval": "Build Sprint \"Rewind\" film v5 (reel s1-50), approved by John in chat 2026-11-13, who asked for it as the featured video in the Build Sprint page hero the same day",
+      "music": "John's own Suno track \"Rewind Sizzle v1\" (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/music/suno/rewind-suno-v1.mp3)",
+      "imagery": "Opening still: a Nano Banana Pro edit of John's real headshot with a sticky note, made at John's request (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/assets/john/john-sticky-note.jpg); end card: John's headshot",
+      "footage": "Real third-party event footage from YouTube, cut and graded for the film; per-shot credits below. Credits run in the YouTube description; the site shows none",
+      "credits": [
+        {
+          "shot": "c-r1",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=93s"
+        },
+        {
+          "shot": "c-r2",
+          "credit": "Junction, \"Junction 2025 Aftermovie\"",
+          "url": "https://www.youtube.com/watch?v=o8kTKi4xi6w&t=24s"
+        },
+        {
+          "shot": "c-r3",
+          "credit": "Google Cloud, \"Inside a Google Cloud TPU Data Center\"",
+          "url": "https://www.youtube.com/watch?v=FsxthdQ_sL4&t=78s"
+        },
+        {
+          "shot": "c-r4",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=89s"
+        },
+        {
+          "shot": "c-r5",
+          "credit": "GOLDMEN MEDIA, \"AI for Good Hackathon 2025 | Official Aftermovie | Blend360 x Microsoft x Blood Warriors\"",
+          "url": "https://www.youtube.com/watch?v=xyy3uSjWB30&t=115s"
+        },
+        {
+          "shot": "c-r6",
+          "credit": "GV (Google Ventures), \"GV's Sprint Process in 90 Seconds\"",
+          "url": "https://www.youtube.com/watch?v=K2vSQPh6MCE&t=80s"
+        },
+        {
+          "shot": "c-wall1",
+          "credit": "249Startups, \"Orange Corners Batch 4 Hackathon highlights\"",
+          "url": "https://www.youtube.com/watch?v=2_I6X2IHr-Q&t=57s"
+        },
+        {
+          "shot": "c-wall2",
+          "credit": "AJ&Smart, \"AJ&SMART DESIGN SPRINT TRAINING: LEARN THE DESIGN SPRINT\"",
+          "url": "https://www.youtube.com/watch?v=sPloj4s6Tf0&t=87s"
+        },
+        {
+          "shot": "c-wall3",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=50s"
+        },
+        {
+          "shot": "c-users1",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=47s"
+        },
+        {
+          "shot": "c-users2",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=258s"
+        },
+        {
+          "shot": "c-users3",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=32s"
+        },
+        {
+          "shot": "c-users4",
+          "credit": "Hack4Bengal, \"Hack4Bengal 4.0 | Official Aftermovie | Eastern India’s Largest Hackathon\"",
+          "url": "https://www.youtube.com/watch?v=kclQlH005x4&t=109s"
+        },
+        {
+          "shot": "c-demo1",
+          "credit": "GirlCode ZA, \"GirlCodeHack 2025\"",
+          "url": "https://www.youtube.com/watch?v=YfijDKj8JTw&t=122s"
+        },
+        {
+          "shot": "c-demo2",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=133s"
+        },
+        {
+          "shot": "c-demo3",
+          "credit": "Miva Open University, \"2026 Miva AI Hackathon Highlight\"",
+          "url": "https://www.youtube.com/watch?v=xIWQI5rte6I&t=172s"
+        },
+        {
+          "shot": "c-demo4",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=73s"
+        },
+        {
+          "shot": "c-gv1",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=7s"
+        },
+        {
+          "shot": "c-gv2",
+          "credit": "GV (Google Ventures), \"Sprint: Monday\"",
+          "url": "https://www.youtube.com/watch?v=7zOBMxRYJ7I&t=144s"
+        },
+        {
+          "shot": "c-ask1",
+          "credit": "Bitcoin DADA, \"Hack4Freedom By Dada Devs Nairobi 2026 | Highlights: Women Building with Bitcoin & Freedom Tech\"",
+          "url": "https://www.youtube.com/watch?v=EDlq8z8rpxc&t=79s"
+        },
+        {
+          "shot": "c-ask2",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=96s"
+        }
+      ],
+      "note": "Loop is 0 to 7.566 s of the cut, muted: the face hook \"10 days ago, this was a sticky note.\", the D10 to D01 rewind, then \"Day 1.\" (ends on the cut before the next shot)"
     },
     {
-      "id": "build-sprint/build-sprint-film-poster.webp",
-      "path": "/assets/landing/build-sprint/build-sprint-film-poster.7ecfbb06.webp",
-      "sha256": "7ecfbb06b802127a1ae349d03930ff7cc80fd5724bc9672f92690e11c3cd1093",
-      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
-      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line"
+      "id": "build-sprint/build-sprint-rewind-poster.webp",
+      "path": "/assets/landing/build-sprint/build-sprint-rewind-poster.72ef4a18.webp",
+      "sha256": "72ef4a1821bacb816f383abe1bde327a52e76cf268a2458607afc67890eb1c0a",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/renders/build-sprint-sizzle-rewind-v5.mp4 (sha256 ec38b3621eef01328092f64cf9d3d1d048567c536f7d2d811ac1830889741690), the whole 39.3 s cut",
+      "approval": "Build Sprint \"Rewind\" film v5 (reel s1-50), approved by John in chat 2026-11-13, who asked for it as the featured video in the Build Sprint page hero the same day",
+      "music": "John's own Suno track \"Rewind Sizzle v1\" (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/music/suno/rewind-suno-v1.mp3)",
+      "imagery": "Opening still: a Nano Banana Pro edit of John's real headshot with a sticky note, made at John's request (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/assets/john/john-sticky-note.jpg); end card: John's headshot",
+      "footage": "Real third-party event footage from YouTube, cut and graded for the film; per-shot credits below. Credits run in the YouTube description; the site shows none",
+      "credits": [
+        {
+          "shot": "c-r1",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=93s"
+        },
+        {
+          "shot": "c-r2",
+          "credit": "Junction, \"Junction 2025 Aftermovie\"",
+          "url": "https://www.youtube.com/watch?v=o8kTKi4xi6w&t=24s"
+        },
+        {
+          "shot": "c-r3",
+          "credit": "Google Cloud, \"Inside a Google Cloud TPU Data Center\"",
+          "url": "https://www.youtube.com/watch?v=FsxthdQ_sL4&t=78s"
+        },
+        {
+          "shot": "c-r4",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=89s"
+        },
+        {
+          "shot": "c-r5",
+          "credit": "GOLDMEN MEDIA, \"AI for Good Hackathon 2025 | Official Aftermovie | Blend360 x Microsoft x Blood Warriors\"",
+          "url": "https://www.youtube.com/watch?v=xyy3uSjWB30&t=115s"
+        },
+        {
+          "shot": "c-r6",
+          "credit": "GV (Google Ventures), \"GV's Sprint Process in 90 Seconds\"",
+          "url": "https://www.youtube.com/watch?v=K2vSQPh6MCE&t=80s"
+        },
+        {
+          "shot": "c-wall1",
+          "credit": "249Startups, \"Orange Corners Batch 4 Hackathon highlights\"",
+          "url": "https://www.youtube.com/watch?v=2_I6X2IHr-Q&t=57s"
+        },
+        {
+          "shot": "c-wall2",
+          "credit": "AJ&Smart, \"AJ&SMART DESIGN SPRINT TRAINING: LEARN THE DESIGN SPRINT\"",
+          "url": "https://www.youtube.com/watch?v=sPloj4s6Tf0&t=87s"
+        },
+        {
+          "shot": "c-wall3",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=50s"
+        },
+        {
+          "shot": "c-users1",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=47s"
+        },
+        {
+          "shot": "c-users2",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=258s"
+        },
+        {
+          "shot": "c-users3",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=32s"
+        },
+        {
+          "shot": "c-users4",
+          "credit": "Hack4Bengal, \"Hack4Bengal 4.0 | Official Aftermovie | Eastern India’s Largest Hackathon\"",
+          "url": "https://www.youtube.com/watch?v=kclQlH005x4&t=109s"
+        },
+        {
+          "shot": "c-demo1",
+          "credit": "GirlCode ZA, \"GirlCodeHack 2025\"",
+          "url": "https://www.youtube.com/watch?v=YfijDKj8JTw&t=122s"
+        },
+        {
+          "shot": "c-demo2",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=133s"
+        },
+        {
+          "shot": "c-demo3",
+          "credit": "Miva Open University, \"2026 Miva AI Hackathon Highlight\"",
+          "url": "https://www.youtube.com/watch?v=xIWQI5rte6I&t=172s"
+        },
+        {
+          "shot": "c-demo4",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=73s"
+        },
+        {
+          "shot": "c-gv1",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=7s"
+        },
+        {
+          "shot": "c-gv2",
+          "credit": "GV (Google Ventures), \"Sprint: Monday\"",
+          "url": "https://www.youtube.com/watch?v=7zOBMxRYJ7I&t=144s"
+        },
+        {
+          "shot": "c-ask1",
+          "credit": "Bitcoin DADA, \"Hack4Freedom By Dada Devs Nairobi 2026 | Highlights: Women Building with Bitcoin & Freedom Tech\"",
+          "url": "https://www.youtube.com/watch?v=EDlq8z8rpxc&t=79s"
+        },
+        {
+          "shot": "c-ask2",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=96s"
+        }
+      ]
     },
     {
-      "id": "build-sprint/build-sprint-film-loop-poster.webp",
-      "path": "/assets/landing/build-sprint/build-sprint-film-loop-poster.7ecfbb06.webp",
-      "sha256": "7ecfbb06b802127a1ae349d03930ff7cc80fd5724bc9672f92690e11c3cd1093",
-      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s",
-      "approval": "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line"
+      "id": "build-sprint/build-sprint-rewind-loop-poster.webp",
+      "path": "/assets/landing/build-sprint/build-sprint-rewind-loop-poster.72ef4a18.webp",
+      "sha256": "72ef4a1821bacb816f383abe1bde327a52e76cf268a2458607afc67890eb1c0a",
+      "source": "john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/renders/build-sprint-sizzle-rewind-v5.mp4 (sha256 ec38b3621eef01328092f64cf9d3d1d048567c536f7d2d811ac1830889741690), the whole 39.3 s cut",
+      "approval": "Build Sprint \"Rewind\" film v5 (reel s1-50), approved by John in chat 2026-11-13, who asked for it as the featured video in the Build Sprint page hero the same day",
+      "music": "John's own Suno track \"Rewind Sizzle v1\" (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/music/suno/rewind-suno-v1.mp3)",
+      "imagery": "Opening still: a Nano Banana Pro edit of John's real headshot with a sticky note, made at John's request (john-workspace/2-work/vibrana-gtm/build-sprint-sizzle-2026-11/assets/john/john-sticky-note.jpg); end card: John's headshot",
+      "footage": "Real third-party event footage from YouTube, cut and graded for the film; per-shot credits below. Credits run in the YouTube description; the site shows none",
+      "credits": [
+        {
+          "shot": "c-r1",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=93s"
+        },
+        {
+          "shot": "c-r2",
+          "credit": "Junction, \"Junction 2025 Aftermovie\"",
+          "url": "https://www.youtube.com/watch?v=o8kTKi4xi6w&t=24s"
+        },
+        {
+          "shot": "c-r3",
+          "credit": "Google Cloud, \"Inside a Google Cloud TPU Data Center\"",
+          "url": "https://www.youtube.com/watch?v=FsxthdQ_sL4&t=78s"
+        },
+        {
+          "shot": "c-r4",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=89s"
+        },
+        {
+          "shot": "c-r5",
+          "credit": "GOLDMEN MEDIA, \"AI for Good Hackathon 2025 | Official Aftermovie | Blend360 x Microsoft x Blood Warriors\"",
+          "url": "https://www.youtube.com/watch?v=xyy3uSjWB30&t=115s"
+        },
+        {
+          "shot": "c-r6",
+          "credit": "GV (Google Ventures), \"GV's Sprint Process in 90 Seconds\"",
+          "url": "https://www.youtube.com/watch?v=K2vSQPh6MCE&t=80s"
+        },
+        {
+          "shot": "c-wall1",
+          "credit": "249Startups, \"Orange Corners Batch 4 Hackathon highlights\"",
+          "url": "https://www.youtube.com/watch?v=2_I6X2IHr-Q&t=57s"
+        },
+        {
+          "shot": "c-wall2",
+          "credit": "AJ&Smart, \"AJ&SMART DESIGN SPRINT TRAINING: LEARN THE DESIGN SPRINT\"",
+          "url": "https://www.youtube.com/watch?v=sPloj4s6Tf0&t=87s"
+        },
+        {
+          "shot": "c-wall3",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=50s"
+        },
+        {
+          "shot": "c-users1",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=47s"
+        },
+        {
+          "shot": "c-users2",
+          "credit": "Gift Egwuenu, \"A Day in the Life of a Software Engineer in Lagos\"",
+          "url": "https://www.youtube.com/watch?v=9mLMtAxSr8U&t=258s"
+        },
+        {
+          "shot": "c-users3",
+          "credit": "Lutheran World Relief, \"Smartphones: A most valuable tool for farmers in West Africa\"",
+          "url": "https://www.youtube.com/watch?v=pOBkBDoc70g&t=32s"
+        },
+        {
+          "shot": "c-users4",
+          "credit": "Hack4Bengal, \"Hack4Bengal 4.0 | Official Aftermovie | Eastern India’s Largest Hackathon\"",
+          "url": "https://www.youtube.com/watch?v=kclQlH005x4&t=109s"
+        },
+        {
+          "shot": "c-demo1",
+          "credit": "GirlCode ZA, \"GirlCodeHack 2025\"",
+          "url": "https://www.youtube.com/watch?v=YfijDKj8JTw&t=122s"
+        },
+        {
+          "shot": "c-demo2",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=133s"
+        },
+        {
+          "shot": "c-demo3",
+          "credit": "Miva Open University, \"2026 Miva AI Hackathon Highlight\"",
+          "url": "https://www.youtube.com/watch?v=xIWQI5rte6I&t=172s"
+        },
+        {
+          "shot": "c-demo4",
+          "credit": "Andela, \"A Day In The Life Of A Software Engineer - Christopher Kalule\"",
+          "url": "https://www.youtube.com/watch?v=r9P65uWJj5g&t=73s"
+        },
+        {
+          "shot": "c-gv1",
+          "credit": "John Zeratsky, \"Official Design Sprint Bootcamp with John Zeratsky\"",
+          "url": "https://www.youtube.com/watch?v=yFRhY4dHyXk&t=7s"
+        },
+        {
+          "shot": "c-gv2",
+          "credit": "GV (Google Ventures), \"Sprint: Monday\"",
+          "url": "https://www.youtube.com/watch?v=7zOBMxRYJ7I&t=144s"
+        },
+        {
+          "shot": "c-ask1",
+          "credit": "Bitcoin DADA, \"Hack4Freedom By Dada Devs Nairobi 2026 | Highlights: Women Building with Bitcoin & Freedom Tech\"",
+          "url": "https://www.youtube.com/watch?v=EDlq8z8rpxc&t=79s"
+        },
+        {
+          "shot": "c-ask2",
+          "credit": "Tom Shaw, \"Inside one of the world’s most efficient Data Centers\"",
+          "url": "https://www.youtube.com/watch?v=UMMfJ4au1o4&t=96s"
+        }
+      ]
     },
     {
       "id": "build-sprint/broll/john-broll-b-16x9.mp4",

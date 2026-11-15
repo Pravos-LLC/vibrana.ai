@@ -8,7 +8,7 @@ const ROOT = process.cwd()
 const PUBLIC = path.join(ROOT, 'public')
 const DIR = path.join(PUBLIC, 'assets', 'landing')
 const provenance = JSON.parse(readFileSync(path.join(ROOT, 'scripts', 'landing-media', 'provenance.json'), 'utf8')) as {
-  assets: { id: string; path: string; sha256: string; source: string; approval: string; sourceFile?: string }[]
+  assets: { id: string; path: string; sha256: string; source: string; approval: string; sourceFile?: string; credits?: { shot: string; credit: string; url: string }[] }[]
 }
 
 // The only team b-roll sources John has approved (2026-11-02). An allowlist, so nothing else slips in.
@@ -84,13 +84,16 @@ describe('landing media manifest', () => {
     }
   })
 
-  it('ships the Build Sprint film only as the 13.7 s site cut', () => {
-    const film = provenance.assets.filter((p: { id: string }) => p.id.startsWith('build-sprint/build-sprint-film'))
-    expect(film.length).toBeGreaterThan(0)
-    for (const p of film) expect(p.source, p.id).toMatch(/build-sprint-b-v2\.7-site-cut\.mp4/)
-    for (const id of ['build-sprint/build-sprint-film-full.mp4', 'build-sprint/build-sprint-film-loop.mp4']) {
-      expect(landingMedia(id).duration ?? Infinity, id).toBeLessThanOrEqual(13.8)
+  it('ships the sprint hero reel only from the approved Rewind v5 cut, with its footage credited', () => {
+    const rewind = provenance.assets.filter((p) => p.id.startsWith('build-sprint/build-sprint-rewind'))
+    expect(rewind.length).toBe(6)
+    for (const p of rewind) {
+      expect(p.source, p.id).toMatch(/build-sprint-sizzle-rewind-v5\.mp4 \(sha256 ec38b3621eef01328092f64cf9d3d1d048567c536f7d2d811ac1830889741690\)/)
+      expect(p.credits?.length ?? 0, p.id).toBeGreaterThan(0)
+      for (const c of p.credits!) expect(c.url, `${p.id} ${c.shot}`).toMatch(/^https:\/\/www\.youtube\.com\/watch\?v=/)
     }
+    expect(landingMedia('build-sprint/build-sprint-rewind-full.mp4').duration).toBeCloseTo(39.33, 1)
+    expect(landingMedia('build-sprint/build-sprint-rewind-loop.mp4').duration ?? Infinity).toBeLessThanOrEqual(12)
   })
 
   it('resolves videos with sources and posters by stem', () => {

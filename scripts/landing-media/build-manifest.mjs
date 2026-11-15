@@ -30,6 +30,33 @@ export const APPROVED_BROLL = ['B-kling-steady.mp4', 'P-kling.mp4']
 // (Ab2-kling) and Stephan's (A-kling); S1 to S4 are generated phase loops with no real person.
 export const APPROVED_TEAM_PHASE = ['Ab2-kling.mp4', 'A-kling.mp4', 'S1-kling.mp4', 'S2-kling.mp4', 'S3-kling.mp4', 'S4-kling.mp4']
 
+const REWIND_DIR = `${GTM}/build-sprint-sizzle-2026-11`
+// Per-shot sources of the Rewind film (shots.json, c-* shots), credited as in copy/rewind/youtube.md.
+// All real event footage from YouTube; the credits run in the film's YouTube description.
+const REWIND_CREDITS = [
+  ['c-r1', 'Tom Shaw, "Inside one of the world’s most efficient Data Centers"', 'https://www.youtube.com/watch?v=UMMfJ4au1o4&t=93s'],
+  ['c-r2', 'Junction, "Junction 2025 Aftermovie"', 'https://www.youtube.com/watch?v=o8kTKi4xi6w&t=24s'],
+  ['c-r3', 'Google Cloud, "Inside a Google Cloud TPU Data Center"', 'https://www.youtube.com/watch?v=FsxthdQ_sL4&t=78s'],
+  ['c-r4', 'Gift Egwuenu, "A Day in the Life of a Software Engineer in Lagos"', 'https://www.youtube.com/watch?v=9mLMtAxSr8U&t=89s'],
+  ['c-r5', 'GOLDMEN MEDIA, "AI for Good Hackathon 2025 | Official Aftermovie | Blend360 x Microsoft x Blood Warriors"', 'https://www.youtube.com/watch?v=xyy3uSjWB30&t=115s'],
+  ['c-r6', 'GV (Google Ventures), "GV\'s Sprint Process in 90 Seconds"', 'https://www.youtube.com/watch?v=K2vSQPh6MCE&t=80s'],
+  ['c-wall1', '249Startups, "Orange Corners Batch 4 Hackathon highlights"', 'https://www.youtube.com/watch?v=2_I6X2IHr-Q&t=57s'],
+  ['c-wall2', 'AJ&Smart, "AJ&SMART DESIGN SPRINT TRAINING: LEARN THE DESIGN SPRINT"', 'https://www.youtube.com/watch?v=sPloj4s6Tf0&t=87s'],
+  ['c-wall3', 'John Zeratsky, "Official Design Sprint Bootcamp with John Zeratsky"', 'https://www.youtube.com/watch?v=yFRhY4dHyXk&t=50s'],
+  ['c-users1', 'Lutheran World Relief, "Smartphones: A most valuable tool for farmers in West Africa"', 'https://www.youtube.com/watch?v=pOBkBDoc70g&t=47s'],
+  ['c-users2', 'Gift Egwuenu, "A Day in the Life of a Software Engineer in Lagos"', 'https://www.youtube.com/watch?v=9mLMtAxSr8U&t=258s'],
+  ['c-users3', 'Lutheran World Relief, "Smartphones: A most valuable tool for farmers in West Africa"', 'https://www.youtube.com/watch?v=pOBkBDoc70g&t=32s'],
+  ['c-users4', 'Hack4Bengal, "Hack4Bengal 4.0 | Official Aftermovie | Eastern India’s Largest Hackathon"', 'https://www.youtube.com/watch?v=kclQlH005x4&t=109s'],
+  ['c-demo1', 'GirlCode ZA, "GirlCodeHack 2025"', 'https://www.youtube.com/watch?v=YfijDKj8JTw&t=122s'],
+  ['c-demo2', 'Andela, "A Day In The Life Of A Software Engineer - Christopher Kalule"', 'https://www.youtube.com/watch?v=r9P65uWJj5g&t=133s'],
+  ['c-demo3', 'Miva Open University, "2026 Miva AI Hackathon Highlight"', 'https://www.youtube.com/watch?v=xIWQI5rte6I&t=172s'],
+  ['c-demo4', 'Andela, "A Day In The Life Of A Software Engineer - Christopher Kalule"', 'https://www.youtube.com/watch?v=r9P65uWJj5g&t=73s'],
+  ['c-gv1', 'John Zeratsky, "Official Design Sprint Bootcamp with John Zeratsky"', 'https://www.youtube.com/watch?v=yFRhY4dHyXk&t=7s'],
+  ['c-gv2', 'GV (Google Ventures), "Sprint: Monday"', 'https://www.youtube.com/watch?v=7zOBMxRYJ7I&t=144s'],
+  ['c-ask1', 'Bitcoin DADA, "Hack4Freedom By Dada Devs Nairobi 2026 | Highlights: Women Building with Bitcoin & Freedom Tech"', 'https://www.youtube.com/watch?v=EDlq8z8rpxc&t=79s'],
+  ['c-ask2', 'Tom Shaw, "Inside one of the world’s most efficient Data Centers"', 'https://www.youtube.com/watch?v=UMMfJ4au1o4&t=96s'],
+].map(([shot, credit, url]) => ({ shot, credit, url }))
+
 const REELS = {
   'eu-ai-act-explainer': {
     dir: 'eu-ai-act', page: 'eu-ai-act-readiness', name: 'the EU AI Act explainer',
@@ -43,11 +70,15 @@ const REELS = {
     approval: 'Approved reel s1-42 (Simulator sizzle), GTM cockpit 2026-10-18; verified in the cockpit 2026-11-02',
     loop: 'Loop is 5.3 to 14.0 s of the cut: the simulator builds a model, then costs, timeline, capacity and team views',
   },
-  'build-sprint-film': {
-    dir: 'build-sprint', page: 'ai-build-sprint', name: 'the AI Build Sprint film',
-    source: `${GTM}/build-sprint-campaign/film-v2/renders/build-sprint-b-v2.7-site-cut.mp4, cut from build-sprint-b-v2.7-vo.mp4 (sha256 98dda3ee...) at 17.125 to 30.80 s`,
-    approval: "Build Sprint film v2.7, approved by John 2026-11-02. Site cut (John, 2026-11-05) leaves out the opening hook and the client's 10/10 story, which wait on that client's sign-off; it keeps the anonymized participant quote, the team and the closing line",
-    loop: 'Loop is the whole 13.7 s site cut, muted: participant quote, the team, then "AI, without losing the human."',
+  'build-sprint-rewind': {
+    dir: 'build-sprint', page: 'ai-build-sprint', name: 'the AI Build Sprint "Rewind" film',
+    source: `${REWIND_DIR}/renders/build-sprint-sizzle-rewind-v5.mp4 (sha256 ec38b3621eef01328092f64cf9d3d1d048567c536f7d2d811ac1830889741690), the whole 39.3 s cut`,
+    approval: 'Build Sprint "Rewind" film v5 (reel s1-50), approved by John in chat 2026-11-13, who asked for it as the featured video in the Build Sprint page hero the same day',
+    loop: 'Loop is 0 to 7.566 s of the cut, muted: the face hook "10 days ago, this was a sticky note.", the D10 to D01 rewind, then "Day 1." (ends on the cut before the next shot)',
+    music: `John's own Suno track "Rewind Sizzle v1" (${REWIND_DIR}/music/suno/rewind-suno-v1.mp3)`,
+    imagery: `Opening still: a Nano Banana Pro edit of John's real headshot with a sticky note, made at John's request (${REWIND_DIR}/assets/john/john-sticky-note.jpg); end card: John's headshot`,
+    footage: 'Real third-party event footage from YouTube, cut and graded for the film; per-shot credits below. Credits run in the YouTube description; the site shows none',
+    credits: REWIND_CREDITS,
   },
 }
 
@@ -71,7 +102,8 @@ const entries = []
 const add = (id, pub, prov) => entries.push({ id, ...pub, provenance: prov })
 
 for (const [slug, r] of Object.entries(REELS)) {
-  const prov = { source: r.source, approval: r.approval }
+  // Everything but the page fields is provenance (source, approval, and for Rewind music, imagery and credits).
+  const { dir: _dir, page: _page, name: _name, loop: _loop, ...prov } = r
   const captions = 'Burned-in on-screen text; reads muted'
   for (const ext of ['mp4', 'webm']) {
     add(`${r.dir}/${slug}-full.${ext}`, { kind: 'video-full', page: r.page, slot: 'ReelStage full cut (lazy, tap for sound)', captions, alt: `Full cut of ${r.name}, with sound and on-screen text` }, prov)
