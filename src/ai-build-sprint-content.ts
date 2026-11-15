@@ -51,15 +51,15 @@ export const SPRINT_HERO = {
 } as const
 
 /**
- * The hero reel: a site cut of the approved Build Sprint film (v2.7). It leaves out the opening
- * hook and the client's 10/10 story, which wait on that client's sign-off (John, 2026-11-05).
+ * The hero reel: the approved Build Sprint "Rewind" film (v5, John, 2026-11-13), the whole cut.
+ * The muted loop is its first 7.6 s: the sticky-note hook, the day 10 to day 1 rewind, then "Day 1."
  */
 export const SPRINT_HERO_REEL = {
   /** Muted hero loop, swapped for the full cut (with sound) on the first sound request. */
-  loopStem: 'build-sprint/build-sprint-film-loop',
-  fullStem: 'build-sprint/build-sprint-film-full',
+  loopStem: 'build-sprint/build-sprint-rewind-loop',
+  fullStem: 'build-sprint/build-sprint-rewind-full',
   label: 'AI Build Sprint',
-  title: 'A short film about the AI Build Sprint: a participant quote, the team, and the line "AI, without losing the human."',
+  title: 'A short film about the AI Build Sprint: "10 days ago, this was a sticky note." It rewinds from day 10 to day 1, walks through the ten days in event footage and the sprint log, and ends with "What would you ship in 10 days?" and an invitation to book a 30-minute call with John Ellison.',
   playLabel: 'Watch',
   playingLabel: 'Playing',
   labels: { play: 'Play the film', pause: 'Pause the film' },

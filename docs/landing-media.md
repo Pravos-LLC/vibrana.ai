@@ -30,7 +30,7 @@ duration, codecs, bytes, sha256, captions and alt text. Source files, approvals 
 
 | Folder | What |
 |---|---|
-| `build-sprint/` | Build Sprint film (hook-free site cut), Product and Governance track images, `broll/` b-roll loops (John, two builders pairing) |
+| `build-sprint/` | Build Sprint "Rewind" film (the hero reel), Product and Governance track images, `broll/` b-roll loops (John, two builders pairing) |
 | `eu-ai-act/` | EU AI Act explainer reel, EU assessment and report screen loops |
 | `simulator/` | Simulator sizzle reel |
 | `readiness/` | Readiness assessment screen loops, assessment and report stills |
@@ -67,6 +67,7 @@ old hashed file it replaces, then run step 5.
    - EU: `7.9 11.8 1.5 17.0`, with `DENOISE=1 FULLCRF=30 FULLAV1=46 ABR=64k OPUS=48k LOOPCRF=25 LOOPAV1=37`.
    - Simulator: `5.3 8.7 1.0 12.5`, at the defaults.
    - Factory: `34.6 7.2 2.5 39.0`, at the defaults.
+   - Build Sprint Rewind: `0.0 7.566 0.6 0.6`, with `FULLCRF=29 FULLAV1=44 LOOPCRF=24 LOOPAV1=36` to stay inside the folder budget. The loop ends on the cut at 7.567 s, before a 0.2 s shot.
    - First verify the source sha256 against `provenance.json`.
 2. **B-roll:** `encode-broll.sh <src> <outdir> <slug> <WxH> <poster_t>`. Approved sources only.
 3. **Screen loops:**
