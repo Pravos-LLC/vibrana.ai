@@ -109,7 +109,7 @@ export const SPRINT_OUTCOMES = {
   trackNote: 'On the Governance and People tracks, the thing you get is a working policy or program, not software.',
   cards: [
     { visual: 'product', title: 'A working product, in use.', body: 'Not a demo and not a prototype. The people who will use it put it to work on real tasks while we watch, so what you get has already survived contact with your team. Every step that matters has a person approving it.' },
-    { visual: 'team', title: 'A team that can build the next one.', body: 'One of your people builds beside ours every day of the sprint, in your tools, on your data. By day 10 they know how it works and why, so they can fix it, extend it and start the next one without us.' },
+    { visual: 'team', title: 'A team that can build the next one.', body: 'One of your people builds with ours, in your tools, on your data. How much they build depends on how technical they are. By day 10 they know how it works and why, so they can fix it, extend it and start the next one without us.' },
     { visual: 'code', title: 'The code and docs. Yours.', body: 'The repository, the setup notes and every login are handed to you. How it works is written down in plain language, so a new hire can read it. Nothing to renew with us, and nothing that stops working if we leave.' },
   ] satisfies { visual: SprintOutcomeVisual; title: string; body: string }[],
   /** The b-roll plate in the middle card. */
@@ -159,13 +159,13 @@ export const SPRINT_DAYS = {
   /** The build log, one line per day (hub deck §4). `day` renders as the mono prefix. */
   log: [
     { day: 'D01', text: 'Discovery with your sponsor and the people who will use it. We confirm what “working” means and who checks it.' },
-    { day: 'D02', text: 'We map the work and lock the scope. Your builder pairs with ours, in your tools, on data you approved.' },
+    { day: 'D02', text: 'We map the work and lock the scope. Your builder works with ours, in your tools, on data you approved.' },
     { day: 'D03', text: 'Build day. You see it grow, not a status report.' },
     { day: 'D04', text: 'Build day. Key calls go to your sponsor.' },
     { day: 'D05', text: 'It goes live. Real users put it to work while we watch, and we write down what they find.' },
     { day: 'D06', text: 'Iteration starts. We fix what real users found on day 5.' },
     { day: 'D07', text: 'Iterate. The docs get written with the code, not after it.' },
-    { day: 'D08', text: 'Iterate. Your builder and ours, side by side.' },
+    { day: 'D08', text: 'Iterate. Your builder works with ours.' },
     { day: 'D09', text: 'Iterate. The day 1 list is the checklist.' },
     { day: 'D10', text: 'Final demo and hand over: the product, the code, the docs and the keys. We check it against the day 1 list together.' },
   ],
@@ -305,7 +305,7 @@ export const SPRINT_FIT = {
     'You already use AI and want a real product from it.',
     'You have one product or workflow in mind.',
     'A leader can make calls fast.',
-    'One person on your team can build with us each day.',
+    'Someone on your team can build with us.',
   ],
   notForYou: [
     'You want a slide deck or a strategy memo.',
@@ -378,7 +378,7 @@ export const SPRINT_GUARANTEE = {
   eyebrow: 'Your first sprint',
   stamp: '100%',
   stampCaption: 'Money-back',
-  heading: '100% first-sprint money-back guarantee',
+  heading: '100% money-back guarantee',
   timeline: 'Week one ends with real users trying it on day 5. Week two covers their feedback, iteration and change requests, then the final demo on day 10.',
   offer: 'At first-sprint handover, an unsatisfied client can receive a full refund of first-sprint fees. Third-party charges are separate.',
   conditions: 'If you choose the refund, the build is not deployed or handed over, and access to the studio-controlled build ends. The contract governs ownership and cleanup.',
@@ -405,7 +405,7 @@ export const SPRINT_FAQ = {
     },
     {
       question: "How much of our team's time does it take?",
-      answer: 'One person from your team builds with us each day. Your sponsor joins on day 1, for key calls, and on day 10. You see the hours for each role before you sign.',
+      answer: 'One person from your team builds with us. How much depends on how technical they are. Your sponsor joins on day 1, for key calls, and on day 10. You see the hours for each role before you sign.',
     },
     {
       question: 'Is our data safe?',
