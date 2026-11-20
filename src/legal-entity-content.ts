@@ -26,11 +26,10 @@ export const LEGAL_ENTITY = {
     addressCountry: 'US',
   },
   contactEmail: 'hello@vibrana.ai',
-  copyrightYear: 2026,
 } as const
 
-/** "© 2026 Pravos LLC, doing business as Vibrana" */
-export const COPYRIGHT_LINE = `© ${LEGAL_ENTITY.copyrightYear} ${LEGAL_ENTITY.nameWithDba}`
+/** "© 2026 Pravos LLC, doing business as Vibrana". The year is computed when called, never stored. */
+export const copyrightLine = (now: Date = new Date()) => `© ${now.getFullYear()} ${LEGAL_ENTITY.nameWithDba}`
 
 /** "Postal address: 30 N Gould St, ..." */
 export const POSTAL_ADDRESS_LINE = `${LEGAL_ENTITY.postalAddressLabel}: ${LEGAL_ENTITY.postalAddress}`
