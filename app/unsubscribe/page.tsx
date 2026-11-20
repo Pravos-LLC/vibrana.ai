@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Button } from '@/src/components/prism';
 import { emailFromToken } from '@/lib/unsubscribe';
 import { UNSUBSCRIBE_PAGE as C } from '@/src/unsubscribe-content';
+import { EMAIL_SENDER_LINE } from '@/src/legal-entity-content';
 
 // The footer link of the assessment follow-up emails lands here. Loading the page
 // changes nothing (mail scanners open every link); the button posts to
@@ -67,6 +68,7 @@ export default async function UnsubscribePage({ searchParams }: Props) {
           )}
           <Button href="/" variant="secondary">{C.homeLabel}</Button>
         </div>
+        <p className="type-xs mt-12 text-ink-tertiary">{EMAIL_SENDER_LINE}</p>
       </div>
     </main>
   );

@@ -3,6 +3,7 @@
 // every user-typed value goes through escapeHtml.
 import { escapeHtml } from '@/lib/escape-html'
 import { EU_OBLIGATIONS } from '@/src/eu-ai-act-obligations-content'
+import { EMAIL_SENDER_LINE } from '@/src/legal-entity-content'
 import { EU_EMAIL as E, EU_RESULTS as R, EU_CALL_HREF } from '@/src/eu-ai-act-readiness-content'
 import type { EUProfile } from '@/src/lib/eu-ai-act/engine'
 import { legalCite } from '@/src/lib/eu-ai-act/evidence'
@@ -27,7 +28,8 @@ function formatDate(iso: string) {
 }
 
 export function footerHtml(unsubscribeUrl: string): string {
-  return `<p style="color:#a1a1aa;font-size:12px;margin:24px 0 0;">${escapeHtml(E.footer.reason)} <a href="${escapeHtml(unsubscribeUrl)}" style="color:#71717a;">${escapeHtml(E.footer.unsubscribeLabel)}</a>${escapeHtml(E.footer.afterLink)}</p>`
+  return `<p style="color:#a1a1aa;font-size:12px;margin:24px 0 0;">${escapeHtml(E.footer.reason)} <a href="${escapeHtml(unsubscribeUrl)}" style="color:#71717a;">${escapeHtml(E.footer.unsubscribeLabel)}</a>${escapeHtml(E.footer.afterLink)}</p>
+<p style="color:#a1a1aa;font-size:12px;margin:8px 0 0;">${escapeHtml(EMAIL_SENDER_LINE)}</p>`
 }
 
 // Email-safe palette (literal hex: mail clients strip CSS variables). Same meanings as the page.
