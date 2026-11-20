@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { NAV_ASSESSMENTS, NAV_CTA, NAV_ITEMS } from '../constants';
 import { Eyebrow } from '@/src/components/prism';
 import { FOOTER_CONTENT } from '@/src/footer-content';
+import { copyrightLine } from '@/src/legal-entity-content';
 
 const linkClass =
   'block type-sm transition-colors text-ink-secondary hover:text-ink';
@@ -97,7 +98,7 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-4 border-t border-line-subtle pt-4 md:flex-row">
           <div className="space-y-1 text-center md:text-left" data-testid="footer-legal">
-            <p className={legalLineClass}>{FOOTER_CONTENT.copyright}</p>
+            <p className={legalLineClass}>{copyrightLine()}</p>
             <p className={legalLineClass}>{FOOTER_CONTENT.entityStatement}</p>
             <p className={legalLineClass}>{FOOTER_CONTENT.postalAddress}</p>
           </div>
