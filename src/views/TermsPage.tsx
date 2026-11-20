@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { EnterprisePageShell } from '../components/enterprise/EnterprisePageShell';
+import { LEGAL_ENTITY, POSTAL_ADDRESS_LINE } from '../legal-entity-content';
 
 export default function TermsPage() {
   return (
@@ -14,6 +15,13 @@ export default function TermsPage() {
         <h1 className="mb-8 text-4xl font-semibold text-ink">Terms of Service</h1>
         <div className="max-w-none text-ink-secondary">
           <p className="mb-4 text-sm">Last updated: January 2025</p>
+
+          <section className="mb-8">
+            <h2 className="mb-4 text-2xl font-semibold text-ink">Who We Are</h2>
+            <p className="mb-4">
+              vibrana.ai is operated by {LEGAL_ENTITY.nameWithDba}. {LEGAL_ENTITY.statement} {POSTAL_ADDRESS_LINE}.
+            </p>
+          </section>
 
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-semibold text-ink">Acceptance of Terms</h2>

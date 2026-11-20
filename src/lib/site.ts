@@ -1,3 +1,5 @@
+import { LEGAL_ENTITY } from '@/src/legal-entity-content'
+
 // The one production origin. vibrana.ai (apex) redirects here, so canonicals,
 // the sitemap, robots.txt, Open Graph URLs and JSON-LD must all use www — a
 // canonical that points at a redirect is a mixed signal to search engines.
@@ -17,7 +19,10 @@ export const ORGANIZATION_JSON_LD = {
   '@type': 'Organization',
   '@id': ORGANIZATION_ID,
   name: SITE_NAME,
+  legalName: LEGAL_ENTITY.name,
   url: SITE_URL,
+  email: LEGAL_ENTITY.contactEmail,
+  address: { '@type': 'PostalAddress', ...LEGAL_ENTITY.postalAddressParts },
   logo: `${SITE_URL}/assets/vibrana-v-prism.png`,
   founder: { '@type': 'Person', name: 'John Ellison', url: 'https://john-ellison.com' },
 }

@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { EnterprisePageShell } from '../components/enterprise/EnterprisePageShell';
+import { LEGAL_ENTITY, POSTAL_ADDRESS_LINE } from '../legal-entity-content';
 
 export default function PrivacyPage() {
   return (
@@ -13,11 +14,12 @@ export default function PrivacyPage() {
       <section className="mx-auto max-w-4xl px-6 pb-24 pt-32">
         <h1 className="mb-8 text-4xl font-semibold text-ink">Privacy Policy</h1>
         <div className="max-w-none text-ink-secondary">
-          <p className="mb-4 text-sm">Last updated: 16 October 2026</p>
+          <p className="mb-4 text-sm">Last updated: 20 November 2026</p>
 
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-semibold text-ink">Controller</h2>
-            <p className="mb-4">Pravos LLC, doing business as Vibrana, is the controller for information submitted directly to vibrana.ai unless a branded assessment names a partner controller. Privacy requests can be sent to hello@vibrana.ai.</p>
+            <p className="mb-4">{LEGAL_ENTITY.nameWithDba}, is the controller for information submitted directly to vibrana.ai unless a branded assessment names a partner controller. Privacy requests can be sent to {LEGAL_ENTITY.contactEmail}.</p>
+            <p className="mb-4">{LEGAL_ENTITY.statement} {POSTAL_ADDRESS_LINE}.</p>
           </section>
 
           <section className="mb-8">

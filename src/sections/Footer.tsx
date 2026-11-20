@@ -15,6 +15,7 @@ const linkClass =
   'block type-sm transition-colors text-ink-secondary hover:text-ink';
 const metaLinkClass =
   'type-xs transition-colors text-ink-tertiary hover:text-ink';
+const legalLineClass = 'type-xs text-ink-tertiary';
 const socialClass =
   'transition-transform hover:scale-110 text-ink-tertiary hover:text-brand-violet';
 
@@ -95,8 +96,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col items-center justify-between gap-4 border-t border-line-subtle pt-4 md:flex-row">
-          <div className="type-xs text-ink-tertiary">
-            {FOOTER_CONTENT.copyright}
+          <div className="space-y-1 text-center md:text-left" data-testid="footer-legal">
+            <p className={legalLineClass}>{FOOTER_CONTENT.copyright}</p>
+            <p className={legalLineClass}>{FOOTER_CONTENT.entityStatement}</p>
+            <p className={legalLineClass}>{FOOTER_CONTENT.postalAddress}</p>
           </div>
           <div className="flex items-center gap-6">
             <Link href="/swag" className={metaLinkClass}>Swag</Link>
