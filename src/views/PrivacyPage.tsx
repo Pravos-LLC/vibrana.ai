@@ -14,7 +14,7 @@ export default function PrivacyPage() {
       <section className="mx-auto max-w-4xl px-6 pb-24 pt-32">
         <h1 className="mb-8 text-4xl font-semibold text-ink">Privacy Policy</h1>
         <div className="max-w-none text-ink-secondary">
-          <p className="mb-4 text-sm">Last updated: 20 November 2026</p>
+          <p className="mb-4 text-sm">Last updated: 21 November 2026</p>
 
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-semibold text-ink">Controller</h2>
@@ -107,6 +107,7 @@ export default function PrivacyPage() {
             <h2 className="mb-4 text-2xl font-semibold text-ink">Site Measurement</h2>
             <p className="mb-4">We count how visitors move through the readiness assessment, the ROI calculator and the Sprint pages, so we can see which pages lead to a completed assessment or a call. Vercel Web Analytics records page views and a few named steps (starting or completing the assessment, opening or downloading the report, using the calculator, and clicking a link to book a call), each tagged with the page the visit started from, such as the readiness page, the calculator, the Sprint page or one of our emails. Vercel Web Analytics does not use cookies.</p>
             <p className="mb-4">Your browser keeps that starting page in session storage for the current tab only, and clears it when the tab closes. When you complete an assessment or send a Sprint request, we store the same starting page with it. When you click a link to book a call, we store a count with the starting page and where the link was, and nothing that identifies you: no name, email address or IP address. To stop a script from inflating that count, we keep a salted one-way hash of your network address, used only to limit how often a count can be sent, and delete it in routine cleanup. Calls are booked on Google Calendar, which does not tell us who booked or from which page.</p>
+            <p className="mb-4">We review our site measurement every quarter, and before we add any new tracking. The last review, on 21 November 2026, covered Vercel Web Analytics, Vercel Speed Insights and Vercel BotID. It confirmed that the site loads no advertising pixels or other third-party trackers, and that no event we record carries a name, email address, IP address or free text.</p>
           </section>
 
           <section className="mb-8">
