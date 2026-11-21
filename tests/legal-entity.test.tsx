@@ -25,7 +25,7 @@ describe('legal entity identity', () => {
     expect(html).toContain('© 2026 Pravos LLC, doing business as Vibrana')
     expect(html).toContain('Pravos LLC is a Wyoming limited liability company.')
     expect(html).toContain(`Postal address: ${ADDRESS}`)
-    for (const href of ['/privacy', '/terms', '/contact']) {
+    for (const href of ['/privacy', '/terms', '/content-policy', '/contact']) {
       expect(html).toContain(`href="${href}"`)
     }
   })

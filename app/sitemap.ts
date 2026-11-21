@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/contact',
     '/immersive',
     '/swag',
+    '/content-policy',
   ];
 
   // No lastModified on static routes: stamping every URL with the build time on

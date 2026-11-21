@@ -105,6 +105,7 @@ export function Footer() {
             <Link href="/swag" className={metaLinkClass}>Swag</Link>
             <Link href="/privacy" className={metaLinkClass}>Privacy</Link>
             <Link href="/terms" className={metaLinkClass}>Terms</Link>
+            <Link href="/content-policy" className={metaLinkClass}>Content policy</Link>
           </div>
         </div>
       </div>
