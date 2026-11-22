@@ -17,7 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about',
     '/case-studies',
     '/contact',
-    '/immersive',
     '/swag',
   ];
 

@@ -145,7 +145,7 @@ export default function EUAssessmentForm() {
             </div>
           </div>
           <p className="type-xs mt-5 leading-relaxed text-ink-tertiary">
-            {c.consentBefore}<Link href="/privacy" className="underline hover:text-ink">{c.consentLink}</Link>{c.consentAfter} {c.disclaimer}
+            {c.consentBefore}<Link href="/privacy" className="underline hover:text-ink">{c.consentLink}</Link>{c.consentAfter}{c.termsBefore}<Link href="/terms" className="underline hover:text-ink">{c.termsLink}</Link>. {c.disclaimer}
           </p>
           <div className="mt-6 flex justify-end">
             <button className="btn-primary" onClick={start} disabled={!ready}>{c.start}</button>

@@ -831,6 +831,8 @@ export const SIM_LEAD = {
   consentBefore: 'One email with the plan and, if you asked, one reply about a call. No newsletter unless you opt in. Read the ',
   privacyLink: 'privacy policy',
   consentAfter: ', or email hello@vibrana.ai to delete your data.',
+  termsBefore: ' By continuing you also agree to our ',
+  termsLink: 'Terms',
   cancel: 'Cancel',
 } as const
 

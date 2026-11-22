@@ -15,7 +15,7 @@ export default function TermsPage() {
       <section className="mx-auto max-w-4xl px-6 pb-24 pt-32">
         <h1 className="mb-8 text-4xl font-semibold text-ink">Terms of Service</h1>
         <div className="max-w-none text-ink-secondary">
-          <p className="mb-4 text-sm">Last updated: 20 November 2026</p>
+          <p className="mb-4 text-sm">Last updated: November 22, 2026</p>
 
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-semibold text-ink">Who We Are</h2>
@@ -37,7 +37,7 @@ export default function TermsPage() {
             <p className="mb-4">This site describes our services and provides free tools, including:</p>
             <ul className="mb-4 list-disc pl-6">
               <li>The AI readiness assessment, the EU AI Act readiness check, the ROI calculator, the sprint brief builder and the AI transformation simulator</li>
-              <li>Information about our AI Build Sprints, AI transformation engagements, learning journeys and retreats</li>
+              <li>Information about our AI Build Sprints, the Company Brain Lab, AI transformation engagements and learning journeys</li>
             </ul>
             <p className="mb-4">
               The free tools produce estimates and general guidance from the information you enter. They are not legal,
@@ -48,10 +48,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-semibold text-ink">Paid Services</h2>
             <p className="mb-4">
-              Paid work, including Build Sprints, transformation engagements and retreats, is provided under a separate
-              written agreement or order that sets out the scope, price, payment terms, ownership of what we build and any
-              refund. Prices and offers shown on the site are descriptions, not binding quotes. If the written agreement
-              and these Terms differ, the written agreement applies.
+              Paid work, including Build Sprints, the Company Brain Lab and transformation engagements, is provided only under a separate written agreement, or a proposal you accept in writing. That agreement sets the scope, price, payment terms, any guarantee or refund, ownership of what we build, liability and governing law, and for that work it applies instead of these Terms. Prices, guarantees, payment schedules and other offer details on the site are summaries, not offers that can be accepted. The written agreement sets out the binding version.
             </p>
           </section>
 
@@ -76,9 +73,14 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-semibold text-ink">Limitation of Liability</h2>
             <p className="mb-4">
-              The site and its free tools are provided &quot;as is&quot; without warranties of any kind. To the extent the law allows,
-              we are not liable for damages arising from your use of the site or its free tools. Nothing here limits
-              liability that cannot be limited by law, and paid services are covered by their written agreement.
+              The site and its free tools are provided &quot;as is&quot; and &quot;as available,&quot; without warranties of any kind, express or implied, including accuracy and fitness for a particular purpose. Tool results are automated estimates from the information you enter. Do not rely on them for a legal, compliance, financial or investment decision without your own professional advice. To the extent the law allows, we are not liable for indirect or consequential loss, lost profits, revenue or data, or loss arising from decisions made using the site or its results, and our total liability for the site and free tools, whether in contract, tort (including negligence) or otherwise, is limited to US$100. Nothing in these Terms limits liability for fraud, for death or personal injury caused by negligence, or any other liability that cannot be limited by law.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="mb-4 text-2xl font-semibold text-ink">Governing Law and Disputes</h2>
+            <p className="mb-4">
+              These Terms, your use of the site and its free tools, and any dispute arising from them, including non-contractual disputes, are governed by the laws of the State of Wyoming, USA, without regard to its conflict-of-laws rules. The state and federal courts located in Wyoming have exclusive jurisdiction, and you and we consent to their jurisdiction. If you use the site as a consumer, you keep the protection of the mandatory laws of the country where you live and may also bring proceedings in your local courts. Paid work is governed by the law and courts named in its written agreement.
             </p>
           </section>
 

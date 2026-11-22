@@ -41,6 +41,8 @@ export const ASSESSMENT_COPY = {
       'Vibrana keeps your contact details, answers, scores, any workflows you name and our written analysis. We then send up to four follow-up emails about your results over the next two weeks (each one has an unsubscribe link that cancels the rest, and replying "stop" works too). We read the website on your form with Firecrawl. An open-weight AI model reached through OpenRouter writes your analysis from that page, your company name, your answers and scores, any workflows you name and signals such as the time you took. A second model checks it. Read the ',
     consentLink: 'privacy policy',
     consentAfter: ' or email hello@vibrana.ai to access, correct, object to follow-up, or delete your data.',
+    termsBefore: ' By continuing you also agree to our ',
+    termsLink: 'Terms',
     startAssessment: 'Start the assessment',
     questionOf: (n: number, total: number) => `Question ${n} of ${total}`,
     progressOf: (a: number, total: number) => `${a} of ${total}`,

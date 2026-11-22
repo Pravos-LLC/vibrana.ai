@@ -257,6 +257,8 @@ function LeadForm({
         {SIM_LEAD.consentBefore}
         <Link href="/privacy" className="underline hover:text-ink">{SIM_LEAD.privacyLink}</Link>
         {SIM_LEAD.consentAfter}
+        {SIM_LEAD.termsBefore}
+        <Link href="/terms" className="underline hover:text-ink">{SIM_LEAD.termsLink}</Link>.
       </p>
     </form>
   )

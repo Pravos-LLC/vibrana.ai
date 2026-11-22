@@ -482,6 +482,8 @@ export const EU_FORM = {
   consentBefore: 'By starting, you agree that we store your answers and contact details to send your results and up to two follow-up emails, as described in our ',
   consentLink: 'privacy policy',
   consentAfter: '.',
+  termsBefore: ' By continuing you also agree to our ',
+  termsLink: 'Terms',
   questionsLabel: 'Questions',
   sectionsLabel: 'Sections',
   submitError: 'Something went wrong sending your answers. Please try again.',

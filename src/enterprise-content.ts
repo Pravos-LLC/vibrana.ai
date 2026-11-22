@@ -476,7 +476,6 @@ export const INQUIRY_OPTIONS = {
     'Company-wide AI transformation',
     'Role-based curricula for one or more teams',
     'AI builder sprint',
-    'Retreat inquiry',
     'Other',
   ],
   teamSizes: ['1-50 employees', '50-150 employees', '151-250 employees', '251-350 employees', '351-500 employees', '500+ employees'],
