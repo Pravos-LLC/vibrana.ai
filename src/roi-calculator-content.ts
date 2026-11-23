@@ -201,6 +201,9 @@ export const ROI_EMAIL = {
   privacyLink: 'privacy policy',
   privacyHref: '/privacy',
   consentAfter: ', or email hello@vibrana.ai to delete your data.',
+  termsBefore: ' By continuing you also agree to our ',
+  termsLink: 'Terms',
+  termsHref: '/terms',
   errors: {
     email: 'Enter a valid work email.',
     empty: 'Add people, hours and a cost to at least one workflow first.',

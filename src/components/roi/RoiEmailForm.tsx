@@ -83,6 +83,11 @@ export function RoiEmailForm({ inputs, assumptions, ready }: { inputs: WorkflowI
           {ROI_EMAIL.privacyLink}
         </Link>
         {ROI_EMAIL.consentAfter}
+        {ROI_EMAIL.termsBefore}
+        <Link href={ROI_EMAIL.termsHref} className="underline hover:text-ink">
+          {ROI_EMAIL.termsLink}
+        </Link>
+        .
       </p>
     </form>
   )

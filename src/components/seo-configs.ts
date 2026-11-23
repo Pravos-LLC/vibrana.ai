@@ -85,14 +85,6 @@ export const SEO_CONFIGS = {
     ogDescription: 'Build your product in 5 days. AI-native product development with 12-module curriculum, 1:1 support, lifetime alumni access. Beta: 66% off at $999.',
     ogUrl: 'https://www.vibrana.ai/vibe-sprint',
   },
-  immersive: {
-    title: 'Vibrana Immersive Retreats | Bali & Portugal 2026',
-    description: 'Vibrana immersive retreats for senior practitioners and teams. Transformative learning experiences in stunning locations. Bali Q3 and Portugal Q4 2026. Enquire for access.',
-    keywords: 'AI transformation retreat, immersive learning experience, senior practitioners retreat, Bali retreat 2026, Portugal retreat 2026, Vibrana immersive',
-    ogTitle: 'Vibrana Immersive Retreats | Bali & Portugal 2026',
-    ogDescription: 'Vibrana immersive retreats for senior practitioners and teams. Bali Q3 and Portugal Q4 2026. Limited to 7 practitioners per cohort.',
-    ogUrl: 'https://www.vibrana.ai/immersive',
-  },
   buildLikeAPro: {
     title: 'Build Like a Pro | Claude Code Workshop — From $299 | Vibrana',
     description: 'Hands-on 1:1 workshop to master Claude Code and build like a pro. Cursor, command line workflows, spec-driven development, agent orchestration. From $299. For builders ready to ship production software.',

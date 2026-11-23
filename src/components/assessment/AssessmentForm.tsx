@@ -519,7 +519,7 @@ export default function AITransformationPage({ onAssessmentStart }: AssessmentFo
           {c.shared.analyzeNote}
         </p>
         <p className="type-xs text-ink-tertiary mt-3 leading-relaxed">
-          {c.shared.consentBefore}<Link href="/privacy" className="underline hover:text-ink">{c.shared.consentLink}</Link>{c.shared.consentAfter}
+          {c.shared.consentBefore}<Link href="/privacy" className="underline hover:text-ink">{c.shared.consentLink}</Link>{c.shared.consentAfter}{c.shared.termsBefore}<Link href="/terms" className="underline hover:text-ink">{c.shared.termsLink}</Link>.
         </p>
       </div>
     );

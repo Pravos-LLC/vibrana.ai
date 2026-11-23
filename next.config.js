@@ -53,6 +53,12 @@ const nextConfig = {
         destination: '/ai-transformation/simulator',
         permanent: false,
       },
+      // Retreat page retired (VIB-544).
+      {
+        source: '/immersive',
+        destination: '/',
+        permanent: true,
+      },
       // The curriculum landing is now canonical at /learn. Preserve links / SEO
       // from every prior path (job-functions → curriculum → learn).
       {
